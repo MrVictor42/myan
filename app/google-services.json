@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "774555262758",
+    "project_id": "myan42",
+    "storage_bucket": "myan42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774555262758:android:1c910db1cc9ce2ced42be7",
+        "android_client_info": {
+          "package_name": "com.victor.myan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774555262758-tektn09gapdfd3h5pcskpjgfahh06hfv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.victor.myan",
+            "certificate_hash": "76abd086099f94c8cc99f71b60565471d0246783"
+          }
+        },
+        {
+          "client_id": "774555262758-s9nno6763jkdpelbtt26s2lt31l6solt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU9Fpcrfsz__o-4JSLfGKZFkA3GVZjsGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774555262758-s9nno6763jkdpelbtt26s2lt31l6solt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
