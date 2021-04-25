@@ -38,7 +38,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_logo"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0" />
 
         <Button
             android:id="@+id/btn_image_user"
@@ -51,60 +51,116 @@
             app:layout_constraintStart_toStartOf="@id/image_user"
             app:layout_constraintEnd_toEndOf="@id/image_user"
             app:layout_constraintTop_toTopOf="@id/image_user"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintVertical_bias="0" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/edit_email"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="@string/email"-->
-<!--            android:textColorHint="@color/white"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/image_user"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:textSize="18dp"-->
-<!--            android:padding="20dp"-->
-<!--            android:maxLines="1"-->
-<!--            android:background="@drawable/edit_text_shape"-->
-<!--            android:drawableRight="@drawable/ic_email"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:inputType="textEmailAddress"-->
-<!--        />-->
+        <EditText
+            android:id="@+id/edit_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/btn_image_user"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:padding="20dp"
+            android:background="@drawable/edit_text_shape"
+            android:drawableRight="@drawable/ic_account"
+            android:maxLines="1"
+            android:hint="@string/name"
+            android:textColorHint="@color/white"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintVertical_bias="0"
+            />
 
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_shape"
+            android:drawableRight="@drawable/ic_email"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/white"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_user_name"
+            app:layout_constraintVertical_bias="0" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/edit_password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="@string/password"-->
-<!--            android:textColorHint="@color/white"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:background="@drawable/edit_text_shape"-->
-<!--            android:drawableRight="@drawable/ic_key"-->
-<!--            android:padding="20dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:maxLines="1"-->
-<!--            android:textColor="@color/black"-->
-<!--            android:inputType="textPassword"-->
-<!--        />-->
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/edit_text_shape"
+            android:drawableRight="@drawable/ic_key"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_email"
+            app:layout_constraintVertical_bias="0" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/message_error"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/red"-->
-<!--            android:textSize="15dp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:layout_gravity="center"-->
-<!--        />-->
+        <TextView
+            android:id="@+id/message_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:textColor="@color/red"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_password"
+            app:layout_constraintVertical_bias="0" />
 
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:backgroundTint="@color/red"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            app:strokeColor="@color/white"
+            app:cornerRadius="20dp"
+            android:padding="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:drawableEnd="@drawable/ic_save"
+            app:layout_constraintTop_toBottomOf="@id/message_error"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintHorizontal_bias="0"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
