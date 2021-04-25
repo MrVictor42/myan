@@ -1,9 +1,11 @@
 package com.victor.myan
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
+import com.victor.myan.controller.FormLoginController
 
 class Slides : IntroActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,5 +36,12 @@ class Slides : IntroActivity() {
                                 "And Paths!")
                         .build()
         )
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val formLogin = Intent(this, FormLoginController::class.java)
+        startActivity(formLogin)
+        finish()
     }
 }
