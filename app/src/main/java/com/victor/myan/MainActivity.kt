@@ -14,8 +14,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         supportActionBar!!.hide()
-        val window = this.window
-        window.statusBarColor = this.resources.getColor(R.color.orange)
         Handler(Looper.getMainLooper()).postDelayed({
             val slidesIntent = Intent(this, Slides::class.java)
             startActivity(slidesIntent)
