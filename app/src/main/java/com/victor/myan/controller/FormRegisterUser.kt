@@ -5,10 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.net.Uri
+import android.util.Log
+import android.widget.Toast
+import com.google.firebase.ktx.Firebase
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
 import com.victor.myan.services.impl.UserServicesImpl
+import java.util.*
 
 class FormRegisterUser : AppCompatActivity() {
 
@@ -23,24 +27,25 @@ class FormRegisterUser : AppCompatActivity() {
         supportActionBar!!.hide()
         window.statusBarColor = this.resources.getColor(R.color.white)
 
-        val btnRegister = binding.btnRegister
-        val btnImageUser = binding.btnImageUser
-        val email = binding.editEmail.text.toString()
-        val password = binding.editPassword.text.toString()
-        val userName = binding.editUserName.text.toString()
-        val message = binding.messageError
-
-        btnImageUser.setOnClickListener {
+        binding.btnImageUser.setOnClickListener {
             selectPhotoFromGallery()
         }
 
-        btnRegister.setOnClickListener {
+        binding.btnRegister.setOnClickListener {
+            val email = binding.editEmail.text.toString()
+            val password = binding.editPassword.text.toString()
+            val userName = binding.editUserName.text.toString()
+            val message = binding.messageError
+
             if(userName.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 message.text = "Please, Fill All Fields!"
             } else {
-                val user = User()
-                val userServicesImpl = UserServicesImpl()
-                userServicesImpl.save(user)
+                Toast.makeText(this, "AAAAAAAA", Toast.LENGTH_LONG).show()
+                message.text = ""
+//                val user = User()
+//                val userServicesImpl = UserServicesImpl()
+//                userServicesImpl.save(user)
+
             }
         }
     }
