@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import com.victor.myan.R
 import com.victor.myan.Slides
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
@@ -36,14 +37,13 @@ class FormRegisterUser : AppCompatActivity() {
             if(message.text == "") {
                 val user = User()
                 val userController = UserController()
-                var valid = true
 
                 user.email = email
                 user.password = password
                 user.name = userName
 
-                valid = userController.create(user, binding.layoutRegister)
-
+                var valid: Boolean = userController.create(user, binding.layoutRegister)
+                // POR ALGUM MOTIVO, ATE MESMO QUANDO NÃO REGISTRA, DA VALIDO E VOLTA PARA A LOGIN
                 if(valid) {
                     Handler(Looper.getMainLooper()).postDelayed({
                         val intentFormLogin = Intent(this, FormLoginController::class.java)

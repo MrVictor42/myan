@@ -1,5 +1,6 @@
 package com.victor.myan.controller
 
+import android.util.Log
 import android.view.View
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -20,7 +21,7 @@ class UserController : UserServices {
 
     override fun create(user: User, view: View): Boolean {
 
-        var valid = true
+        var valid: Boolean = true
         mDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mDatabase!!.reference!!.child("Users")
         mAuth = FirebaseAuth.getInstance()
@@ -44,8 +45,8 @@ class UserController : UserServices {
                 else -> auxServicesImpl.message(view,"error registered user!", true)
             }
             valid = false
+            Log.e("UserControllerTAG: ", valid.toString())
         }
-
         return valid
     }
 
