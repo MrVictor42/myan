@@ -1,8 +1,10 @@
 package com.victor.myan.model
 
+import android.net.Uri
+
 class User {
-    val name: String? = ""
-    val email: String? = ""
-    val password: String? = ""
-    val image: String? = ""
+    var name: String? = ""
+    var email: String? = ""
+    var password: String? = ""
+    var image: Uri? = null
 }
