@@ -1,6 +1,5 @@
 package com.victor.myan.controller
 
-import android.util.Log
 import android.view.View
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -19,11 +18,10 @@ class UserController : UserServices {
     private var mDatabase: FirebaseDatabase? = null
     private var mAuth: FirebaseAuth? = null
 
-    override fun create(user: User, view: View): Boolean {
+    override fun create(user: User, view: View): Unit {
 
-        var valid: Boolean = true
         mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference!!.child("Users")
+        mDatabaseReference = mDatabase!!.reference!!.child("users")
         mAuth = FirebaseAuth.getInstance()
 
         mAuth!!.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener {
@@ -32,7 +30,6 @@ class UserController : UserServices {
                 val currentUserDb = mDatabaseReference!!.child(userID)
                 currentUserDb.child("name").setValue(user.name)
                 auxServicesImpl.message(view, "the user ${user.name} was successfully registered!", false)
-                valid = true
             }
         }.addOnFailureListener {
             when(it) {
@@ -44,10 +41,7 @@ class UserController : UserServices {
                     auxServicesImpl.message(view,"without connection with internet!", true)
                 else -> auxServicesImpl.message(view,"error registered user!", true)
             }
-            valid = false
-            Log.e("UserControllerTAG: ", valid.toString())
         }
-        return valid
     }
 
     override fun edit(user: User): Boolean {
