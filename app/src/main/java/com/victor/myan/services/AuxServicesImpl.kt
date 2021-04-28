@@ -30,17 +30,9 @@ class AuxServicesImpl : AuxServices {
         return output
     }
 
-    override fun message(view: View, messageResult: String, indefinite: Boolean) {
-        if(!indefinite) {
-            val snackbar = Snackbar.make(view, capitalize(messageResult), Snackbar.LENGTH_LONG)
-            snackbar.setBackgroundTint(Color.WHITE).setTextColor(Color.BLACK)
-            snackbar.show()
-        } else {
-            val snarckbar = Snackbar.make(view, capitalize(messageResult), Snackbar.LENGTH_INDEFINITE)
-            snarckbar.setBackgroundTint(Color.WHITE).setTextColor(Color.BLACK).setAction("OK", View.OnClickListener {
-
-            })
-            snarckbar.show()
-        }
+    override fun message(view: View, messageResult: String) {
+        val snackbar = Snackbar.make(view, capitalize(messageResult), Snackbar.LENGTH_LONG)
+        snackbar.setBackgroundTint(Color.WHITE).setTextColor(Color.BLACK)
+        snackbar.show()
     }
 }

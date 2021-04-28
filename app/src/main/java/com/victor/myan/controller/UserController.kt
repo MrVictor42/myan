@@ -29,18 +29,21 @@ class UserController : UserServices {
                 val userID = mAuth!!.currentUser!!.uid
                 val currentUserDb = mDatabaseReference!!.child(userID)
                 currentUserDb.child("name").setValue(user.name)
-                auxServicesImpl.message(view, "the user ${user.name} was successfully registered!", false)
+                auxServicesImpl.message(view, "the user ${user.name} was successfully registered!")
+            } else {
+                return@addOnCompleteListener
             }
         }.addOnFailureListener {
             when(it) {
                 is FirebaseAuthWeakPasswordException ->
-                    auxServicesImpl.message(view,"insert a password with 6 no minimum characters!", true)
+                    auxServicesImpl.message(view,"insert a password with 6 no minimum characters!")
                 is FirebaseAuthUserCollisionException ->
-                    auxServicesImpl.message(view,"this account already exists!", true)
+                    auxServicesImpl.message(view,"this account already exists!")
                 is FirebaseNetworkException ->
-                    auxServicesImpl.message(view,"without connection with internet!", true)
-                else -> auxServicesImpl.message(view,"error registered user!", true)
+                    auxServicesImpl.message(view,"without connection with internet!")
+                else -> auxServicesImpl.message(view,"${it.message}!")
             }
+            return@addOnFailureListener
         }
     }
 
@@ -54,5 +57,9 @@ class UserController : UserServices {
 
     override fun getUser(user: User): User {
         TODO("Not yet implemented")
+    }
+
+    override fun userIsAuthenticated(): Boolean {
+        return FirebaseAuth.getInstance().currentUser != null
     }
 }

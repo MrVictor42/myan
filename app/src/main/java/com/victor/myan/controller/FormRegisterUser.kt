@@ -45,7 +45,7 @@ class FormRegisterUser : AppCompatActivity() {
                     val intentFormLogin = Intent(this, FormLoginController::class.java)
                     startActivity(intentFormLogin)
                     finish()
-                }, 3000)
+                }, 2000)
             }
         }
     }
