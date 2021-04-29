@@ -27,28 +27,6 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <EditText
-            android:id="@+id/edit_user_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/edit_text_shape"
-            android:drawableRight="@drawable/ic_account"
-            android:hint="@string/name"
-            android:maxLines="1"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/white"
-            android:textSize="18sp"
-            android:inputType="textNoSuggestions"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_logo"
-            app:layout_constraintVertical_bias="0.1" />
-
-        <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,10 +44,10 @@
             android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_user_name"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_logo"
+            app:layout_constraintVertical_bias="0.4" />
 
         <EditText
             android:id="@+id/edit_password"

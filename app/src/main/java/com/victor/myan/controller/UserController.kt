@@ -1,5 +1,6 @@
 package com.victor.myan.controller
 
+import android.net.Uri
 import android.view.View
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -27,9 +28,7 @@ class UserController : UserServices {
         mAuth!!.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener {
             if(it.isSuccessful) {
                 val userID = mAuth!!.currentUser!!.uid
-                val currentUserDb = mDatabaseReference!!.child(userID)
-                currentUserDb.child("name").setValue(user.name)
-                auxServicesImpl.message(view, "the user ${user.name} was successfully registered!")
+                auxServicesImpl.message(view, "the user was successfully registered!")
             } else {
                 return@addOnCompleteListener
             }

@@ -6,14 +6,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.interfaces.AuxServices
 
 class AuxServicesImpl : AuxServices {
-    override fun validateFields(userName: String, email: String, password: String): String {
+    override fun validateFields(email: String, password: String): String {
         var messageError: String = ""
 
         messageError = when {
-            userName.isEmpty() -> capitalize("fill the field username!")
             email.isEmpty() -> capitalize("fill the field email!")
             password.isEmpty() -> capitalize("fill the field password!")
-            userName.isEmpty() && email.isEmpty() && password.isEmpty() -> capitalize("fill every fields!")
+            email.isEmpty() && password.isEmpty() -> capitalize("fill every fields!")
             else -> ""
         }
         return messageError

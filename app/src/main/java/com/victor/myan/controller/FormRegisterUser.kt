@@ -27,10 +27,9 @@ class FormRegisterUser : AppCompatActivity() {
 
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
-            val userName = binding.editUserName.text.toString()
             val message = binding.messageError
 
-            message.text = auxServicesImpl.validateFields(userName, email, password)
+            message.text = auxServicesImpl.validateFields(email, password)
 
             if(message.text == "") {
                 val user = User()
@@ -38,7 +37,6 @@ class FormRegisterUser : AppCompatActivity() {
 
                 user.email = email
                 user.password = password
-                user.name = userName
 
                 userController.create(user, binding.layoutRegister)
                 Handler(Looper.getMainLooper()).postDelayed({

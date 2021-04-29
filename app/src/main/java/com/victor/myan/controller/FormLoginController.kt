@@ -24,24 +24,20 @@ class FormLoginController : AppCompatActivity() {
         supportActionBar!!.hide()
         window.statusBarColor = this.resources.getColor(R.color.white)
 
-        if(userController.userIsAuthenticated()) {
+        binding.btnLogin.setOnClickListener {
+            val email = binding.editEmail.text.toString()
+            val password = binding.editPassword.text.toString()
 
-        } else {
-            binding.btnLogin.setOnClickListener {
-                val email = binding.editEmail.text.toString()
-                val password = binding.editPassword.text.toString()
-
-                if(email.isEmpty() || password.isEmpty()) {
-                    binding.messageError.text = auxServicesImpl.capitalize("fill all fields!")
-                } else {
-                    authenticateUser(email, password)
-                }
+            if(email.isEmpty() || password.isEmpty()) {
+                binding.messageError.text = auxServicesImpl.capitalize("fill all fields!")
+            } else {
+                authenticateUser(email, password)
             }
+        }
 
-            binding.registerUserText.setOnClickListener {
-                val formRegisterUserIntent = Intent(this, FormRegisterUser::class.java)
-                startActivity(formRegisterUserIntent)
-            }
+        binding.registerUserText.setOnClickListener {
+            val formRegisterUserIntent = Intent(this, FormRegisterUser::class.java)
+            startActivity(formRegisterUserIntent)
         }
     }
 
