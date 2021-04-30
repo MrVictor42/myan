@@ -18,16 +18,19 @@ class BaseFragmentLayout : AppCompatActivity() {
             R.id.home -> {
                 val homeFragment = HomeFragment.newInstance()
                 addFragment(homeFragment)
+                return@OnNavigationItemSelectedListener true
             }
 
             R.id.search -> {
                 val searchFragment = SearchFragment.newInstance()
                 addFragment(searchFragment)
+                return@OnNavigationItemSelectedListener true
             }
 
             R.id.your_list -> {
                 val yourListFragment = ListsFragment.newInstance()
                 addFragment(yourListFragment)
+                return@OnNavigationItemSelectedListener true
             }
         }
 
