@@ -42,7 +42,10 @@ class BaseFragmentLayout : AppCompatActivity() {
         binding = ActivityBaseFragmentLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar!!.hide()
+        val toolbar = binding.toolbar
+        toolbar.setTitle("Bem Vindo Sr. Victor")
+        setSupportActionBar(toolbar)
+
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

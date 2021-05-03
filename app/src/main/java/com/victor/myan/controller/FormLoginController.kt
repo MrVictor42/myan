@@ -8,20 +8,19 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormLoginControllerBinding
+import com.victor.myan.fragments.BaseFragmentLayout
 import com.victor.myan.services.AuxServicesImpl
 
 class FormLoginController : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormLoginControllerBinding
-    private lateinit var auxServicesImpl: AuxServicesImpl
-    private lateinit var userController: UserController
+    private val auxServicesImpl = AuxServicesImpl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFormLoginControllerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar!!.hide()
         window.statusBarColor = this.resources.getColor(R.color.white)
 
         binding.btnLogin.setOnClickListener {
@@ -45,6 +44,9 @@ class FormLoginController : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
                 auxServicesImpl.message(binding.layoutLogin, "successfully logged in!")
+                val intentLogin = Intent(this, BaseFragmentLayout::class.java)
+                startActivity(intentLogin)
+                finish()
             }
         }.addOnFailureListener {
             val messageError = binding.messageError

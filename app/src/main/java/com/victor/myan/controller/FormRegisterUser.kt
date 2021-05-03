@@ -20,7 +20,6 @@ class FormRegisterUser : AppCompatActivity() {
         binding = ActivityFormRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar!!.hide()
         window.statusBarColor = this.resources.getColor(R.color.white)
 
         binding.btnRegister.setOnClickListener {
