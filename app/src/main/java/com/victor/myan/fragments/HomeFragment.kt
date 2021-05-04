@@ -35,14 +35,6 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val adapter = FragmentPagerItemAdapter(fragmentManager, FragmentPagerItems.with(context)
-            .add("Day Animes", DayAnimesFragment::class.java)
-            .add("Season Animes", SeasonAnimeFragment::class.java)
-            .add("Top Animes", TopAnimesFragment::class.java)
-            .create()
-        )
 
-        binding.viewpager.adapter = adapter
-        binding.viewpagertab.setViewPager(binding.viewpager)
     }
 }

@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormLoginControllerBinding
-import com.victor.myan.fragments.BaseFragmentLayout
+import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.services.AuxServicesImpl
 
 class FormLoginController : AppCompatActivity() {
@@ -44,7 +44,7 @@ class FormLoginController : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
                 auxServicesImpl.message(binding.layoutLogin, "successfully logged in!")
-                val intentLogin = Intent(this, BaseFragmentLayout::class.java)
+                val intentLogin = Intent(this, BaseLayout::class.java)
                 startActivity(intentLogin)
                 finish()
             }

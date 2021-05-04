@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Window
-import androidx.core.content.ContextCompat
 import com.victor.myan.controller.UserController
-import com.victor.myan.fragments.BaseFragmentLayout
+import com.victor.myan.layouts.BaseLayout
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         if(userController.userIsAuthenticated()) {
-            val intentHome = Intent(this, BaseFragmentLayout::class.java)
+            val intentHome = Intent(this, BaseLayout::class.java)
             startActivity(intentHome)
             finish()
         } else {
