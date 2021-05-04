@@ -26,12 +26,6 @@ class BaseFragmentLayout : AppCompatActivity() {
                 addFragment(searchFragment)
                 return@OnNavigationItemSelectedListener true
             }
-
-            R.id.your_list -> {
-                val yourListFragment = ListsFragment.newInstance()
-                addFragment(yourListFragment)
-                return@OnNavigationItemSelectedListener true
-            }
         }
 
         false
@@ -58,6 +52,7 @@ class BaseFragmentLayout : AppCompatActivity() {
         supportFragmentManager.
             beginTransaction()
             .replace(R.id.content, fragment, fragment.javaClass.simpleName)
+            .setCustomAnimations( android.R.anim.fade_in, android.R.anim.fade_out )
             .commit()
     }
 }

@@ -6,18 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.victor.myan.R
+import com.victor.myan.databinding.FragmentDayAnimesBinding
 
 class DayAnimesFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var binding: FragmentDayAnimesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_day_animes, container, false)
+        binding = FragmentDayAnimesBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     companion object {
