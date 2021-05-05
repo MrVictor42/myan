@@ -45,9 +45,9 @@ class HomeFragment : Fragment() {
         viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             when(position) {
-                0 -> tab.text = "Day Animes"
-                1 -> tab.text = "Season Animes"
-                2 -> tab.text = "Top Animes"
+                0 -> tab.text = "Today's Anime"
+                1 -> tab.text = "Season Anime"
+                2 -> tab.text = "Top Anime"
             }
         }.attach()
 
