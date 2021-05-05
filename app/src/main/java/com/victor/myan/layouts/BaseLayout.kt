@@ -2,27 +2,31 @@ package com.victor.myan.layouts
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
+import com.victor.myan.fragments.SettingsFragment
 
 class BaseLayout : AppCompatActivity() {
 
     private lateinit var binding: ActivityBaseLayoutBinding
+    private var content: FrameLayout? = null
     private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        var fragment: Fragment? = null
         when(item.itemId) {
             R.id.home -> {
-                val homeFragment = HomeFragment.newInstance()
-                addFragment(homeFragment)
+                fragment = HomeFragment.newInstance()
+                addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
 
             R.id.search -> {
-                val searchFragment = SearchFragment.newInstance()
-                addFragment(searchFragment)
+                fragment = SearchFragment.newInstance()
+                addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -39,9 +43,10 @@ class BaseLayout : AppCompatActivity() {
         toolbar.setTitle("Bem Vindo Sr. Victor")
         setSupportActionBar(toolbar)
 
+        content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        val baseFragment = HomeFragment.newInstance()
+        val baseFragment = HomeFragment()
         addFragment(baseFragment)
     }
 

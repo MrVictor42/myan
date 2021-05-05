@@ -6,15 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.victor.myan.R
+import com.victor.myan.databinding.FragmentSettingsBinding
 
-class SearchFragment : Fragment() {
+class SettingsFragment : Fragment() {
+
+    private lateinit var binding: FragmentSettingsBinding
 
     companion object {
-        fun newInstance(): SearchFragment {
-            val searchFragment = SearchFragment()
+        fun newInstance(): SettingsFragment {
+            val settingsFragment = SettingsFragment()
             val args = Bundle()
-            searchFragment.arguments = args
-            return searchFragment
+            settingsFragment.arguments = args
+            return settingsFragment
         }
     }
 
@@ -22,6 +25,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_search, container, false)
+        binding = FragmentSettingsBinding.inflate(layoutInflater)
+        return binding.root
     }
 }

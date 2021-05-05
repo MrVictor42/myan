@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
+import android.widget.FrameLayout
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.tabs.TabLayout
 import com.victor.myan.R
+import com.victor.myan.adapters.ViewPagerAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.fragmentsTab.DayAnimesFragment
-import com.victor.myan.fragmentsTab.SeasonAnimeFragment
-import com.victor.myan.fragmentsTab.TopAnimesFragment
 
 class HomeFragment : Fragment() {
 
@@ -35,6 +37,11 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.viewPageHome
+        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager)
 
+//        viewPager.adapter = viewPagerAdapter
+//        tabLayout.setupWithViewPager(viewPager)
     }
 }

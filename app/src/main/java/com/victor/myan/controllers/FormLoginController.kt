@@ -1,4 +1,4 @@
-package com.victor.myan.controller
+package com.victor.myan.controllers
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

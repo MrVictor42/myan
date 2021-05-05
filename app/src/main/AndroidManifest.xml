@@ -14,8 +14,8 @@
         android:theme="@style/Theme.MyAn">
         <activity android:name=".layouts.BaseLayout"></activity>
         <activity android:name=".layouts.BaseFragmentLayout" />
-        <activity android:name=".controller.FormRegisterUser" />
-        <activity android:name=".controller.FormLoginController" />
+        <activity android:name=".controllers.FormRegisterUser" />
+        <activity android:name=".controllers.FormLoginController" />
         <activity
             android:name=".Slides"
             android:theme="@style/Theme.Intro" />

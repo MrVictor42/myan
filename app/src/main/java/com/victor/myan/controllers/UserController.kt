@@ -1,6 +1,5 @@
-package com.victor.myan.controller
+package com.victor.myan.controllers
 
-import android.net.Uri
 import android.view.View
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth

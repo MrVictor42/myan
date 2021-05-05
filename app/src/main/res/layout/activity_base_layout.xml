@@ -30,7 +30,9 @@
                 app:titleTextColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:popupTheme="@style/Theme.MyAn.PopupOverlay"
+                />
 
             <ImageView
                 android:id="@+id/logout"
@@ -43,14 +45,11 @@
                 app:layout_constraintStart_toEndOf="@+id/settings"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_exit" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"

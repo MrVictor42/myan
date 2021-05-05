@@ -9,6 +9,7 @@
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="your_lists">Your Lists</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="day_animes">Day Animes</string>
+    <string name="season_animes">Season Animes</string>
+    <string name="top_animes">Top Animes</string>
 </resources>

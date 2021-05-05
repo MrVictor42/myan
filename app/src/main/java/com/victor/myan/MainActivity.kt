@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.victor.myan.controller.UserController
+import com.victor.myan.controllers.UserController
 import com.victor.myan.layouts.BaseLayout
 
 class MainActivity : AppCompatActivity() {
