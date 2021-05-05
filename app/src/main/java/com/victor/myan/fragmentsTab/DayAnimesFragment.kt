@@ -29,4 +29,8 @@ class DayAnimesFragment : Fragment() {
         binding = FragmentDayAnimesBinding.inflate(layoutInflater)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+    }
 }
