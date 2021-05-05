@@ -9,20 +9,20 @@ import com.victor.myan.R
 
 class TopAnimesFragment : Fragment() {
 
+    companion object {
+        fun newInstance(): TopAnimesFragment {
+            val topAnimeFragment = TopAnimesFragment()
+            val args = Bundle()
+            topAnimeFragment.arguments = args
+            return topAnimeFragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_top_animes, container, false)
-    }
-
-    companion object {
-        fun newInstance(param1: String, param2: String) =
-            TopAnimesFragment().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
     }
 }

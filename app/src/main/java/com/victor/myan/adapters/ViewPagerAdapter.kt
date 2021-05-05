@@ -2,32 +2,33 @@ package com.victor.myan.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.victor.myan.fragmentsTab.DayAnimesFragment
+import com.victor.myan.fragmentsTab.SeasonAnimeFragment
+import com.victor.myan.fragmentsTab.TopAnimesFragment
 
-class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class ViewPagerAdapter(fragment: FragmentManager, lifecycler: Lifecycle) : FragmentStateAdapter(fragment, lifecycler) {
 
-    private val fragments: ArrayList<Fragment>
-    private val titles: ArrayList<String>
+    private val TOTAL_TABS = 3
 
-    init {
-        fragments = ArrayList<Fragment>()
-        titles = ArrayList<String>()
+    override fun getItemCount(): Int {
+        return TOTAL_TABS
     }
 
-    override fun getCount(): Int {
-        return fragments.size
-    }
-
-    override fun getItem(position: Int): Fragment {
-        return fragments[position]
-    }
-
-    fun addFragments(fragment: Fragment, title: String) {
-        fragments.add(fragment)
-        titles.add(title)
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return titles[position]
+    override fun createFragment(position: Int): Fragment {
+        return when(position) {
+            0 -> {
+                DayAnimesFragment()
+            }
+            1 -> {
+                SeasonAnimeFragment()
+            }
+            2 -> {
+                TopAnimesFragment()
+            } else -> {
+                Fragment()
+            }
+        }
     }
 }

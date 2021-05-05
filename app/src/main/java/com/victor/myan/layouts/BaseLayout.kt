@@ -9,7 +9,6 @@ import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
-import com.victor.myan.fragments.SettingsFragment
 
 class BaseLayout : AppCompatActivity() {
 
