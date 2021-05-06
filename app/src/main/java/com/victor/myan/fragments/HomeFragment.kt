@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.adapters.ViewPagerAdapter
+import com.victor.myan.adapter.ViewPagerAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

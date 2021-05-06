@@ -1,4 +1,4 @@
-package com.victor.myan.adapters
+package com.victor.myan.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

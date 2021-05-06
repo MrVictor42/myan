@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
-import com.victor.myan.controllers.FormLoginController
+import com.victor.myan.controller.FormLoginController
 
 class Slides : IntroActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.victor.myan.controllers
+package com.victor.myan.controller
 
 import android.view.View
 import com.google.firebase.FirebaseNetworkException

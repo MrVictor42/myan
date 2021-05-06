@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@color/white"
-        tools:context=".controllers.FormLoginController">
+        tools:context=".controller.FormLoginController">
 
         <include
             layout="@layout/toolbar_logo"
