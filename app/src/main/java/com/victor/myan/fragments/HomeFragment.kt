@@ -5,16 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.R
 import com.victor.myan.adapters.ViewPagerAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
-import com.victor.myan.fragmentsTab.DayAnimesFragment
 
 class HomeFragment : Fragment() {
 
@@ -50,21 +43,5 @@ class HomeFragment : Fragment() {
                 2 -> tab.text = "Top Anime"
             }
         }.attach()
-
-
-//        val titles = listOf<String>("Day Animes", "Season Anime", "Top Animes")
-//        val viewPagerAdapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-//        viewPager.adapter = viewPagerAdapter
-//
-//        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-//            when(position) {
-//                0 -> {
-//                    tab.text
-//                }
-//            }
-//        }
-
-//        viewPager.adapter = viewPagerAdapter
-//        tabLayout.setupWithViewPager(viewPager)
     }
 }
