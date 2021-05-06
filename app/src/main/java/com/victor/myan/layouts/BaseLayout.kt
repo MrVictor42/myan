@@ -39,7 +39,7 @@ class BaseLayout : AppCompatActivity() {
         setContentView(binding.root)
 
         val toolbar = binding.toolbar
-        toolbar.setTitle("Bem Vindo Sr. Victor")
+        toolbar.title = ""
         setSupportActionBar(toolbar)
 
         content = binding.content
