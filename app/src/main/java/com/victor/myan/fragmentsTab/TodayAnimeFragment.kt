@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.R
@@ -43,7 +44,7 @@ class TodayAnimeFragment : Fragment() {
 
     private fun initViewModel(view: View?) {
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerTodayAnime)
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        recyclerView?.layoutManager = GridLayoutManager(context, 2)
         val decortion = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         recyclerView?.addItemDecoration(decortion)
         recyclerAdapter = RecyclerViewAdapter()
