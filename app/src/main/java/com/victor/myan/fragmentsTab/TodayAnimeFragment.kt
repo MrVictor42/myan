@@ -5,22 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.victor.myan.R
-import com.victor.myan.adapter.RecyclerViewAdapter
-import com.victor.myan.fragments.HomeFragment
-import com.victor.myan.model.RecyclerList
-import com.victor.myan.viewmodel.TodayAnimeViewlModel
+import com.victor.myan.adapter.TodayAnimeAdapter
+import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.databinding.FragmentTodayAnimeBinding
+import com.victor.myan.interfaces.JikanApiServices
+import com.victor.myan.model.Anime
+import kotlinx.coroutines.*
 
 class TodayAnimeFragment : Fragment() {
 
-    private lateinit var recyclerAdapter : RecyclerViewAdapter
+    private lateinit var todayAnimeAdapter: TodayAnimeAdapter
+    private lateinit var binding: FragmentTodayAnimeBinding
 
     companion object {
         fun newInstance(): TodayAnimeFragment {
@@ -35,31 +31,34 @@ class TodayAnimeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_today_anime, container, false)
-
-        initViewModel(view)
-        initViewModel()
-        return view
+        binding = FragmentTodayAnimeBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    private fun initViewModel(view: View?) {
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recyclerTodayAnime)
-        recyclerView?.layoutManager = GridLayoutManager(context, 2)
-        val decortion = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        recyclerView?.addItemDecoration(decortion)
-        recyclerAdapter = RecyclerViewAdapter()
-        recyclerView?.adapter = recyclerAdapter
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val api = JikanApiInstance.getJikanApiInstance().create(JikanApiServices::class.java)
+        val recyclerView = binding.recyclerTodayAnime
+        val animeList = arrayListOf<Anime>()
 
-    private fun initViewModel() {
-        val viewModel = ViewModelProvider(this).get(TodayAnimeViewlModel::class.java)
-        viewModel.getRecyclerListObverser().observe(this, Observer<RecyclerList> {
-            if(it != null) {
-                recyclerAdapter.setUpdateData(it.items)
-            } else {
-                Toast.makeText(activity, "Error in getting data", Toast.LENGTH_SHORT).show()
+        todayAnimeAdapter = TodayAnimeAdapter(animeList)
+        recyclerView.adapter = todayAnimeAdapter
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = api.getTodayAnime()
+
+            withContext(Dispatchers.Main) {
+                if(response.isSuccessful) {
+                    val anime = response.body()?.anime
+                    if(anime != null) {
+                        todayAnimeAdapter.items.clear()
+                        for(aux in 0 until anime.count()) {
+                            todayAnimeAdapter.items.add(anime[aux])
+                        }
+                        todayAnimeAdapter.notifyDataSetChanged()
+                    }
+                }
             }
-        })
-        viewModel.makeApiCall()
+        }
     }
 }

@@ -8,26 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.model.RecyclerData
-import java.util.ArrayList
+import com.victor.myan.model.Anime
 
-class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
-
-    var items = ArrayList<RecyclerData>()
+class TodayAnimeAdapter(var items: MutableList<Anime>) : RecyclerView.Adapter<TodayAnimeAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageurl = view?.findViewById<ImageView>(R.id.image_url)
         val title = view?.findViewById<TextView>(R.id.title)
-        fun bind(data: RecyclerData) {
-            val url = data.owner.avatar_url
-            title.text = data.name
-            Picasso.get().load(url).into(imageurl)
+        fun bind(anime: Anime) {
+            val image_url = anime.image_url
+            title.text = anime.title
+            Picasso.get().load(image_url).into(imageurl)
         }
-    }
-
-    fun setUpdateData(items : ArrayList<RecyclerData>) {
-        this.items = items
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
