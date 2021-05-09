@@ -1,5 +1,6 @@
 package com.victor.myan.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,12 +14,10 @@ import com.victor.myan.model.Anime
 class TodayAnimeAdapter(var items: MutableList<Anime>) : RecyclerView.Adapter<TodayAnimeAdapter.MyViewHolder>() {
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imageurl = view?.findViewById<ImageView>(R.id.image_url)
-        val title = view?.findViewById<TextView>(R.id.title)
+        val imageurl = view.findViewById<ImageView>(R.id.image_url)
         fun bind(anime: Anime) {
-            val image_url = anime.image_url
-            title.text = anime.title
-            Picasso.get().load(image_url).into(imageurl)
+            val imageUrl = anime.image_url
+            Picasso.get().load(imageUrl).into(imageurl)
         }
     }
 
@@ -28,7 +27,11 @@ class TodayAnimeAdapter(var items: MutableList<Anime>) : RecyclerView.Adapter<To
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(items.get(position))
+        holder.bind(items[position])
+        val item = items[position]
+        holder.itemView.setOnClickListener {
+            Log.e("Clicado: ", item.toString())
+        }
     }
 
     override fun getItemCount(): Int {
