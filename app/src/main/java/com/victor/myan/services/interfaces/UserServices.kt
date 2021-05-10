@@ -1,4 +1,4 @@
-package com.victor.myan.interfaces
+package com.victor.myan.services.interfaces
 
 import android.view.View
 import com.victor.myan.model.User

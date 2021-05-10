@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormLoginControllerBinding
 import com.victor.myan.layouts.BaseLayout
-import com.victor.myan.services.AuxServicesImpl
+import com.victor.myan.services.impl.AuxServicesImpl
 
 class FormLoginController : AppCompatActivity() {
 

@@ -1,9 +1,10 @@
-package com.victor.myan.services
+package com.victor.myan.services.impl
 
 import android.graphics.Color
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
-import com.victor.myan.interfaces.AuxServices
+import com.victor.myan.services.interfaces.AuxServices
+import java.util.*
 
 class AuxServicesImpl : AuxServices {
     override fun validateFields(email: String, password: String): String {
@@ -33,5 +34,13 @@ class AuxServicesImpl : AuxServices {
         val snackbar = Snackbar.make(view, capitalize(messageResult), Snackbar.LENGTH_LONG)
         snackbar.setBackgroundTint(Color.WHITE).setTextColor(Color.BLACK)
         snackbar.show()
+    }
+
+    override fun getCurrentMonth(): Int {
+        return 0
+    }
+
+    override fun getCurrentDay(): Int {
+        return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
     }
 }

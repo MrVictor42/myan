@@ -7,8 +7,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.victor.myan.services.AuxServicesImpl
-import com.victor.myan.interfaces.UserServices
+import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.services.interfaces.UserServices
 import com.victor.myan.model.User
 
 class UserController : UserServices {

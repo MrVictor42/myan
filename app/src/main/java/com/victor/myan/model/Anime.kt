@@ -4,19 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class Anime (
     @SerializedName("mal_id")
-    val mal_id: Int,
+    var mal_id: Int = 0,
     @SerializedName("title")
-    val title : String,
+    var title : String = "",
     @SerializedName("synopsis")
-    val synopsis : String,
+    var synopsis : String = "",
     @SerializedName("image_url")
-    val image_url : String,
+    var image_url : String = "",
     @SerializedName("trailer_url")
-    val trailer_url : String,
+    var trailer_url : String = "",
     @SerializedName("status")
-    val status : String,
+    var status : String = "",
     @SerializedName("score")
-    val score : Double
+    var score : Double = 0.0
 )
-
-data class AnimeList (var anime: List<Anime>?)

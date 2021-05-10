@@ -8,7 +8,7 @@ import android.os.Looper
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
-import com.victor.myan.services.AuxServicesImpl
+import com.victor.myan.services.impl.AuxServicesImpl
 
 class FormRegisterUser : AppCompatActivity() {
 
