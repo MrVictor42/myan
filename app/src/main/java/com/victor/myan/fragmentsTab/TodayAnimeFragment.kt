@@ -79,6 +79,25 @@ class TodayAnimeFragment : Fragment() {
                                 if (animeObject != null) {
                                     todayAnime.mal_id = animeObject.get("mal_id").asInt
                                     todayAnime.image_url = animeObject.get("image_url").asString
+                                    todayAnime.title = animeObject.get("title").asString
+                                    todayAnime.synopsis = animeObject.get("synopsis").asString
+                                    todayAnime.airing_start = animeObject.get("airing_start").asString
+                                    todayAnime.synopsis = animeObject.get("synopsis").asString
+
+                                    if(animeObject.get("episodes").toString().isEmpty() ||
+                                        animeObject.get("episodes").toString() == "null") {
+                                        todayAnime.episodes = 0
+                                    } else {
+                                        todayAnime.episodes = animeObject.get("episodes").asInt
+                                    }
+
+                                    if(animeObject.get("score").toString().isEmpty() ||
+                                            animeObject.get("score").toString() == "null") {
+                                        todayAnime.score = 0.0
+                                    } else {
+                                        todayAnime.score = animeObject.get("score").asDouble
+                                    }
+
                                     todayAnimeAdapter.items.add(todayAnime)
                                 }
                             }

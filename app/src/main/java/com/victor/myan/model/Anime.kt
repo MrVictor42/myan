@@ -15,6 +15,10 @@ data class Anime (
     var trailer_url : String = "",
     @SerializedName("status")
     var status : String = "",
+    @SerializedName("airing_start")
+    var airing_start : String = "1956",
+    @SerializedName("episodes")
+    var episodes : Int = 0,
     @SerializedName("score")
     var score : Double = 0.0
 )
