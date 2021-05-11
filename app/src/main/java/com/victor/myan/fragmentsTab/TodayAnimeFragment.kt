@@ -46,32 +46,32 @@ class TodayAnimeFragment : Fragment() {
         val api = JikanApiInstance.getJikanApiInstance().create(JikanApiServices::class.java)
         val recyclerView = binding.recyclerTodayAnime
         val animeList = arrayListOf<Anime>()
-        val currentDay = auxServicesImpl.getCurrentDay()
-        var day: String = ""
+        val day = auxServicesImpl.getCurrentDay()
+        var currentDay: String = ""
 
         todayAnimeAdapter = TodayAnimeAdapter(animeList)
         recyclerView.adapter = todayAnimeAdapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
 
-        when(currentDay) {
-            1 -> day = DaysEnum.Sunday.name
-            2 -> day = DaysEnum.Monday.name
-            3 -> day = DaysEnum.Tuesday.name
-            4 -> day = DaysEnum.Wednesday.name
-            5 -> day = DaysEnum.Thursday.name
-            6 -> day = DaysEnum.Friday.name
-            7 -> day = DaysEnum.Saturday.name
+        when(day) {
+            1 -> currentDay = DaysEnum.Sunday.name
+            2 -> currentDay = DaysEnum.Monday.name
+            3 -> currentDay = DaysEnum.Tuesday.name
+            4 -> currentDay = DaysEnum.Wednesday.name
+            5 -> currentDay = DaysEnum.Thursday.name
+            6 -> currentDay = DaysEnum.Friday.name
+            7 -> currentDay = DaysEnum.Saturday.name
         }
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call: Call<JsonObject> = api.getTodayAnime(day)
+            val call: Call<JsonObject> = api.getTodayAnime(currentDay.toLowerCase())
             val response = call.awaitResponse()
             withContext(Dispatchers.Main) {
                 if(response.isSuccessful) {
                     val animeResponse = response.body()
                     if(animeResponse != null) {
                         todayAnimeAdapter.items.clear()
-                        val day: JsonArray? = animeResponse.getAsJsonArray("monday")
+                        val day: JsonArray? = animeResponse.getAsJsonArray(currentDay.toLowerCase())
                         if (day != null) {
                             for(anime in 0 until day.size()) {
                                 val animeObject: JsonObject? = day.get(anime) as JsonObject?
