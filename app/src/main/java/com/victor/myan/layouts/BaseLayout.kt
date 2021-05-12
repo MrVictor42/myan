@@ -38,9 +38,10 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val toolbar = binding.toolbar
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
+        supportActionBar!!.hide()
+        val window = this.window
+        window.statusBarColor = this.resources.getColor(R.color.orange)
+        window.navigationBarColor = this.resources.getColor(R.color.orange)
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MyAn" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.MyAn" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>
