@@ -13,6 +13,7 @@ import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
+import com.victor.myan.controller.DetailsAnimeController
 import com.victor.myan.databinding.FragmentModalBinding
 
 class AnimeModalFragment : BottomSheetDialogFragment() {
@@ -65,7 +66,8 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
         }
 
         btnInformations.setOnClickListener {
-
+            val detailAnime = Intent(context, DetailsAnimeController::class.java)
+            startActivity(detailAnime)
         }
     }
 }

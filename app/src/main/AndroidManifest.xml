@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
-        <activity android:name=".layouts.BaseLayout"></activity>
+        <activity android:name=".controller.DetailsAnimeController"></activity>
+        <activity android:name=".layouts.BaseLayout" />
         <activity android:name=".layouts.BaseFragmentLayout" />
         <activity android:name=".controller.FormRegisterUser" />
         <activity android:name=".controller.FormLoginController" />
