@@ -15,8 +15,8 @@ import com.victor.myan.model.Anime
 class TodayAnimeAdapter(var items: MutableList<Anime>) : RecyclerView.Adapter<TodayAnimeAdapter.TodayAnimeHolder>() {
 
     class TodayAnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val bottomSheetDialogFragment = AnimeModalFragment()
         val imageurl = view.findViewById<ImageView>(R.id.image_url)
-        val bottomSheetDialogFragment = AnimeModalFragment()
         val bundle = Bundle()
 
         fun bind(anime: Anime, holder: TodayAnimeHolder) {

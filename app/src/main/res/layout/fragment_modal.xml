@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    app:cardCornerRadius="8dp"
     android:orientation="vertical"
     android:backgroundTint="@color/orange"
     app:cardElevation="10dp">
@@ -21,10 +20,9 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"/>
+        />
 
         <TextView
             android:id="@+id/text_modal"
@@ -32,7 +30,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/image_modal"
-            android:layout_toRightOf="@+id/image_modal"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
@@ -44,7 +41,7 @@
             android:layout_below="@id/text_modal"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:layout_toRightOf="@id/image_modal"
+            android:layout_toEndOf="@id/image_modal"
             android:textColor="@color/white" />
 
         <TextView
@@ -55,8 +52,8 @@
             android:textSize="14sp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/year_modal"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/year_modal"
             android:layout_below="@id/text_modal"/>
 
         <TextView
@@ -65,9 +62,9 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="@color/white"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_below="@id/text_modal"
-            android:layout_toRightOf="@id/text_episode_modal"
+            android:layout_toEndOf="@id/text_episode_modal"
         />
 
         <TextView
@@ -79,7 +76,7 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:layout_below="@id/year_modal"
-            android:layout_toRightOf="@id/image_modal"
+            android:layout_toEndOf="@id/image_modal"
         />
 
         <TextView
@@ -87,23 +84,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:textSize="14sp"
             android:layout_below="@id/year_modal"
-            android:layout_toRightOf="@id/text_score_modal"
+            android:layout_toEndOf="@id/text_score_modal"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
         />
 
-        <TextView
-            android:id="@+id/synopsis_modal"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_score_modal"
-            android:layout_toRightOf="@id/image_modal"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-        />
+            android:layout_toEndOf="@id/image_modal"
+        >
+            <TextView
+                android:id="@+id/synopsis_modal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+            />
+        </androidx.core.widget.NestedScrollView>
 
+        <Button
+            android:id="@+id/more_informations_modal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_modal"
+            android:layout_alignEnd="@+id/image_modal"
+            android:layout_alignParentStart="true"
+            android:backgroundTint="@color/black_gray"
+            android:text="@string/more_informations"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

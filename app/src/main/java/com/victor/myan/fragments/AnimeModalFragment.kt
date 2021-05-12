@@ -1,11 +1,14 @@
 package com.victor.myan.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
@@ -40,6 +43,7 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
         val textScoreModal = view.findViewById<TextView>(R.id.text_score_modal)
         val scoreModal = view.findViewById<TextView>(R.id.score_modal)
         val synopsisModal = view.findViewById<TextView>(R.id.synopsis_modal)
+        val btnInformations = view.findViewById<Button>(R.id.more_informations_modal)
 
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
@@ -58,6 +62,10 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
             scoreModal.isInvisible = true
         } else {
             scoreModal.text = score.toString()
+        }
+
+        btnInformations.setOnClickListener {
+
         }
     }
 }
