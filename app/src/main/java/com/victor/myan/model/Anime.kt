@@ -16,9 +16,13 @@ data class Anime (
     @SerializedName("status")
     var status : String = "",
     @SerializedName("airing_start")
-    var airing_start : String = "1956",
+    var airing_start : String = "",
     @SerializedName("episodes")
     var episodes : Int = 0,
     @SerializedName("score")
-    var score : Double = 0.0
+    var score : Double = 0.0,
+    @SerializedName("producers")
+    var producers : List<Producer> = arrayListOf(),
+    @SerializedName("genres")
+    var genres : List<Genre> = arrayListOf()
 )

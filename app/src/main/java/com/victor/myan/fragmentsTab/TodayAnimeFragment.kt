@@ -1,7 +1,6 @@
 package com.victor.myan.fragmentsTab
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import com.victor.myan.adapter.TodayAnimeAdapter
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.databinding.FragmentTodayAnimeBinding
 import com.victor.myan.enums.DaysEnum
-import com.victor.myan.services.interfaces.JikanApiServices
+import com.victor.myan.api.JikanApiServices
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
 import kotlinx.coroutines.*
