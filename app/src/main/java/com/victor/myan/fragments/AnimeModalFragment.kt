@@ -1,7 +1,6 @@
 package com.victor.myan.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.adapter.TodayAnimeAdapter
 import com.victor.myan.databinding.FragmentModalBinding
 
 class AnimeModalFragment : BottomSheetDialogFragment() {
@@ -22,7 +20,7 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentModalBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
