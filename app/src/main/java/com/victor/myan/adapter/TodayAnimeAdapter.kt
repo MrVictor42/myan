@@ -24,6 +24,7 @@ class TodayAnimeAdapter(var items: MutableList<Anime>) : RecyclerView.Adapter<To
             Picasso.get().load(imageUrl).into(imageurl)
 
             holder.itemView.setOnClickListener {
+                bundle.putInt("mal_id", anime.mal_id)
                 bundle.putString("image_url", anime.image_url)
                 bundle.putString("airing_start", anime.airing_start.substring(0,4))
                 bundle.putString("title", anime.title)

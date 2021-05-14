@@ -75,6 +75,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="14sp"
+            android:layout_marginBottom="20dp"
             android:layout_below="@id/year_modal"
             android:layout_toEndOf="@id/image_modal"
         />

@@ -3,6 +3,7 @@ package com.victor.myan.layouts
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.victor.myan.R
@@ -45,8 +46,11 @@ class BaseLayout : AppCompatActivity() {
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        binding.logout.setOnClickListener {
+            Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show()
+        }
 
-        val baseFragment = HomeFragment()
+        val baseFragment = HomeFragment.newInstance()
         addFragment(baseFragment)
     }
 

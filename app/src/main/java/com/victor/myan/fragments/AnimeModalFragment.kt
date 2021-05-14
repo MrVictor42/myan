@@ -1,19 +1,18 @@
 package com.victor.myan.fragments
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.controller.DetailsAnimeController
+import com.victor.myan.adapter.TodayAnimeAdapter
 import com.victor.myan.databinding.FragmentModalBinding
 
 class AnimeModalFragment : BottomSheetDialogFragment() {
@@ -29,6 +28,7 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val id = arguments?.getInt("mal_id")
         val imageUrl = arguments?.getString("image_url")
         val airingStart = arguments?.getString("airing_start")
         val title = arguments?.getString("title")
@@ -44,7 +44,7 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
         val textScoreModal = view.findViewById<TextView>(R.id.text_score_modal)
         val scoreModal = view.findViewById<TextView>(R.id.score_modal)
         val synopsisModal = view.findViewById<TextView>(R.id.synopsis_modal)
-        val btnInformations = view.findViewById<Button>(R.id.more_informations_modal)
+        val btnInformation = view.findViewById<Button>(R.id.more_informations_modal)
 
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
@@ -65,9 +65,18 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
             scoreModal.text = score.toString()
         }
 
-        btnInformations.setOnClickListener {
-            val detailAnime = Intent(context, DetailsAnimeController::class.java)
-            startActivity(detailAnime)
+        btnInformation.setOnClickListener {
+            val fragment = AnimeDetailFragment()
+            val fragmentManager = fragmentManager
+
+            val bundle = Bundle()
+            bundle.putInt("mal_id", id!!)
+
+            fragment.arguments = bundle
+
+            val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+            transaction?.commit()
+            getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
         }
     }
 }
