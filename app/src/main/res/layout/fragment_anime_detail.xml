@@ -208,7 +208,7 @@
             android:textSize="14sp"
         />
 
-        <me.biubiubiu.justifytext.library.JustifyTextView
+        <TextView
             android:id="@+id/anime_synopsis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
