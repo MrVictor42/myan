@@ -1,10 +1,11 @@
-package com.victor.myan
+package com.victor.myan.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.victor.myan.R
 import com.victor.myan.controller.UserController
 import com.victor.myan.layouts.BaseLayout
 
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         } else {
             Handler(Looper.getMainLooper()).postDelayed({
-                val slidesIntent = Intent(this, Slides::class.java)
+                val slidesIntent = Intent(this, SlidesActivity::class.java)
                 startActivity(slidesIntent)
                 finish()
             }, 2000)

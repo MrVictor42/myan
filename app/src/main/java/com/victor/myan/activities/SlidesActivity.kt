@@ -1,26 +1,30 @@
-package com.victor.myan
+package com.victor.myan.activities
 
 import android.content.Intent
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
+import com.victor.myan.R
 import com.victor.myan.controller.FormLoginController
+import com.victor.myan.services.impl.AuxServicesImpl
 
-class Slides : IntroActivity() {
+class SlidesActivity : IntroActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         isButtonBackVisible = false
         isButtonNextVisible = false
 
+        val auxServicesImpl = AuxServicesImpl()
+
         addSlide(
             SimpleSlide.Builder()
                     .background(R.color.yellow)
                     .image(R.drawable.gohan)
                     .backgroundDark(R.color.yellow)
-                    .title("Everything In Same Place!")
-                    .description("Follow The Animes of The Season, Search For Animes " +
-                            "From Previous Seasons, All in One Place!!")
+                    .title(auxServicesImpl.capitalize("everything in same place!"))
+                    .description(auxServicesImpl.capitalize("follow The animes of the season, " +
+                            "search for animes from previous seasons, all in one place!!"))
                     .build()
         )
 
@@ -29,10 +33,10 @@ class Slides : IntroActivity() {
                         .background(R.color.red)
                         .image(R.drawable.luffy)
                         .backgroundDark(R.color.red)
-                        .title("Every Week, One New Story!")
+                        .title(auxServicesImpl.capitalize("every day, one new story!"))
                         .canGoBackward(true)
-                        .description("Follow The Weekly Animes, Discover New Stories " +
-                                "And Paths!")
+                        .description("follow the weekly anime, discover new stories " +
+                                "and paths!")
                         .build()
         )
     }

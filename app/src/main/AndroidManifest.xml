@@ -12,16 +12,17 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
-        <activity android:name=".controller.DetailsAnimeController"></activity>
+        <activity android:name=".activities.VideoActivity"></activity>
+        <activity android:name=".controller.DetailsAnimeController" />
         <activity android:name=".controller.DetailsAnimeController" />
         <activity android:name=".layouts.BaseLayout" />
         <activity android:name=".layouts.BaseFragmentLayout" />
         <activity android:name=".controller.FormRegisterUser" />
         <activity android:name=".controller.FormLoginController" />
         <activity
-            android:name=".Slides"
+            android:name=".activities.SlidesActivity"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

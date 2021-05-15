@@ -1,10 +1,10 @@
 package com.victor.myan.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Layout
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +13,8 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
-import com.google.gson.JsonObject
 import com.victor.myan.R
+import com.victor.myan.activities.VideoActivity
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.JikanApiServices
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
@@ -24,9 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
 import retrofit2.Response
-import retrofit2.awaitResponse
 
 class AnimeDetailFragment : Fragment() {
 
@@ -132,6 +130,12 @@ class AnimeDetailFragment : Fragment() {
                             animeSynopsis.text = animeResponse.synopsis
                         } else {
                             animeSynopsis.text = animeResponse.synopsis
+                        }
+
+                        animeTrailer.setOnClickListener {
+                            val video = Intent(context, VideoActivity::class.java)
+                            video.putExtra("animeTrailer", animeResponse.trailer_url)
+                            startActivity(video)
                         }
                     }
                 } else {
