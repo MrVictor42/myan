@@ -22,7 +22,8 @@ import retrofit2.awaitResponse
 class TodayAnimeFragment : Fragment() {
 
     private lateinit var todayAnimeAdapter: TodayAnimeAdapter
-    private lateinit var binding: FragmentTodayAnimeBinding
+    private var _binding: FragmentTodayAnimeBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         fun newInstance(): TodayAnimeFragment {
@@ -36,8 +37,8 @@ class TodayAnimeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTodayAnimeBinding.inflate(layoutInflater, container, false)
+    ): View {
+        _binding = FragmentTodayAnimeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -77,7 +78,7 @@ class TodayAnimeFragment : Fragment() {
                                 val animeObject: JsonObject? = day.get(anime) as JsonObject?
                                 val todayAnime = Anime()
                                 if (animeObject != null) {
-                                    todayAnime.mal_id = animeObject.get("mal_id").asInt
+                                    todayAnime.mal_id = animeObject.get("mal_id").asInt.toString()
                                     todayAnime.image_url = animeObject.get("image_url").asString
                                     todayAnime.title = animeObject.get("title").asString
                                     todayAnime.synopsis = animeObject.get("synopsis").asString
@@ -107,5 +108,10 @@ class TodayAnimeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

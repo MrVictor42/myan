@@ -26,7 +26,7 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getInt("mal_id")
+        val malID = arguments?.getString("mal_id")
         val imageUrl = arguments?.getString("image_url")
         val airingStart = arguments?.getString("airing_start")
         val title = arguments?.getString("title")
@@ -68,7 +68,8 @@ class AnimeModalFragment : BottomSheetDialogFragment() {
             val fragmentManager = fragmentManager
 
             val bundle = Bundle()
-            bundle.putInt("mal_id", malID!!)
+            bundle.putString("mal_id", malID)
+            bundle.putString("airing_start", airingStart)
 
             fragment.arguments = bundle
 

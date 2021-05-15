@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Anime (
     @SerializedName("mal_id")
-    var mal_id: Int = 0,
+    var mal_id: String = "",
     @SerializedName("title")
     var title : String = "",
     @SerializedName("synopsis")
