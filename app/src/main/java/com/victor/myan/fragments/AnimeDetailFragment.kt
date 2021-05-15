@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.JikanApiServices
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
 import com.victor.myan.model.Anime
+import com.victor.myan.services.impl.AuxServicesImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,13 +51,26 @@ class AnimeDetailFragment : Fragment() {
             }
         }
 
+        val listGenres: MutableList<String> = mutableListOf()
+        val listProducers: MutableList<String> = mutableListOf()
+
         val animeTrailer = binding.playVideo
         val animeTitle = binding.animeTitle
         val animeStatus = binding.animeStatus
         val animeYear = binding.animeYear
+        val animeScoreTextView = binding.animeScoreTextView
+        val animeScore = binding.animeScore
+        val animeEpisodesTextView = binding.animeEpisodesTextView
+        val animeEpisodes = binding.animeEpisodes
+        val animeGenresTextView = binding.animeGenresTextView
+        val animeGenres = binding.animeGenres
+        val animeProducersTextView = binding.animeProducersTextView
+        val animeProducers = binding.animeProducers
+        val animeSynopsis = binding.animeSynopsis
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
         val api = JikanApiInstance.getJikanApiInstance().create(JikanApiServices::class.java)
+        val auxServicesImpl = AuxServicesImpl()
         val malID = arguments?.getString("mal_id")
         val year = arguments?.getString("airing_start")
 
@@ -71,7 +88,49 @@ class AnimeDetailFragment : Fragment() {
                             animeStatus.setTextColor(resources.getColor(R.color.red))
                         }
                         animeYear.text = year
+                        if(animeResponse.score.toString() == "") {
+                            animeScoreTextView.isInvisible = true
+                            animeScore.isInvisible = true
+                        } else {
+                            animeScore.text = animeResponse.score.toString()
+                        }
+                        if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
+                            animeEpisodesTextView.isInvisible = true
+                            animeEpisodes.isInvisible = true
+                        } else {
+                            animeEpisodes.text = animeResponse.episodes.toString()
+                        }
+
+                        if(animeResponse.genres.isEmpty()) {
+                            animeGenresTextView.isInvisible = true
+                            animeGenres.isVisible = true
+                        } else {
+                            for(genre in animeResponse.genres.indices) {
+                                listGenres.add(animeResponse.genres.get(genre).name)
+                            }
+                            animeGenres.text = listGenres.toString()
+                            listGenres.clear()
+                        }
+
+                        if(animeResponse.producers.isEmpty()) {
+                            animeProducersTextView.isInvisible = true
+                            animeProducers.isInvisible = true
+                        } else {
+                            for(producer in animeResponse.producers.indices) {
+                                listProducers.add(animeResponse.producers.get(producer).name)
+                            }
+                            animeProducers.text = listProducers.toString()
+                            listProducers.clear()
+                        }
+
+                        animeSynopsis.text = animeResponse.synopsis
                     }
+                } else {
+                    Toast.makeText(
+                        context,
+                        auxServicesImpl.capitalize("not was possible load this anime now, try again later"),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }
