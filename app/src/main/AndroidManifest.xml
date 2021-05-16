@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
-        <activity android:name=".activities.VideoActivity"></activity>
+        <activity android:name=".activities.AnimeSlideActivity"></activity>
+        <activity android:name=".activities.VideoActivity" />
         <activity android:name=".controller.DetailsAnimeController" />
         <activity android:name=".controller.DetailsAnimeController" />
         <activity android:name=".layouts.BaseLayout" />

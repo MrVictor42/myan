@@ -21,6 +21,7 @@ class FormRegisterUser : AppCompatActivity() {
         setContentView(binding.root)
 
         window.statusBarColor = this.resources.getColor(R.color.white)
+        supportActionBar!!.hide()
 
         binding.btnRegister.setOnClickListener {
 

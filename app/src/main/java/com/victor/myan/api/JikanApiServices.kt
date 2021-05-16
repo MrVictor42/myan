@@ -14,4 +14,7 @@ interface JikanApiServices {
 
     @GET("anime/{mal_id}")
     suspend fun getAnime(@Path("mal_id") mal_id : String) : Response<Anime>
+
+    @GET("top/anime/1/airing")
+    fun getTopAiring() : Call<JsonObject>
 }

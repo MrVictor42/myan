@@ -19,25 +19,25 @@ class SlidesActivity : IntroActivity() {
 
         addSlide(
             SimpleSlide.Builder()
-                    .background(R.color.yellow)
-                    .image(R.drawable.gohan)
-                    .backgroundDark(R.color.yellow)
-                    .title(auxServicesImpl.capitalize("everything in same place!"))
-                    .description(auxServicesImpl.capitalize("follow The animes of the season, " +
-                            "search for animes from previous seasons, all in one place!!"))
-                    .build()
+                .background(R.color.yellow)
+                .image(R.drawable.gohan)
+                .backgroundDark(R.color.yellow)
+                .title(auxServicesImpl.capitalize("everything in same place!"))
+                .description(auxServicesImpl.capitalize("follow The animes of the season, " +
+                        "search for animes from previous seasons, all in one place!!"))
+                .build()
         )
 
         addSlide(
-                SimpleSlide.Builder()
-                        .background(R.color.red)
-                        .image(R.drawable.luffy)
-                        .backgroundDark(R.color.red)
-                        .title(auxServicesImpl.capitalize("every day, one new story!"))
-                        .canGoBackward(true)
-                        .description("follow the weekly anime, discover new stories " +
-                                "and paths!")
-                        .build()
+            SimpleSlide.Builder()
+                .background(R.color.red)
+                .image(R.drawable.luffy)
+                .backgroundDark(R.color.red)
+                .title(auxServicesImpl.capitalize("every day, one new story!"))
+                .canGoBackward(true)
+                .description("follow the weekly anime, discover new stories " +
+                        "and paths!")
+                .build()
         )
     }
 

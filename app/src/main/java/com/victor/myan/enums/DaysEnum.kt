@@ -1,7 +1,7 @@
 package com.victor.myan.enums
 
-enum class DaysEnum(day: String) {
-    Sunday("sunday"), Monday("monday"), Tuesday("tuesday"),
-    Wednesday("wednesday"), Thursday("thursday"), Friday("friday"),
-    Saturday("saturday")
+enum class DaysEnum {
+    Sunday, Monday, Tuesday,
+    Wednesday, Thursday, Friday,
+    Saturday
 }
