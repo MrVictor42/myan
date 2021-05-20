@@ -1,53 +1,42 @@
 package com.victor.myan.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.FragmentActivity
+import android.widget.TextView
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.fragments.AnimeModalFragment
 import com.victor.myan.model.Anime
 
-class TodayAnimeAdapter(var items: MutableList<Anime>) : RecyclerView.Adapter<TodayAnimeAdapter.TodayAnimeHolder>() {
+class TodayAnimeAdapter(var anime: MutableList<Anime>) :
+        RecyclerView.Adapter<TodayAnimeAdapter.TodayAnimeHolder>() {
 
     class TodayAnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val bottomSheetDialogFragment = AnimeModalFragment()
-        val imageurl = view.findViewById<ImageView>(R.id.image_url)
-        val bundle = Bundle()
 
-        fun bind(anime: Anime, holder: TodayAnimeHolder) {
-            val imageUrl = anime.image_url
-            Picasso.get().load(imageUrl).into(imageurl)
+        val animeImage = itemView.findViewById<ImageView>(R.id.today_anime_imageView)
 
-            holder.itemView.setOnClickListener {
-                bundle.putString("mal_id", anime.mal_id)
-                bundle.putString("image_url", anime.image_url)
-                bundle.putString("airing_start", anime.airing_start.substring(0,4))
-                bundle.putString("title", anime.title)
-                bundle.putInt("episodes", anime.episodes)
-                bundle.putDouble("score", anime.score)
-                bundle.putString("synopsis", anime.synopsis)
-
-                bottomSheetDialogFragment.arguments = bundle
-                bottomSheetDialogFragment.show((holder.itemView.context as FragmentActivity).supportFragmentManager, bottomSheetDialogFragment.tag)
+        fun bind(anime: Anime, holder: TodayAnimeAdapter.TodayAnimeHolder) {
+            Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(animeImage)
+            itemView.setOnClickListener {
+                Toast.makeText(holder.itemView.context, anime.title, Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayAnimeHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_adapter, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.today_anime_category, parent, false)
         return TodayAnimeHolder(view)
     }
 
     override fun onBindViewHolder(holder: TodayAnimeHolder, position: Int) {
-        holder.bind(items[position], holder)
+        holder.bind(anime[position], holder)
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return anime.size
     }
 }
