@@ -1,11 +1,10 @@
-package com.victor.myan.activities
+package com.victor.myan.controller
 
 import android.content.Intent
 import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 import com.victor.myan.R
-import com.victor.myan.controller.FormLoginController
 import com.victor.myan.services.impl.AuxServicesImpl
 
 class SlidesActivity : IntroActivity() {

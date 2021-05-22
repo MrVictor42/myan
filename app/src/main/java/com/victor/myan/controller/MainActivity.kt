@@ -1,4 +1,4 @@
-package com.victor.myan.activities
+package com.victor.myan.controller
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.victor.myan.R
-import com.victor.myan.controller.UserController
 import com.victor.myan.layouts.BaseLayout
 
 class MainActivity : AppCompatActivity() {

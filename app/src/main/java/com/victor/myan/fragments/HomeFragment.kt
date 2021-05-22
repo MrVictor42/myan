@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -15,6 +14,8 @@ import com.victor.myan.R
 import com.victor.myan.adapter.TodayAnimeAdapter
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.services.JikanApiServices
+import com.victor.myan.api.services.TodayAnimeServices
+import com.victor.myan.controller.TodayAnimeController
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.model.Anime
@@ -28,7 +29,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val auxServicesImpl = AuxServicesImpl()
-    private lateinit var todayAnimeAdapter: TodayAnimeAdapter
+    private lateinit var todayAnimeAdapter : TodayAnimeAdapter
+    private val api = JikanApiInstance.getJikanApiInstance().create(TodayAnimeServices::class.java)
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -62,45 +64,15 @@ class HomeFragment : Fragment() {
 
         val animeList = arrayListOf<Anime>()
         val animeToday = Anime()
-        val todayAnime : MutableList<Anime> = mutableListOf()
-        val todayAnimeText = binding.todayAnimeTextView
+        val todayAnime : MutableList<Anime> = TodayAnimeController().makeCall()
+        Log.e("Today: ", todayAnime.toString())
 
-        todayAnimeText.text = auxServicesImpl.capitalize("today anime: $currentDay")
+//        val recyclerViewHome = view.findViewById<RecyclerView>(R.id.recyclerViewDay)
+//        recyclerViewHome.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+//        todayAnimeAdapter = TodayAnimeAdapter(animeList)
+//        recyclerViewHome.adapter = todayAnimeAdapter
+//
 
-        val recyclerViewHome = view.findViewById<RecyclerView>(R.id.recyclerViewHome)
-        recyclerViewHome.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        todayAnimeAdapter = TodayAnimeAdapter(animeList)
-        recyclerViewHome.adapter = todayAnimeAdapter
-
-        val api = JikanApiInstance.getJikanApiInstance().create(JikanApiServices::class.java)
-        api.getTodayAnime(currentDay.toLowerCase()).enqueue(object : Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
-            }
-
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                if(response.isSuccessful) {
-                    val animeResponse = response.body()
-                    todayAnimeAdapter.anime.clear()
-                    if(animeResponse != null) {
-                        val dayAnime: JsonArray? = animeResponse.getAsJsonArray(currentDay.toLowerCase())
-                        if (dayAnime != null) {
-                            todayAnime.clear()
-                            for(anime in 0 until dayAnime.size()) {
-                                val animeObject: JsonObject? = dayAnime.get(anime) as JsonObject?
-                                if (animeObject != null) {
-                                    animeToday.mal_id = animeObject.get("mal_id").asInt.toString()
-                                    animeToday.image_url = animeObject.get("image_url").asString
-                                    todayAnime.add(animeToday)
-                                    todayAnimeAdapter.anime.addAll(todayAnime)
-                                }
-                            }
-                            todayAnimeAdapter.notifyDataSetChanged()
-                        }
-                    }
-                }
-            }
-        })
     }
 
     override fun onDestroyView() {
