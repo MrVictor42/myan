@@ -1,12 +1,15 @@
 package com.victor.myan.layouts
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.R
+import com.victor.myan.controller.FormLoginController
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
@@ -40,14 +43,14 @@ class BaseLayout : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar!!.hide()
-        val window = this.window
-        window.statusBarColor = this.resources.getColor(R.color.orange)
-        window.navigationBarColor = this.resources.getColor(R.color.orange)
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         binding.logout.setOnClickListener {
-            Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show()
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(this, FormLoginController::class.java)
+            startActivity(intent)
+            finish()
         }
 
         val baseFragment = HomeFragment.newInstance()

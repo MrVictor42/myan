@@ -10,5 +10,5 @@ import retrofit2.http.Path
 
 interface TodayAnimeServices {
     @GET("schedule/{day}")
-    suspend fun getTodayAnime(@Path("day") currentDay : String) : Call<JsonObject>
+    fun getTodayAnime(@Path("day") currentDay : String) : Call<JsonObject>
 }

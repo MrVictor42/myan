@@ -36,10 +36,6 @@ class AuxServicesImpl : AuxServices {
         snackbar.show()
     }
 
-    override fun getCurrentMonth(): Int {
-        return 0
-    }
-
     override fun getCurrentDay(): Int {
         return Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
     }
