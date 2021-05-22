@@ -10,7 +10,7 @@ import retrofit2.http.Path
 interface JikanApiServices {
 
     @GET("schedule/{day}")
-    fun getTodayAnime(@Path("day") day : String) : Call<JsonObject>
+    fun getTodayAnime(@Path("day") currentDay : String) : Call<JsonObject>
 
     @GET("anime/{mal_id}")
     suspend fun getAnime(@Path("mal_id") mal_id : String) : Response<Anime>
