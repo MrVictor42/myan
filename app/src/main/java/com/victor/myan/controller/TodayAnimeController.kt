@@ -9,7 +9,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.TodayAnimeAdapter
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.api.services.TodayAnimeServices
+import com.victor.myan.api.TodayAnimeServices
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
@@ -37,7 +37,7 @@ class TodayAnimeController {
 
         val animeList = arrayListOf<Anime>()
         val todayAnimeText = view.findViewById<TextView>(R.id.today_anime_textView)
-        val recyclerViewHome = view.findViewById<RecyclerView>(R.id.recyclerViewHome)
+        val recyclerViewHome = view.findViewById<RecyclerView>(R.id.recyclerViewToday)
 
         todayAnimeText.text = auxServicesImpl.capitalize("today anime: $currentDay")
         recyclerViewHome.layoutManager = LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)

@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity() {
         userController = UserController()
         setContentView(R.layout.activity_main)
 
-        supportActionBar!!.hide()
-
         if(userController.userIsAuthenticated()) {
             val intentHome = Intent(this, BaseLayout::class.java)
             startActivity(intentHome)

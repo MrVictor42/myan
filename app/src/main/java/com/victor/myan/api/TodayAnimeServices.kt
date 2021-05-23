@@ -1,4 +1,4 @@
-package com.victor.myan.api.services
+package com.victor.myan.api
 
 import com.google.gson.JsonObject
 import com.victor.myan.model.Anime
