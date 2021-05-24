@@ -36,7 +36,7 @@ class FormLoginController : AppCompatActivity() {
         }
 
         binding.registerUserText.setOnClickListener {
-            val formRegisterUserIntent = Intent(this, FormRegisterUser::class.java)
+            val formRegisterUserIntent = Intent(this, FormRegisterUserController::class.java)
             startActivity(formRegisterUserIntent)
         }
     }

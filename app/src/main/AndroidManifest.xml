@@ -19,7 +19,7 @@
         <activity android:name=".controller.DetailsAnimeController" />
         <activity android:name=".layouts.BaseLayout" />
         <activity android:name=".layouts.BaseFragmentLayout" />
-        <activity android:name=".controller.FormRegisterUser" />
+        <activity android:name=".controller.FormRegisterUserController" />
         <activity android:name=".controller.FormLoginController" />
         <activity
             android:name=".controller.SlidesActivity"

@@ -10,7 +10,7 @@ import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
 import com.victor.myan.services.impl.AuxServicesImpl
 
-class FormRegisterUser : AppCompatActivity() {
+class FormRegisterUserController : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormRegisterUserBinding
     private val auxServicesImpl = AuxServicesImpl()

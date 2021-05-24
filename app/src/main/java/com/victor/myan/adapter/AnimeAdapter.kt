@@ -10,10 +10,10 @@ import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.model.Anime
 
-class TodayAnimeAdapter(var anime: MutableList<Anime>) :
-        RecyclerView.Adapter<TodayAnimeAdapter.TodayAnimeHolder>() {
+class AnimeAdapter(var anime: MutableList<Anime>) :
+        RecyclerView.Adapter<AnimeAdapter.AnimeHolder>() {
 
-    class TodayAnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class AnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
         val anime_image = itemView.findViewById<ImageView>(R.id.today_anime_imageView)
         fun bind(anime: Anime) {
             Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(anime_image)
@@ -23,12 +23,12 @@ class TodayAnimeAdapter(var anime: MutableList<Anime>) :
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodayAnimeHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.anime_image, parent, false)
-        return TodayAnimeHolder(view)
+        return AnimeHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TodayAnimeHolder, position: Int) {
+    override fun onBindViewHolder(holder: AnimeHolder, position: Int) {
         holder.bind(anime[position])
     }
 

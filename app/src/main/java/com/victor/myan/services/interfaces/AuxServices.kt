@@ -6,5 +6,6 @@ interface AuxServices {
     fun validateFields(email: String, password: String) : String
     fun capitalize(str: String) : String
     fun message(view: View, messageResult: String)
-    fun getCurrentDay() : Int
+    fun getCurrentDay() : String
+    fun getSeason(): String
 }
