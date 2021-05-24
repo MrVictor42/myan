@@ -11,6 +11,7 @@ import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.SeasonAnimeServices
+import com.victor.myan.enums.SeasonsEnum
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
 import retrofit2.Call
@@ -25,18 +26,19 @@ class SeasonAnimeController {
     fun getSeasonAnime(view: View) {
 
         val currentSeason = auxServicesImpl.getSeason()
+        val currentYear = auxServicesImpl.getCurrentYear()
         val animeList = arrayListOf<Anime>()
         val seasonAnimeText = view.findViewById<TextView>(R.id.season_anime_textView)
         val recyclerViewSeason = view.findViewById<RecyclerView>(R.id.recyclerViewSeason)
 
-        seasonAnimeText.text = auxServicesImpl.capitalize("current season $currentSeason")
+        seasonAnimeText.text = auxServicesImpl.capitalize("season $currentSeason")
         recyclerViewSeason.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewSeason.adapter = animeAdapter
 
         val api = JikanApiInstance.getJikanApiInstance().create(SeasonAnimeServices::class.java)
-        api.getCurrentSeason(currentSeason).enqueue(object : Callback<JsonObject> {
+        api.getCurrentSeason(currentYear,currentSeason).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
             }
@@ -44,7 +46,6 @@ class SeasonAnimeController {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if(response.isSuccessful) {
                     val animeResponse = response.body()
-                    Log.e("ANimeResponse: ", animeResponse.toString())
                     animeAdapter.anime.clear()
                     if(animeResponse != null) {
                         val seasonAnime: JsonArray? = animeResponse.getAsJsonArray("anime")

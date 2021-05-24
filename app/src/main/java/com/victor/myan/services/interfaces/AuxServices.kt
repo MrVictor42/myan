@@ -7,5 +7,6 @@ interface AuxServices {
     fun capitalize(str: String) : String
     fun message(view: View, messageResult: String)
     fun getCurrentDay() : String
+    fun getCurrentYear() : Int
     fun getSeason(): String
 }

@@ -1,6 +1,7 @@
 package com.victor.myan.services.impl
 
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.enums.DaysEnum
@@ -21,10 +22,10 @@ class AuxServicesImpl : AuxServices {
 
     override fun capitalize(str: String): String {
         val words = str.split(" ").toMutableList()
-        var output: String = ""
+        var output = ""
 
         for(word in words) {
-            output += word.capitalize() + " "
+            output += word.capitalize(Locale.ENGLISH) + " "
         }
         output = output.trim()
         return output
@@ -48,13 +49,21 @@ class AuxServicesImpl : AuxServices {
         }
     }
 
+    override fun getCurrentYear(): Int {
+        return Calendar.getInstance().get(Calendar.YEAR)
+    }
+
     override fun getSeason(): String {
-        val currentMonth = Calendar.getInstance().get(Calendar.MONTH + 1)
+        val date = Date()
+        val calendar = GregorianCalendar()
+        calendar.time = date
+        var currentMonth = calendar.get(Calendar.MONTH)
+        currentMonth += 1
 
         return when {
             currentMonth >= MonthsEnum.March.month && currentMonth <= MonthsEnum.May.month ->
                 SeasonsEnum.Spring.season
-            currentMonth >= MonthsEnum.May.month && currentMonth <= MonthsEnum.August.month ->
+            currentMonth > MonthsEnum.May.month && currentMonth <= MonthsEnum.August.month ->
                 SeasonsEnum.Summer.season
             currentMonth > MonthsEnum.August.month && currentMonth <= MonthsEnum.November.month ->
                 SeasonsEnum.Fall.season

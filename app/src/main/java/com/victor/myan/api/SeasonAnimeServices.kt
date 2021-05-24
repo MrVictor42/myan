@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface SeasonAnimeServices {
-    @GET("season/{season}")
-    fun getCurrentSeason(@Path("season") currentSeason : String) : Call<JsonObject>
+    @GET("season/{year}/{season}")
+    fun getCurrentSeason(@Path("year") currentYear : Int,
+                         @Path("season") currentSeason : String) : Call<JsonObject>
 }
