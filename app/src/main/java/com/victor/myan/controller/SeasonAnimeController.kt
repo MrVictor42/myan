@@ -12,6 +12,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.SeasonAnimeServices
 import com.victor.myan.enums.SeasonsEnum
+import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
 import retrofit2.Call
@@ -48,7 +49,7 @@ class SeasonAnimeController {
                     val animeResponse = response.body()
                     animeAdapter.anime.clear()
                     if(animeResponse != null) {
-                        val seasonAnime: JsonArray? = animeResponse.getAsJsonArray("anime")
+                        val seasonAnime: JsonArray? = animeResponse.getAsJsonArray(TypesRequest.Anime.type)
                         if (seasonAnime != null) {
                             for(anime in 0 until seasonAnime.size()) {
                                 val animeObject: JsonObject? = seasonAnime.get(anime) as JsonObject?

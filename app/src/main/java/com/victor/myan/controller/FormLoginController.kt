@@ -21,9 +21,6 @@ class FormLoginController : AppCompatActivity() {
         binding = ActivityFormLoginControllerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = this.resources.getColor(R.color.white)
-        supportActionBar!!.hide()
-
         binding.btnLogin.setOnClickListener {
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()

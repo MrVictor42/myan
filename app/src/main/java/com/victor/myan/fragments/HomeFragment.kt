@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.victor.myan.controller.SeasonAnimeController
 import com.victor.myan.controller.TodayAnimeController
+import com.victor.myan.controller.TopAnimeController
 import com.victor.myan.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -15,6 +16,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val todayAnimeController = TodayAnimeController()
     private val seasonAnimeController = SeasonAnimeController()
+    private val topAnimeController = TopAnimeController()
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -37,6 +39,7 @@ class HomeFragment : Fragment() {
 
         todayAnimeController.getTodayAnime(view)
         seasonAnimeController.getSeasonAnime(view)
+        topAnimeController.getTopAnime(view)
     }
 
     override fun onDestroyView() {

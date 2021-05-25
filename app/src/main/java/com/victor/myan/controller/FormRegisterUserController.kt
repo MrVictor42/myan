@@ -20,9 +20,6 @@ class FormRegisterUserController : AppCompatActivity() {
         binding = ActivityFormRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = this.resources.getColor(R.color.white)
-        supportActionBar!!.hide()
-
         binding.btnRegister.setOnClickListener {
 
             val email = binding.editEmail.text.toString()
