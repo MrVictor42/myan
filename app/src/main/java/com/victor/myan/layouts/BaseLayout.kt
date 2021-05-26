@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -13,7 +12,6 @@ import com.victor.myan.controller.FormLoginController
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
-import com.victor.myan.fragmentsTab.HomeTabLayoutFragment
 
 class BaseLayout : AppCompatActivity() {
 
@@ -23,7 +21,7 @@ class BaseLayout : AppCompatActivity() {
         var fragment: Fragment? = null
         when(item.itemId) {
             R.id.home -> {
-                fragment = HomeTabLayoutFragment.newInstance()
+                fragment = HomeFragment.newInstance()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -51,7 +49,7 @@ class BaseLayout : AppCompatActivity() {
             finish()
         }
 
-        val baseTabFragment = HomeTabLayoutFragment.newInstance()
+        val baseTabFragment = HomeFragment.newInstance()
         addFragment(baseTabFragment)
     }
 
