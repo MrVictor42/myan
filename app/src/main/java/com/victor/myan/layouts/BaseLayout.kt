@@ -13,6 +13,7 @@ import com.victor.myan.controller.FormLoginController
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
+import com.victor.myan.fragmentsTab.HomeTabLayoutFragment
 
 class BaseLayout : AppCompatActivity() {
 
@@ -22,7 +23,7 @@ class BaseLayout : AppCompatActivity() {
         var fragment: Fragment? = null
         when(item.itemId) {
             R.id.home -> {
-                fragment = HomeFragment.newInstance()
+                fragment = HomeTabLayoutFragment.newInstance()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
@@ -33,7 +34,6 @@ class BaseLayout : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
         }
-
         false
     }
 
@@ -51,15 +51,15 @@ class BaseLayout : AppCompatActivity() {
             finish()
         }
 
-        val baseFragment = HomeFragment.newInstance()
-        addFragment(baseFragment)
+        val baseTabFragment = HomeTabLayoutFragment.newInstance()
+        addFragment(baseTabFragment)
     }
 
     private fun addFragment(fragment: Fragment) {
         supportFragmentManager.
         beginTransaction()
             .replace(R.id.content, fragment, fragment.javaClass.simpleName)
-            .setCustomAnimations( android.R.anim.fade_in, android.R.anim.fade_out )
+            .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .commit()
     }
 }

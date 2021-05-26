@@ -5,6 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.ogaclejapan.smarttablayout.SmartTabLayout
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
+import com.victor.myan.R
 import com.victor.myan.controller.SeasonAnimeController
 import com.victor.myan.controller.TodayAnimeController
 import com.victor.myan.controller.TopAnimeController
@@ -40,10 +47,5 @@ class HomeFragment : Fragment() {
         todayAnimeController.getTodayAnime(view)
         seasonAnimeController.getSeasonAnime(view)
         topAnimeController.getTopAnime(view)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
