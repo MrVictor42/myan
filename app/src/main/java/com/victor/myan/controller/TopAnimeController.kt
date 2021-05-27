@@ -1,7 +1,6 @@
 package com.victor.myan.controller
 
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
@@ -9,11 +8,9 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.api.TodayAnimeServices
 import com.victor.myan.api.TopAnimeServices
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
-import com.victor.myan.services.impl.AuxServicesImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,12 +18,11 @@ import retrofit2.Response
 class TopAnimeController {
 
     private lateinit var animeAdapter: AnimeAdapter
-    private val auxServicesImpl = AuxServicesImpl()
 
     fun getTopAnime(view : View) {
 
         val animeList = arrayListOf<Anime>()
-        val recyclerViewTopAnime = view.findViewById<RecyclerView>(R.id.recyclerViewTop)
+        val recyclerViewTopAnime = view.findViewById<RecyclerView>(R.id.recyclerViewTopAnime)
 
         recyclerViewTopAnime.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
@@ -51,7 +47,6 @@ class TopAnimeController {
                                 if (animeObject != null) {
                                     val animeTop = Anime()
 
-                                    animeTop.title = animeObject.get("title").asString
                                     animeTop.mal_id = animeObject.get("mal_id").asInt.toString()
                                     animeTop.image_url = animeObject.get("image_url").asString
                                     animeAdapter.anime.add(animeTop)

@@ -2,5 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/home" android:icon="@drawable/ic_home" android:title="@string/home"/>
     <item android:id="@+id/search" android:icon="@drawable/ic_search" android:title="@string/search"/>
-    <item android:id="@+id/email" android:icon="@drawable/ic_email" android:title="@string/contact"/>
+    <item android:id="@+id/season" android:icon="@drawable/ic_season" android:title="@string/season_animes"/>
+    <item android:id="@+id/top" android:icon="@drawable/ic_top" android:title="@string/top_animes"/>
 </menu>

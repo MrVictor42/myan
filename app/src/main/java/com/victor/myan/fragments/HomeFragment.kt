@@ -5,13 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.adapter.ViewPagerAdapter
+import com.victor.myan.controller.MangaController
+import com.victor.myan.controller.SeasonAnimeController
+import com.victor.myan.controller.TodayAnimeController
+import com.victor.myan.controller.TopAnimeController
 import com.victor.myan.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private val todayAnimeController = TodayAnimeController()
+    private val seasonAnimeController = SeasonAnimeController()
+    private val topAnimeController = TopAnimeController()
+    private val mangaController = MangaController()
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -31,17 +37,9 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val tabLayout = binding.tabLayout
-        val viewPager = binding.viewPageHome
-        val adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
-
-        viewPager.adapter = adapter
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            when(position) {
-                0 -> tab.text = "Home"
-                1 -> tab.text = "Season Anime"
-            }
-        }.attach()
+        todayAnimeController.getTodayAnime(view)
+        seasonAnimeController.getSeasonAnime(view)
+        topAnimeController.getTopAnime(view)
+        mangaController.getTopManga(view)
     }
 }

@@ -14,9 +14,9 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
         RecyclerView.Adapter<AnimeAdapter.AnimeHolder>() {
 
     class AnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val anime_image = itemView.findViewById<ImageView>(R.id.today_anime_imageView)
+        val image: ImageView = itemView.findViewById(R.id.list_image_adapter)
         fun bind(anime: Anime) {
-            Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(anime_image)
+            Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(image)
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, anime.title, Toast.LENGTH_SHORT).show()
             }
@@ -24,7 +24,7 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.anime_image, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_image_adapter, parent, false)
         return AnimeHolder(view)
     }
 

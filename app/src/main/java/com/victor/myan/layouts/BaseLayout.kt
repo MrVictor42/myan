@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -42,6 +43,7 @@ class BaseLayout : AppCompatActivity() {
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
         binding.logout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, FormLoginController::class.java)
@@ -49,8 +51,14 @@ class BaseLayout : AppCompatActivity() {
             finish()
         }
 
-        val baseTabFragment = HomeFragment.newInstance()
-        addFragment(baseTabFragment)
+        binding.contact.setOnClickListener {
+            Toast.makeText(this,
+                "Aqui vai ficar para o cidadão mandar mensagem para o desenvolvedor",
+                Toast.LENGTH_SHORT).show()
+        }
+
+        val baseFragment = HomeFragment.newInstance()
+        addFragment(baseFragment)
     }
 
     private fun addFragment(fragment: Fragment) {

@@ -1,6 +1,5 @@
 package com.victor.myan.controller
 
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +10,6 @@ import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.SeasonAnimeServices
-import com.victor.myan.enums.SeasonsEnum
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
