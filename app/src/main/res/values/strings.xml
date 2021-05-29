@@ -21,4 +21,7 @@
     <string name="status">Status: </string>
     <string name="producers">Producers: </string>
     <string name="genres">Genres: </string>
+    <string name="anime">Anime</string>
+    <string name="manga">Manga</string>
+    <string name="type_search">Search Anime or Manga</string>
 </resources>
