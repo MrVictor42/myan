@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.victor.myan.controller.MangaController
-import com.victor.myan.controller.SeasonAnimeController
+import com.victor.myan.controller.SeasonController
 import com.victor.myan.controller.TodayAnimeController
 import com.victor.myan.controller.TopAnimeController
 import com.victor.myan.databinding.FragmentHomeBinding
@@ -15,7 +15,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val todayAnimeController = TodayAnimeController()
-    private val seasonAnimeController = SeasonAnimeController()
+    private val seasonAnimeController = SeasonController()
     private val topAnimeController = TopAnimeController()
     private val mangaController = MangaController()
 

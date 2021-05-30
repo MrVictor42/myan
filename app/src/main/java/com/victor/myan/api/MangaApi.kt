@@ -4,7 +4,8 @@ import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.GET
 
-interface TopAnimeServices {
-    @GET("top/anime")
-    fun getTopAnime() : Call<JsonObject>
+interface MangaApi {
+
+    @GET("top/manga")
+    fun getTopManga() : Call<JsonObject>
 }

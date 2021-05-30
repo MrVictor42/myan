@@ -9,7 +9,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.api.SeasonAnimeServices
+import com.victor.myan.api.SeasonApi
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SeasonAnimeController {
+class SeasonController {
 
     private lateinit var animeAdapter: AnimeAdapter
     private val auxServicesImpl = AuxServicesImpl()
@@ -36,7 +36,7 @@ class SeasonAnimeController {
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewSeason.adapter = animeAdapter
 
-        val api = JikanApiInstance.getJikanApiInstance().create(SeasonAnimeServices::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(SeasonApi::class.java)
         api.getCurrentSeason(currentYear,currentSeason).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 

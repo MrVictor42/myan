@@ -2,6 +2,7 @@ package com.victor.myan.fragments
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,12 +10,29 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
-import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.api.SearchApi
 import com.victor.myan.databinding.FragmentSearchBinding
+import com.victor.myan.enums.AnimeGenreEnum
+import com.victor.myan.enums.TypesRequest
+import com.victor.myan.model.Anime
+import com.victor.myan.services.impl.AuxServicesImpl
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SearchFragment : Fragment() {
 
     private lateinit var binding : FragmentSearchBinding
+    private lateinit var animeAdapter: AnimeAdapter
+    private val auxServicesImpl = AuxServicesImpl()
+    private val numsPage : Int = 1
+    private val limit : Int = 20
+    private val minLength : Int = 2
 
     companion object {
         fun newInstance(): SearchFragment {
@@ -36,13 +54,98 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val searchButton = binding.searchButton
         val radioGroup = binding.selectionType
+        val search = binding.searchView
+        val messageSearch = binding.messageSearch
+        val progressBar = binding.progressBarSearch
+        val recyclerViewSearch = binding.recyclerViewSearch
+        val api = JikanApiInstance.getJikanApiInstance().create(SearchApi::class.java)
 
         searchButton.setOnClickListener {
-            val search = binding.searchView
             val selectionType = radioGroup.checkedRadioButtonId
-            val choice : RadioButton = view.findViewById(selectionType)
-            Toast.makeText(context, "${choice.text} / ${search.query}", Toast.LENGTH_SHORT).show()
+            val choice: RadioButton = view.findViewById(selectionType)
             hideKeyboard()
+
+            when {
+                search.query.isEmpty() -> {
+                    messageSearch.text =
+                        auxServicesImpl.capitalize("please, insert a name to anime or manga")
+                    messageSearch.setTextColor(Color.RED)
+                }
+                search.query.length <= minLength -> {
+                    messageSearch.text =
+                        auxServicesImpl.capitalize("please, insert a name to anime or manga with more 2 characters")
+                    messageSearch.setTextColor(Color.RED)
+                }
+                else -> {
+                    val choiceUser = when (choice.text) {
+                        "Anime" -> TypesRequest.Anime.type
+                        "Manga" -> TypesRequest.Manga.type
+                        else -> TypesRequest.Anime.type
+                    }
+                    /*
+                        I've decided use anime by generic form, because both recyclerviews is the
+                        same and their attributes in this case will the same.
+                     */
+
+                    progressBar.visibility = View.VISIBLE
+                    val animeSearch = arrayListOf<Anime>()
+                    animeAdapter = AnimeAdapter(animeSearch)
+                    recyclerViewSearch.adapter = animeAdapter
+                    recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
+
+                    api.getSearch(
+                        choiceUser,
+                        search.query.toString(),
+                        numsPage,
+                        AnimeGenreEnum.Hentai.genre,
+                        AnimeGenreEnum.GenreExclude.genre,
+                        limit
+                    ).enqueue(object :
+                        Callback<JsonObject> {
+                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                            messageSearch.text =
+                                auxServicesImpl.capitalize("not found this anime, try another please")
+                            messageSearch.setTextColor(Color.RED)
+                        }
+
+                        override fun onResponse(
+                            call: Call<JsonObject>,
+                            response: Response<JsonObject>
+                        ) {
+                            if (response.isSuccessful) {
+                                val animeResponse = response.body()
+                                animeAdapter.anime.clear()
+                                if (animeResponse != null) {
+                                    val results: JsonArray? =
+                                        animeResponse.getAsJsonArray(TypesRequest.Results.type)
+                                    if (results != null) {
+                                        messageSearch.text = auxServicesImpl.capitalize(
+                                            "were found ${results.size()} results"
+                                        )
+                                        messageSearch.setTextColor(Color.GREEN)
+                                        for (result in 0 until results.size()) {
+                                            val animeFound: JsonObject? =
+                                                results.get(result) as JsonObject?
+                                            if (animeFound != null) {
+                                                val anime = Anime()
+
+                                                anime.title = animeFound.get("title").asString
+                                                anime.mal_id =
+                                                    animeFound.get("mal_id").asInt.toString()
+                                                anime.image_url =
+                                                    animeFound.get("image_url").asString
+                                                animeAdapter.anime.add(anime)
+                                            }
+                                        }
+                                        animeAdapter.notifyDataSetChanged()
+                                    }
+                                }
+                            }
+                            progressBar.visibility = View.INVISIBLE
+                        }
+                    })
+                }
+            }
         }
     }
 

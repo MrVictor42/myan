@@ -8,7 +8,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.api.MangaServices
+import com.victor.myan.api.MangaApi
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Manga
 import retrofit2.Call
@@ -29,7 +29,7 @@ class MangaController {
         mangaAdapter = MangaAdapter(mangaList)
         recyclerViewTopManga.adapter = mangaAdapter
 
-        val api = JikanApiInstance.getJikanApiInstance().create(MangaServices::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(MangaApi::class.java)
         api.getTopManga().enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
