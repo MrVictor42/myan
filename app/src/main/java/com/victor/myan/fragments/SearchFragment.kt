@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,8 +31,7 @@ class SearchFragment : Fragment() {
     private lateinit var binding : FragmentSearchBinding
     private lateinit var animeAdapter: AnimeAdapter
     private val auxServicesImpl = AuxServicesImpl()
-    private val numsPage : Int = 1
-    private val limit : Int = 20
+    private val limit : Int = 16
     private val minLength : Int = 2
 
     companion object {
@@ -93,12 +93,9 @@ class SearchFragment : Fragment() {
                     recyclerViewSearch.adapter = animeAdapter
                     recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
-                    api.getSearch(
+                    api.search(
                         choiceUser,
                         search.query.toString(),
-                        numsPage,
-                        AnimeGenreEnum.Hentai.genre,
-                        AnimeGenreEnum.GenreExclude.genre,
                         limit
                     ).enqueue(object :
                         Callback<JsonObject> {
@@ -114,15 +111,12 @@ class SearchFragment : Fragment() {
                         ) {
                             if (response.isSuccessful) {
                                 val animeResponse = response.body()
+                                Log.e("Url: ",response.raw().request().url().toString())
                                 animeAdapter.anime.clear()
                                 if (animeResponse != null) {
                                     val results: JsonArray? =
                                         animeResponse.getAsJsonArray(TypesRequest.Results.type)
                                     if (results != null) {
-                                        messageSearch.text = auxServicesImpl.capitalize(
-                                            "were found ${results.size()} results"
-                                        )
-                                        messageSearch.setTextColor(Color.GREEN)
                                         for (result in 0 until results.size()) {
                                             val animeFound: JsonObject? =
                                                 results.get(result) as JsonObject?

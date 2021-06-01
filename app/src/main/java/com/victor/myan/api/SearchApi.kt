@@ -8,11 +8,8 @@ import retrofit2.http.Query
 
 interface SearchApi {
     @GET("search/{choice}")
-    fun getSearch(
+    fun search(
                 @Path("choice") choice : String,
                 @Query("q") searchQuery : String,
-                @Query("page") page : Int,
-                @Query("genre") genre : Int,
-                @Query("genre_exclude") genre_exclude : Int,
                 @Query("limit") limit : Int) : Call<JsonObject>
 }
