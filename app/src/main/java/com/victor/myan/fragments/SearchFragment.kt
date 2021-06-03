@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +17,6 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.api.SearchApi
 import com.victor.myan.databinding.FragmentSearchBinding
-import com.victor.myan.enums.AnimeGenreEnum
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
@@ -111,7 +109,6 @@ class SearchFragment : Fragment() {
                         ) {
                             if (response.isSuccessful) {
                                 val animeResponse = response.body()
-                                Log.e("Url: ",response.raw().request().url().toString())
                                 animeAdapter.anime.clear()
                                 if (animeResponse != null) {
                                     val results: JsonArray? =
