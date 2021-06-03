@@ -3,7 +3,7 @@ package com.victor.myan.enums
 import com.victor.myan.R
 
 enum class AnimeGenreEnum(val genre : Int, val image : Int) {
-    GenreExclude(0, R.drawable.luffy),
+    GenreExclude(0, R.drawable.luffy), Action(1, R.drawable.gohan)
 //    Action(1), Adventure(2), Cars(3), Comedy(4), Dementia(5),
 //    Demons(6), Mystery(7), Drama(8), Ecchi(9), Fantasy(10),
 //    Game(11), Hentai(12), Historical(13), Horror(14), Kids(15),

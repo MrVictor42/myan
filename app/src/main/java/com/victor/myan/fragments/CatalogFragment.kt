@@ -41,28 +41,24 @@ class CatalogFragment : Fragment() {
 
         val catalogList = arrayListOf<AnimeGenreEnum>()
         val catalogGenres = AnimeGenreEnum.values()
-        val recyclerViewCatalog = view.findViewById<RecyclerView>(R.id.recyclerViewCatalog)
+        val recyclerViewCatalog = binding.recyclerViewCatalog
+        val progressbar = binding.progressBarCatalog
         recyclerViewCatalog.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
 
         catalogAdapter = CatalogAdapter(catalogList)
-//        recyclerViewCatalog.adapter = catalogAdapter
-//        recyclerViewCatalog.layoutManager = GridLayoutManager(context, 2)
+        recyclerViewCatalog.adapter = catalogAdapter
+        recyclerViewCatalog.layoutManager = GridLayoutManager(context, 2)
 
+        catalogAdapter.animeGenreEnum.clear()
         catalogGenres.forEach {
-            Log.e("Genre: ", it.genre.toString())
-            Log.e("Image: ", it.image.toString())
+            catalogAdapter.animeGenreEnum.add(it)
+            catalogAdapter.notifyDataSetChanged()
         }
 
+
         /*
-        if (response.isSuccessful) {
-                                val animeResponse = response.body()
-                                Log.e("Url: ",response.raw().request().url().toString())
-                                animeAdapter.anime.clear()
-                                if (animeResponse != null) {
-                                    val results: JsonArray? =
-                                        animeResponse.getAsJsonArray(TypesRequest.Results.type)
-                                    if (results != null) {
+
                                         for (result in 0 until results.size()) {
                                             val animeFound: JsonObject? =
                                                 results.get(result) as JsonObject?
