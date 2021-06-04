@@ -42,7 +42,6 @@ class CatalogFragment : Fragment() {
         val catalogList = arrayListOf<AnimeGenreEnum>()
         val catalogGenres = AnimeGenreEnum.values()
         val recyclerViewCatalog = binding.recyclerViewCatalog
-        val progressbar = binding.progressBarCatalog
         recyclerViewCatalog.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
 
@@ -55,28 +54,5 @@ class CatalogFragment : Fragment() {
             catalogAdapter.animeGenreEnum.add(it)
             catalogAdapter.notifyDataSetChanged()
         }
-
-
-        /*
-
-                                        for (result in 0 until results.size()) {
-                                            val animeFound: JsonObject? =
-                                                results.get(result) as JsonObject?
-                                            if (animeFound != null) {
-                                                val anime = Anime()
-
-                                                anime.title = animeFound.get("title").asString
-                                                anime.mal_id =
-                                                    animeFound.get("mal_id").asInt.toString()
-                                                anime.image_url =
-                                                    animeFound.get("image_url").asString
-                                                animeAdapter.anime.add(anime)
-                                            }
-                                        }
-                                        animeAdapter.notifyDataSetChanged()
-                                    }
-                                }
-                            }
-         */
     }
 }
