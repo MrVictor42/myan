@@ -1,8 +1,10 @@
 package com.victor.myan.layouts
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -47,6 +49,11 @@ class BaseLayout : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar!!.hide()
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

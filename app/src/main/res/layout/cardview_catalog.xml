@@ -7,18 +7,31 @@
     app:cardCornerRadius="8dp"
     android:layout_margin="20dp"
     app:cardElevation="10dp">
-    <ImageView
-        android:id="@+id/imageCatalog"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:background="@color/black_gray"
-        android:scaleType="centerCrop"
-    />
-    <TextView
-        android:id="@+id/textCatalog"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:textColor="@color/white"
-    />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageCatalog"
+            android:layout_width="200dp"
+            android:layout_height="120dp"
+            android:background="@color/black_gray"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textCatalog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageCatalog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageCatalog" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
