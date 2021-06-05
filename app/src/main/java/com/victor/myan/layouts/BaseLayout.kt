@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.R
 import com.victor.myan.controller.FormLoginController
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
-import com.victor.myan.fragments.CatalogFragment
+import com.victor.myan.fragments.CategoryFragment
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
 
@@ -36,7 +36,7 @@ class BaseLayout : AppCompatActivity() {
             }
 
             R.id.catalog -> {
-                fragment = CatalogFragment.newInstance()
+                fragment = CategoryFragment.newInstance()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
