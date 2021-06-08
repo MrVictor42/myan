@@ -49,6 +49,24 @@ class TopAnimeController {
 
                                     animeTop.mal_id = animeObject.get("mal_id").asInt.toString()
                                     animeTop.image_url = animeObject.get("image_url").asString
+                                    animeTop.title = animeObject.get("title").asString
+                                    animeTop.synopsis = "null"
+                                    animeTop.airing_start = "null"
+
+                                    if(animeObject.get("episodes").toString().isEmpty() ||
+                                        animeObject.get("episodes").toString() == "null") {
+                                        animeTop.episodes = 0
+                                    } else {
+                                        animeTop.episodes = animeObject.get("episodes").asInt
+                                    }
+
+                                    if(animeObject.get("score").toString().isEmpty() ||
+                                        animeObject.get("score").toString() == "null") {
+                                        animeTop.score = 0.0
+                                    } else {
+                                        animeTop.score = animeObject.get("score").asDouble
+                                    }
+
                                     animeAdapter.anime.add(animeTop)
                                 }
                             }

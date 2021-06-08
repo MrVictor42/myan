@@ -1,5 +1,6 @@
 package com.victor.myan.controller
 
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,6 +58,29 @@ class SeasonController {
                                     animeSeason.title = animeObject.get("title").asString
                                     animeSeason.mal_id = animeObject.get("mal_id").asInt.toString()
                                     animeSeason.image_url = animeObject.get("image_url").asString
+                                    animeSeason.synopsis = animeObject.get("synopsis").asString
+
+                                    if(animeObject.get("airing_start").toString().isEmpty() ||
+                                        animeObject.get("airing_start").toString() == "null") {
+                                        animeSeason.airing_start = ""
+                                    } else {
+                                        animeSeason.airing_start = animeObject.get("airing_start").asString
+                                    }
+
+                                    if(animeObject.get("episodes").toString().isEmpty() ||
+                                        animeObject.get("episodes").toString() == "null") {
+                                        animeSeason.episodes = 0
+                                    } else {
+                                        animeSeason.episodes = animeObject.get("episodes").asInt
+                                    }
+
+                                    if(animeObject.get("score").toString().isEmpty() ||
+                                        animeObject.get("score").toString() == "null") {
+                                        animeSeason.score = 0.0
+                                    } else {
+                                        animeSeason.score = animeObject.get("score").asDouble
+                                    }
+
                                     animeAdapter.anime.add(animeSeason)
                                 }
                             }

@@ -52,9 +52,32 @@ class TodayAnimeController {
                                 if (animeObject != null) {
                                     val animeToday = Anime()
 
-                                    animeToday.title = animeObject.get("title").asString
                                     animeToday.mal_id = animeObject.get("mal_id").asInt.toString()
+                                    animeToday.title = animeObject.get("title").asString
                                     animeToday.image_url = animeObject.get("image_url").asString
+                                    animeToday.synopsis = animeObject.get("synopsis").asString
+
+                                    if(animeObject.get("airing_start").toString().isEmpty() ||
+                                        animeObject.get("airing_start").toString() == "null") {
+                                        animeToday.airing_start = ""
+                                    } else {
+                                        animeToday.airing_start = animeObject.get("airing_start").asString
+                                    }
+
+                                    if(animeObject.get("episodes").toString().isEmpty() ||
+                                        animeObject.get("episodes").toString() == "null") {
+                                        animeToday.episodes = 0
+                                    } else {
+                                        animeToday.episodes = animeObject.get("episodes").asInt
+                                    }
+
+                                    if(animeObject.get("score").toString().isEmpty() ||
+                                        animeObject.get("score").toString() == "null") {
+                                        animeToday.score = 0.0
+                                    } else {
+                                        animeToday.score = animeObject.get("score").asDouble
+                                    }
+
                                     animeAdapter.anime.add(animeToday)
                                 }
                             }

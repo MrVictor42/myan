@@ -1,5 +1,7 @@
 package com.victor.myan.adapter
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +20,19 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
     class AnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bottomSheetFragment = BottomSheetFragment()
         val image: ImageView = itemView.findViewById(R.id.list_image_adapter)
+        val bundle = Bundle()
+
         fun bind(anime: Anime) {
             Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(image)
             itemView.setOnClickListener {
+                bundle.putString("title", anime.title)
+                bundle.putString("image_url", anime.image_url)
+                bundle.putString("airing_start", anime.airing_start)
+                bundle.putInt("episodes", anime.episodes)
+                bundle.putDouble("score", anime.score)
+                bundle.putString("synopsis", anime.synopsis)
+
+                bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.show((itemView.context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)
             }
         }
