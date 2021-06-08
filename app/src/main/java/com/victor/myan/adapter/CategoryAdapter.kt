@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.florent37.picassopalette.PicassoPalette
 import com.squareup.picasso.Picasso
@@ -20,12 +21,7 @@ class CategoryAdapter(var categories: MutableList<Category>) :
         val textCatalog : TextView = itemView.findViewById(R.id.textCatalog)
         fun bind(category: Category) {
             textCatalog.text = category.type
-            Picasso
-                .get().load(category.image).placeholder(R.drawable.placeholder)
-                .fit().into(image,
-                    PicassoPalette.with(category.image, image)
-                        .use(PicassoPalette.Profile.VIBRANT_LIGHT)
-                        .intoBackground(image, PicassoPalette.Swatch.RGB))
+            Picasso.get().load(category.image).placeholder(R.drawable.placeholder).fit().into(image)
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, category.type, Toast.LENGTH_SHORT).show()
             }
