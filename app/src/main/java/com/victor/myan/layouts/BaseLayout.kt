@@ -49,8 +49,6 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

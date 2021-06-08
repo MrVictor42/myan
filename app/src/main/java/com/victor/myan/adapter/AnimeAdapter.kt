@@ -5,20 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
+import com.victor.myan.layouts.BottomSheetFragment
 import com.victor.myan.model.Anime
 
 class AnimeAdapter(var anime: MutableList<Anime>) :
         RecyclerView.Adapter<AnimeAdapter.AnimeHolder>() {
 
     class AnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val bottomSheetFragment = BottomSheetFragment()
         val image: ImageView = itemView.findViewById(R.id.list_image_adapter)
         fun bind(anime: Anime) {
             Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(image)
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, anime.title, Toast.LENGTH_SHORT).show()
+                bottomSheetFragment.show((itemView.context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)
             }
         }
     }
