@@ -28,6 +28,7 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
                 bundle.putString("title", anime.title)
                 bundle.putString("image_url", anime.image_url)
                 bundle.putString("airing_start", anime.airing_start)
+                bundle.putString("start_date", anime.start_date)
                 bundle.putInt("episodes", anime.episodes)
                 bundle.putDouble("score", anime.score)
                 bundle.putString("synopsis", anime.synopsis)

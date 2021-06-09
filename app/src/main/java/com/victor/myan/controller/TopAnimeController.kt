@@ -51,7 +51,13 @@ class TopAnimeController {
                                     animeTop.image_url = animeObject.get("image_url").asString
                                     animeTop.title = animeObject.get("title").asString
                                     animeTop.synopsis = "null"
-                                    animeTop.airing_start = "null"
+
+                                    if(animeObject.get("start_date").toString().isEmpty() ||
+                                        animeObject.get("start_date").toString() == "null") {
+                                        animeTop.start_date = "null"
+                                    } else {
+                                        animeTop.start_date = animeObject.get("start_date").asString
+                                    }
 
                                     if(animeObject.get("episodes").toString().isEmpty() ||
                                         animeObject.get("episodes").toString() == "null") {

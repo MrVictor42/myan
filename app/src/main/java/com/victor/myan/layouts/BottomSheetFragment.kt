@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
@@ -19,7 +20,6 @@ import com.victor.myan.services.impl.AuxServicesImpl
 class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding : FragmentBottomSheetBinding
-    private val auxServicesImpl = AuxServicesImpl()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,22 +37,25 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
         val synopsis = arguments?.getString("synopsis")
+        val startDate = arguments?.getString("start_date")
 
-        val titleModal = view.findViewById<TextView>(R.id.title_modal)
-        val imageModal = view.findViewById<ImageView>(R.id.image_modal)
-        val yearModal = view.findViewById<TextView>(R.id.year_modal)
-        val episodesModal = view.findViewById<TextView>(R.id.episode_modal)
-        val textScoreModal = view.findViewById<TextView>(R.id.score_modal_text)
-        val scoreModal = view.findViewById<TextView>(R.id.score_modal)
-        val synopsisModal = view.findViewById<TextView>(R.id.synopsis_modal)
+        val titleModal = binding.titleModal
+        val imageModal = binding.imageModal
+        val yearModal = binding.yearModal
+        val episodesModal = binding.episodeModal
+        val textScoreModal = binding.scoreModalText
+        val scoreModal = binding.scoreModal
+        val synopsisModal = binding.synopsisModal
 
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
 
-        if(airingStart != "" || airingStart != "null") {
+
+
+        if(airingStart != "" && airingStart != "null") {
             yearModal.text = airingStart.toString().substring(0,4)
         } else {
-            yearModal.text = auxServicesImpl.getCurrentYear().toString()
+            yearModal.isInvisible = true
         }
 
         if(episodes == 0) {
