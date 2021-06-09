@@ -15,6 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBottomSheetBinding
+import com.victor.myan.fragments.AnimeDetailFragment
 import com.victor.myan.services.impl.AuxServicesImpl
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
@@ -46,14 +47,15 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         val textScoreModal = binding.scoreModalText
         val scoreModal = binding.scoreModal
         val synopsisModal = binding.synopsisModal
+        val btnMoreInformations = binding.btnMoreInformationModal
 
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
 
-
-
         if(airingStart != "" && airingStart != "null") {
             yearModal.text = airingStart.toString().substring(0,4)
+        } else if(startDate != "null") {
+            yearModal.text = startDate.toString().substring(4,8)
         } else {
             yearModal.isInvisible = true
         }
@@ -76,6 +78,21 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
             synopsisModal.text = synopsis
         } else {
             synopsisModal.isInvisible = true
+        }
+
+        btnMoreInformations.setOnClickListener {
+            val fragment = AnimeDetailFragment()
+            val fragmentManager = fragmentManager
+
+            val bundle = Bundle()
+            bundle.putString("mal_id", malID)
+
+            fragment.arguments = bundle
+
+            val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+            transaction?.commit()
+            getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
+
         }
     }
 }

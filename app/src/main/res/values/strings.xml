@@ -26,4 +26,6 @@
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
     <string name="type_search">Search Anime or Manga</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
