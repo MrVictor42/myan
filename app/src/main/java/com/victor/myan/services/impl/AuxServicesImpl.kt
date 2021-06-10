@@ -1,7 +1,6 @@
 package com.victor.myan.services.impl
 
 import android.graphics.Color
-import android.util.Log
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.enums.DaysEnum
@@ -9,6 +8,8 @@ import com.victor.myan.enums.MonthsEnum
 import com.victor.myan.enums.SeasonsEnum
 import com.victor.myan.services.interfaces.AuxServices
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class AuxServicesImpl : AuxServices {
     override fun validateFields(email: String, password: String): String {
@@ -69,5 +70,14 @@ class AuxServicesImpl : AuxServices {
                 SeasonsEnum.Fall.season
             else -> SeasonsEnum.Winter.season
         }
+    }
+
+    override fun extractIDYoutube(url: String) : String {
+        val pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*"
+
+        val compiledPattern: Pattern = Pattern.compile(pattern)
+        val matcher: Matcher = compiledPattern.matcher(url)
+
+        return matcher.group()
     }
 }

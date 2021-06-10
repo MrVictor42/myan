@@ -9,4 +9,5 @@ interface AuxServices {
     fun getCurrentDay() : String
     fun getCurrentYear() : Int
     fun getSeason(): String
+    fun extractIDYoutube(url : String) : String
 }

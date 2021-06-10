@@ -1,12 +1,10 @@
 package com.victor.myan.fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Layout
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +12,12 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.controller.VideoController
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
@@ -27,9 +27,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
+
 class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
+    private val auxServicesImpl = AuxServicesImpl()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,7 +60,8 @@ class AnimeDetailFragment : Fragment() {
         val listGenres: MutableList<String> = mutableListOf()
         val listProducers: MutableList<String> = mutableListOf()
 
-        val animeTrailer = binding.playVideo
+        val animeVideo = binding.youtubePlayerView
+        lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
         val animeStatus = binding.animeStatus
         val animeYear = binding.animeYear
@@ -118,7 +121,7 @@ class AnimeDetailFragment : Fragment() {
                             animeProducers.isInvisible = true
                         } else {
                             for(producer in animeResponse.producers.indices) {
-                                listProducers.add(animeResponse.producers.get(producer).name)
+                                listProducers.add(animeResponse.producers[producer].name)
                             }
                             animeProducers.text = listProducers.toString()
                             listProducers.clear()
@@ -131,11 +134,14 @@ class AnimeDetailFragment : Fragment() {
                             animeSynopsis.text = animeResponse.synopsis
                         }
 
-                        animeTrailer.setOnClickListener {
-                            val video = Intent(context, VideoController::class.java)
-                            video.putExtra("animeTrailer", animeResponse.trailer_url)
-                            startActivity(video)
-                        }
+//                        animeVideo.addYouTubePlayerListener(object :
+//                            AbstractYouTubePlayerListener() {
+//                            override fun onReady(youTubePlayer: YouTubePlayer) {
+//                                val videoId = auxServicesImpl.extractIDYoutube(animeResponse.trailer_url)
+//                                Log.e("videoid:", videoId.toString())
+////                                youTubePlayer.loadVideo(videoId, 0f)
+//                            }
+//                        })
                     }
                 } else {
                     Toast.makeText(
