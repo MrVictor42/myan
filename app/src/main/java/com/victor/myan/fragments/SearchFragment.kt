@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.api.AnimeApi
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.api.SearchApi
 import com.victor.myan.databinding.FragmentSearchBinding
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
@@ -56,7 +56,7 @@ class SearchFragment : Fragment() {
         val messageSearch = binding.messageSearch
         val progressBar = binding.progressBarSearch
         val recyclerViewSearch = binding.recyclerViewSearch
-        val api = JikanApiInstance.getJikanApiInstance().create(SearchApi::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
 
         searchButton.setOnClickListener {
             val selectionType = radioGroup.checkedRadioButtonId

@@ -1,6 +1,9 @@
 package com.victor.myan.layouts
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +33,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
+    @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id")
         val imageUrl = arguments?.getString("image_url")
@@ -39,6 +43,7 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         val score = arguments?.getDouble("score")
         val synopsis = arguments?.getString("synopsis")
         val startDate = arguments?.getString("start_date")
+        var year : String = ""
 
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
@@ -54,8 +59,10 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         if(airingStart != "" && airingStart != "null") {
             yearModal.text = airingStart.toString().substring(0,4)
+            year = airingStart.toString().substring(0,4)
         } else if(startDate != "null") {
             yearModal.text = startDate.toString().substring(4,8)
+            year = startDate.toString().substring(4,8)
         } else {
             yearModal.isInvisible = true
         }
@@ -76,6 +83,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         if(synopsis != "null") {
             synopsisModal.text = synopsis
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                synopsisModal.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+                synopsisModal.text = synopsis
+            } else {
+                synopsisModal.text = synopsis
+            }
         } else {
             synopsisModal.isInvisible = true
         }
@@ -86,13 +99,13 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
+            bundle.putString("year", year)
 
             fragment.arguments = bundle
 
             val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
             transaction?.commit()
             getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
-
         }
     }
 }

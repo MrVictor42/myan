@@ -1,6 +1,5 @@
 package com.victor.myan.controller
 
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,8 +8,8 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.api.AnimeApi
 import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.api.SeasonApi
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
@@ -37,7 +36,7 @@ class SeasonController {
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewSeason.adapter = animeAdapter
 
-        val api = JikanApiInstance.getJikanApiInstance().create(SeasonApi::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
         api.getCurrentSeason(currentYear,currentSeason).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 

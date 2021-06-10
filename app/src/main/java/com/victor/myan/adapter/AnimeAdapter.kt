@@ -25,6 +25,7 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
         fun bind(anime: Anime) {
             Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(image)
             itemView.setOnClickListener {
+                bundle.putString("mal_id", anime.mal_id)
                 bundle.putString("title", anime.title)
                 bundle.putString("image_url", anime.image_url)
                 bundle.putString("airing_start", anime.airing_start)
