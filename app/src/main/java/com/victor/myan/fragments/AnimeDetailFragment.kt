@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.text.Layout
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.victor.myan.R
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
+import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.services.impl.AuxServicesImpl
 import kotlinx.coroutines.CoroutineScope
@@ -27,11 +27,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-
 class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
     private val auxServicesImpl = AuxServicesImpl()
+    private val youtubeHelper = YoutubeHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +76,6 @@ class AnimeDetailFragment : Fragment() {
         val animeSynopsis = binding.animeSynopsis
 
         val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
-        val auxServicesImpl = AuxServicesImpl()
 
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<Anime> = api.getAnime(malID.toString())
@@ -110,7 +109,7 @@ class AnimeDetailFragment : Fragment() {
                             animeGenres.isVisible = true
                         } else {
                             for(genre in animeResponse.genres.indices) {
-                                listGenres.add(animeResponse.genres.get(genre).name)
+                                listGenres.add(animeResponse.genres[genre].name)
                             }
                             animeGenres.text = listGenres.toString()
                             listGenres.clear()
@@ -134,14 +133,20 @@ class AnimeDetailFragment : Fragment() {
                             animeSynopsis.text = animeResponse.synopsis
                         }
 
-//                        animeVideo.addYouTubePlayerListener(object :
-//                            AbstractYouTubePlayerListener() {
-//                            override fun onReady(youTubePlayer: YouTubePlayer) {
-//                                val videoId = auxServicesImpl.extractIDYoutube(animeResponse.trailer_url)
-//                                Log.e("videoid:", videoId.toString())
-////                                youTubePlayer.loadVideo(videoId, 0f)
-//                            }
-//                        })
+                        animeVideo.addYouTubePlayerListener(object :
+                            AbstractYouTubePlayerListener() {
+                            override fun onReady(youTubePlayer: YouTubePlayer) {
+                                if(animeResponse.trailer_url.isNullOrEmpty()) {
+                                    Toast.makeText(
+                                        context,
+                                        auxServicesImpl.capitalize("the anime ${animeResponse.title} doesn't has a preview"),
+                                        Toast.LENGTH_LONG).show()
+                                } else {
+                                    val videoId = youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url).toString()
+                                    youTubePlayer.loadVideo(videoId, 0f)
+                                }
+                            }
+                        })
                     }
                 } else {
                     Toast.makeText(

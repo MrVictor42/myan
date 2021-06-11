@@ -75,9 +75,13 @@ class AuxServicesImpl : AuxServices {
     override fun extractIDYoutube(url: String) : String {
         val pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*"
 
-        val compiledPattern: Pattern = Pattern.compile(pattern)
-        val matcher: Matcher = compiledPattern.matcher(url)
+        val compiledPattern = Pattern.compile(pattern)
+        val matcher = compiledPattern.matcher(url)
 
-        return matcher.group()
+        return if (matcher.find()) {
+            matcher.group()
+        } else {
+            "Not found"
+        }
     }
 }
