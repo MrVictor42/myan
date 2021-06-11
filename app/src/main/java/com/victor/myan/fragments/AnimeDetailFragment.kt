@@ -18,6 +18,8 @@ import com.victor.myan.R
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
+import com.victor.myan.enums.AnimeStatusEnum
+import com.victor.myan.enums.MessagesEnum
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
@@ -65,13 +67,11 @@ class AnimeDetailFragment : Fragment() {
         val animeTitle = binding.animeTitle
         val animeStatus = binding.animeStatus
         val animeYear = binding.animeYear
-        val animeScoreTextView = binding.animeScoreTextView
         val animeScore = binding.animeScore
         val animeEpisodesTextView = binding.animeEpisodesTextView
         val animeEpisodes = binding.animeEpisodes
         val animeGenresTextView = binding.animeGenresTextView
         val animeGenres = binding.animeGenres
-        val animeProducersTextView = binding.animeProducersTextView
         val animeProducers = binding.animeProducers
         val animeSynopsis = binding.animeSynopsis
 
@@ -85,18 +85,23 @@ class AnimeDetailFragment : Fragment() {
                     if (animeResponse != null) {
                         animeTitle.text = animeResponse.title
                         animeStatus.text = animeResponse.status
-                        if(animeStatus.text == "Currently Airing") {
-                            animeStatus.setTextColor(resources.getColor(R.color.green_light))
-                        } else {
-                            animeStatus.setTextColor(resources.getColor(R.color.red))
+
+                        when(animeStatus.text) {
+                            AnimeStatusEnum.CurrentlyAiring.status ->
+                                animeStatus.setTextColor(resources.getColor(R.color.green_light))
+                            AnimeStatusEnum.NotYetAired.status ->
+                                animeStatus.setTextColor(resources.getColor(R.color.dark_blue))
+                            AnimeStatusEnum.FinishedAiring.status ->
+                                animeStatus.setTextColor(resources.getColor(R.color.red))
                         }
+
                         animeYear.text = year
-                        if(animeResponse.score.toString() == "") {
-                            animeScoreTextView.isInvisible = true
-                            animeScore.isInvisible = true
+                        if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
+                            animeScore.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             animeScore.text = animeResponse.score.toString()
                         }
+
                         if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
                             animeEpisodesTextView.isInvisible = true
                             animeEpisodes.isInvisible = true
@@ -116,8 +121,7 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         if(animeResponse.producers.isEmpty()) {
-                            animeProducersTextView.isInvisible = true
-                            animeProducers.isInvisible = true
+                            animeProducers.text = auxServicesHelper.capitalize(MessagesEnum.MissingProducers.message)
                         } else {
                             for(producer in animeResponse.producers.indices) {
                                 listProducers.add(animeResponse.producers[producer].name)
@@ -140,7 +144,7 @@ class AnimeDetailFragment : Fragment() {
                                     Toast.makeText(
                                         context,
                                         auxServicesHelper.capitalize(
-                                            "the anime ${animeResponse.title} doesn't has a preview"
+                                            MessagesEnum.MissingPreview.message
                                         ), Toast.LENGTH_LONG).show()
                                 } else {
                                     val videoId = youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url).toString()
@@ -152,7 +156,7 @@ class AnimeDetailFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         context,
-                        auxServicesHelper.capitalize("not was possible load this anime now, try again later"),
+                        auxServicesHelper.capitalize(MessagesEnum.FailureLoadAnime.message),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

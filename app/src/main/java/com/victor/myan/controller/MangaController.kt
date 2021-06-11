@@ -47,6 +47,7 @@ class MangaController {
                                 if (mangaObject != null) {
                                     val mangaTop = Manga()
 
+                                    mangaTop.title = mangaObject.get("title").asString
                                     mangaTop.mal_id = mangaObject.get("mal_id").asInt.toString()
                                     mangaTop.image_url = mangaObject.get("image_url").asString
                                     mangaAdapter.manga.add(mangaTop)

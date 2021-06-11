@@ -13,14 +13,7 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
-        <activity android:name=".controller.VideoController"></activity>
-        <activity android:name=".controller.TodayAnimeController" />
-        <activity android:name=".activities.AnimeSlideActivity" />
-        <activity android:name=".activities.VideoActivity" />
-        <activity android:name=".controller.DetailsAnimeController" />
-        <activity android:name=".controller.DetailsAnimeController" />
         <activity android:name=".layouts.BaseLayout" />
-        <activity android:name=".layouts.BaseFragmentLayout" />
         <activity android:name=".controller.FormRegisterUserController" />
         <activity android:name=".controller.FormLoginController" />
         <activity
@@ -34,5 +27,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
