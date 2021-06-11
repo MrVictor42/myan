@@ -11,18 +11,18 @@ import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.databinding.FragmentBottomSheetBinding
+import com.victor.myan.databinding.FragmentAnimeBottomSheetBinding
 import com.victor.myan.fragments.AnimeDetailFragment
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
-    private lateinit var binding : FragmentBottomSheetBinding
+    private lateinit var binding : FragmentAnimeBottomSheetBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBottomSheetBinding.inflate(layoutInflater, container, false)
+        binding = FragmentAnimeBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

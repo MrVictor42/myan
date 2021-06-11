@@ -9,14 +9,14 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.layouts.BottomSheetFragment
+import com.victor.myan.layouts.AnimeBottomSheetFragment
 import com.victor.myan.model.Anime
 
 class AnimeAdapter(var anime: MutableList<Anime>) :
         RecyclerView.Adapter<AnimeAdapter.AnimeHolder>() {
 
     class AnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val bottomSheetFragment = BottomSheetFragment()
+        val bottomSheetFragment = AnimeBottomSheetFragment()
         val image: ImageView = itemView.findViewById(R.id.list_image_adapter)
         val bundle = Bundle()
 

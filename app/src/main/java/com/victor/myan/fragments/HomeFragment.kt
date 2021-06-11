@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.victor.myan.controller.MangaController
+import com.victor.myan.controller.MangaTopController
 import com.victor.myan.controller.SeasonController
 import com.victor.myan.controller.TodayAnimeController
 import com.victor.myan.controller.TopAnimeController
@@ -17,7 +17,7 @@ class HomeFragment : Fragment() {
     private val todayAnimeController = TodayAnimeController()
     private val seasonAnimeController = SeasonController()
     private val topAnimeController = TopAnimeController()
-    private val mangaController = MangaController()
+    private val mangaTopController = MangaTopController()
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -40,6 +40,6 @@ class HomeFragment : Fragment() {
         todayAnimeController.getTodayAnime(view)
         seasonAnimeController.getSeasonAnime(view)
         topAnimeController.getTopAnime(view)
-        mangaController.getTopManga(view)
+        mangaTopController.getTopManga(view)
     }
 }

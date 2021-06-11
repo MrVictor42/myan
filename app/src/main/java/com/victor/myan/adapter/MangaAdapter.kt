@@ -1,23 +1,36 @@
 package com.victor.myan.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
+import com.victor.myan.layouts.MangaBottomSheetFragment
 import com.victor.myan.model.Manga
 
 class MangaAdapter(var manga : MutableList<Manga>) : RecyclerView.Adapter<MangaAdapter.MangaHolder>() {
 
     class MangaHolder(view : View) : RecyclerView.ViewHolder(view) {
+        val bottomSheetFragment = MangaBottomSheetFragment()
         val image = itemView.findViewById<ImageView>(R.id.list_image_adapter)
+        val bundle = Bundle()
+
         fun bind(manga : Manga) {
             Picasso.get().load(manga.image_url).placeholder(R.drawable.placeholder).fit().into(image)
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, manga.title, Toast.LENGTH_SHORT).show()
+                bundle.putString("mal_id", manga.mal_id)
+                bundle.putString("title", manga.title)
+                bundle.putString("image_url", manga.image_url)
+                bundle.putString("start_date", manga.start_date)
+                bundle.putInt("volumes", manga.volumes)
+                bundle.putDouble("score", manga.score)
+
+                bottomSheetFragment.arguments = bundle
+                bottomSheetFragment.show((itemView.context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)
             }
         }
     }

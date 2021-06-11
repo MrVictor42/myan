@@ -1,5 +1,6 @@
 package com.victor.myan.controller
 
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MangaController {
+class MangaTopController {
 
     private lateinit var mangaAdapter: MangaAdapter
 
@@ -48,8 +49,22 @@ class MangaController {
                                     val mangaTop = Manga()
 
                                     mangaTop.title = mangaObject.get("title").asString
-                                    mangaTop.mal_id = mangaObject.get("mal_id").asInt.toString()
+                                    mangaTop.mal_id = mangaObject.get("mal_id").asString
                                     mangaTop.image_url = mangaObject.get("image_url").asString
+                                    mangaTop.start_date = mangaObject.get("start_date").asString
+
+                                    if(mangaObject.get("volumes").toString() == "null") {
+                                        mangaTop.volumes = 0
+                                    } else {
+                                        mangaTop.volumes = mangaObject.get("volumes").asInt
+                                    }
+
+                                    if(mangaObject.get("score").toString() == "null") {
+                                        mangaTop.score = 0.0
+                                    } else {
+                                        mangaTop.score = mangaObject.get("score").asDouble
+                                    }
+
                                     mangaAdapter.manga.add(mangaTop)
                                 }
                             }
