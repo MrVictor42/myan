@@ -9,9 +9,9 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
-import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.helper.AuxFunctionsHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,22 +19,22 @@ import retrofit2.Response
 class TodayAnimeController {
 
     private lateinit var animeAdapter: AnimeAdapter
-    private val auxServicesImpl = AuxServicesImpl()
+    private val auxServicesHelper = AuxFunctionsHelper()
 
     fun getTodayAnime(view : View) {
 
-        val currentDay = auxServicesImpl.getCurrentDay()
+        val currentDay = auxServicesHelper.getCurrentDay()
         val animeList = arrayListOf<Anime>()
         val todayAnimeText = view.findViewById<TextView>(R.id.today_anime_textView)
         val recyclerViewTodayAnime = view.findViewById<RecyclerView>(R.id.recyclerViewToday)
 
-        todayAnimeText.text = auxServicesImpl.capitalize("today anime: $currentDay")
+        todayAnimeText.text = auxServicesHelper.capitalize("today anime: $currentDay")
         recyclerViewTodayAnime.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewTodayAnime.adapter = animeAdapter
 
-        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         api.getTodayAnime(currentDay).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 

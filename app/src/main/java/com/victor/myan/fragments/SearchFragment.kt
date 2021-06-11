@@ -15,11 +15,11 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
-import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentSearchBinding
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
-import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.helper.AuxFunctionsHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +28,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding : FragmentSearchBinding
     private lateinit var animeAdapter: AnimeAdapter
-    private val auxServicesImpl = AuxServicesImpl()
+    private val auxServicesHelper = AuxFunctionsHelper()
     private val limit : Int = 16
     private val minLength : Int = 2
 
@@ -56,7 +56,7 @@ class SearchFragment : Fragment() {
         val messageSearch = binding.messageSearch
         val progressBar = binding.progressBarSearch
         val recyclerViewSearch = binding.recyclerViewSearch
-        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
 
         searchButton.setOnClickListener {
             val selectionType = radioGroup.checkedRadioButtonId
@@ -66,12 +66,12 @@ class SearchFragment : Fragment() {
             when {
                 search.query.isEmpty() -> {
                     messageSearch.text =
-                        auxServicesImpl.capitalize("please, insert a name to anime or manga")
+                        auxServicesHelper.capitalize("please, insert a name to anime or manga")
                     messageSearch.setTextColor(Color.RED)
                 }
                 search.query.length <= minLength -> {
                     messageSearch.text =
-                        auxServicesImpl.capitalize("please, insert a name to anime or manga with more 2 characters")
+                        auxServicesHelper.capitalize("please, insert a name to anime or manga with more 2 characters")
                     messageSearch.setTextColor(Color.RED)
                 }
                 else -> {
@@ -99,7 +99,7 @@ class SearchFragment : Fragment() {
                         Callback<JsonObject> {
                         override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                             messageSearch.text =
-                                auxServicesImpl.capitalize("not found this anime, try another please")
+                                auxServicesHelper.capitalize("not found this anime, try another please")
                             messageSearch.setTextColor(Color.RED)
                         }
 

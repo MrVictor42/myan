@@ -4,22 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.text.Layout
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBottomSheetBinding
 import com.victor.myan.fragments.AnimeDetailFragment
-import com.victor.myan.services.impl.AuxServicesImpl
 
 class BottomSheetFragment : BottomSheetDialogFragment() {
 

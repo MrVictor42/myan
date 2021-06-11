@@ -1,4 +1,4 @@
-package com.victor.myan.services.impl
+package com.victor.myan.helper
 
 import android.graphics.Color
 import android.view.View
@@ -6,13 +6,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.enums.MonthsEnum
 import com.victor.myan.enums.SeasonsEnum
-import com.victor.myan.services.interfaces.AuxServices
 import java.util.*
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class AuxServicesImpl : AuxServices {
-    override fun validateFields(email: String, password: String): String {
+class AuxFunctionsHelper {
+
+    fun validateFields(email: String, password: String): String {
         return when {
             email.isEmpty() -> capitalize("fill the field email!")
             password.isEmpty() -> capitalize("fill the field password!")
@@ -21,7 +20,7 @@ class AuxServicesImpl : AuxServices {
         }
     }
 
-    override fun capitalize(str: String): String {
+    fun capitalize(str: String): String {
         val words = str.split(" ").toMutableList()
         var output = ""
 
@@ -32,13 +31,13 @@ class AuxServicesImpl : AuxServices {
         return output
     }
 
-    override fun message(view: View, messageResult: String) {
+    fun message(view: View, messageResult: String) {
         val snackbar = Snackbar.make(view, capitalize(messageResult), Snackbar.LENGTH_LONG)
         snackbar.setBackgroundTint(Color.WHITE).setTextColor(Color.BLACK)
         snackbar.show()
     }
 
-    override fun getCurrentDay(): String {
+    fun getCurrentDay(): String {
         return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             1 -> DaysEnum.Sunday.day
             2 -> DaysEnum.Monday.day
@@ -50,11 +49,11 @@ class AuxServicesImpl : AuxServices {
         }
     }
 
-    override fun getCurrentYear(): Int {
+    fun getCurrentYear(): Int {
         return Calendar.getInstance().get(Calendar.YEAR)
     }
 
-    override fun getSeason(): String {
+    fun getSeason(): String {
         val date = Date()
         val calendar = GregorianCalendar()
         calendar.time = date
@@ -69,19 +68,6 @@ class AuxServicesImpl : AuxServices {
             currentMonth > MonthsEnum.August.month && currentMonth <= MonthsEnum.November.month ->
                 SeasonsEnum.Fall.season
             else -> SeasonsEnum.Winter.season
-        }
-    }
-
-    override fun extractIDYoutube(url: String) : String {
-        val pattern = "(?<=watch\\?v=|/videos/|embed\\/)[^#\\&\\?]*"
-
-        val compiledPattern = Pattern.compile(pattern)
-        val matcher = compiledPattern.matcher(url)
-
-        return if (matcher.find()) {
-            matcher.group()
-        } else {
-            "Not found"
         }
     }
 }

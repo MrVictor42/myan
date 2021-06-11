@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.github.florent37.picassopalette.PicassoPalette
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.model.Category

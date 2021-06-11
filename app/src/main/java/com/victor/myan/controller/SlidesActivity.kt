@@ -5,16 +5,17 @@ import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 import com.victor.myan.R
-import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.helper.AuxFunctionsHelper
 
 class SlidesActivity : IntroActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         isButtonBackVisible = false
         isButtonNextVisible = false
 
-        val auxServicesImpl = AuxServicesImpl()
+        val auxServicesImpl = AuxFunctionsHelper()
 
         addSlide(
             SimpleSlide.Builder()

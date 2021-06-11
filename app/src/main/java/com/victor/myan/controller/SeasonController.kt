@@ -9,10 +9,10 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
-import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
-import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.helper.AuxFunctionsHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,23 +20,23 @@ import retrofit2.Response
 class SeasonController {
 
     private lateinit var animeAdapter: AnimeAdapter
-    private val auxServicesImpl = AuxServicesImpl()
+    private val auxServicesHelper = AuxFunctionsHelper()
 
     fun getSeasonAnime(view: View) {
 
-        val currentSeason = auxServicesImpl.getSeason()
-        val currentYear = auxServicesImpl.getCurrentYear()
+        val currentSeason = auxServicesHelper.getSeason()
+        val currentYear = auxServicesHelper.getCurrentYear()
         val animeList = arrayListOf<Anime>()
         val seasonAnimeText = view.findViewById<TextView>(R.id.season_anime_textView)
         val recyclerViewSeason = view.findViewById<RecyclerView>(R.id.recyclerViewSeason)
 
-        seasonAnimeText.text = auxServicesImpl.capitalize("season $currentSeason")
+        seasonAnimeText.text = auxServicesHelper.capitalize("season $currentSeason")
         recyclerViewSeason.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewSeason.adapter = animeAdapter
 
-        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         api.getCurrentSeason(currentYear,currentSeason).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 

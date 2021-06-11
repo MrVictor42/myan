@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
-import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.helper.AuxFunctionsHelper
 
 class FormRegisterUserController : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormRegisterUserBinding
-    private val auxServicesImpl = AuxServicesImpl()
+    private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +25,7 @@ class FormRegisterUserController : AppCompatActivity() {
             val password = binding.editPassword.text.toString()
             val message = binding.messageError
 
-            message.text = auxServicesImpl.validateFields(email, password)
+            message.text = auxServicesHelper.validateFields(email, password)
 
             if(message.text == "") {
                 val user = User()

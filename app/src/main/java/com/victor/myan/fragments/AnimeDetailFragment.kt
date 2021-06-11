@@ -16,11 +16,11 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
 import com.victor.myan.api.AnimeApi
-import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.services.impl.AuxServicesImpl
+import com.victor.myan.helper.AuxFunctionsHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,7 +30,7 @@ import retrofit2.Response
 class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
-    private val auxServicesImpl = AuxServicesImpl()
+    private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
 
     override fun onCreateView(
@@ -75,7 +75,7 @@ class AnimeDetailFragment : Fragment() {
         val animeProducers = binding.animeProducers
         val animeSynopsis = binding.animeSynopsis
 
-        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<Anime> = api.getAnime(malID.toString())
@@ -139,8 +139,9 @@ class AnimeDetailFragment : Fragment() {
                                 if(animeResponse.trailer_url.isNullOrEmpty()) {
                                     Toast.makeText(
                                         context,
-                                        auxServicesImpl.capitalize("the anime ${animeResponse.title} doesn't has a preview"),
-                                        Toast.LENGTH_LONG).show()
+                                        auxServicesHelper.capitalize(
+                                            "the anime ${animeResponse.title} doesn't has a preview"
+                                        ), Toast.LENGTH_LONG).show()
                                 } else {
                                     val videoId = youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url).toString()
                                     youTubePlayer.loadVideo(videoId, 0f)
@@ -151,7 +152,7 @@ class AnimeDetailFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         context,
-                        auxServicesImpl.capitalize("not was possible load this anime now, try again later"),
+                        auxServicesHelper.capitalize("not was possible load this anime now, try again later"),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

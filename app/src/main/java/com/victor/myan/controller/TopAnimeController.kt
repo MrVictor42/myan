@@ -8,7 +8,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
-import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -29,7 +29,7 @@ class TopAnimeController {
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewTopAnime.adapter = animeAdapter
 
-        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         api.getTopAnime().enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
