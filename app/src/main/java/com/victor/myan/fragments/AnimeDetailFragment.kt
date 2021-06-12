@@ -1,6 +1,9 @@
 package com.victor.myan.fragments
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +43,7 @@ class AnimeDetailFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -69,6 +73,7 @@ class AnimeDetailFragment : Fragment() {
         val animeGenresTextView = binding.animeGenresTextView
         val animeGenres = binding.animeGenres
         val animeProducers = binding.animeProducers
+        val animeSynopsis = binding.animeSynopsis
 
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
 
@@ -125,6 +130,13 @@ class AnimeDetailFragment : Fragment() {
                             listProducers.clear()
                         }
 
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            binding.animeSynopsis.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+                            animeSynopsis.text = animeResponse.synopsis
+                        } else {
+                            animeSynopsis.text = animeResponse.synopsis
+                        }
+
                         animeVideo.addYouTubePlayerListener(object :
                             AbstractYouTubePlayerListener() {
                             override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -144,7 +156,7 @@ class AnimeDetailFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         context,
-                        auxServicesHelper.capitalize(MessagesEnum.FailureLoadAnime.message),
+                        auxServicesHelper.capitalize(MessagesEnum.FailureLoad.message),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
