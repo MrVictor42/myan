@@ -26,4 +26,8 @@
     <string name="manga">Manga</string>
     <string name="type_search">Search Anime or Manga</string>
     <string name="volumes">Volumes: </string>
+    <string name="chapters">Chapters: </string>
+    <string name="adaptations">Adaptations: </string>
+    <string name="authors">Authors: </string>
+    <string name="spin_off">Spin-Off: </string>
 </resources>

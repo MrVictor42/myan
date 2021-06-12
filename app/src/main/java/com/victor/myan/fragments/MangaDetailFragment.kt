@@ -55,6 +55,11 @@ class MangaDetailFragment : Fragment() {
         val mangaStatus = binding.mangaStatus
         val mangaYear = binding.mangaYear
         val mangaVolume = binding.mangaVolume
+        val mangaChapters = binding.mangaChapters
+        val mangaScore = binding.mangaScore
+
+        val listGenres : MutableList<String> = mutableListOf()
+        val listChapters : MutableList<String> = mutableListOf()
 
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(MangaApi::class.java)
 
@@ -81,27 +86,18 @@ class MangaDetailFragment : Fragment() {
                         } else {
                             mangaVolume.text = mangaResponse.volumes.toString()
                         }
+
+                        if(mangaResponse.chapters.toString().isNullOrEmpty() || mangaResponse.chapters == 0) {
+                            mangaChapters.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                        } else {
+                            mangaChapters.text = mangaResponse.chapters.toString()
+                        }
                     }
                 }
             }
         }
 
         /*
-
-                        animeYear.text = year
-                        if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
-                            animeScore.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
-                        } else {
-                            animeScore.text = animeResponse.score.toString()
-                        }
-
-                        if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
-                            animeEpisodesTextView.isInvisible = true
-                            animeEpisodes.isInvisible = true
-                        } else {
-                            animeEpisodes.text = animeResponse.episodes.toString()
-                        }
-
                         if(animeResponse.genres.isEmpty()) {
                             animeGenresTextView.isInvisible = true
                             animeGenres.isVisible = true

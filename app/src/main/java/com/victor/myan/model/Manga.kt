@@ -18,5 +18,17 @@ data class Manga (
     @SerializedName("image_url")
     var image_url : String = "",
     @SerializedName("status")
-    var status : String = ""
+    var status : String = "",
+    @SerializedName("chapters")
+    var chapters : Int = 0,
+    @SerializedName("synopsis")
+    var synopsis : String = "",
+    @SerializedName("Adaptations")
+    var adaptation : List<Adaptation> = arrayListOf(),
+    @SerializedName("Spin-off")
+    var spinOff : List<SpinOff> = arrayListOf(),
+    @SerializedName("genres")
+    var genres : List<Genre> = arrayListOf(),
+    @SerializedName("authors")
+    var authors : List<Author> = arrayListOf()
 )
