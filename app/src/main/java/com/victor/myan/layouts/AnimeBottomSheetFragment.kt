@@ -1,9 +1,6 @@
 package com.victor.myan.layouts
 
-import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +23,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id")
         val imageUrl = arguments?.getString("image_url")
@@ -34,7 +30,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val title = arguments?.getString("title")
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
-        val synopsis = arguments?.getString("synopsis")
         val startDate = arguments?.getString("start_date")
         var year : String = ""
 
@@ -44,7 +39,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val episodesModal = binding.episodeModal
         val textScoreModal = binding.scoreModalText
         val scoreModal = binding.scoreModal
-        val synopsisModal = binding.synopsisModal
         val btnMoreInformations = binding.btnMoreInformationModal
 
         Picasso.get().load(imageUrl).into(imageModal)
@@ -72,18 +66,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
             scoreModal.isInvisible = true
         } else {
             scoreModal.text = score.toString()
-        }
-
-        if(synopsis != "null") {
-            synopsisModal.text = synopsis
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                synopsisModal.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
-                synopsisModal.text = synopsis
-            } else {
-                synopsisModal.text = synopsis
-            }
-        } else {
-            synopsisModal.isInvisible = true
         }
 
         btnMoreInformations.setOnClickListener {

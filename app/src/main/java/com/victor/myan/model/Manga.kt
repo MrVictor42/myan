@@ -16,5 +16,7 @@ data class Manga (
     @SerializedName("score")
     var score : Double = 0.0,
     @SerializedName("image_url")
-    var image_url : String = ""
+    var image_url : String = "",
+    @SerializedName("status")
+    var status : String = ""
 )
