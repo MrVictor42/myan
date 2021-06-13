@@ -69,7 +69,7 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
-            bundle.putString("year", startDate)
+            bundle.putString("year", startDate.toString().substring(4,8))
 
             fragment.arguments = bundle
 

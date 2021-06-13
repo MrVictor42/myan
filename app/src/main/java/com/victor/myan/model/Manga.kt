@@ -23,10 +23,6 @@ data class Manga (
     var chapters : Int = 0,
     @SerializedName("synopsis")
     var synopsis : String = "",
-    @SerializedName("Adaptations")
-    var adaptations : List<Adaptation> = arrayListOf(),
-    @SerializedName("Spin-off")
-    var spinOff : List<SpinOff> = arrayListOf(),
     @SerializedName("genres")
     var genres : List<Genre> = arrayListOf(),
     @SerializedName("authors")

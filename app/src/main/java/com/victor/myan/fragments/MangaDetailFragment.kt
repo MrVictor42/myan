@@ -1,24 +1,23 @@
 package com.victor.myan.fragments
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
-import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
 import com.victor.myan.enums.MessagesEnum
+import com.victor.myan.enums.TypesRequest
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
-import com.victor.myan.model.Manga
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +26,7 @@ import retrofit2.Response
 
 class MangaDetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentMangaDetailBinding
+    private lateinit var binding: FragmentMangaDetailBinding
     private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreateView(
@@ -44,9 +43,8 @@ class MangaDetailFragment : Fragment() {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
                 val fragmentManager = fragmentManager
-                fragmentManager?.
-                beginTransaction()?.
-                replace(R.id.content, homeFragment)?.addToBackStack(null)?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.content, homeFragment)
+                    ?.addToBackStack(null)?.commit()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
@@ -67,103 +65,134 @@ class MangaDetailFragment : Fragment() {
         val mangaSpinOff = binding.mangaSpinOff
         val mangaSynopsis = binding.mangaSynopsis
 
-        val listGenres : MutableList<String> = mutableListOf()
-        val listAuthors : MutableList<String> = mutableListOf()
-        val listAdaptations : MutableList<String> = mutableListOf()
-        val listSpinOff : MutableList<String> = mutableListOf()
+        val listGenres: MutableList<String> = mutableListOf()
+        val listAuthors: MutableList<String> = mutableListOf()
+        val listAdaptations: MutableList<String> = mutableListOf()
+        val listSpinOff: MutableList<String> = mutableListOf()
 
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(MangaApi::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call : Response<Manga> = api.getManga(malID.toString())
+            val call: Response<JsonObject> = api.getManga(malID.toString())
             withContext(Dispatchers.Main) {
-                if(call.isSuccessful) {
+                if (call.isSuccessful) {
                     val mangaResponse = call.body()
-                    if(mangaResponse != null) {
-                        Picasso.get().load(mangaResponse.image_url).into(mangaImage)
-                        mangaTitle.text = mangaResponse.title
-                        mangaStatus.text = mangaResponse.status
+                    if (mangaResponse != null) {
+                        Picasso.get().load(mangaResponse.get("image_url").asString).into(mangaImage)
+                        mangaTitle.text = mangaResponse.get("title").asString
+                        mangaStatus.text = mangaResponse.get("status").asString
                         mangaYear.text = year
 
-                        when(mangaStatus.text) {
+                        when (mangaStatus.text) {
                             MangaStatusEnum.Publishing.status ->
                                 mangaStatus.setTextColor(resources.getColor(R.color.green_light))
                             MangaStatusEnum.Finished.status ->
                                 mangaStatus.setTextColor(resources.getColor(R.color.red))
                         }
 
-                        if(mangaResponse.volumes.toString().isNullOrEmpty() || mangaResponse.volumes == 0) {
-                            mangaVolume.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                        if (mangaResponse.get("volumes").toString().isEmpty() ||
+                            mangaResponse.get("volumes").toString() == "null"
+                        ) {
+                            mangaVolume.text =
+                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
-                            mangaVolume.text = mangaResponse.volumes.toString()
+                            mangaVolume.text = mangaResponse.get("volumes").asString
                         }
 
-                        if(mangaResponse.chapters.toString().isNullOrEmpty() || mangaResponse.chapters == 0) {
-                            mangaChapters.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                        if (mangaResponse.get("chapters").toString().isEmpty() ||
+                            mangaResponse.get("chapters").toString() == "null"
+                        ) {
+                            mangaChapters.text =
+                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
-                            mangaChapters.text = mangaResponse.chapters.toString()
+                            mangaChapters.text = mangaResponse.get("chapters").asString
                         }
 
-                        if(mangaResponse.score.toString().isNullOrEmpty() || mangaResponse.score == 0.0) {
-                            mangaScore.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                        if (mangaResponse.get("score").toString().isEmpty() ||
+                            mangaResponse.get("score").toString() == "null"
+                        ) {
+                            mangaScore.text =
+                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
-                            mangaScore.text = mangaResponse.score.toString()
+                            mangaScore.text = mangaResponse.get("score").asString
                         }
 
-                        if(mangaResponse.authors.isNullOrEmpty()) {
-                            mangaAuthors.text = auxServicesHelper.capitalize(MessagesEnum.MissingAuthors.message)
+                        if (mangaResponse.get("authors").toString().isEmpty() ||
+                            mangaResponse.get("authors").toString() == "null"
+                        ) {
+                            mangaAuthors.text =
+                                auxServicesHelper.capitalize(MessagesEnum.MissingAuthors.message)
                         } else {
-                            for(author in mangaResponse.authors.indices) {
-                                listAuthors.add(mangaResponse.authors[author].name)
+                            val authors : JsonArray? = mangaResponse.get("authors") as JsonArray?
+                            if(authors != null) {
+                                for(author in 0 until authors.size()) {
+                                    val authorObject : JsonObject? = authors.get(author) as JsonObject?
+                                    if(authorObject != null) {
+                                        listAuthors.add(authorObject.get("name").asString)
+                                    }
+                                }
+                                mangaAuthors.text = listAuthors.toString()
+                                listAuthors.clear()
                             }
-                            mangaAuthors.text = listAuthors.toString()
-                            listAuthors.clear()
                         }
 
-                        if(mangaResponse.adaptations.isNullOrEmpty()) {
-                            mangaAdaptations.text = auxServicesHelper.capitalize(MessagesEnum.MissingAdaptations.message)
-                        } else {
-                            for(adaptation in mangaResponse.adaptations.indices) {
-                                listAdaptations.add(mangaResponse.adaptations[adaptation].name)
+                        val related: JsonObject? =
+                            mangaResponse.get(TypesRequest.Related.type) as JsonObject?
+                        if (related != null) {
+                            val adaptations: JsonArray? =
+                                related.getAsJsonArray(TypesRequest.Adaptation.type)
+                            if (adaptations != null) {
+                                for (adaptation in 0 until adaptations.size()) {
+                                    val adaptationObject: JsonObject? =
+                                        adaptations.get(adaptation) as JsonObject?
+                                    if (adaptationObject != null) {
+                                        listAdaptations.add(adaptationObject.get("name").asString)
+                                    }
+                                }
+                                mangaAdaptations.text = listAdaptations.toString()
+                                listAdaptations.clear()
+                            } else {
+                                mangaAdaptations.text =
+                                    auxServicesHelper.capitalize(MessagesEnum.MissingAdaptations.message)
                             }
-                            mangaAdaptations.text = listAdaptations.toString()
-                            listAdaptations.clear()
-                        }
 
-                        if(mangaResponse.genres.isNullOrEmpty()) {
-                            mangaAdaptations.text = auxServicesHelper.capitalize(MessagesEnum.MissingGenres.message)
-                        } else {
-                            for(genre in mangaResponse.genres.indices) {
-                                listGenres.add(mangaResponse.genres[genre].name)
+                            val spinoffs: JsonArray? =
+                                related.getAsJsonArray(TypesRequest.SpinOff.type)
+                            if (spinoffs != null) {
+                                for (spinoff in 0 until spinoffs.size()) {
+                                    val sprinoffObject: JsonObject? =
+                                        spinoffs.get(spinoff) as JsonObject?
+                                    if (sprinoffObject != null) {
+                                        listSpinOff.add(sprinoffObject.get("name").asString)
+                                    }
+                                }
+                                mangaSpinOff.text = listSpinOff.toString()
+                                listSpinOff.clear()
+                            } else {
+                                mangaSpinOff.text =
+                                    auxServicesHelper.capitalize(MessagesEnum.MissingSpinOff.message)
                             }
-                            mangaGenres.text = listGenres.toString()
-                            listGenres.clear()
                         }
 
-                        if(mangaResponse.spinOff.isNullOrEmpty()) {
-                            mangaSpinOff.text = auxServicesHelper.capitalize(MessagesEnum.MissingSpinOff.message)
+                        if(mangaResponse.get("genres").toString().isEmpty() ||
+                            mangaResponse.get("genres").toString() == "null") {
+                            mangaGenres.text = auxServicesHelper.capitalize(MessagesEnum.MissingGenres.message)
                         } else {
-                            for(spinoff in mangaResponse.spinOff.indices) {
-                                listSpinOff.add(mangaResponse.spinOff[spinoff].name)
+                            val genres : JsonArray? = mangaResponse.get("genres") as JsonArray?
+                            if(genres != null) {
+                                for(genre in 0 until genres.size()) {
+                                    val genreObject : JsonObject? = genres.get(genre) as JsonObject?
+                                    if(genreObject != null) {
+                                        listGenres.add(genreObject.get("name").asString)
+                                    }
+                                }
+                                mangaGenres.text = listGenres.toString()
+                                listGenres.clear()
                             }
-                            mangaSpinOff.text = listSpinOff.toString()
-                            listSpinOff.clear()
                         }
 
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            binding.mangaSynopsis.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
-                            mangaSynopsis.text = mangaResponse.synopsis
-                        } else {
-                            mangaSynopsis.text = mangaResponse.synopsis
-                        }
-
+                        mangaSynopsis.text = mangaResponse.get("synopsis").asString
                     }
-                } else {
-                    Toast.makeText(
-                        context,
-                        auxServicesHelper.capitalize(MessagesEnum.FailureLoad.message),
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }

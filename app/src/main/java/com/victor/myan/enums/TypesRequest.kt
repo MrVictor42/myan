@@ -5,5 +5,7 @@ enum class TypesRequest(val type : String) {
     Top("top"),
     Results("results"),
     Manga("manga"),
-    Related("related")
+    Related("related"),
+    Adaptation("Adaptation"),
+    SpinOff("Spin-off")
 }
