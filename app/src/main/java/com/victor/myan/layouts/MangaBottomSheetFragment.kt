@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
@@ -34,6 +35,7 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
         val volumes = arguments?.getInt("volumes")
         val score = arguments?.getDouble("score")
         val startDate = arguments?.getString("start_date")
+        var year : String = ""
 
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
@@ -45,10 +47,11 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
 
-        if(startDate != "null") {
-            yearModal.text = startDate.toString().substring(4,8)
-        } else {
-            yearModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
+        when {
+            startDate != null -> {
+                yearModal.text = auxFunctionsHelper.formatYear(startDate)
+                year = auxFunctionsHelper.formatYear(startDate)
+            } else -> yearModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
         }
 
         if(volumes != 0) {
@@ -69,7 +72,7 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
-            bundle.putString("year", startDate.toString().substring(4,8))
+            bundle.putString("year", year)
 
             fragment.arguments = bundle
 

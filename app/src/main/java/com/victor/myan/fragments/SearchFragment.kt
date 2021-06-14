@@ -17,12 +17,14 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentSearchBinding
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
+import com.victor.myan.model.Manga
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +33,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding : FragmentSearchBinding
     private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var mangaAdapter: MangaAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val limit : Int = 16
     private val minLength : Int = 2
@@ -118,9 +121,11 @@ class SearchFragment : Fragment() {
                                                         anime.title = animeFound.get("title").asString
                                                         anime.mal_id =
                                                             animeFound.get("mal_id").asInt.toString()
+                                                        anime.episodes = animeFound.get("episodes").asInt
                                                         anime.image_url =
                                                             animeFound.get("image_url").asString
                                                         anime.airing_start = animeFound.get("start_date").asString
+                                                        anime.score = animeFound.get("score").asDouble
                                                         animeAdapter.anime.add(anime)
                                                     }
                                                 }
@@ -131,68 +136,63 @@ class SearchFragment : Fragment() {
                                     progressBar.visibility = View.INVISIBLE
                                 }
                             })
-                            /*
-                            progressBar.visibility = View.VISIBLE
-                    val animeSearch = arrayListOf<Anime>()
-                    animeAdapter = AnimeAdapter(animeSearch)
-                    recyclerViewSearch.adapter = animeAdapter
-                    recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
-
-                    api.search(
-                        choiceUser,
-                        search.query.toString(),
-                        limit
-                    ).enqueue(object :
-                        Callback<JsonObject> {
-                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                            messageSearch.text =
-                                auxServicesHelper.capitalize("not found this anime, try another please")
-                            messageSearch.setTextColor(Color.RED)
                         }
+                        "Manga" -> {
+                            progressBar.visibility = View.VISIBLE
+                            val mangaSearch = arrayListOf<Manga>()
+                            mangaAdapter = MangaAdapter(mangaSearch)
+                            recyclerViewSearch.adapter = mangaAdapter
+                            recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
-                        override fun onResponse(
-                            call: Call<JsonObject>,
-                            response: Response<JsonObject>
-                        ) {
-                            if (response.isSuccessful) {
-                                val animeResponse = response.body()
-                                animeAdapter.anime.clear()
-                                if (animeResponse != null) {
-                                    val results: JsonArray? =
-                                        animeResponse.getAsJsonArray(TypesRequest.Results.type)
-                                    if (results != null) {
-                                        for (result in 0 until results.size()) {
-                                            val animeFound: JsonObject? =
-                                                results.get(result) as JsonObject?
-                                            if (animeFound != null) {
-                                                val anime = Anime()
+                            api.search(
+                                TypesRequest.Manga.type,
+                                search.query.toString(),
+                                limit
+                            ).enqueue(object :
+                                Callback<JsonObject> {
+                                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                                    messageSearch.text =
+                                        auxServicesHelper.capitalize("not found this manga, try another please")
+                                    messageSearch.setTextColor(Color.RED)
+                                }
 
-                                                anime.title = animeFound.get("title").asString
-                                                anime.mal_id =
-                                                    animeFound.get("mal_id").asInt.toString()
-                                                anime.image_url =
-                                                    animeFound.get("image_url").asString
-                                                animeAdapter.anime.add(anime)
+                                override fun onResponse(
+                                    call: Call<JsonObject>,
+                                    response: Response<JsonObject>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val mangaResponse = response.body()
+                                        mangaAdapter.manga.clear()
+                                        if (mangaResponse != null) {
+                                            val results: JsonArray? =
+                                                mangaResponse.getAsJsonArray(TypesRequest.Results.type)
+                                            if (results != null) {
+                                                for (result in 0 until results.size()) {
+                                                    val mangaFound : JsonObject? =
+                                                        results.get(result) as JsonObject?
+                                                    if (mangaFound != null) {
+                                                        val manga = Manga()
+
+                                                        manga.title = mangaFound.get("title").asString
+                                                        manga.mal_id =
+                                                            mangaFound.get("mal_id").asInt.toString()
+                                                        manga.image_url =
+                                                            mangaFound.get("image_url").asString
+                                                        manga.start_date = mangaFound.get("start_date").asString
+                                                        manga.volumes = mangaFound.get("volumes").asInt
+                                                        manga.score = mangaFound.get("score").asDouble
+                                                        mangaAdapter.manga.add(manga)
+                                                    }
+                                                }
+                                                mangaAdapter.notifyDataSetChanged()
                                             }
                                         }
-                                        animeAdapter.notifyDataSetChanged()
                                     }
+                                    progressBar.visibility = View.INVISIBLE
                                 }
-                            }
-                            progressBar.visibility = View.INVISIBLE
+                            })
                         }
-                    })
-                }
-                             */
-                        }
-                        "Manga" -> TypesRequest.Manga.type
-                        else -> TypesRequest.Anime.type
                     }
-                    /*
-                        I've decided use anime by generic form, because both recyclerviews is the
-                        same and their attributes in this case will the same.
-                     */
-
                 }
             }
         }

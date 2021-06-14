@@ -34,7 +34,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val title = arguments?.getString("title")
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
-        val startDate = arguments?.getString("start_date")
         var year : String = ""
 
         val titleModal = binding.titleModal
@@ -49,7 +48,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         titleModal.text = title
 
         when {
-            airingStart != "null" && airingStart != null -> {
+            airingStart != null -> {
                 yearModal.text = auxFunctionsHelper.formatYear(airingStart)
                 year = auxFunctionsHelper.formatYear(airingStart)
             } else -> yearModal.isInvisible = true
