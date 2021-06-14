@@ -70,4 +70,11 @@ class AuxFunctionsHelper {
             else -> SeasonsEnum.Winter.season
         }
     }
+
+    fun formatYear(year : String) : String {
+        return when (year.length) {
+            25 -> year.substring(0,4)
+            else -> year.substring(4,8)
+        }
+    }
 }

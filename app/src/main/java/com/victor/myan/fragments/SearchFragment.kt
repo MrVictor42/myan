@@ -78,17 +78,61 @@ class SearchFragment : Fragment() {
                     messageSearch.setTextColor(Color.RED)
                 }
                 else -> {
-                    val choiceUser = when (choice.text) {
-                        "Anime" -> TypesRequest.Anime.type
-                        "Manga" -> TypesRequest.Manga.type
-                        else -> TypesRequest.Anime.type
-                    }
-                    /*
-                        I've decided use anime by generic form, because both recyclerviews is the
-                        same and their attributes in this case will the same.
-                     */
+                    when (choice.text) {
+                        "Anime" -> {
+                            progressBar.visibility = View.VISIBLE
+                            val animeSearch = arrayListOf<Anime>()
+                            animeAdapter = AnimeAdapter(animeSearch)
+                            recyclerViewSearch.adapter = animeAdapter
+                            recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
-                    progressBar.visibility = View.VISIBLE
+                            api.search(
+                                TypesRequest.Anime.type,
+                                search.query.toString(),
+                                limit
+                            ).enqueue(object :
+                                Callback<JsonObject> {
+                                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                                    messageSearch.text =
+                                        auxServicesHelper.capitalize("not found this anime, try another please")
+                                    messageSearch.setTextColor(Color.RED)
+                                }
+
+                                override fun onResponse(
+                                    call: Call<JsonObject>,
+                                    response: Response<JsonObject>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val animeResponse = response.body()
+                                        animeAdapter.anime.clear()
+                                        if (animeResponse != null) {
+                                            val results: JsonArray? =
+                                                animeResponse.getAsJsonArray(TypesRequest.Results.type)
+                                            if (results != null) {
+                                                for (result in 0 until results.size()) {
+                                                    val animeFound: JsonObject? =
+                                                        results.get(result) as JsonObject?
+                                                    if (animeFound != null) {
+                                                        val anime = Anime()
+
+                                                        anime.title = animeFound.get("title").asString
+                                                        anime.mal_id =
+                                                            animeFound.get("mal_id").asInt.toString()
+                                                        anime.image_url =
+                                                            animeFound.get("image_url").asString
+                                                        anime.airing_start = animeFound.get("start_date").asString
+                                                        animeAdapter.anime.add(anime)
+                                                    }
+                                                }
+                                                animeAdapter.notifyDataSetChanged()
+                                            }
+                                        }
+                                    }
+                                    progressBar.visibility = View.INVISIBLE
+                                }
+                            })
+                            /*
+                            progressBar.visibility = View.VISIBLE
                     val animeSearch = arrayListOf<Anime>()
                     animeAdapter = AnimeAdapter(animeSearch)
                     recyclerViewSearch.adapter = animeAdapter
@@ -138,6 +182,17 @@ class SearchFragment : Fragment() {
                             progressBar.visibility = View.INVISIBLE
                         }
                     })
+                }
+                             */
+                        }
+                        "Manga" -> TypesRequest.Manga.type
+                        else -> TypesRequest.Anime.type
+                    }
+                    /*
+                        I've decided use anime by generic form, because both recyclerviews is the
+                        same and their attributes in this case will the same.
+                     */
+
                 }
             }
         }

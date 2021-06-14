@@ -103,8 +103,7 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
-                            animeEpisodesTextView.isInvisible = true
-                            animeEpisodes.isInvisible = true
+                            animeEpisodes.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             animeEpisodes.text = animeResponse.episodes.toString()
                         }

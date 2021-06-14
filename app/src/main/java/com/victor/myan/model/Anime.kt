@@ -24,7 +24,5 @@ data class Anime (
     @SerializedName("producers")
     var producers : List<Producer> = arrayListOf(),
     @SerializedName("genres")
-    var genres : List<Genre> = arrayListOf(),
-    @SerializedName("start_date")
-    var start_date: String = ""
+    var genres : List<Genre> = arrayListOf()
 )
