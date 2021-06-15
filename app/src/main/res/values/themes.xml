@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Theme.MyAn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/black_gray</item>
         <item name="colorPrimaryVariant">@color/black_gray</item>
@@ -22,4 +23,13 @@
         <item name="android:textColorHint">@color/gray</item>
         <item name="android:textColor">@color/black</item>
     </style>
+
+    <style name="Theme.MyAn.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MyAn.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MyAn.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

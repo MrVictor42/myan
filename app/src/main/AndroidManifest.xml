@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +13,11 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
+        <activity android:name=".controller.CatalogDetailController"></activity>
+        <activity
+            android:name=".controller.CatalogController"
+            android:label="@string/title_activity_catalog_controller"
+            android:theme="@style/Theme.MyAn.NoActionBar" />
         <activity android:name=".layouts.BaseLayout" />
         <activity android:name=".controller.FormRegisterUserController" />
         <activity android:name=".controller.FormLoginController" />
@@ -27,4 +32,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>

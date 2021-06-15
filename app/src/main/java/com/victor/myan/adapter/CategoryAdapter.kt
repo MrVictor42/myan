@@ -1,11 +1,12 @@
 package com.victor.myan.adapter
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
@@ -17,11 +18,15 @@ class CategoryAdapter(var categories: MutableList<Category>) :
     class CatalogHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image : ImageView = itemView.findViewById(R.id.imageCatalog)
         val textCatalog : TextView = itemView.findViewById(R.id.textCatalog)
+
         fun bind(category: Category) {
             textCatalog.text = category.type
             Picasso.get().load(category.image).placeholder(R.drawable.placeholder).fit().into(image)
+
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, category.type, Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                bundle.putInt("genre", category.genre)
+
             }
         }
     }
