@@ -56,8 +56,14 @@ class CategoryController {
                                     anime.episodes = animeFound.get("episodes").asInt
                                     anime.image_url =
                                         animeFound.get("image_url").asString
-                                    anime.airing_start = animeFound.get("start_date").asString
                                     anime.score = animeFound.get("score").asDouble
+
+                                    if(animeFound.get("start_date").toString() == "null") {
+                                        anime.airing_start = ""
+                                    } else {
+                                        anime.airing_start = animeFound.get("start_date").asString
+                                    }
+
                                     animeAdapter.anime.add(anime)
                                 }
                             }
