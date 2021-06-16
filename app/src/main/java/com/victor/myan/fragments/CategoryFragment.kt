@@ -59,6 +59,7 @@ class CategoryFragment : Fragment() {
 
                     category.type = doc.get("type").toString()
                     category.image = doc.get("image").toString()
+                    category.genre = Integer.parseInt(doc.get("genre").toString())
                     categoryAdapter.categories.add(category)
                 }
                 categoryAdapter.notifyDataSetChanged()

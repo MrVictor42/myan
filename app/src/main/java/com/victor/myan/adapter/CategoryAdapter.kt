@@ -1,15 +1,16 @@
 package com.victor.myan.adapter
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
+import com.victor.myan.fragments.CategoryDetailFragment
 import com.victor.myan.model.Category
 
 class CategoryAdapter(var categories: MutableList<Category>) :
@@ -26,7 +27,11 @@ class CategoryAdapter(var categories: MutableList<Category>) :
             itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("genre", category.genre)
+                bundle.putString("type", category.type)
 
+                val categoryController = CategoryDetailFragment()
+                categoryController.arguments = bundle
+                (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.content, categoryController).addToBackStack(null).commit()
             }
         }
     }
