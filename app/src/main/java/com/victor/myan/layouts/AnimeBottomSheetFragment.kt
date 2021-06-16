@@ -48,10 +48,10 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         titleModal.text = title
 
         when {
-            airingStart != null -> {
+            airingStart != null && !airingStart.toString().isEmpty() -> {
                 yearModal.text = auxFunctionsHelper.formatYear(airingStart)
                 year = auxFunctionsHelper.formatYear(airingStart)
-            } else -> yearModal.isInvisible = true
+            } else -> yearModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
         }
 
         if(episodes == 0) {

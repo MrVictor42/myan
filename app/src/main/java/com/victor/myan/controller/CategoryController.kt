@@ -28,7 +28,7 @@ class CategoryController {
         recyclerViewByScore.adapter = animeAdapter
 
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
-        api.categoryByScore(genreID, "score").enqueue(object : Callback<JsonObject> {
+        api.categoryByScore(genreID, "score", "tv").enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
             }

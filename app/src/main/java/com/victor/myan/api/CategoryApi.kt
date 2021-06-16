@@ -11,11 +11,26 @@ interface CategoryApi {
     @GET("search/anime")
     fun categoryByScore(
         @Query("genre") genre : Int,
-        @Query("order_by") score : String) : Call<JsonObject>
+        @Query("order_by") score : String,
+        @Query("type") type : String) : Call<JsonObject>
 
     @GET("search/anime")
     fun categoryByAiring(
         @Query("genre") genre : Int,
         @Query("status") airing : String,
-        @Query("order_by") score : String) : Call<JsonObject>
+        @Query("order_by") score : String,
+        @Query("type") type : String) : Call<JsonObject>
+
+    @GET("search/anime")
+    fun categoryByCompleted(
+        @Query("genre") genre : Int,
+        @Query("status") status : String,
+        @Query("order_by") score : String,
+        @Query("type") type : String) : Call<JsonObject>
+
+    @GET("search/anime")
+    fun categoryByUpcoming(
+        @Query("genre") genre : Int,
+        @Query("status") status : String,
+        @Query("type") type : String) : Call<JsonObject>
 }

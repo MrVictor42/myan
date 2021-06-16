@@ -1,4 +1,0 @@
-score
-airing
-completed
-upcoming

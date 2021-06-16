@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.controller.CategoryByAiring
+import com.victor.myan.controller.CategoryByCompleted
+import com.victor.myan.controller.CategoryByUpcoming
 import com.victor.myan.controller.CategoryController
 import com.victor.myan.databinding.FragmentCategoryDetailBinding
 import com.victor.myan.helper.AuxFunctionsHelper
@@ -16,6 +18,8 @@ class CategoryDetailFragment : Fragment() {
     private lateinit var binding : FragmentCategoryDetailBinding
     private val categoryController = CategoryController()
     private val categoryByAiring = CategoryByAiring()
+    private val categoryByCompleted = CategoryByCompleted()
+    private val categoryByUpcoming = CategoryByUpcoming()
 
     companion object {
         fun newInstance(): CategoryDetailFragment {
@@ -44,6 +48,8 @@ class CategoryDetailFragment : Fragment() {
         if (genreID != null) {
             categoryController.getCategoryByScore(view, genreID)
             categoryByAiring.getCategoryByAiring(view, genreID)
+            categoryByCompleted.getCategoryByScore(view, genreID)
+            categoryByUpcoming.getCategoryByUpcoming(view, genreID)
         }
     }
 }

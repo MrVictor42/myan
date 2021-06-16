@@ -32,4 +32,6 @@
     <string name="spin_off">Spin-Off: </string>
     <string name="highest_scores">Highest Scores </string>
     <string name="currently_airing">Currently Airing </string>
+    <string name="completed">Completed </string>
+    <string name="upcoming">Upcoming </string>
 </resources>

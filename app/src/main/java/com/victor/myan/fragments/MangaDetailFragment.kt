@@ -1,7 +1,9 @@
 package com.victor.myan.fragments
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.text.Layout
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -192,6 +194,13 @@ class MangaDetailFragment : Fragment() {
                         }
 
                         mangaSynopsis.text = mangaResponse.get("synopsis").asString
+
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            binding.mangaSynopsis.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+                            mangaSynopsis.text = mangaResponse.get("synopsis").asString
+                        } else {
+                            mangaSynopsis.text = mangaResponse.get("synopsis").asString
+                        }
                     }
                 }
             }

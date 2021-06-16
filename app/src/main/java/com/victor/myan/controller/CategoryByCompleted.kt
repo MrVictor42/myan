@@ -15,20 +15,20 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoryByAiring {
+class CategoryByCompleted {
 
     private lateinit var animeAdapter: AnimeAdapter
 
-    fun getCategoryByAiring(view : View, genreID: Int) {
+    fun getCategoryByScore(view : View, genreID : Int) {
         val animeList = arrayListOf<Anime>()
-        val recyclerViewByScore = view.findViewById<RecyclerView>(R.id.recyclerViewByAiring)
-        recyclerViewByScore.layoutManager =
+        val recyclerViewByCompleted = view.findViewById<RecyclerView>(R.id.recyclerViewByCompleted)
+        recyclerViewByCompleted.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         animeAdapter = AnimeAdapter(animeList)
-        recyclerViewByScore.adapter = animeAdapter
+        recyclerViewByCompleted.adapter = animeAdapter
 
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
-        api.categoryByAiring(genreID, "airing", "score", "tv").enqueue(object : Callback<JsonObject> {
+        api.categoryByCompleted(genreID, "completed", "score", "tv").enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
             }
