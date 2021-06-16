@@ -5,11 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.controller.CategoryByAiring
+import com.victor.myan.controller.CategoryController
 import com.victor.myan.databinding.FragmentCategoryDetailBinding
+import com.victor.myan.helper.AuxFunctionsHelper
 
 class CategoryDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoryDetailBinding
+    private val categoryController = CategoryController()
+    private val categoryByAiring = CategoryByAiring()
 
     companion object {
         fun newInstance(): CategoryDetailFragment {
@@ -31,5 +37,13 @@ class CategoryDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val genreID = arguments?.getInt("genre")
         val type = arguments?.getString("type")
+
+        val typeText = binding.typeText
+
+        typeText.text = type
+        if (genreID != null) {
+            categoryController.getCategoryByScore(view, genreID)
+            categoryByAiring.getCategoryByAiring(view, genreID)
+        }
     }
 }
