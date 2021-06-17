@@ -21,15 +21,6 @@ class CategoryDetailFragment : Fragment() {
     private val categoryByCompleted = CategoryByCompleted()
     private val categoryByUpcoming = CategoryByUpcoming()
 
-    companion object {
-        fun newInstance(): CategoryDetailFragment {
-            val categoryFragment = CategoryDetailFragment()
-            val args = Bundle()
-            categoryFragment.arguments = args
-            return categoryFragment
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
