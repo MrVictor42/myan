@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Window
+import android.view.WindowManager
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
 import com.victor.myan.helper.AuxFunctionsHelper
@@ -18,6 +20,14 @@ class FormRegisterUserController : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFormRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar!!.hide()
+
+        val w: Window = window
+        w.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         binding.btnRegister.setOnClickListener {
 

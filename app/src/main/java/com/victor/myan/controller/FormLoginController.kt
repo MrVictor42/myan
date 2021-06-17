@@ -1,14 +1,18 @@
 package com.victor.myan.controller
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.databinding.ActivityFormLoginControllerBinding
-import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.helper.AuxFunctionsHelper
+import com.victor.myan.layouts.BaseLayout
+
 
 class FormLoginController : AppCompatActivity() {
 
@@ -21,6 +25,12 @@ class FormLoginController : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar!!.hide()
+
+        val w: Window = window
+        w.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         binding.btnLogin.setOnClickListener {
             val email = binding.editEmail.text.toString()

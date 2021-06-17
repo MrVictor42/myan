@@ -3,6 +3,7 @@ package com.victor.myan.layouts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -21,7 +22,7 @@ class BaseLayout : AppCompatActivity() {
     private lateinit var binding: ActivityBaseLayoutBinding
     private var content: FrameLayout? = null
     private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        var fragment: Fragment? = null
+        val fragment : Fragment?
         when(item.itemId) {
             R.id.home -> {
                 fragment = HomeFragment.newInstance()
@@ -49,21 +50,16 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar!!.hide()
+
+        val w: Window = window
+        w.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        binding.logout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this, FormLoginController::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        binding.contact.setOnClickListener {
-            Toast.makeText(this,
-                "Aqui vai ficar para o cidadão mandar mensagem para o desenvolvedor",
-                Toast.LENGTH_SHORT).show()
-        }
 
         val baseFragment = HomeFragment.newInstance()
         addFragment(baseFragment)

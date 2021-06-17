@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Window
+import android.view.WindowManager
 import com.victor.myan.R
 import com.victor.myan.layouts.BaseLayout
 
@@ -16,6 +18,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         userController = UserController()
         setContentView(R.layout.activity_main)
+
+        supportActionBar!!.hide()
+
+        val w: Window = window
+        w.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
 
         if(userController.userIsAuthenticated()) {
             val intentHome = Intent(this, BaseLayout::class.java)
