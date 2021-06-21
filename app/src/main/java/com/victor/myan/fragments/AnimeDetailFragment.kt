@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -88,11 +89,11 @@ class AnimeDetailFragment : Fragment() {
 
                         when(animeStatus.text) {
                             AnimeStatusEnum.CurrentlyAiring.status ->
-                                animeStatus.setTextColor(resources.getColor(R.color.green_light))
+                                animeStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_light))
                             AnimeStatusEnum.NotYetAired.status ->
-                                animeStatus.setTextColor(resources.getColor(R.color.dark_blue))
+                                animeStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
                             AnimeStatusEnum.FinishedAiring.status ->
-                                animeStatus.setTextColor(resources.getColor(R.color.red))
+                                animeStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                         }
 
                         animeYear.text = year

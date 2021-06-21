@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
@@ -87,9 +88,9 @@ class MangaDetailFragment : Fragment() {
 
                         when (mangaStatus.text) {
                             MangaStatusEnum.Publishing.status ->
-                                mangaStatus.setTextColor(resources.getColor(R.color.green_light))
+                                mangaStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_light))
                             MangaStatusEnum.Finished.status ->
-                                mangaStatus.setTextColor(resources.getColor(R.color.red))
+                                mangaStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                         }
 
                         if (mangaResponse.get("volumes").toString().isEmpty() ||
