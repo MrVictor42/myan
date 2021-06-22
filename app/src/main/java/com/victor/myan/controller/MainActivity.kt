@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         userController = UserController()
         setContentView(R.layout.activity_main)
 
-        supportActionBar!!.hide()
-
         val w: Window = window
         w.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,

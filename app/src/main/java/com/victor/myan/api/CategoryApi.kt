@@ -33,4 +33,10 @@ interface CategoryApi {
         @Query("genre") genre : Int,
         @Query("status") status : String,
         @Query("type") type : String) : Call<JsonObject>
+
+    @GET("search/anime")
+    fun slide(
+        @Query("status") status : String,
+        @Query("order_by") order_by : String,
+        @Query("limit") limit : Int) : Call<JsonObject>
 }

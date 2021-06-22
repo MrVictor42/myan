@@ -50,8 +50,6 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportActionBar!!.hide()
-
         val w: Window = window
         w.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
