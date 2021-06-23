@@ -28,10 +28,7 @@ class ViewPagerAnimeSlideController {
         val animeList = arrayListOf<Anime>()
         viewPagerAnimeSlideAdapter = ViewPagerAnimeSlideAdapter(animeList)
         viewPagerAnime.adapter = viewPagerAnimeSlideAdapter
-        viewPagerAnime.setPageTransformer(true) { page : View, position : Float ->
-            page.alpha = 1 - abs(position)
-            page.translationX = -position * page.width
-        }
+
         viewPagerAnime.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(
                 position: Int,
@@ -68,13 +65,11 @@ class ViewPagerAnimeSlideController {
                         val results: JsonArray? =
                             animeResponse.getAsJsonArray(TypesRequest.Results.type)
                         if (results != null) {
-                            for (result in 0 until 3) {
+                            for (result in 0 until results.size()) {
                                 val animeFound: JsonObject? =
                                     results.get(result) as JsonObject?
                                 if (animeFound != null) {
                                     val anime = Anime()
-
-                                    Log.e("ANIME: ", animeFound.toString())
 
                                     anime.title = animeFound.get("title").asString
                                     anime.mal_id =
@@ -95,8 +90,8 @@ class ViewPagerAnimeSlideController {
                                 }
                             }
                             viewPagerAnimeSlideAdapter.notifyDataSetChanged()
+                            addDots(view)
                         }
-                        addDots(view)
                     }
                 }
             }

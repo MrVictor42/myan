@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,20 +20,22 @@ class ViewPagerAnimeSlideAdapter(val anime : MutableList<Anime>) : PagerAdapter(
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val view = LayoutInflater.from(container.context).inflate(R.layout.anime_slide_content, container, false)
         val animeImage = view.findViewById<ImageView>(R.id.anime_image_carousel)
+        val animeTitle = view.findViewById<TextView>(R.id.anime_title_carousel)
+        val btnSeeMore = view.findViewById<Button>(R.id.see_more_carousel)
         val bottomSheetFragment = AnimeBottomSheetFragment()
         val bundle = Bundle()
 
         with(anime[position]) {
             Picasso.get().load(image_url).into(animeImage)
+            animeTitle.text = title
 
-            animeImage.setOnClickListener {
+            btnSeeMore.setOnClickListener {
                 bundle.putString("mal_id", mal_id)
                 bundle.putString("title", title)
                 bundle.putString("image_url", image_url)
                 bundle.putString("airing_start", airing_start)
                 bundle.putInt("episodes", episodes)
                 bundle.putDouble("score", score)
-                bundle.putString("synopsis", synopsis)
 
                 bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.show((container.context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)

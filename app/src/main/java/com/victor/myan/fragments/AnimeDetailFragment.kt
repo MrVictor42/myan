@@ -69,7 +69,6 @@ class AnimeDetailFragment : Fragment() {
         val animeStatus = binding.animeStatus
         val animeYear = binding.animeYear
         val animeScore = binding.animeScore
-        val animeEpisodesTextView = binding.animeEpisodesTextView
         val animeEpisodes = binding.animeEpisodes
         val animeGenresTextView = binding.animeGenresTextView
         val animeGenres = binding.animeGenres
