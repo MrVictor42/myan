@@ -1,17 +1,14 @@
 package com.victor.myan.layouts
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentMangaBottomSheetBinding
-import com.victor.myan.enums.MessagesEnum
-import com.victor.myan.fragments.AnimeDetailFragment
+import com.victor.myan.messages.Messages
 import com.victor.myan.fragments.MangaDetailFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -51,19 +48,19 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
             startDate != null -> {
                 yearModal.text = auxFunctionsHelper.formatYear(startDate)
                 year = auxFunctionsHelper.formatYear(startDate)
-            } else -> yearModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
+            } else -> yearModal.text = auxFunctionsHelper.capitalize(Messages.Undefined.message)
         }
 
         if(volumes != 0) {
             volumesModal.text = volumes.toString()
         } else {
-            volumesModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
+            volumesModal.text = auxFunctionsHelper.capitalize(Messages.Undefined.message)
         }
 
         if(score != 0.0) {
             scoreModal.text = score.toString()
         } else {
-            scoreModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
+            scoreModal.text = auxFunctionsHelper.capitalize(Messages.Undefined.message)
         }
 
         btnMoreInformations.setOnClickListener {

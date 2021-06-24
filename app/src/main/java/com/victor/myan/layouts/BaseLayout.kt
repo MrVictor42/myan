@@ -6,16 +6,15 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.R
-import com.victor.myan.controller.FormLoginController
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.CategoryFragment
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
+import com.victor.myan.screens.FormLoginController
 
 class BaseLayout : AppCompatActivity() {
 
@@ -40,6 +39,13 @@ class BaseLayout : AppCompatActivity() {
                 fragment = CategoryFragment.newInstance()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
+            }
+
+            R.id.loggout -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, FormLoginController::class.java)
+                startActivity(intent)
+                finish()
             }
         }
         false

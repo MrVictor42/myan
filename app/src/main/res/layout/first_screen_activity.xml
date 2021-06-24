@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".controller.MainActivity">
+    tools:context=".screens.FirstScreenActivity">
 
     <ImageView
         android:id="@+id/logo_myan"

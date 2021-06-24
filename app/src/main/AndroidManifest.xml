@@ -15,11 +15,11 @@
         android:theme="@style/Theme.MyAn">
         <activity android:name=".layouts.BaseLayout" />
         <activity android:name=".controller.FormRegisterUserController" />
-        <activity android:name=".controller.FormLoginController" />
+        <activity android:name=".screens.FormLoginController" />
         <activity
-            android:name=".controller.SlidesActivity"
+            android:name=".screens.PresentationActivity"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".controller.MainActivity">
+        <activity android:name=".screens.FirstScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

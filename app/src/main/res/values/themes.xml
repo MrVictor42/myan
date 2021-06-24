@@ -1,5 +1,4 @@
 <resources>
-
     <style name="Theme.MyAn" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/black_gray</item>
         <item name="colorPrimaryVariant">@color/black_gray</item>

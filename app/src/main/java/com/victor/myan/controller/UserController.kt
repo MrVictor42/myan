@@ -1,6 +1,9 @@
 package com.victor.myan.controller
 
+import android.content.Context
+import android.content.Intent
 import android.view.View
+import androidx.core.content.ContextCompat.startActivity
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -8,22 +11,16 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.victor.myan.helper.AuxFunctionsHelper
+import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.model.User
 
 class UserController {
 
     private val auxServicesHelper = AuxFunctionsHelper()
-    private var mDatabaseReference: DatabaseReference? = null
-    private var mDatabase: FirebaseDatabase? = null
-    private var mAuth: FirebaseAuth? = null
 
     fun create(user: User, view: View) {
 
-        mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference.child("users")
-        mAuth = FirebaseAuth.getInstance()
-
-        mAuth!!.createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email, user.password).addOnCompleteListener {
             if(it.isSuccessful) {
                 auxServicesHelper.message(view, "the user was successfully registered!")
             } else {

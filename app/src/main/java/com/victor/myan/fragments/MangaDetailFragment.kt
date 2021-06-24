@@ -17,7 +17,7 @@ import com.victor.myan.R
 import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
-import com.victor.myan.enums.MessagesEnum
+import com.victor.myan.messages.Messages
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
@@ -97,7 +97,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("volumes").toString() == "null"
                         ) {
                             mangaVolume.text =
-                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                                auxServicesHelper.capitalize(Messages.Undefined.message)
                         } else {
                             mangaVolume.text = mangaResponse.get("volumes").asString
                         }
@@ -106,7 +106,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("chapters").toString() == "null"
                         ) {
                             mangaChapters.text =
-                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                                auxServicesHelper.capitalize(Messages.Undefined.message)
                         } else {
                             mangaChapters.text = mangaResponse.get("chapters").asString
                         }
@@ -115,7 +115,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("score").toString() == "null"
                         ) {
                             mangaScore.text =
-                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                                auxServicesHelper.capitalize(Messages.Undefined.message)
                         } else {
                             mangaScore.text = mangaResponse.get("score").asString
                         }
@@ -124,7 +124,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("authors").toString() == "null"
                         ) {
                             mangaAuthors.text =
-                                auxServicesHelper.capitalize(MessagesEnum.MissingAuthors.message)
+                                auxServicesHelper.capitalize(Messages.MissingAuthors.message)
                         } else {
                             val authors : JsonArray? = mangaResponse.get("authors") as JsonArray?
                             if(authors != null) {
@@ -156,7 +156,7 @@ class MangaDetailFragment : Fragment() {
                                 listAdaptations.clear()
                             } else {
                                 mangaAdaptations.text =
-                                    auxServicesHelper.capitalize(MessagesEnum.MissingAdaptations.message)
+                                    auxServicesHelper.capitalize(Messages.MissingAdaptations.message)
                             }
 
                             val spinoffs: JsonArray? =
@@ -173,13 +173,13 @@ class MangaDetailFragment : Fragment() {
                                 listSpinOff.clear()
                             } else {
                                 mangaSpinOff.text =
-                                    auxServicesHelper.capitalize(MessagesEnum.MissingSpinOff.message)
+                                    auxServicesHelper.capitalize(Messages.MissingSpinOff.message)
                             }
                         }
 
                         if(mangaResponse.get("genres").toString().isEmpty() ||
                             mangaResponse.get("genres").toString() == "null") {
-                            mangaGenres.text = auxServicesHelper.capitalize(MessagesEnum.MissingGenres.message)
+                            mangaGenres.text = auxServicesHelper.capitalize(Messages.MissingGenres.message)
                         } else {
                             val genres : JsonArray? = mangaResponse.get("genres") as JsonArray?
                             if(genres != null) {

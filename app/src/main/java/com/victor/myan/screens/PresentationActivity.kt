@@ -1,4 +1,4 @@
-package com.victor.myan.controller
+package com.victor.myan.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,11 @@ import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
+import com.victor.myan.messages.Messages
 
-class SlidesActivity : IntroActivity() {
+class PresentationActivity : IntroActivity() {
+
+    private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,16 +18,13 @@ class SlidesActivity : IntroActivity() {
         isButtonBackVisible = false
         isButtonNextVisible = false
 
-        val auxServicesImpl = AuxFunctionsHelper()
-
         addSlide(
             SimpleSlide.Builder()
                 .background(R.color.yellow)
                 .image(R.drawable.gohan)
                 .backgroundDark(R.color.yellow)
-                .title(auxServicesImpl.capitalize("everything in same place!"))
-                .description(auxServicesImpl.capitalize("follow The animes of the season, " +
-                        "search for animes from previous seasons, all in one place!!"))
+                .title(auxServicesHelper.capitalize(Messages.FirstPresentationTitle.message))
+                .description(auxServicesHelper.capitalize(Messages.FirstPresentationDescription.message))
                 .build()
         )
 
@@ -33,10 +33,9 @@ class SlidesActivity : IntroActivity() {
                 .background(R.color.red)
                 .image(R.drawable.luffy)
                 .backgroundDark(R.color.red)
-                .title(auxServicesImpl.capitalize("every day, one new story!"))
+                .title(auxServicesHelper.capitalize(Messages.SecondPresentationTitle.message))
                 .canGoBackward(true)
-                .description("follow the weekly anime, discover new stories " +
-                        "and paths!")
+                .description(auxServicesHelper.capitalize(Messages.SecondPresentationDescription.message))
                 .build()
         )
     }

@@ -1,7 +1,6 @@
-package com.victor.myan.controller
+package com.victor.myan.screens
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -9,9 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.victor.myan.controller.FormRegisterUserController
 import com.victor.myan.databinding.ActivityFormLoginControllerBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.layouts.BaseLayout
+import com.victor.myan.messages.Messages
 
 
 class FormLoginController : AppCompatActivity() {
@@ -35,7 +36,7 @@ class FormLoginController : AppCompatActivity() {
             val password = binding.editPassword.text.toString()
 
             if(email.isEmpty() || password.isEmpty()) {
-                binding.messageError.text = auxServicesHelper.capitalize("fill all fields!")
+                binding.messageError.text = auxServicesHelper.capitalize(Messages.FillAllFields.message)
             } else {
                 authenticateUser(email, password)
             }
@@ -50,7 +51,6 @@ class FormLoginController : AppCompatActivity() {
     private fun authenticateUser(email: String, password: String) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
-                auxServicesHelper.message(binding.layoutLogin, "successfully logged in!")
                 val intentLogin = Intent(this, BaseLayout::class.java)
                 startActivity(intentLogin)
                 finish()
@@ -60,10 +60,10 @@ class FormLoginController : AppCompatActivity() {
 
             when(it) {
                 is FirebaseAuthInvalidCredentialsException -> messageError.text =
-                    auxServicesHelper.capitalize("email or password are incorrect!")
+                    auxServicesHelper.capitalize(Messages.InvalidCredentials.message)
                 is FirebaseNetworkException -> messageError.text =
-                    auxServicesHelper.capitalize("without connection with internet!")
-                else -> messageError.text = auxServicesHelper.capitalize("error login user!")
+                    auxServicesHelper.capitalize(Messages.WithOutConnection.message)
+                else -> messageError.text = auxServicesHelper.capitalize(Messages.ErrorLoginUser.message)
             }
         }
     }

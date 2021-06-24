@@ -10,6 +10,7 @@ import android.view.WindowManager
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
 import com.victor.myan.helper.AuxFunctionsHelper
+import com.victor.myan.screens.FormLoginController
 
 class FormRegisterUserController : AppCompatActivity() {
 
