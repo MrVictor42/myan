@@ -13,6 +13,14 @@ enum class Messages(val message : String) {
     FillAllFields("please, fill all fields"),
     InvalidCredentials("email or password are incorrect!"),
     ErrorLoginUser("error login user!"),
+    EmailEmpty("fill the field email!"),
+    PasswordEmpty("fill the field password!"),
+    PasswordWeak("insert a password with 6 no minimum characters!"),
+    RegisterSuccessfully("the user was successfully registered!"),
+    ExistsThisAccount("this account already exists!"),
+
+    // Title Pages
+    Login("login"),
 
     // WithoutConnection
     WithoutConnection("you haven't connection Wifi/4G in this moment, please able some " +

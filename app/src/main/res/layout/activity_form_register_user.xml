@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".controller.FormRegisterUserController">
+    tools:context=".screens.FormRegisterUserActivity">
 >
     <LinearLayout
         android:id="@+id/layoutRegister"
@@ -15,13 +15,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/toolbar_logo"
-            layout="@layout/toolbar_logo"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            />
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/transparent"
+        />
+
+<!--        <include-->
+<!--            android:id="@+id/toolbar_logo"-->
+<!--            layout="@layout/toolbar_logo"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_margin="20dp"-->
+<!--            />-->
 
         <EditText
             android:id="@+id/edit_email"

@@ -1,6 +1,7 @@
 package com.victor.myan.screens
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -19,11 +20,11 @@ class FirstScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.first_screen_activity)
 
-        val w: Window = window
-        w.setFlags(
+        window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+        window.statusBarColor = Color.WHITE
 
         if(auxFunctionsHelper.userHasConnection(this)) {
             if(auxFunctionsHelper.userIsAuthenticated()) {

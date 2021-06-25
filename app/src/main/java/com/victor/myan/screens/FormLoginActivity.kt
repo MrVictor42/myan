@@ -1,6 +1,7 @@
 package com.victor.myan.screens
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
@@ -8,12 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.victor.myan.controller.FormRegisterUserController
 import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.messages.Messages
-
 
 class FormLoginActivity : AppCompatActivity() {
 
@@ -25,25 +24,29 @@ class FormLoginActivity : AppCompatActivity() {
         binding = ActivityFormLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val w: Window = window
-        w.setFlags(
+        window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+        window.statusBarColor = Color.WHITE
 
-        binding.btnLogin.setOnClickListener {
+        val btnLogin = binding.btnLogin
+        val registerUserText = binding.registerUserText
+        val messageError = binding.messageError
+
+        btnLogin.setOnClickListener {
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
 
             if(email.isEmpty() || password.isEmpty()) {
-                binding.messageError.text = auxServicesHelper.capitalize(Messages.FillAllFields.message)
+                messageError.text = auxServicesHelper.capitalize(Messages.FillAllFields.message)
             } else {
                 authenticateUser(email, password)
             }
         }
 
-        binding.registerUserText.setOnClickListener {
-            val formRegisterUserIntent = Intent(this, FormRegisterUserController::class.java)
+        registerUserText.setOnClickListener {
+            val formRegisterUserIntent = Intent(this, FormRegisterUserActivity::class.java)
             startActivity(formRegisterUserIntent)
         }
     }

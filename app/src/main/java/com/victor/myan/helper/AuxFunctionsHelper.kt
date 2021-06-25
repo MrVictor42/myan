@@ -10,16 +10,16 @@ import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.enums.MonthsEnum
 import com.victor.myan.enums.SeasonsEnum
+import com.victor.myan.messages.Messages
 import java.util.*
-import java.util.regex.Pattern
 
 class AuxFunctionsHelper {
 
     fun validateFields(email: String, password: String): String {
         return when {
-            email.isEmpty() -> capitalize("fill the field email!")
-            password.isEmpty() -> capitalize("fill the field password!")
-            email.isEmpty() && password.isEmpty() -> capitalize("fill every fields!")
+            email.isEmpty() -> capitalize(Messages.EmailEmpty.message)
+            password.isEmpty() -> capitalize(Messages.PasswordEmpty.message)
+            email.isEmpty() && password.isEmpty() -> capitalize(Messages.FillAllFields.message)
             else -> ""
         }
     }
