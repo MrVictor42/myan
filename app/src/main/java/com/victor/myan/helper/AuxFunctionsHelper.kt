@@ -1,8 +1,12 @@
 package com.victor.myan.helper
 
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.enums.MonthsEnum
 import com.victor.myan.enums.SeasonsEnum
@@ -69,6 +73,18 @@ class AuxFunctionsHelper {
                 SeasonsEnum.Fall.season
             else -> SeasonsEnum.Winter.season
         }
+    }
+
+    fun userHasConnection(context: Context): Boolean {
+        val cm =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+
+        return activeNetwork?.isConnectedOrConnecting == true
+    }
+
+    fun userIsAuthenticated(): Boolean {
+        return FirebaseAuth.getInstance().currentUser != null
     }
 
     fun formatYear(year : String) : String {

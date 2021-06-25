@@ -13,9 +13,12 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
+        <activity
+            android:name=".screens.WithoutConnectionActivity"
+            android:theme="@style/Theme.MyAn.NoActionBar" />
         <activity android:name=".layouts.BaseLayout" />
         <activity android:name=".controller.FormRegisterUserController" />
-        <activity android:name=".screens.FormLoginController" />
+        <activity android:name=".screens.FormLoginActivity" />
         <activity
             android:name=".screens.PresentationActivity"
             android:theme="@style/Theme.Intro" />

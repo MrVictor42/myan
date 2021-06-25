@@ -42,7 +42,7 @@ class PresentationActivity : IntroActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        val formLogin = Intent(this, FormLoginController::class.java)
+        val formLogin = Intent(this, FormLoginActivity::class.java)
         startActivity(formLogin)
         finish()
     }

@@ -9,20 +9,20 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.controller.FormRegisterUserController
-import com.victor.myan.databinding.ActivityFormLoginControllerBinding
+import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.messages.Messages
 
 
-class FormLoginController : AppCompatActivity() {
+class FormLoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityFormLoginControllerBinding
+    private lateinit var binding: ActivityFormLoginBinding
     private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFormLoginControllerBinding.inflate(layoutInflater)
+        binding = ActivityFormLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val w: Window = window
@@ -62,7 +62,7 @@ class FormLoginController : AppCompatActivity() {
                 is FirebaseAuthInvalidCredentialsException -> messageError.text =
                     auxServicesHelper.capitalize(Messages.InvalidCredentials.message)
                 is FirebaseNetworkException -> messageError.text =
-                    auxServicesHelper.capitalize(Messages.WithOutConnection.message)
+                    auxServicesHelper.capitalize(Messages.WithoutConnection.message)
                 else -> messageError.text = auxServicesHelper.capitalize(Messages.ErrorLoginUser.message)
             }
         }

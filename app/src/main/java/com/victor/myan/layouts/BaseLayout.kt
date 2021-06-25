@@ -14,7 +14,7 @@ import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.CategoryFragment
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
-import com.victor.myan.screens.FormLoginController
+import com.victor.myan.screens.FormLoginActivity
 
 class BaseLayout : AppCompatActivity() {
 
@@ -43,7 +43,7 @@ class BaseLayout : AppCompatActivity() {
 
             R.id.loggout -> {
                 FirebaseAuth.getInstance().signOut()
-                val intent = Intent(this, FormLoginController::class.java)
+                val intent = Intent(this, FormLoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }

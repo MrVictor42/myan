@@ -2,7 +2,7 @@ package com.victor.myan.messages
 
 enum class Messages(val message : String) {
 
-    // PresentationActivity
+    // Presentation
     FirstPresentationTitle("everything in same place!"),
     FirstPresentationDescription("know the top anime and manga, " +
             "search for them and much more, all in one place!!!"),
@@ -12,8 +12,12 @@ enum class Messages(val message : String) {
     // MessagesUserLogin and Register
     FillAllFields("please, fill all fields"),
     InvalidCredentials("email or password are incorrect!"),
-    WithOutConnection("without connection with internet!"),
     ErrorLoginUser("error login user!"),
+
+    // WithoutConnection
+    WithoutConnection("you haven't connection Wifi/4G in this moment, please able some " +
+            "connection and try again"),
+    WithoutConnectionError("without connection"),
 
     Undefined("undefined"),
     MissingProducers("not found the producers for this anime"),

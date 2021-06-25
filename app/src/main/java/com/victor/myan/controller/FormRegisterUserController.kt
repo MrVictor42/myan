@@ -10,7 +10,7 @@ import android.view.WindowManager
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.model.User
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.screens.FormLoginController
+import com.victor.myan.screens.FormLoginActivity
 
 class FormRegisterUserController : AppCompatActivity() {
 
@@ -45,7 +45,7 @@ class FormRegisterUserController : AppCompatActivity() {
 
                 userController.create(user, binding.layoutRegister)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val intentFormLogin = Intent(this, FormLoginController::class.java)
+                    val intentFormLogin = Intent(this, FormLoginActivity::class.java)
                     startActivity(intentFormLogin)
                     finish()
                 }, 2000)
