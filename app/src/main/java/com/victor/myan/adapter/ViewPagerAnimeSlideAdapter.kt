@@ -26,6 +26,18 @@ class ViewPagerAnimeSlideAdapter(val anime : MutableList<Anime>) : PagerAdapter(
             Picasso.get().load(image_url).into(animeImage)
             animeTitle.text = title
 
+            animeImage.setOnClickListener {
+                bundle.putString("mal_id", mal_id)
+                bundle.putString("title", title)
+                bundle.putString("image_url", image_url)
+                bundle.putString("airing_start", airing_start)
+                bundle.putInt("episodes", episodes)
+                bundle.putDouble("score", score)
+
+                bottomSheetFragment.arguments = bundle
+                bottomSheetFragment.show((container.context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)
+            }
+
             animeTitle.setOnClickListener {
                 bundle.putString("mal_id", mal_id)
                 bundle.putString("title", title)
