@@ -6,11 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Window
 import android.view.WindowManager
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.layouts.BaseLayout
 
 class FirstScreenActivity : AppCompatActivity() {
 
@@ -24,7 +22,6 @@ class FirstScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        window.statusBarColor = Color.WHITE
 
         if(auxFunctionsHelper.userHasConnection(this)) {
             if(auxFunctionsHelper.userIsAuthenticated()) {

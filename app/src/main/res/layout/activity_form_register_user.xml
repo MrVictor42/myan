@@ -23,14 +23,6 @@
             android:background="@color/transparent"
         />
 
-<!--        <include-->
-<!--            android:id="@+id/toolbar_logo"-->
-<!--            layout="@layout/toolbar_logo"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="20dp"-->
-<!--            />-->
-
         <EditText
             android:id="@+id/edit_email"
             android:layout_width="match_parent"

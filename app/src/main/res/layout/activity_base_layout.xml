@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/black_gray"
     android:orientation="vertical"
-    tools:context=".layouts.BaseLayout">
+    android:fitsSystemWindows="true"
+    android:clipToPadding="true"
+    tools:context=".screens.BaseLayout">
 
     <FrameLayout
         android:id="@+id/content"

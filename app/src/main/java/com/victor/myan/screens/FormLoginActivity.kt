@@ -3,7 +3,6 @@ package com.victor.myan.screens
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Window
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseNetworkException
@@ -11,7 +10,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.messages.Messages
 
 class FormLoginActivity : AppCompatActivity() {
@@ -23,12 +21,6 @@ class FormLoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFormLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-        window.statusBarColor = Color.WHITE
 
         val btnLogin = binding.btnLogin
         val registerUserText = binding.registerUserText

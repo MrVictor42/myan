@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.PagerAdapter
 import com.squareup.picasso.Picasso
@@ -21,7 +19,6 @@ class ViewPagerAnimeSlideAdapter(val anime : MutableList<Anime>) : PagerAdapter(
         val view = LayoutInflater.from(container.context).inflate(R.layout.anime_slide_content, container, false)
         val animeImage = view.findViewById<ImageView>(R.id.anime_image_carousel)
         val animeTitle = view.findViewById<TextView>(R.id.anime_title_carousel)
-        val btnSeeMore = view.findViewById<Button>(R.id.see_more_carousel)
         val bottomSheetFragment = AnimeBottomSheetFragment()
         val bundle = Bundle()
 
@@ -29,7 +26,7 @@ class ViewPagerAnimeSlideAdapter(val anime : MutableList<Anime>) : PagerAdapter(
             Picasso.get().load(image_url).into(animeImage)
             animeTitle.text = title
 
-            btnSeeMore.setOnClickListener {
+            animeTitle.setOnClickListener {
                 bundle.putString("mal_id", mal_id)
                 bundle.putString("title", title)
                 bundle.putString("image_url", image_url)

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Window
 import android.view.WindowManager
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -27,8 +26,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
         binding = ActivityFormRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val w: Window = window
-        w.setFlags(
+        window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )

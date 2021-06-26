@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.layouts.BaseLayout
 import com.victor.myan.messages.Messages
 
 class WithoutConnectionActivity : AppCompatActivity() {

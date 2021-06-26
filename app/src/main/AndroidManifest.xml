@@ -16,7 +16,7 @@
         <activity
             android:name=".screens.WithoutConnectionActivity"
             android:theme="@style/Theme.MyAn.NoActionBar" />
-        <activity android:name=".layouts.BaseLayout" />
+        <activity android:name=".screens.BaseLayout" />
         <activity android:name=".screens.FormRegisterUserActivity" />
         <activity android:name=".screens.FormLoginActivity" />
         <activity

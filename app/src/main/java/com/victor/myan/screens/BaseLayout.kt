@@ -1,6 +1,7 @@
-package com.victor.myan.layouts
+package com.victor.myan.screens
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -14,7 +15,6 @@ import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.CategoryFragment
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
-import com.victor.myan.screens.FormLoginActivity
 
 class BaseLayout : AppCompatActivity() {
 
@@ -56,8 +56,7 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val w: Window = window
-        w.setFlags(
+        window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
