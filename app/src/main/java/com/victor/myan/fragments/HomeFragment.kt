@@ -44,13 +44,4 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        viewPagerAnimeSlideController.getAnimeSlide(view)
-        todayAnimeController.getTodayAnime(view)
-        seasonAnimeController.getSeasonAnime(view)
-        topAnimeController.getTopAnime(view)
-        mangaTopController.getTopManga(view)
-    }
 }

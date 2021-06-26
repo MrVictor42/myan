@@ -1,6 +1,10 @@
-package com.victor.myan.controller
+package com.victor.myan.fragments
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -10,6 +14,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.ViewPagerAnimeSlideAdapter
 import com.victor.myan.api.CategoryApi
+import com.victor.myan.databinding.FragmentViewPagerBinding
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
@@ -17,12 +22,21 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ViewPagerAnimeSlideController {
+class ViewPagerFragment : Fragment() {
 
+    private lateinit var binding : FragmentViewPagerBinding
     private lateinit var viewPagerAnimeSlideAdapter : ViewPagerAnimeSlideAdapter
 
-    fun getAnimeSlide(view : View) {
-        val viewPagerAnime = view.findViewById<ViewPager>(R.id.viewPagerAnime)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentViewPagerBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val viewPagerAnime = binding.viewPagerAnime
         val animeList = arrayListOf<Anime>()
         viewPagerAnimeSlideAdapter = ViewPagerAnimeSlideAdapter(animeList)
         viewPagerAnime.adapter = viewPagerAnimeSlideAdapter

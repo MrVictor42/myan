@@ -22,23 +22,24 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/transparent"
             android:layout_margin="20dp"
+            app:elevation="0dp"
+            android:translationZ="0.1dp"
         >
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="?attr/actionBarTheme"
                 app:navigationIcon="@drawable/logo_icon"
             />
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.viewpager.widget.ViewPager
+        <include
             android:id="@+id/viewPagerAnime"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
+            layout="@layout/fragment_view_pager"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        />
 
         <LinearLayout
             android:id="@+id/dots"
