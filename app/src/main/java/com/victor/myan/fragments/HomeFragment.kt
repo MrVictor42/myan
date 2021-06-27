@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.victor.myan.R
 import com.victor.myan.adapter.ViewPagerAnimeSlideAdapter
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.controller.*
@@ -46,11 +47,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        viewPagerAnimeSlideController.getAnimeSlide(view)
-        todayAnimeController.getTodayAnime(view)
-        seasonAnimeController.getSeasonAnime(view)
-        topAnimeController.getTopAnime(view)
-        mangaTopController.getTopManga(view)
+//        val fragmentManager = fragmentManager
+//        val fragmentTransaction = fragmentManager?.beginTransaction()
+//        fragmentTransaction?.add(R.id.viewPagerAnime, ViewPagerFragment())
+//
+//        fragmentTransaction?.commit()
     }
 }
