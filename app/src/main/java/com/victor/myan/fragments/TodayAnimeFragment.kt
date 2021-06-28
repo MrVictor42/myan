@@ -1,32 +1,43 @@
-package com.victor.myan.controller
+package com.victor.myan.fragments
 
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
+import com.victor.myan.databinding.FragmentTodayAnimeBinding
+import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.helper.AuxFunctionsHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TodayAnimeController {
+class TodayAnimeFragment : Fragment() {
 
+    private lateinit var binding : FragmentTodayAnimeBinding
     private lateinit var animeAdapter: AnimeAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
 
-    fun getTodayAnime(view : View) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentTodayAnimeBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val currentDay = auxServicesHelper.getCurrentDay()
         val animeList = arrayListOf<Anime>()
-        val todayAnimeText = view.findViewById<TextView>(R.id.today_anime_textView)
-        val recyclerViewTodayAnime = view.findViewById<RecyclerView>(R.id.recyclerViewToday)
+        val todayAnimeText = binding.todayAnimeText
+        val recyclerViewTodayAnime = binding.recyclerViewToday
 
         todayAnimeText.text = auxServicesHelper.capitalize("today anime: $currentDay")
         recyclerViewTodayAnime.layoutManager =

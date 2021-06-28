@@ -1,29 +1,40 @@
-package com.victor.myan.controller
+package com.victor.myan.fragments
 
-import android.util.Log
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.victor.myan.R
 import com.victor.myan.adapter.MangaAdapter
-import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.api.MangaApi
+import com.victor.myan.databinding.FragmentTopMangaBinding
 import com.victor.myan.enums.TypesRequest
+import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Manga
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MangaTopController {
+class TopMangaFragment : Fragment() {
 
+    private lateinit var binding : FragmentTopMangaBinding
     private lateinit var mangaAdapter: MangaAdapter
 
-    fun getTopManga(view : View) {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentTopMangaBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val mangaList = arrayListOf<Manga>()
-        val recyclerViewTopManga = view.findViewById<RecyclerView>(R.id.recyclerViewTopManga)
+        val recyclerViewTopManga = binding.recyclerViewTopManga
 
         recyclerViewTopManga.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
