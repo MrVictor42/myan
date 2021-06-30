@@ -1,6 +1,6 @@
-package com.victor.myan.messages
+package com.victor.myan.enums
 
-enum class Messages(val message : String) {
+enum class MessagesEnum(val message : String) {
 
     // Presentation
     FirstPresentationTitle("everything in same place!"),
@@ -26,6 +26,10 @@ enum class Messages(val message : String) {
     WithoutConnection("you haven't connection Wifi/4G in this moment, please able some " +
             "connection and try again"),
     WithoutConnectionError("without connection"),
+
+    // Search
+    EmptyQuery("please, insert a name to anime or manga"),
+    MinLengthQuery("please, insert a name to anime or manga with more 2 characters"),
 
     Undefined("undefined"),
     MissingProducers("not found the producers for this anime"),

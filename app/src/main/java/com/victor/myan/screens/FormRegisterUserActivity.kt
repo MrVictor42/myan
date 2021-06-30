@@ -11,10 +11,9 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 
 class FormRegisterUserActivity : AppCompatActivity() {
 
@@ -31,10 +30,10 @@ class FormRegisterUserActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
+        val toolbar = binding.toolbar
+
         window.statusBarColor = Color.WHITE
-        binding.toolbar.setNavigationIcon(getDrawable(R.drawable.ic_arrow_back))
-        binding.toolbar.title = Messages.Login.message.capitalize()
-        binding.toolbar.setNavigationOnClickListener {
+        toolbar.toolbar.setNavigationOnClickListener {
             val intent = Intent(this,FormLoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -64,7 +63,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
                 auxServicesHelper.message(binding.layoutRegister,
-                    auxServicesHelper.capitalize(Messages.RegisterSuccessfully.message))
+                    auxServicesHelper.capitalize(MessagesEnum.RegisterSuccessfully.message))
             } else {
                 return@addOnCompleteListener
             }
@@ -72,16 +71,16 @@ class FormRegisterUserActivity : AppCompatActivity() {
             when(it) {
                 is FirebaseAuthWeakPasswordException ->
                     auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize(Messages.PasswordWeak.message))
+                        auxServicesHelper.capitalize(MessagesEnum.PasswordWeak.message))
                 is FirebaseAuthUserCollisionException ->
                     auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize(Messages.ExistsThisAccount.message))
+                        auxServicesHelper.capitalize(MessagesEnum.ExistsThisAccount.message))
                 is FirebaseNetworkException ->
                     auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize(Messages.WithoutConnectionError.message))
+                        auxServicesHelper.capitalize(MessagesEnum.WithoutConnectionError.message))
                 else ->
                     auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize("${it.message}!"))
+                        auxServicesHelper.capitalize("${ it.message }!"))
             }
             return@addOnFailureListener
         }

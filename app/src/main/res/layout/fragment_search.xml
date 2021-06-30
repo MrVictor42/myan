@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:background="@color/black_gray"
-    tools:context=".fragments.SearchFragment"
+    tools:context=".screens.SearchFragment"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,11 +17,13 @@
             android:id="@+id/search_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/search"
-            android:textSize="36sp"
+            android:text="@string/search_anime_manga"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="32sp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +42,7 @@
             />
 
         <RadioGroup
-            android:id="@+id/selectionType"
+            android:id="@+id/selection_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +51,7 @@
             android:layout_marginTop="10dp"
             >
             <RadioButton
-                android:id="@+id/animeRadioButton"
+                android:id="@+id/anime_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
@@ -61,7 +63,7 @@
                 />
 
             <RadioButton
-                android:id="@+id/mangaRadioButton"
+                android:id="@+id/manga_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
@@ -74,29 +76,31 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/searchButton"
+            android:id="@+id/search_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintTop_toTopOf="@id/selection_type"
+            app:layout_constraintBottom_toBottomOf="@id/selection_type"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
             android:textAllCaps="false"
             android:textStyle="bold"
             android:textSize="16sp"
             android:text="@string/search"
             android:textColor="@color/white"
+            android:background="@drawable/edit_text_shape"
             app:backgroundTint="@color/red"
             android:minHeight="0dp"
             app:cornerRadius="20dp"
             />
 
         <TextView
-            android:id="@+id/messageSearch"
+            android:id="@+id/message_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selectionType"
+            app:layout_constraintTop_toBottomOf="@id/selection_type"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="10dp"
             android:textStyle="bold"
@@ -124,6 +128,6 @@
             android:layout_margin="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/messageSearch" />
+            app:layout_constraintTop_toBottomOf="@id/message_search" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

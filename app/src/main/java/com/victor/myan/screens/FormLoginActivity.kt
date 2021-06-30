@@ -1,16 +1,14 @@
 package com.victor.myan.screens
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 
 class FormLoginActivity : AppCompatActivity() {
 
@@ -31,7 +29,7 @@ class FormLoginActivity : AppCompatActivity() {
             val password = binding.editPassword.text.toString()
 
             if(email.isEmpty() || password.isEmpty()) {
-                messageError.text = auxServicesHelper.capitalize(Messages.FillAllFields.message)
+                messageError.text = auxServicesHelper.capitalize(MessagesEnum.FillAllFields.message)
             } else {
                 authenticateUser(email, password)
             }
@@ -55,10 +53,10 @@ class FormLoginActivity : AppCompatActivity() {
 
             when(it) {
                 is FirebaseAuthInvalidCredentialsException -> messageError.text =
-                    auxServicesHelper.capitalize(Messages.InvalidCredentials.message)
+                    auxServicesHelper.capitalize(MessagesEnum.InvalidCredentials.message)
                 is FirebaseNetworkException -> messageError.text =
-                    auxServicesHelper.capitalize(Messages.WithoutConnection.message)
-                else -> messageError.text = auxServicesHelper.capitalize(Messages.ErrorLoginUser.message)
+                    auxServicesHelper.capitalize(MessagesEnum.WithoutConnection.message)
+                else -> messageError.text = auxServicesHelper.capitalize(MessagesEnum.ErrorLoginUser.message)
             }
         }
     }

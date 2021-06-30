@@ -17,10 +17,11 @@ import com.victor.myan.R
 import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 import com.victor.myan.enums.TypesRequest
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.screens.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -97,7 +98,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("volumes").toString() == "null"
                         ) {
                             mangaVolume.text =
-                                auxServicesHelper.capitalize(Messages.Undefined.message)
+                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             mangaVolume.text = mangaResponse.get("volumes").asString
                         }
@@ -106,7 +107,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("chapters").toString() == "null"
                         ) {
                             mangaChapters.text =
-                                auxServicesHelper.capitalize(Messages.Undefined.message)
+                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             mangaChapters.text = mangaResponse.get("chapters").asString
                         }
@@ -115,7 +116,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("score").toString() == "null"
                         ) {
                             mangaScore.text =
-                                auxServicesHelper.capitalize(Messages.Undefined.message)
+                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             mangaScore.text = mangaResponse.get("score").asString
                         }
@@ -124,7 +125,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("authors").toString() == "null"
                         ) {
                             mangaAuthors.text =
-                                auxServicesHelper.capitalize(Messages.MissingAuthors.message)
+                                auxServicesHelper.capitalize(MessagesEnum.MissingAuthors.message)
                         } else {
                             val authors : JsonArray? = mangaResponse.get("authors") as JsonArray?
                             if(authors != null) {
@@ -156,7 +157,7 @@ class MangaDetailFragment : Fragment() {
                                 listAdaptations.clear()
                             } else {
                                 mangaAdaptations.text =
-                                    auxServicesHelper.capitalize(Messages.MissingAdaptations.message)
+                                    auxServicesHelper.capitalize(MessagesEnum.MissingAdaptations.message)
                             }
 
                             val spinoffs: JsonArray? =
@@ -173,13 +174,13 @@ class MangaDetailFragment : Fragment() {
                                 listSpinOff.clear()
                             } else {
                                 mangaSpinOff.text =
-                                    auxServicesHelper.capitalize(Messages.MissingSpinOff.message)
+                                    auxServicesHelper.capitalize(MessagesEnum.MissingSpinOff.message)
                             }
                         }
 
                         if(mangaResponse.get("genres").toString().isEmpty() ||
                             mangaResponse.get("genres").toString() == "null") {
-                            mangaGenres.text = auxServicesHelper.capitalize(Messages.MissingGenres.message)
+                            mangaGenres.text = auxServicesHelper.capitalize(MessagesEnum.MissingGenres.message)
                         } else {
                             val genres : JsonArray? = mangaResponse.get("genres") as JsonArray?
                             if(genres != null) {

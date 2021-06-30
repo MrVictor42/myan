@@ -1,4 +1,4 @@
-package com.victor.myan.fragments
+package com.victor.myan.screens
 
 import android.app.Activity
 import android.content.Context
@@ -9,16 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.api.AnimeApi
+import com.victor.myan.enums.MessagesEnum
+import com.victor.myan.enums.ConstsEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentSearchBinding
 import com.victor.myan.enums.TypesRequest
@@ -35,8 +34,6 @@ class SearchFragment : Fragment() {
     private lateinit var animeAdapter: AnimeAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
-    private val limit : Int = 16
-    private val minLength : Int = 2
 
     companion object {
         fun newInstance(): SearchFragment {
@@ -72,12 +69,12 @@ class SearchFragment : Fragment() {
             when {
                 search.query.isEmpty() -> {
                     messageSearch.text =
-                        auxServicesHelper.capitalize("please, insert a name to anime or manga")
+                        auxServicesHelper.capitalize(MessagesEnum.EmptyQuery.message)
                     messageSearch.setTextColor(Color.RED)
                 }
-                search.query.length <= minLength -> {
+                search.query.length <= ConstsEnum.MinLengthSearch.valor -> {
                     messageSearch.text =
-                        auxServicesHelper.capitalize("please, insert a name to anime or manga with more 2 characters")
+                        auxServicesHelper.capitalize(MessagesEnum.MinLengthQuery.message)
                     messageSearch.setTextColor(Color.RED)
                 }
                 else -> {
@@ -92,7 +89,7 @@ class SearchFragment : Fragment() {
                             api.search(
                                 TypesRequest.Anime.type,
                                 search.query.toString(),
-                                limit
+                                ConstsEnum.LimitSearch.valor
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -147,7 +144,7 @@ class SearchFragment : Fragment() {
                             api.search(
                                 TypesRequest.Manga.type,
                                 search.query.toString(),
-                                limit
+                                ConstsEnum.LimitSearch.valor
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {

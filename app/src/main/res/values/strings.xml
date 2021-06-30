@@ -9,6 +9,7 @@
 
     <string name="home">Home</string>
     <string name="search">Search</string>
+    <string name="search_anime_manga">Search Anime/Manga</string>
     <string name="contact">Contact</string>
     <string name="catalog">Catalog</string>
     <string name="today_anime">Today Anime</string>

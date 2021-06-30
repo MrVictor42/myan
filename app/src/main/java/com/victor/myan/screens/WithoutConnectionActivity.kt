@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 
 class WithoutConnectionActivity : AppCompatActivity() {
 
@@ -32,18 +32,24 @@ class WithoutConnectionActivity : AppCompatActivity() {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             withoutConnectionText.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
-            withoutConnectionText.text = auxFunctionsHelper.capitalize(Messages.WithoutConnection.message)
+            withoutConnectionText.text = auxFunctionsHelper.capitalize(MessagesEnum.WithoutConnection.message)
         } else {
-            withoutConnectionText.text = auxFunctionsHelper.capitalize(Messages.WithoutConnection.message)
+            withoutConnectionText.text = auxFunctionsHelper.capitalize(MessagesEnum.WithoutConnection.message)
         }
 
         btnUpdate.setOnClickListener {
             if(auxFunctionsHelper.userHasConnection(this)) {
-                val intent = Intent(this, BaseLayout::class.java)
-                startActivity(intent)
-                finish()
+                if(auxFunctionsHelper.userIsAuthenticated()) {
+                    val intent = Intent(this, BaseLayout::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this, FormLoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             } else {
-                messageError.text = auxFunctionsHelper.capitalize(Messages.WithoutConnectionError.message)
+                messageError.text = auxFunctionsHelper.capitalize(MessagesEnum.WithoutConnectionError.message)
             }
         }
     }

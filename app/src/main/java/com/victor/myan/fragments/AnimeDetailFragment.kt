@@ -20,10 +20,11 @@ import com.victor.myan.api.AnimeApi
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
 import com.victor.myan.enums.AnimeStatusEnum
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
+import com.victor.myan.screens.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -97,13 +98,13 @@ class AnimeDetailFragment : Fragment() {
 
                         animeYear.text = year
                         if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
-                            animeScore.text = auxServicesHelper.capitalize(Messages.Undefined.message)
+                            animeScore.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             animeScore.text = animeResponse.score.toString()
                         }
 
                         if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
-                            animeEpisodes.text = auxServicesHelper.capitalize(Messages.Undefined.message)
+                            animeEpisodes.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
                         } else {
                             animeEpisodes.text = animeResponse.episodes.toString()
                         }
@@ -120,7 +121,7 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         if(animeResponse.producers.isEmpty()) {
-                            animeProducers.text = auxServicesHelper.capitalize(Messages.MissingProducers.message)
+                            animeProducers.text = auxServicesHelper.capitalize(MessagesEnum.MissingProducers.message)
                         } else {
                             for(producer in animeResponse.producers.indices) {
                                 listProducers.add(animeResponse.producers[producer].name)
@@ -143,7 +144,7 @@ class AnimeDetailFragment : Fragment() {
                                     Toast.makeText(
                                         context,
                                         auxServicesHelper.capitalize(
-                                            Messages.MissingPreview.message
+                                            MessagesEnum.MissingPreview.message
                                         ), Toast.LENGTH_LONG).show()
                                 } else {
                                     val videoId = youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url).toString()
@@ -155,7 +156,7 @@ class AnimeDetailFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         context,
-                        auxServicesHelper.capitalize(Messages.FailureLoad.message),
+                        auxServicesHelper.capitalize(MessagesEnum.FailureLoad.message),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentAnimeBottomSheetBinding
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 import com.victor.myan.fragments.AnimeDetailFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -50,11 +50,11 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
             airingStart != null && airingStart.isNotEmpty() -> {
                 yearModal.text = auxFunctionsHelper.formatYear(airingStart)
                 year = auxFunctionsHelper.formatYear(airingStart)
-            } else -> yearModal.text = auxFunctionsHelper.capitalize(Messages.Undefined.message)
+            } else -> yearModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
         }
 
         if(episodes == 0) {
-            episodesModal.text = auxFunctionsHelper.capitalize(Messages.Undefined.message)
+            episodesModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
         } else {
             episodesModal.text = episodes.toString()
         }

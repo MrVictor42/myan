@@ -6,31 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:overScrollMode="never"
     android:background="@color/black_gray"
-    tools:context=".fragments.HomeFragment"
+    tools:context=".screens.HomeFragment"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     >
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        <include
+            layout="@layout/toolbar_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/transparent"
-            android:layout_margin="20dp"
-            app:elevation="0dp"
-            android:translationZ="0.1dp"
-        >
-            <androidx.appcompat.widget.Toolbar
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/logo_icon"
-            />
-
-        </com.google.android.material.appbar.AppBarLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <fragment
             android:id="@+id/viewPagerAnimeFragment"

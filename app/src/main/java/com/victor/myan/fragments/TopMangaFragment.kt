@@ -37,7 +37,7 @@ class TopMangaFragment : Fragment() {
         val recyclerViewTopManga = binding.recyclerViewTopManga
 
         recyclerViewTopManga.layoutManager =
-            LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         mangaAdapter = MangaAdapter(mangaList)
         recyclerViewTopManga.adapter = mangaAdapter
 

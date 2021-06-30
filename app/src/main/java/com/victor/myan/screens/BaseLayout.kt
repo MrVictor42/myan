@@ -11,8 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.CategoryFragment
-import com.victor.myan.fragments.HomeFragment
-import com.victor.myan.fragments.SearchFragment
 
 class BaseLayout : AppCompatActivity() {
 

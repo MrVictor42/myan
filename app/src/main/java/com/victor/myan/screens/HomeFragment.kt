@@ -1,4 +1,4 @@
-package com.victor.myan.fragments
+package com.victor.myan.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

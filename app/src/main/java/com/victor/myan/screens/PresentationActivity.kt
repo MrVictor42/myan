@@ -6,7 +6,7 @@ import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.messages.Messages
+import com.victor.myan.enums.MessagesEnum
 
 class PresentationActivity : IntroActivity() {
 
@@ -23,8 +23,8 @@ class PresentationActivity : IntroActivity() {
                 .background(R.color.yellow)
                 .image(R.drawable.gohan)
                 .backgroundDark(R.color.yellow)
-                .title(auxServicesHelper.capitalize(Messages.FirstPresentationTitle.message))
-                .description(auxServicesHelper.capitalize(Messages.FirstPresentationDescription.message))
+                .title(auxServicesHelper.capitalize(MessagesEnum.FirstPresentationTitle.message))
+                .description(auxServicesHelper.capitalize(MessagesEnum.FirstPresentationDescription.message))
                 .build()
         )
 
@@ -33,9 +33,9 @@ class PresentationActivity : IntroActivity() {
                 .background(R.color.red)
                 .image(R.drawable.luffy)
                 .backgroundDark(R.color.red)
-                .title(auxServicesHelper.capitalize(Messages.SecondPresentationTitle.message))
+                .title(auxServicesHelper.capitalize(MessagesEnum.SecondPresentationTitle.message))
                 .canGoBackward(true)
-                .description(auxServicesHelper.capitalize(Messages.SecondPresentationDescription.message))
+                .description(auxServicesHelper.capitalize(MessagesEnum.SecondPresentationDescription.message))
                 .build()
         )
     }
