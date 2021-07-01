@@ -10,11 +10,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.fragments.CategoryDetailFragment
 import com.victor.myan.model.Category
+import com.victor.myan.screens.CategoriesFragment
 
-class CategoryAdapter(var categories: MutableList<Category>) :
-    RecyclerView.Adapter<CategoryAdapter.CatalogHolder>() {
+class CategoriesAdapter(var categories: MutableList<Category>) :
+    RecyclerView.Adapter<CategoriesAdapter.CatalogHolder>() {
 
     class CatalogHolder(view: View) : RecyclerView.ViewHolder(view) {
         val image : ImageView = itemView.findViewById(R.id.imageCatalog)
@@ -29,9 +29,9 @@ class CategoryAdapter(var categories: MutableList<Category>) :
                 bundle.putInt("genre", category.genre)
                 bundle.putString("type", category.type)
 
-                val categoryController = CategoryDetailFragment()
-                categoryController.arguments = bundle
-                (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.content, categoryController).addToBackStack(null).commit()
+                val categoryFragment = CategoriesFragment()
+                categoryFragment.arguments = bundle
+                (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.content, categoryFragment).addToBackStack(null).commit()
             }
         }
     }

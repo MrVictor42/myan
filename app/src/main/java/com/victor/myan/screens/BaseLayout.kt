@@ -31,7 +31,7 @@ class BaseLayout : AppCompatActivity() {
             }
 
             R.id.categories -> {
-                fragment = CategoryFragment.newInstance()
+                fragment = CategoriesListFragment.newInstance()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }

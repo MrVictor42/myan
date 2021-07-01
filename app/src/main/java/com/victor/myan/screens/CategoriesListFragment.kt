@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
-import com.victor.myan.adapter.CategoryAdapter
-import com.victor.myan.databinding.FragmentCategoryBinding
+import com.victor.myan.adapter.CategoriesAdapter
+import com.victor.myan.databinding.FragmentCategoriesListBinding
 import com.victor.myan.enums.VariablesEnum
 import com.victor.myan.model.Category
 
-class CategoryFragment : Fragment() {
+class CategoriesListFragment : Fragment() {
 
-    private lateinit var binding : FragmentCategoryBinding
-    private lateinit var categoryAdapter : CategoryAdapter
+    private lateinit var binding : FragmentCategoriesListBinding
+    private lateinit var categoriesAdapter : CategoriesAdapter
 
     companion object {
-        fun newInstance(): CategoryFragment {
-            val catalogFragment = CategoryFragment()
+        fun newInstance(): CategoriesListFragment {
+            val catalogFragment = CategoriesListFragment()
             val args = Bundle()
             catalogFragment.arguments = args
             return catalogFragment
@@ -32,7 +32,7 @@ class CategoryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCategoryBinding.inflate(layoutInflater, container, false)
+        binding = FragmentCategoriesListBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -43,11 +43,11 @@ class CategoryFragment : Fragment() {
         recyclerViewCatalog.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
 
-        categoryAdapter = CategoryAdapter(categoryList)
-        recyclerViewCatalog.adapter = categoryAdapter
+        categoriesAdapter = CategoriesAdapter(categoryList)
+        recyclerViewCatalog.adapter = categoriesAdapter
         recyclerViewCatalog.layoutManager = GridLayoutManager(context, 2)
 
-        categoryAdapter.categories.clear()
+        categoriesAdapter.categories.clear()
 
         FirebaseFirestore.getInstance().collection(VariablesEnum.Categories.variable)
             .addSnapshotListener {
@@ -61,9 +61,9 @@ class CategoryFragment : Fragment() {
                     category.type = doc.get(VariablesEnum.Type.variable).toString()
                     category.image = doc.get(VariablesEnum.ImageCategory.variable).toString()
                     category.genre = Integer.parseInt(doc.get(VariablesEnum.Genre.variable).toString())
-                    categoryAdapter.categories.add(category)
+                    categoriesAdapter.categories.add(category)
                 }
-                categoryAdapter.notifyDataSetChanged()
+                categoriesAdapter.notifyDataSetChanged()
             }
         }
     }

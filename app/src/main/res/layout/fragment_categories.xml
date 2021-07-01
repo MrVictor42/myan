@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
-    tools:context=".fragments.CategoryDetailFragment">
-
+    tools:context=".screens.CategoriesFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
     >
-
-        <TextView
-            android:id="@+id/type_text"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            layout="@layout/toolbar_back_white"
+            app:navigationIcon="@drawable/ic_arrow_back_white"
         />
 
         <TextView
@@ -54,7 +51,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="@string/upcoming"
-            />
+        />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewByUpcoming"
@@ -74,7 +71,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="@string/currently_airing"
-            />
+        />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewByAiring"
@@ -94,7 +91,7 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="@string/completed"
-            />
+        />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewByCompleted"
@@ -103,6 +100,5 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
         />
-
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
