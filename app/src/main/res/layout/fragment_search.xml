@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+            android:id="@+id/search_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/search_shape"
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintTop_toBottomOf="@id/search_view"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             >
@@ -76,11 +76,11 @@
         </RadioGroup>
 
         <Button
-            android:id="@+id/search_button"
+            android:id="@+id/searchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintTop_toBottomOf="@id/search_view"
             app:layout_constraintTop_toTopOf="@id/selection_type"
             app:layout_constraintBottom_toBottomOf="@id/selection_type"
             android:layout_marginEnd="20dp"
@@ -93,7 +93,7 @@
             app:backgroundTint="@color/red"
             android:minHeight="0dp"
             app:cornerRadius="20dp"
-            />
+        />
 
         <TextView
             android:id="@+id/message_search"
@@ -109,7 +109,7 @@
             />
 
         <ProgressBar
-            android:id="@+id/progressBarSearch"
+            android:id="@+id/progress_bar_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

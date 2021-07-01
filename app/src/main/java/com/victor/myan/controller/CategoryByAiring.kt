@@ -8,7 +8,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.CategoryApi
-import com.victor.myan.enums.TypesRequest
+import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -42,7 +42,7 @@ class CategoryByAiring {
                     animeAdapter.anime.clear()
                     if (animeResponse != null) {
                         val results: JsonArray? =
-                            animeResponse.getAsJsonArray(TypesRequest.Results.type)
+                            animeResponse.getAsJsonArray(TypesEnum.Results.type)
                         if (results != null) {
                             for (result in 0 until results.size()) {
                                 val animeFound: JsonObject? =

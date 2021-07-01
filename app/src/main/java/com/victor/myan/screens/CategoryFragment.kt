@@ -1,4 +1,4 @@
-package com.victor.myan.fragments
+package com.victor.myan.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.victor.myan.adapter.CategoryAdapter
 import com.victor.myan.databinding.FragmentCategoryBinding
+import com.victor.myan.enums.VariablesEnum
 import com.victor.myan.model.Category
 
 class CategoryFragment : Fragment() {
@@ -48,7 +49,7 @@ class CategoryFragment : Fragment() {
 
         categoryAdapter.categories.clear()
 
-        FirebaseFirestore.getInstance().collection("categories")
+        FirebaseFirestore.getInstance().collection(VariablesEnum.Categories.variable)
             .addSnapshotListener {
                 snapshot, exception -> exception?.let {
             return@addSnapshotListener
@@ -57,9 +58,9 @@ class CategoryFragment : Fragment() {
                 for(doc in snapshot) {
                     val category = Category()
 
-                    category.type = doc.get("type").toString()
-                    category.image = doc.get("image").toString()
-                    category.genre = Integer.parseInt(doc.get("genre").toString())
+                    category.type = doc.get(VariablesEnum.Type.variable).toString()
+                    category.image = doc.get(VariablesEnum.ImageCategory.variable).toString()
+                    category.genre = Integer.parseInt(doc.get(VariablesEnum.Genre.variable).toString())
                     categoryAdapter.categories.add(category)
                 }
                 categoryAdapter.notifyDataSetChanged()

@@ -18,7 +18,7 @@ import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
 import com.victor.myan.enums.MessagesEnum
-import com.victor.myan.enums.TypesRequest
+import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.screens.HomeFragment
@@ -141,10 +141,10 @@ class MangaDetailFragment : Fragment() {
                         }
 
                         val related: JsonObject? =
-                            mangaResponse.get(TypesRequest.Related.type) as JsonObject?
+                            mangaResponse.get(TypesEnum.Related.type) as JsonObject?
                         if (related != null) {
                             val adaptations: JsonArray? =
-                                related.getAsJsonArray(TypesRequest.Adaptation.type)
+                                related.getAsJsonArray(TypesEnum.Adaptation.type)
                             if (adaptations != null) {
                                 for (adaptation in 0 until adaptations.size()) {
                                     val adaptationObject: JsonObject? =
@@ -161,7 +161,7 @@ class MangaDetailFragment : Fragment() {
                             }
 
                             val spinoffs: JsonArray? =
-                                related.getAsJsonArray(TypesRequest.SpinOff.type)
+                                related.getAsJsonArray(TypesEnum.SpinOff.type)
                             if (spinoffs != null) {
                                 for (spinoff in 0 until spinoffs.size()) {
                                     val sprinoffObject: JsonObject? =

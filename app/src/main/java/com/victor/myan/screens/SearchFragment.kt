@@ -20,7 +20,8 @@ import com.victor.myan.enums.MessagesEnum
 import com.victor.myan.enums.ConstsEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentSearchBinding
-import com.victor.myan.enums.TypesRequest
+import com.victor.myan.enums.TypesEnum
+import com.victor.myan.enums.VariablesEnum
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.model.Manga
@@ -79,7 +80,7 @@ class SearchFragment : Fragment() {
                 }
                 else -> {
                     when (choice.text) {
-                        "Anime" -> {
+                        TypesEnum.Anime.name -> {
                             progressBar.visibility = View.VISIBLE
                             val animeSearch = arrayListOf<Anime>()
                             animeAdapter = AnimeAdapter(animeSearch)
@@ -87,14 +88,14 @@ class SearchFragment : Fragment() {
                             recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
                             api.search(
-                                TypesRequest.Anime.type,
+                                TypesEnum.Anime.type,
                                 search.query.toString(),
                                 ConstsEnum.LimitSearch.valor
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                                     messageSearch.text =
-                                        auxServicesHelper.capitalize("not found this anime, try another please")
+                                        auxServicesHelper.capitalize(MessagesEnum.NotFoundQuery.message)
                                     messageSearch.setTextColor(Color.RED)
                                 }
 
@@ -107,7 +108,7 @@ class SearchFragment : Fragment() {
                                         animeAdapter.anime.clear()
                                         if (animeResponse != null) {
                                             val results: JsonArray? =
-                                                animeResponse.getAsJsonArray(TypesRequest.Results.type)
+                                                animeResponse.getAsJsonArray(TypesEnum.Results.type)
                                             if (results != null) {
                                                 for (result in 0 until results.size()) {
                                                     val animeFound: JsonObject? =
@@ -115,14 +116,21 @@ class SearchFragment : Fragment() {
                                                     if (animeFound != null) {
                                                         val anime = Anime()
 
-                                                        anime.title = animeFound.get("title").asString
+                                                        anime.title = animeFound.get(VariablesEnum.Title.variable).asString
                                                         anime.mal_id =
-                                                            animeFound.get("mal_id").asInt.toString()
-                                                        anime.episodes = animeFound.get("episodes").asInt
+                                                            animeFound.get(VariablesEnum.MalID.variable).asInt.toString()
+                                                        anime.episodes = animeFound.get(VariablesEnum.Episodes.variable).asInt
                                                         anime.image_url =
-                                                            animeFound.get("image_url").asString
-                                                        anime.airing_start = animeFound.get("start_date").asString
-                                                        anime.score = animeFound.get("score").asDouble
+                                                            animeFound.get(VariablesEnum.Image.variable).asString
+                                                        anime.score = animeFound.get(VariablesEnum.Score.variable).asDouble
+
+                                                        if(animeFound.get(VariablesEnum.StartDate.variable).toString() == "null") {
+                                                            anime.airing_start = "null"
+                                                        } else {
+                                                            anime.airing_start = animeFound.get(VariablesEnum.StartDate.variable).asString
+                                                        }
+
+
                                                         animeAdapter.anime.add(anime)
                                                     }
                                                 }
@@ -134,7 +142,7 @@ class SearchFragment : Fragment() {
                                 }
                             })
                         }
-                        "Manga" -> {
+                        TypesEnum.Manga.name -> {
                             progressBar.visibility = View.VISIBLE
                             val mangaSearch = arrayListOf<Manga>()
                             mangaAdapter = MangaAdapter(mangaSearch)
@@ -142,14 +150,14 @@ class SearchFragment : Fragment() {
                             recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
                             api.search(
-                                TypesRequest.Manga.type,
+                                TypesEnum.Manga.type,
                                 search.query.toString(),
                                 ConstsEnum.LimitSearch.valor
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                                     messageSearch.text =
-                                        auxServicesHelper.capitalize("not found this manga, try another please")
+                                        auxServicesHelper.capitalize(MessagesEnum.NotFoundQuery.message)
                                     messageSearch.setTextColor(Color.RED)
                                 }
 
@@ -162,7 +170,7 @@ class SearchFragment : Fragment() {
                                         mangaAdapter.manga.clear()
                                         if (mangaResponse != null) {
                                             val results: JsonArray? =
-                                                mangaResponse.getAsJsonArray(TypesRequest.Results.type)
+                                                mangaResponse.getAsJsonArray(TypesEnum.Results.type)
                                             if (results != null) {
                                                 for (result in 0 until results.size()) {
                                                     val mangaFound : JsonObject? =
@@ -170,14 +178,20 @@ class SearchFragment : Fragment() {
                                                     if (mangaFound != null) {
                                                         val manga = Manga()
 
-                                                        manga.title = mangaFound.get("title").asString
+                                                        manga.title = mangaFound.get(VariablesEnum.Title.variable).asString
                                                         manga.mal_id =
-                                                            mangaFound.get("mal_id").asInt.toString()
+                                                            mangaFound.get(VariablesEnum.MalID.variable).asInt.toString()
                                                         manga.image_url =
-                                                            mangaFound.get("image_url").asString
-                                                        manga.start_date = mangaFound.get("start_date").asString
-                                                        manga.volumes = mangaFound.get("volumes").asInt
-                                                        manga.score = mangaFound.get("score").asDouble
+                                                            mangaFound.get(VariablesEnum.Image.variable).asString
+                                                        manga.volumes = mangaFound.get(VariablesEnum.Volumes.variable).asInt
+                                                        manga.score = mangaFound.get(VariablesEnum.Score.variable).asDouble
+
+                                                        if(mangaFound.get(VariablesEnum.StartDate.variable).toString() == "null") {
+                                                            manga.start_date = "null"
+                                                        } else {
+                                                            manga.start_date = mangaFound.get(VariablesEnum.StartDate.variable).asString
+                                                        }
+
                                                         mangaAdapter.manga.add(manga)
                                                     }
                                                 }

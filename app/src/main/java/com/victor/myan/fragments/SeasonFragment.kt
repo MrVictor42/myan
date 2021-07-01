@@ -12,7 +12,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentSeasonBinding
-import com.victor.myan.enums.TypesRequest
+import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
@@ -59,7 +59,7 @@ class SeasonFragment : Fragment() {
                     val animeResponse = response.body()
                     animeAdapter.anime.clear()
                     if(animeResponse != null) {
-                        val seasonAnime: JsonArray? = animeResponse.getAsJsonArray(TypesRequest.Anime.type)
+                        val seasonAnime: JsonArray? = animeResponse.getAsJsonArray(TypesEnum.Anime.type)
                         if (seasonAnime != null) {
                             for(anime in 0 until seasonAnime.size()) {
                                 val animeObject: JsonObject? = seasonAnime.get(anime) as JsonObject?

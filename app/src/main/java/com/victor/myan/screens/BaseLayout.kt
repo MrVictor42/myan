@@ -10,7 +10,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
-import com.victor.myan.fragments.CategoryFragment
 
 class BaseLayout : AppCompatActivity() {
 
@@ -31,7 +30,7 @@ class BaseLayout : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
 
-            R.id.catalog -> {
+            R.id.categories -> {
                 fragment = CategoryFragment.newInstance()
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true

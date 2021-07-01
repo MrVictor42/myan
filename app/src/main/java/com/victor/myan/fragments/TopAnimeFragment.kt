@@ -12,7 +12,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentTopAnimeBinding
-import com.victor.myan.enums.TypesRequest
+import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -52,7 +52,7 @@ class TopAnimeFragment : Fragment() {
                     val animeResponse = response.body()
                     animeAdapter.anime.clear()
                     if(animeResponse != null) {
-                        val topAnime: JsonArray? = animeResponse.getAsJsonArray(TypesRequest.Top.type)
+                        val topAnime: JsonArray? = animeResponse.getAsJsonArray(TypesEnum.Top.type)
                         if (topAnime != null) {
                             for(anime in 0 until topAnime.size()) {
                                 val animeObject: JsonObject? = topAnime.get(anime) as JsonObject?

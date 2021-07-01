@@ -1,6 +1,6 @@
 package com.victor.myan.enums
 
-enum class TypesRequest(val type : String) {
+enum class TypesEnum(val type : String) {
     Anime("anime"),
     Top("top"),
     Results("results"),

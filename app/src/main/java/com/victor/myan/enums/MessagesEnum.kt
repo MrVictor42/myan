@@ -19,9 +19,6 @@ enum class MessagesEnum(val message : String) {
     RegisterSuccessfully("the user was successfully registered!"),
     ExistsThisAccount("this account already exists!"),
 
-    // Title Pages
-    Login("login"),
-
     // WithoutConnection
     WithoutConnection("you haven't connection Wifi/4G in this moment, please able some " +
             "connection and try again"),
@@ -30,6 +27,7 @@ enum class MessagesEnum(val message : String) {
     // Search
     EmptyQuery("please, insert a name to anime or manga"),
     MinLengthQuery("please, insert a name to anime or manga with more 2 characters"),
+    NotFoundQuery("not found this anime, try another please"),
 
     Undefined("undefined"),
     MissingProducers("not found the producers for this anime"),
