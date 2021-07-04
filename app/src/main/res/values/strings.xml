@@ -36,4 +36,5 @@
     <string name="completed">Completed </string>
     <string name="upcoming">Upcoming </string>
     <string name="see_more">See More!</string>
+    <string name="result_null">(No Result For This Category)</string>
 </resources>

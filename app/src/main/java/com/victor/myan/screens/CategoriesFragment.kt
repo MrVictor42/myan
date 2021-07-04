@@ -1,7 +1,6 @@
 package com.victor.myan.screens
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +17,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCategoriesBinding
 import com.victor.myan.enums.TypesEnum
+import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -27,6 +27,7 @@ import retrofit2.Response
 class CategoriesFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoriesBinding
+    private val auxFunctionsHelper = AuxFunctionsHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,14 +40,13 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val genreID = arguments?.getInt("genre")
         val type = arguments?.getString("type")
-        var recyclerView : RecyclerView
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
-
         val toolbar = binding.toolbar
-        val highestScoreText = binding.highestScoreText
-        val upcomingText = binding.upcomingText
-        val completedText = binding.completedText
-        val airingText = binding.currentlyAiringText
+        val highestScoreNull = binding.highestScoreNull
+        val upcomingNull = binding.upcomingNull
+        val currentlyAiringNull = binding.currentlyAiringNull
+        val completedNull = binding.completedNull
+        var recyclerView : RecyclerView
 
         toolbar.toolbar.title = type
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
@@ -64,7 +64,7 @@ class CategoriesFragment : Fragment() {
                     buildRecyclerView(
                         recyclerView,
                         api.categoryByScore(genreID!!, "score", "tv"),
-                        highestScoreText
+                        highestScoreNull
                     )
                 }
                 "Airing" -> {
@@ -72,7 +72,7 @@ class CategoriesFragment : Fragment() {
                     buildRecyclerView(
                         recyclerView,
                         api.categoryByAiring(genreID!!, "airing", "score", "tv"),
-                        airingText
+                        currentlyAiringNull
                     )
                 }
                 "Completed" -> {
@@ -80,7 +80,7 @@ class CategoriesFragment : Fragment() {
                     buildRecyclerView(
                         recyclerView,
                         api.categoryByCompleted(genreID!!, "completed", "score", "tv"),
-                        completedText
+                        completedNull
                     )
                 }
                 "Upcoming" -> {
@@ -88,7 +88,7 @@ class CategoriesFragment : Fragment() {
                     buildRecyclerView(
                         recyclerView,
                         api.categoryByUpcoming(genreID!!, "upcoming", "tv"),
-                        upcomingText
+                        upcomingNull
                     )
                 }
             }
@@ -98,7 +98,7 @@ class CategoriesFragment : Fragment() {
     private fun buildRecyclerView(
         recyclerView : RecyclerView,
         request : Call<JsonObject>,
-        title : TextView
+        resultNull : TextView
     ) {
         val animeList = arrayListOf<Anime>()
         recyclerView.layoutManager =
@@ -148,7 +148,7 @@ class CategoriesFragment : Fragment() {
                             }
                             animeAdapter.notifyDataSetChanged()
                         } else {
-                            Log.e("Vagabundo fica puto", title.text.toString())
+                            resultNull.visibility = View.VISIBLE
                         }
                     }
                 }

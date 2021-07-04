@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
     tools:context=".screens.CategoriesFragment">
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
     >
         <include
             android:id="@+id/toolbar"
@@ -17,6 +17,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             layout="@layout/toolbar_back_white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:navigationIcon="@drawable/ic_arrow_back_white"
         />
 
@@ -32,14 +35,36 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <TextView
+            android:id="@+id/highestScore_null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/highestScore_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/result_null"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="invisible"
         />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewByScore"
+            android:id="@+id/recycler_view_by_score"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@id/highestScore_null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
         />
 
         <TextView
@@ -47,20 +72,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="@string/upcoming"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_by_score"
+            app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <TextView
+            android:id="@+id/upcoming_null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/upcoming_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/result_null"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="invisible"
         />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewByUpcoming"
+            android:id="@+id/recycler_view_by_upcoming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@id/upcoming_null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
         />
 
         <TextView
@@ -68,20 +115,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="@string/currently_airing"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_by_upcoming"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        />
+
+        <TextView
+            android:id="@+id/currently_airing_null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/currently_airing_text"
+            app:layout_constraintStart_toEndOf="@id/currently_airing_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/result_null"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:visibility="invisible"
         />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewByAiring"
+            android:id="@+id/recycler_view_by_airing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@id/currently_airing_null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
         />
 
         <TextView
@@ -95,6 +164,24 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:text="@string/completed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view_by_airing"
+        />
+
+        <TextView
+            android:id="@+id/completed_null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/completed_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/result_null"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="invisible"
         />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -103,6 +190,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@id/completed_null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
         />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
