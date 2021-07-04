@@ -6,7 +6,6 @@ import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.enums.MessagesEnum
 
 class PresentationActivity : IntroActivity() {
 
@@ -23,8 +22,10 @@ class PresentationActivity : IntroActivity() {
                 .background(R.color.yellow)
                 .image(R.drawable.gohan)
                 .backgroundDark(R.color.yellow)
-                .title(auxServicesHelper.capitalize(MessagesEnum.FirstPresentationTitle.message))
-                .description(auxServicesHelper.capitalize(MessagesEnum.FirstPresentationDescription.message))
+                .title(auxServicesHelper.capitalize("everything in same place!"))
+                .description(auxServicesHelper.capitalize(
+                    "know the top anime and manga, search for them and much more, " +
+                            "all in one place!!!"))
                 .build()
         )
 
@@ -33,9 +34,10 @@ class PresentationActivity : IntroActivity() {
                 .background(R.color.red)
                 .image(R.drawable.luffy)
                 .backgroundDark(R.color.red)
-                .title(auxServicesHelper.capitalize(MessagesEnum.SecondPresentationTitle.message))
+                .title(auxServicesHelper.capitalize("every day, one new story!"))
                 .canGoBackward(true)
-                .description(auxServicesHelper.capitalize(MessagesEnum.SecondPresentationDescription.message))
+                .description(auxServicesHelper.capitalize(
+                    "follow the weekly anime, discover new stories and paths!!!"))
                 .build()
         )
     }

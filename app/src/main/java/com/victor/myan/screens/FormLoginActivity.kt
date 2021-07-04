@@ -8,7 +8,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.enums.MessagesEnum
 
 class FormLoginActivity : AppCompatActivity() {
 
@@ -29,7 +28,7 @@ class FormLoginActivity : AppCompatActivity() {
             val password = binding.editPassword.text.toString()
 
             if(email.isEmpty() || password.isEmpty()) {
-                messageError.text = auxServicesHelper.capitalize(MessagesEnum.FillAllFields.message)
+                messageError.text = auxServicesHelper.capitalize("please, fill all fields")
             } else {
                 authenticateUser(email, password)
             }
@@ -42,7 +41,8 @@ class FormLoginActivity : AppCompatActivity() {
     }
 
     private fun authenticateUser(email: String, password: String) {
-        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
+        FirebaseAuth.getInstance()
+            .signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
                 val intentLogin = Intent(this, BaseLayout::class.java)
                 startActivity(intentLogin)
@@ -53,10 +53,13 @@ class FormLoginActivity : AppCompatActivity() {
 
             when(it) {
                 is FirebaseAuthInvalidCredentialsException -> messageError.text =
-                    auxServicesHelper.capitalize(MessagesEnum.InvalidCredentials.message)
+                    auxServicesHelper.capitalize("email or password are incorrect!")
                 is FirebaseNetworkException -> messageError.text =
-                    auxServicesHelper.capitalize(MessagesEnum.WithoutConnection.message)
-                else -> messageError.text = auxServicesHelper.capitalize(MessagesEnum.ErrorLoginUser.message)
+                    auxServicesHelper.capitalize(
+                        "you haven't connection Wifi/4G in this moment, please able some " +
+                                "connection and try again"
+                    )
+                else -> messageError.text = auxServicesHelper.capitalize("error login user!")
             }
         }
     }

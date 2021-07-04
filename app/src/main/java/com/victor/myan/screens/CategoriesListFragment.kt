@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.victor.myan.adapter.CategoriesAdapter
 import com.victor.myan.databinding.FragmentCategoriesListBinding
-import com.victor.myan.enums.VariablesEnum
 import com.victor.myan.model.Category
 
 class CategoriesListFragment : Fragment() {
@@ -49,7 +48,7 @@ class CategoriesListFragment : Fragment() {
 
         categoriesAdapter.categories.clear()
 
-        FirebaseFirestore.getInstance().collection(VariablesEnum.Categories.variable)
+        FirebaseFirestore.getInstance().collection("categories")
             .addSnapshotListener {
                 snapshot, exception -> exception?.let {
             return@addSnapshotListener
@@ -58,9 +57,9 @@ class CategoriesListFragment : Fragment() {
                 for(doc in snapshot) {
                     val category = Category()
 
-                    category.type = doc.get(VariablesEnum.Type.variable).toString()
-                    category.image = doc.get(VariablesEnum.ImageCategory.variable).toString()
-                    category.genre = Integer.parseInt(doc.get(VariablesEnum.Genre.variable).toString())
+                    category.type = doc.get("type").toString()
+                    category.image = doc.get("image").toString()
+                    category.genre = Integer.parseInt(doc.get("genre").toString())
                     categoriesAdapter.categories.add(category)
                 }
                 categoriesAdapter.notifyDataSetChanged()

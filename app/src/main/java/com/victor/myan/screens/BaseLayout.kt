@@ -15,7 +15,8 @@ class BaseLayout : AppCompatActivity() {
 
     private lateinit var binding: ActivityBaseLayoutBinding
     private var content: FrameLayout? = null
-    private var mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+    private var mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
         val fragment : Fragment?
         when(item.itemId) {
             R.id.home -> {

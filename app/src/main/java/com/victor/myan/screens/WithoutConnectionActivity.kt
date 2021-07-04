@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.enums.MessagesEnum
 
 class WithoutConnectionActivity : AppCompatActivity() {
 
@@ -32,9 +31,12 @@ class WithoutConnectionActivity : AppCompatActivity() {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             withoutConnectionText.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
-            withoutConnectionText.text = auxFunctionsHelper.capitalize(MessagesEnum.WithoutConnection.message)
+            withoutConnectionText.text = auxFunctionsHelper.capitalize(
+                "you haven't connection Wifi/4G in this moment, please able some " +
+                        "connection and try again"
+            )
         } else {
-            withoutConnectionText.text = auxFunctionsHelper.capitalize(MessagesEnum.WithoutConnection.message)
+            withoutConnectionText.text = auxFunctionsHelper.capitalize("without connection!")
         }
 
         btnUpdate.setOnClickListener {
@@ -49,7 +51,7 @@ class WithoutConnectionActivity : AppCompatActivity() {
                     finish()
                 }
             } else {
-                messageError.text = auxFunctionsHelper.capitalize(MessagesEnum.WithoutConnectionError.message)
+                messageError.text = auxFunctionsHelper.capitalize("without connection!")
             }
         }
     }

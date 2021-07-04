@@ -21,7 +21,6 @@ import com.victor.myan.enums.ConstsEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentSearchBinding
 import com.victor.myan.enums.TypesEnum
-import com.victor.myan.enums.VariablesEnum
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.model.Manga
@@ -70,12 +69,14 @@ class SearchFragment : Fragment() {
             when {
                 search.query.isEmpty() -> {
                     messageSearch.text =
-                        auxServicesHelper.capitalize(MessagesEnum.EmptyQuery.message)
+                        auxServicesHelper.capitalize("please, insert a name to anime or manga")
                     messageSearch.setTextColor(Color.RED)
                 }
                 search.query.length <= ConstsEnum.MinLengthSearch.valor -> {
                     messageSearch.text =
-                        auxServicesHelper.capitalize(MessagesEnum.MinLengthQuery.message)
+                        auxServicesHelper.capitalize(
+                            "please, insert a name to anime or manga with more 2 characters"
+                        )
                     messageSearch.setTextColor(Color.RED)
                 }
                 else -> {
@@ -94,9 +95,7 @@ class SearchFragment : Fragment() {
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                                    messageSearch.text =
-                                        auxServicesHelper.capitalize(MessagesEnum.NotFoundQuery.message)
-                                    messageSearch.setTextColor(Color.RED)
+
                                 }
 
                                 override fun onResponse(
@@ -108,7 +107,7 @@ class SearchFragment : Fragment() {
                                         animeAdapter.anime.clear()
                                         if (animeResponse != null) {
                                             val results: JsonArray? =
-                                                animeResponse.getAsJsonArray(TypesEnum.Results.type)
+                                                animeResponse.getAsJsonArray("results")
                                             if (results != null) {
                                                 for (result in 0 until results.size()) {
                                                     val animeFound: JsonObject? =
@@ -116,25 +115,29 @@ class SearchFragment : Fragment() {
                                                     if (animeFound != null) {
                                                         val anime = Anime()
 
-                                                        anime.title = animeFound.get(VariablesEnum.Title.variable).asString
+                                                        anime.title = animeFound.get("title").asString
                                                         anime.mal_id =
-                                                            animeFound.get(VariablesEnum.MalID.variable).asInt.toString()
-                                                        anime.episodes = animeFound.get(VariablesEnum.Episodes.variable).asInt
+                                                            animeFound.get("mal_id").asInt.toString()
+                                                        anime.episodes = animeFound.get("episodes").asInt
                                                         anime.image_url =
-                                                            animeFound.get(VariablesEnum.Image.variable).asString
-                                                        anime.score = animeFound.get(VariablesEnum.Score.variable).asDouble
+                                                            animeFound.get("image_url").asString
+                                                        anime.score = animeFound.get("score").asDouble
 
-                                                        if(animeFound.get(VariablesEnum.StartDate.variable).toString() == "null") {
+                                                        if(animeFound.get("start_date").toString() == "null") {
                                                             anime.airing_start = "null"
                                                         } else {
-                                                            anime.airing_start = animeFound.get(VariablesEnum.StartDate.variable).asString
+                                                            anime.airing_start = animeFound.get("start_date").asString
                                                         }
-
-
                                                         animeAdapter.anime.add(anime)
                                                     }
                                                 }
                                                 animeAdapter.notifyDataSetChanged()
+                                            } else {
+                                                messageSearch.text =
+                                                    auxServicesHelper.capitalize(
+                                                        "not found this anime, try another please"
+                                                    )
+                                                messageSearch.setTextColor(Color.RED)
                                             }
                                         }
                                     }
@@ -156,9 +159,7 @@ class SearchFragment : Fragment() {
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                                    messageSearch.text =
-                                        auxServicesHelper.capitalize(MessagesEnum.NotFoundQuery.message)
-                                    messageSearch.setTextColor(Color.RED)
+
                                 }
 
                                 override fun onResponse(
@@ -178,24 +179,30 @@ class SearchFragment : Fragment() {
                                                     if (mangaFound != null) {
                                                         val manga = Manga()
 
-                                                        manga.title = mangaFound.get(VariablesEnum.Title.variable).asString
+                                                        manga.title = mangaFound.get("title").asString
                                                         manga.mal_id =
-                                                            mangaFound.get(VariablesEnum.MalID.variable).asInt.toString()
+                                                            mangaFound.get("mal_id").asInt.toString()
                                                         manga.image_url =
-                                                            mangaFound.get(VariablesEnum.Image.variable).asString
-                                                        manga.volumes = mangaFound.get(VariablesEnum.Volumes.variable).asInt
-                                                        manga.score = mangaFound.get(VariablesEnum.Score.variable).asDouble
+                                                            mangaFound.get("image_url").asString
+                                                        manga.volumes = mangaFound.get("volumes").asInt
+                                                        manga.score = mangaFound.get("score").asDouble
 
-                                                        if(mangaFound.get(VariablesEnum.StartDate.variable).toString() == "null") {
+                                                        if(mangaFound.get("start_date").toString() == "null") {
                                                             manga.start_date = "null"
                                                         } else {
-                                                            manga.start_date = mangaFound.get(VariablesEnum.StartDate.variable).asString
+                                                            manga.start_date = mangaFound.get("start_date").asString
                                                         }
 
                                                         mangaAdapter.manga.add(manga)
                                                     }
                                                 }
                                                 mangaAdapter.notifyDataSetChanged()
+                                            } else {
+                                                messageSearch.text =
+                                                    auxServicesHelper.capitalize(
+                                                        "not found this manga, try another please"
+                                                    )
+                                                messageSearch.setTextColor(Color.RED)
                                             }
                                         }
                                     }

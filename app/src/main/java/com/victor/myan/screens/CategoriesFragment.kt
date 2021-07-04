@@ -16,8 +16,8 @@ import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCategoriesBinding
+import com.victor.myan.enums.CategoriesEnum
 import com.victor.myan.enums.TypesEnum
-import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -27,7 +27,6 @@ import retrofit2.Response
 class CategoriesFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoriesBinding
-    private val auxFunctionsHelper = AuxFunctionsHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,44 +51,63 @@ class CategoriesFragment : Fragment() {
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
             val categoriesListFragment = CategoriesListFragment()
-            (view.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.content, categoriesListFragment).addToBackStack(null).commit()
+            (view.context as FragmentActivity)
+                .supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.content, categoriesListFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
-        val categories : List<String> = listOf("Highest Score", "Airing", "Completed", "Upcoming")
+        val categories : List<CategoriesEnum> =
+            listOf(
+                CategoriesEnum.HighestScore, CategoriesEnum.Airing,
+                CategoriesEnum.Completed, CategoriesEnum.Upcoming
+            )
 
         categories.forEach {
             when(it) {
-                "Highest Score" -> {
+                CategoriesEnum.HighestScore -> {
                     recyclerView = binding.recyclerViewByScore
                     buildRecyclerView(
                         recyclerView,
-                        api.categoryByScore(genreID!!, "score", "tv"),
+                        api.categoryByScore(genreID!!, CategoriesEnum.Score, CategoriesEnum.Tv),
                         highestScoreNull
                     )
                 }
-                "Airing" -> {
+                CategoriesEnum.Airing -> {
                     recyclerView = binding.recyclerViewByAiring
                     buildRecyclerView(
                         recyclerView,
-                        api.categoryByAiring(genreID!!, "airing", "score", "tv"),
+                        api.categoryByAiring(
+                            genreID!!, CategoriesEnum.Airing,
+                            CategoriesEnum.Score, CategoriesEnum.Tv
+                        ),
                         currentlyAiringNull
                     )
                 }
-                "Completed" -> {
+                CategoriesEnum.Completed -> {
                     recyclerView = binding.recyclerViewByCompleted
                     buildRecyclerView(
                         recyclerView,
-                        api.categoryByCompleted(genreID!!, "completed", "score", "tv"),
+                        api.categoryByCompleted(
+                            genreID!!, CategoriesEnum.Completed,
+                            CategoriesEnum.Score, CategoriesEnum.Tv
+                        ),
                         completedNull
                     )
                 }
-                "Upcoming" -> {
+                CategoriesEnum.Upcoming -> {
                     recyclerView = binding.recyclerViewByUpcoming
                     buildRecyclerView(
                         recyclerView,
-                        api.categoryByUpcoming(genreID!!, "upcoming", "tv"),
+                        api.categoryByUpcoming(
+                            genreID!!, CategoriesEnum.Upcoming, CategoriesEnum.Tv),
                         upcomingNull
                     )
+                }
+                else -> {
+
                 }
             }
         }
@@ -103,7 +121,7 @@ class CategoriesFragment : Fragment() {
         val animeList = arrayListOf<Anime>()
         recyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        val animeAdapter : AnimeAdapter = AnimeAdapter(animeList)
+        val animeAdapter = AnimeAdapter(animeList)
         recyclerView.adapter = animeAdapter
 
         request.enqueue(object :
