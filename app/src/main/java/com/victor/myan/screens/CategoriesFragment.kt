@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,7 +27,6 @@ import retrofit2.Response
 class CategoriesFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoriesBinding
-    private lateinit var animeAdapter : AnimeAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,12 +39,15 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val genreID = arguments?.getInt("genre")
         val type = arguments?.getString("type")
-        val animeList = arrayListOf<Anime>()
         var recyclerView : RecyclerView
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
-        var apiRequest : Call<JsonObject>
 
         val toolbar = binding.toolbar
+        val highestScoreText = binding.highestScoreText
+        val upcomingText = binding.upcomingText
+        val completedText = binding.completedText
+        val airingText = binding.currentlyAiringText
+
         toolbar.toolbar.title = type
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
@@ -59,63 +61,98 @@ class CategoriesFragment : Fragment() {
             when(it) {
                 "Highest Score" -> {
                     recyclerView = binding.recyclerViewByScore
-                    recyclerView.layoutManager =
-                        LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
-                    animeAdapter = AnimeAdapter(animeList)
-                    recyclerView.adapter = animeAdapter
-                    if (genreID != null) {
-                        api.categoryByScore(genreID, "score", "tv").enqueue(object :
-                            Callback<JsonObject> {
-                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
-                            }
-
-                            override fun onResponse(
-                                call: Call<JsonObject>,
-                                response: Response<JsonObject>
-                            ) {
-                                if (response.isSuccessful) {
-                                    val animeResponse = response.body()
-                                    animeAdapter.anime.clear()
-                                    if (animeResponse != null) {
-                                        val results: JsonArray? =
-                                            animeResponse.getAsJsonArray(TypesEnum.Results.type)
-                                        if (results != null) {
-                                            for (result in 0 until results.size()) {
-                                                val animeFound: JsonObject? =
-                                                    results.get(result) as JsonObject?
-                                                if (animeFound != null) {
-                                                    val anime = Anime()
-
-                                                    anime.title = animeFound.get("title").asString
-                                                    anime.mal_id =
-                                                        animeFound.get("mal_id").asInt.toString()
-                                                    anime.episodes = animeFound.get("episodes").asInt
-                                                    anime.image_url =
-                                                        animeFound.get("image_url").asString
-                                                    anime.score = animeFound.get("score").asDouble
-
-                                                    if(animeFound.get("start_date").toString() == "null") {
-                                                        anime.airing_start = ""
-                                                    } else {
-                                                        anime.airing_start = animeFound.get("start_date").asString
-                                                    }
-
-                                                    animeAdapter.anime.add(anime)
-                                                }
-                                            }
-                                            animeAdapter.notifyDataSetChanged()
-                                        }
-                                    }
-                                }
-                            }
-                        })
-                    }
+                    buildRecyclerView(
+                        recyclerView,
+                        api.categoryByScore(genreID!!, "score", "tv"),
+                        highestScoreText
+                    )
                 }
                 "Airing" -> {
-
+                    recyclerView = binding.recyclerViewByAiring
+                    buildRecyclerView(
+                        recyclerView,
+                        api.categoryByAiring(genreID!!, "airing", "score", "tv"),
+                        airingText
+                    )
+                }
+                "Completed" -> {
+                    recyclerView = binding.recyclerViewByCompleted
+                    buildRecyclerView(
+                        recyclerView,
+                        api.categoryByCompleted(genreID!!, "completed", "score", "tv"),
+                        completedText
+                    )
+                }
+                "Upcoming" -> {
+                    recyclerView = binding.recyclerViewByUpcoming
+                    buildRecyclerView(
+                        recyclerView,
+                        api.categoryByUpcoming(genreID!!, "upcoming", "tv"),
+                        upcomingText
+                    )
                 }
             }
         }
+    }
+
+    private fun buildRecyclerView(
+        recyclerView : RecyclerView,
+        request : Call<JsonObject>,
+        title : TextView
+    ) {
+        val animeList = arrayListOf<Anime>()
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        val animeAdapter : AnimeAdapter = AnimeAdapter(animeList)
+        recyclerView.adapter = animeAdapter
+
+        request.enqueue(object :
+            Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+            }
+
+            override fun onResponse(
+                call: Call<JsonObject>,
+                response: Response<JsonObject>
+            ) {
+                if (response.isSuccessful) {
+                    val animeResponse = response.body()
+                    animeAdapter.anime.clear()
+                    if (animeResponse != null) {
+                        val results: JsonArray? =
+                            animeResponse.getAsJsonArray(TypesEnum.Results.type)
+                        if (results != null && results.size() > 0) {
+                            for (result in 0 until results.size()) {
+                                val animeFound: JsonObject? =
+                                    results.get(result) as JsonObject?
+                                if (animeFound != null) {
+                                    val anime = Anime()
+
+                                    anime.title = animeFound.get("title").asString
+                                    anime.mal_id =
+                                        animeFound.get("mal_id").asInt.toString()
+                                    anime.episodes = animeFound.get("episodes").asInt
+                                    anime.image_url =
+                                        animeFound.get("image_url").asString
+                                    anime.score = animeFound.get("score").asDouble
+
+                                    if(animeFound.get("start_date").toString() == "null") {
+                                        anime.airing_start = ""
+                                    } else {
+                                        anime.airing_start = animeFound.get("start_date").asString
+                                    }
+
+                                    animeAdapter.anime.add(anime)
+                                }
+                            }
+                            animeAdapter.notifyDataSetChanged()
+                        } else {
+                            Log.e("Vagabundo fica puto", title.text.toString())
+                        }
+                    }
+                }
+            }
+        })
     }
 }
