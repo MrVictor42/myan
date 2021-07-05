@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -17,10 +17,10 @@ class FirstScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.first_screen_activity)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        if(supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         if(auxFunctionsHelper.userHasConnection(this)) {
             if(auxFunctionsHelper.userIsAuthenticated()) {

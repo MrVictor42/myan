@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.layouts.MangaBottomSheetFragment
+import com.victor.myan.modals.MangaBottomSheetFragment
 import com.victor.myan.model.Manga
 
 class MangaAdapter(var manga : MutableList<Manga>) : RecyclerView.Adapter<MangaAdapter.MangaHolder>() {

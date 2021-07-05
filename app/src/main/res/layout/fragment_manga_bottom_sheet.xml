@@ -10,7 +10,7 @@
     android:backgroundTint="@color/black_gray"
     app:cardElevation="10dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    tools:context=".layouts.MangaBottomSheetFragment">
+    tools:context=".modals.MangaBottomSheetFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

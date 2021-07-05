@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.layouts.AnimeBottomSheetFragment
+import com.victor.myan.modals.AnimeBottomSheetFragment
 import com.victor.myan.model.Anime
 
 class AnimeAdapter(var anime: MutableList<Anime>) :

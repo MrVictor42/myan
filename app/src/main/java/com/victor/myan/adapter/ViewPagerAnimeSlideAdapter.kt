@@ -10,7 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager.widget.PagerAdapter
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.layouts.AnimeBottomSheetFragment
+import com.victor.myan.modals.AnimeBottomSheetFragment
 import com.victor.myan.model.Anime
 
 class ViewPagerAnimeSlideAdapter(val anime : MutableList<Anime>) : PagerAdapter() {

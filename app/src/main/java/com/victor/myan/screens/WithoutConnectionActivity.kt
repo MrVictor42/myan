@@ -1,11 +1,9 @@
 package com.victor.myan.screens
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Layout
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
@@ -16,11 +14,15 @@ class WithoutConnectionActivity : AppCompatActivity() {
     private lateinit var binding : ActivityWithoutConnectionBinding
     private val auxFunctionsHelper = AuxFunctionsHelper()
 
-    @SuppressLint("WrongConstant")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWithoutConnectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val imageGif = binding.sadGif
         val withoutConnectionText = binding.withoutConnectionText
@@ -29,15 +31,10 @@ class WithoutConnectionActivity : AppCompatActivity() {
 
         Glide.with(this).load(R.drawable.sad_naruto).into(imageGif)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            withoutConnectionText.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
-            withoutConnectionText.text = auxFunctionsHelper.capitalize(
-                "you haven't connection Wifi/4G in this moment, please able some " +
-                        "connection and try again"
-            )
-        } else {
-            withoutConnectionText.text = auxFunctionsHelper.capitalize("without connection!")
-        }
+        withoutConnectionText.text = auxFunctionsHelper.capitalize(
+            "you haven't connection Wifi/4G in this moment, please able some " +
+                    "connection and try again"
+        )
 
         btnUpdate.setOnClickListener {
             if(auxFunctionsHelper.userHasConnection(this)) {
@@ -46,7 +43,7 @@ class WithoutConnectionActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    val intent = Intent(this, FormLoginActivity::class.java)
+                    val intent = Intent(this, PresentationActivity::class.java)
                     startActivity(intent)
                     finish()
                 }

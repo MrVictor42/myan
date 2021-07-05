@@ -16,8 +16,7 @@
         <activity android:name=".screens.SearchActivity"></activity>
         <activity android:name=".screens.HomeActivity" />
         <activity
-            android:name=".screens.WithoutConnectionActivity"
-            android:theme="@style/Theme.MyAn.NoActionBar" />
+            android:name=".screens.WithoutConnectionActivity"/>
         <activity android:name=".screens.BaseLayout" />
         <activity android:name=".screens.FormRegisterUserActivity" />
         <activity android:name=".screens.FormLoginActivity" />
@@ -32,5 +31,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

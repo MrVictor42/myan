@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_anime_detail"
+    android:background="@color/black_gray"
     tools:context=".fragments.AnimeDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
