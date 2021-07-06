@@ -47,17 +47,17 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
             airingStart != null && airingStart.isNotEmpty() -> {
                 yearModal.text = auxFunctionsHelper.formatYear(airingStart)
                 year = auxFunctionsHelper.formatYear(airingStart)
-            } else -> yearModal.text = auxFunctionsHelper.capitalize("undefined")
+            } else -> yearModal.text = "─"
         }
 
         when(episodes) {
-            0 -> episodesModal.text = auxFunctionsHelper.capitalize("undefined")
+            0 -> episodesModal.text = "─"
             else -> episodesModal.text = episodes.toString()
         }
 
         when(score) {
             0.0 -> {
-                scoreModal.text = auxFunctionsHelper.capitalize("undefined")
+                scoreModal.text = "─"
             } else -> scoreModal.text = score.toString()
         }
 

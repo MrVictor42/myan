@@ -15,8 +15,8 @@ import com.victor.myan.model.Manga
 class MangaAdapter(var manga : MutableList<Manga>) : RecyclerView.Adapter<MangaAdapter.MangaHolder>() {
 
     class MangaHolder(view : View) : RecyclerView.ViewHolder(view) {
-        val bottomSheetFragment = MangaBottomSheetFragment()
-        val image = itemView.findViewById<ImageView>(R.id.list_image_adapter)
+        private val bottomSheetFragment = MangaBottomSheetFragment()
+        private val image: ImageView = itemView.findViewById(R.id.list_image_adapter)
         val bundle = Bundle()
 
         fun bind(manga : Manga) {

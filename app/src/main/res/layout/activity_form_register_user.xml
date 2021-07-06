@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
     >
         <include
-            layout="@layout/toolbar_logo_with_letters"
+            layout="@layout/toolbar_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

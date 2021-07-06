@@ -14,12 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     >
-        <include
+        <Toolbar
             android:id="@+id/toolbar_logo"
-            layout="@layout/toolbar_logo_without_letters"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:navigationIcon="@drawable/logo_icon_without_letters"
+            android:background="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
         />
 
         <TextView

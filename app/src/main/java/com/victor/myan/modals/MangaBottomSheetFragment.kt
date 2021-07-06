@@ -48,21 +48,17 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
             startDate != null -> {
                 yearModal.text = auxFunctionsHelper.formatYear(startDate)
                 year = auxFunctionsHelper.formatYear(startDate)
-            } else -> yearModal.text = auxFunctionsHelper.capitalize("undefined")
+            } else -> yearModal.text = "─"
         }
 
         when(volumes) {
-            0 -> volumesModal.text = auxFunctionsHelper.capitalize("undefined")
+            0 -> volumesModal.text = "─"
             else -> volumesModal.text = volumes.toString()
         }
 
         when(score) {
-        }
-
-        if(score != 0.0) {
-            scoreModal.text = score.toString()
-        } else {
-            scoreModal.text = auxFunctionsHelper.capitalize(MessagesEnum.Undefined.message)
+            0.0 -> scoreModal.text = "─"
+            else -> score.toString()
         }
 
         btnMoreInformations.setOnClickListener {

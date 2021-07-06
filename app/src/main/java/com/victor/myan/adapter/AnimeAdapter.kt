@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -17,11 +18,12 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
 
     class AnimeHolder(view: View) : RecyclerView.ViewHolder(view) {
         val bottomSheetFragment = AnimeBottomSheetFragment()
-        val image: ImageView = itemView.findViewById(R.id.list_image_adapter)
+        val image : ImageView = itemView.findViewById(R.id.list_image_adapter)
         val bundle = Bundle()
 
         fun bind(anime: Anime) {
             Picasso.get().load(anime.image_url).placeholder(R.drawable.placeholder).fit().into(image)
+
             itemView.setOnClickListener {
                 bundle.putString("mal_id", anime.mal_id)
                 bundle.putString("title", anime.title)

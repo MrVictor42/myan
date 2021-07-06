@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(context, FormLoginActivity::class.java)
             startActivity(intent)
+            activity?.finish()
         }
     }
 }
