@@ -3,8 +3,8 @@ package com.victor.myan.screens
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.FrameLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -36,13 +36,6 @@ class BaseLayout : AppCompatActivity() {
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
-
-            R.id.loggout -> {
-                FirebaseAuth.getInstance().signOut()
-                val intent = Intent(this, FormLoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         }
         false
     }
@@ -52,10 +45,10 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        if(supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.enums.DaysEnum
@@ -17,11 +18,11 @@ import java.util.Date
 
 class AuxFunctionsHelper {
 
-    fun validateFields(email: String, password: String): String {
+    fun validateFields(email : String, password : String): String {
         return when {
             email.isEmpty() -> capitalize("fill the field email!")
             password.isEmpty() -> capitalize("fill the field password!")
-            email.isEmpty() && password.isEmpty() -> capitalize("please, fill all fields")
+            email.isEmpty() || password.isEmpty() -> capitalize("please, fill all fields")
             else -> ""
         }
     }
@@ -37,10 +38,8 @@ class AuxFunctionsHelper {
         return output
     }
 
-    fun message(view: View, messageResult: String) {
-        val snackbar = Snackbar.make(view, capitalize(messageResult), Snackbar.LENGTH_LONG)
-        snackbar.setBackgroundTint(Color.WHITE).setTextColor(Color.BLACK)
-        snackbar.show()
+    fun message(view : View, messageResult : String) {
+        Toast.makeText(view.context, messageResult, Toast.LENGTH_LONG).show()
     }
 
     fun getCurrentDay(): String {

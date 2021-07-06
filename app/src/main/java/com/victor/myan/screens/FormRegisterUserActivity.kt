@@ -1,16 +1,16 @@
 package com.victor.myan.screens
 
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -24,11 +24,10 @@ class FormRegisterUserActivity : AppCompatActivity() {
         binding = ActivityFormRegisterUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-        window.statusBarColor = Color.WHITE
+        if(supportActionBar != null) {
+            supportActionBar!!.hide()
+        }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val btnRegister = binding.btnRegister
 
