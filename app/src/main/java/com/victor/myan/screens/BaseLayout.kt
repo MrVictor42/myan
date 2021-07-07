@@ -36,6 +36,13 @@ class BaseLayout : AppCompatActivity() {
                 addFragment(fragment)
                 return@OnNavigationItemSelectedListener true
             }
+
+            R.id.logout -> {
+                FirebaseAuth.getInstance().signOut()
+                val intent = Intent(this, FormLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
         false
     }
@@ -49,6 +56,7 @@ class BaseLayout : AppCompatActivity() {
             supportActionBar!!.hide()
         }
         window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
+        window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
 
         content = binding.content
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

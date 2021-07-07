@@ -6,7 +6,7 @@
     <string name="message_register">Now Over Here? Register Now!</string>
     <string name="name">Name</string>
     <string name="register">Register</string>
-
+    <string name="logout">Logout</string>
     <string name="home">Home</string>
     <string name="search">Search</string>
     <string name="search_anime_manga">Search Anime/Manga</string>

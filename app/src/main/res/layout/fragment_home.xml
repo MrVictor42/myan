@@ -14,28 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     >
-        <Toolbar
-            android:id="@+id/toolbar_logo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:navigationIcon="@drawable/logo_icon_without_letters"
-            android:background="@color/black"
+        <include
+            layout="@layout/toolbar_home"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-        />
-
-        <TextView
-            android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_exit"
-            app:layout_constraintTop_toTopOf="@id/toolbar_logo"
-            app:layout_constraintBottom_toBottomOf="@id/toolbar_logo"
-            app:layout_constraintEnd_toEndOf="@id/toolbar_logo"
-            android:layout_marginEnd="20dp"
         />
 
         <fragment
@@ -44,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_logo"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout="@layout/fragment_view_pager"
             class="com.victor.myan.fragments.ViewPagerFragment"
