@@ -1,6 +1,9 @@
 package com.victor.myan.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import com.victor.myan.databinding.FragmentViewPagerBinding
 import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
+import com.victor.myan.screens.PresentationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,78 +39,80 @@ class ViewPagerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val viewPagerAnime = binding.viewPagerAnime
-        val animeList = arrayListOf<Anime>()
-        viewPagerAnimeSlideAdapter = ViewPagerAnimeSlideAdapter(animeList)
-        viewPagerAnime.adapter = viewPagerAnimeSlideAdapter
+        Handler(Looper.getMainLooper()).postDelayed({
+            val viewPagerAnime = binding.viewPagerAnime
+            val animeList = arrayListOf<Anime>()
+            viewPagerAnimeSlideAdapter = ViewPagerAnimeSlideAdapter(animeList)
+            viewPagerAnime.adapter = viewPagerAnimeSlideAdapter
 
-        viewPagerAnime.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
+            viewPagerAnime.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
 
-            }
+                }
 
-            override fun onPageSelected(position: Int) {
-                addDots(view, position)
-            }
+                override fun onPageSelected(position: Int) {
+                    addDots(view, position)
+                }
 
-            override fun onPageScrollStateChanged(state: Int) {
+                override fun onPageScrollStateChanged(state: Int) {
 
-            }
-        })
+                }
+            })
 
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
-        api.slide("airing","score", 12).enqueue(object :
-            Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+            val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
+            api.slide("airing","score", 12).enqueue(object :
+                Callback<JsonObject> {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
-            }
+                }
 
-            override fun onResponse(
-                call: Call<JsonObject>,
-                response: Response<JsonObject>
-            ) {
-                if (response.isSuccessful) {
-                    val animeResponse = response.body()
-                    viewPagerAnimeSlideAdapter.anime.clear()
-                    if (animeResponse != null) {
-                        val results: JsonArray? =
-                            animeResponse.getAsJsonArray(TypesEnum.Results.type)
-                        if (results != null) {
-                            for (result in 0 until results.size()) {
-                                val animeFound: JsonObject? =
-                                    results.get(result) as JsonObject?
-                                if (animeFound != null) {
-                                    val anime = Anime()
+                override fun onResponse(
+                    call: Call<JsonObject>,
+                    response: Response<JsonObject>
+                ) {
+                    if (response.isSuccessful) {
+                        val animeResponse = response.body()
+                        viewPagerAnimeSlideAdapter.anime.clear()
+                        if (animeResponse != null) {
+                            val results: JsonArray? =
+                                animeResponse.getAsJsonArray(TypesEnum.Results.type)
+                            if (results != null) {
+                                for (result in 0 until results.size()) {
+                                    val animeFound: JsonObject? =
+                                        results.get(result) as JsonObject?
+                                    if (animeFound != null) {
+                                        val anime = Anime()
 
-                                    anime.title = animeFound.get("title").asString
-                                    anime.mal_id =
-                                        animeFound.get("mal_id").asInt.toString()
-                                    anime.episodes = animeFound.get("episodes").asInt
-                                    anime.image_url =
-                                        animeFound.get("image_url").asString
-                                    anime.score = animeFound.get("score").asDouble
-                                    anime.synopsis = animeFound.get("synopsis").asString
+                                        anime.title = animeFound.get("title").asString
+                                        anime.mal_id =
+                                            animeFound.get("mal_id").asInt.toString()
+                                        anime.episodes = animeFound.get("episodes").asInt
+                                        anime.image_url =
+                                            animeFound.get("image_url").asString
+                                        anime.score = animeFound.get("score").asDouble
+                                        anime.synopsis = animeFound.get("synopsis").asString
 
-                                    if(animeFound.get("start_date").toString() == "null") {
-                                        anime.airing_start = ""
-                                    } else {
-                                        anime.airing_start = animeFound.get("start_date").asString
+                                        if(animeFound.get("start_date").toString() == "null") {
+                                            anime.airing_start = ""
+                                        } else {
+                                            anime.airing_start = animeFound.get("start_date").asString
+                                        }
+
+                                        viewPagerAnimeSlideAdapter.anime.add(anime)
                                     }
-
-                                    viewPagerAnimeSlideAdapter.anime.add(anime)
                                 }
+                                viewPagerAnimeSlideAdapter.notifyDataSetChanged()
+                                addDots(view)
                             }
-                            viewPagerAnimeSlideAdapter.notifyDataSetChanged()
-                            addDots(view)
                         }
                     }
                 }
-            }
-        })
+            })
+        }, 2000)
     }
 
     private fun addDots(view: View, position : Int = 0) {
