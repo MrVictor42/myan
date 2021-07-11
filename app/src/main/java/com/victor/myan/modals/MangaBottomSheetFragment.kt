@@ -8,8 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentMangaBottomSheetBinding
-import com.victor.myan.enums.MessagesEnum
-import com.victor.myan.fragments.MangaDetailFragment
+import com.victor.myan.screens.MangaDetailFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 
 class MangaBottomSheetFragment : BottomSheetDialogFragment() {
@@ -26,13 +25,14 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val malID = arguments?.getString("mal_id")
         val imageUrl = arguments?.getString("image_url")
         val title = arguments?.getString("title")
         val volumes = arguments?.getInt("volumes")
         val score = arguments?.getDouble("score")
         val startDate = arguments?.getString("start_date")
-        var year : String = ""
+        var year = ""
 
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
@@ -58,12 +58,12 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
 
         when(score) {
             0.0 -> scoreModal.text = "─"
-            else -> score.toString()
+            else -> scoreModal.text = score.toString()
         }
 
         btnMoreInformations.setOnClickListener {
             val fragment = MangaDetailFragment()
-            val fragmentManager = fragmentManager
+            val fragmentManager = activity?.supportFragmentManager
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
@@ -73,7 +73,7 @@ class MangaBottomSheetFragment : BottomSheetDialogFragment() {
 
             val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
             transaction?.commit()
-            getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
+            fragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
     }
 }

@@ -8,7 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentAnimeBottomSheetBinding
-import com.victor.myan.fragments.AnimeDetailFragment
+import com.victor.myan.screens.AnimeDetailFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 
 class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
@@ -25,13 +25,14 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val malID = arguments?.getString("mal_id")
         val imageUrl = arguments?.getString("image_url")
         val airingStart = arguments?.getString("airing_start")
         val title = arguments?.getString("title")
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
-        var year : String = ""
+        var year = ""
 
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
@@ -63,7 +64,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
         btnMoreInformations.setOnClickListener {
             val fragment = AnimeDetailFragment()
-            val fragmentManager = fragmentManager
+            val fragmentManager = activity?.supportFragmentManager
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
@@ -73,7 +74,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
             val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
             transaction?.commit()
-            getFragmentManager()?.beginTransaction()?.remove(this)?.commit()
+            fragmentManager?.beginTransaction()?.remove(this)?.commit()
         }
     }
 }

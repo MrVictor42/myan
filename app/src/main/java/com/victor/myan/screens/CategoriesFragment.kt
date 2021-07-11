@@ -17,7 +17,6 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCategoriesBinding
 import com.victor.myan.enums.CategoriesEnum
-import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -139,7 +138,7 @@ class CategoriesFragment : Fragment() {
                     animeAdapter.anime.clear()
                     if (animeResponse != null) {
                         val results: JsonArray? =
-                            animeResponse.getAsJsonArray(TypesEnum.Results.type)
+                            animeResponse.getAsJsonArray("results")
                         if (results != null && results.size() > 0) {
                             for (result in 0 until results.size()) {
                                 val animeFound: JsonObject? =

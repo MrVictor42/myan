@@ -15,12 +15,9 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
-import com.victor.myan.api.AnimeApi
-import com.victor.myan.enums.MessagesEnum
-import com.victor.myan.enums.ConstsEnum
+import com.victor.myan.api.SearchApi
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentSearchBinding
-import com.victor.myan.enums.TypesEnum
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.model.Manga
@@ -59,7 +56,7 @@ class SearchFragment : Fragment() {
         val messageSearch = binding.messageSearch
         val progressBar = binding.progressBarSearch
         val recyclerViewSearch = binding.recyclerViewSearch
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(SearchApi::class.java)
 
         searchButton.setOnClickListener {
             val selectionType = radioGroup.checkedRadioButtonId
@@ -72,7 +69,7 @@ class SearchFragment : Fragment() {
                         auxServicesHelper.capitalize("please, insert a name to anime or manga")
                     messageSearch.setTextColor(Color.RED)
                 }
-                search.query.length <= ConstsEnum.MinLengthSearch.valor -> {
+                search.query.length <= 2 -> {
                     messageSearch.text =
                         auxServicesHelper.capitalize(
                             "please, insert a name to anime or manga with more 2 characters"
@@ -81,7 +78,7 @@ class SearchFragment : Fragment() {
                 }
                 else -> {
                     when (choice.text) {
-                        TypesEnum.Anime.name -> {
+                        "anime" -> {
                             progressBar.visibility = View.VISIBLE
                             val animeSearch = arrayListOf<Anime>()
                             animeAdapter = AnimeAdapter(animeSearch)
@@ -89,9 +86,9 @@ class SearchFragment : Fragment() {
                             recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
                             api.search(
-                                TypesEnum.Anime.type,
+                                "anime",
                                 search.query.toString(),
-                                ConstsEnum.LimitSearch.valor
+                                16
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -145,7 +142,7 @@ class SearchFragment : Fragment() {
                                 }
                             })
                         }
-                        TypesEnum.Manga.name -> {
+                        "manga" -> {
                             progressBar.visibility = View.VISIBLE
                             val mangaSearch = arrayListOf<Manga>()
                             mangaAdapter = MangaAdapter(mangaSearch)
@@ -153,9 +150,9 @@ class SearchFragment : Fragment() {
                             recyclerViewSearch.layoutManager = GridLayoutManager(context, 2)
 
                             api.search(
-                                TypesEnum.Manga.type,
+                                "manga",
                                 search.query.toString(),
-                                ConstsEnum.LimitSearch.valor
+                                16
                             ).enqueue(object :
                                 Callback<JsonObject> {
                                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -171,7 +168,7 @@ class SearchFragment : Fragment() {
                                         mangaAdapter.manga.clear()
                                         if (mangaResponse != null) {
                                             val results: JsonArray? =
-                                                mangaResponse.getAsJsonArray(TypesEnum.Results.type)
+                                                mangaResponse.getAsJsonArray("results")
                                             if (results != null) {
                                                 for (result in 0 until results.size()) {
                                                     val mangaFound : JsonObject? =

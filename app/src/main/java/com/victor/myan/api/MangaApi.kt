@@ -1,8 +1,6 @@
 package com.victor.myan.api
 
 import com.google.gson.JsonObject
-import com.victor.myan.model.Anime
-import com.victor.myan.model.Manga
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET

@@ -1,4 +1,4 @@
-package com.victor.myan.fragments
+package com.victor.myan.screens
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
@@ -19,12 +17,9 @@ import com.victor.myan.R
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.databinding.FragmentAnimeDetailBinding
-import com.victor.myan.enums.AnimeStatusEnum
-import com.victor.myan.enums.MessagesEnum
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.screens.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,7 +45,7 @@ class AnimeDetailFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
-                val fragmentManager = fragmentManager
+                val fragmentManager = activity?.supportFragmentManager
                 fragmentManager?.
                 beginTransaction()?.
                 replace(R.id.content, homeFragment)?.addToBackStack(null)?.commit()
@@ -71,7 +66,6 @@ class AnimeDetailFragment : Fragment() {
         val animeYear = binding.animeYear
         val animeScore = binding.animeScore
         val animeEpisodes = binding.animeEpisodes
-        val animeGenresTextView = binding.animeGenresTextView
         val animeGenres = binding.animeGenres
         val animeProducers = binding.animeProducers
         val animeSynopsis = binding.animeSynopsis
@@ -87,15 +81,15 @@ class AnimeDetailFragment : Fragment() {
                         animeStatus.text = animeResponse.status
 
                         when(animeStatus.text) {
-                            AnimeStatusEnum.CurrentlyAiring.status ->
+                            "Currently Airing" ->
                                 animeStatus.setTextColor(
                                     ContextCompat.getColor(requireContext(), R.color.green_light)
                                 )
-                            AnimeStatusEnum.NotYetAired.status ->
+                            "Not yet aired" ->
                                 animeStatus.setTextColor(
                                     ContextCompat.getColor(requireContext(), R.color.dark_blue)
                                 )
-                            AnimeStatusEnum.FinishedAiring.status ->
+                            "Finished Airing" ->
                                 animeStatus.setTextColor(
                                     ContextCompat.getColor(requireContext(), R.color.red)
                                 )
@@ -153,7 +147,7 @@ class AnimeDetailFragment : Fragment() {
                                     Toast.makeText(
                                         context,
                                         auxServicesHelper.capitalize(
-                                            MessagesEnum.MissingPreview.message
+                                            "this anime doesn't have a preview yet"
                                         ), Toast.LENGTH_LONG).show()
                                 } else {
                                     val videoId = youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url).toString()
@@ -165,7 +159,7 @@ class AnimeDetailFragment : Fragment() {
                 } else {
                     Toast.makeText(
                         context,
-                        auxServicesHelper.capitalize(MessagesEnum.FailureLoad.message),
+                        auxServicesHelper.capitalize("not was possible load this now, try again later"),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

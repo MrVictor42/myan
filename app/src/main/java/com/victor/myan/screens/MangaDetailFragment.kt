@@ -1,4 +1,4 @@
-package com.victor.myan.fragments
+package com.victor.myan.screens
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
@@ -17,11 +18,8 @@ import com.victor.myan.R
 import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
-import com.victor.myan.enums.MessagesEnum
-import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
-import com.victor.myan.screens.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,9 +44,12 @@ class MangaDetailFragment : Fragment() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
-                val fragmentManager = fragmentManager
-                fragmentManager?.beginTransaction()?.replace(R.id.content, homeFragment)
-                    ?.addToBackStack(null)?.commit()
+                (view.context as FragmentActivity)
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.content, homeFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
@@ -88,17 +89,16 @@ class MangaDetailFragment : Fragment() {
                         mangaYear.text = year
 
                         when (mangaStatus.text) {
-                            MangaStatusEnum.Publishing.status ->
+                            MangaStatusEnum.Publishing.name ->
                                 mangaStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_light))
-                            MangaStatusEnum.Finished.status ->
+                            MangaStatusEnum.Finished.name ->
                                 mangaStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                         }
 
                         if (mangaResponse.get("volumes").toString().isEmpty() ||
                             mangaResponse.get("volumes").toString() == "null"
                         ) {
-                            mangaVolume.text =
-                                auxServicesHelper.capitalize("undefined")
+                            mangaVolume.text = "─"
                         } else {
                             mangaVolume.text = mangaResponse.get("volumes").asString
                         }
@@ -106,8 +106,7 @@ class MangaDetailFragment : Fragment() {
                         if (mangaResponse.get("chapters").toString().isEmpty() ||
                             mangaResponse.get("chapters").toString() == "null"
                         ) {
-                            mangaChapters.text =
-                                auxServicesHelper.capitalize("undefined")
+                            mangaChapters.text = "─"
                         } else {
                             mangaChapters.text = mangaResponse.get("chapters").asString
                         }
@@ -125,7 +124,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("authors").toString() == "null"
                         ) {
                             mangaAuthors.text =
-                                auxServicesHelper.capitalize(MessagesEnum.MissingAuthors.message)
+                                auxServicesHelper.capitalize("not was found author from this manga")
                         } else {
                             val authors : JsonArray? = mangaResponse.get("authors") as JsonArray?
                             if(authors != null) {
@@ -141,10 +140,10 @@ class MangaDetailFragment : Fragment() {
                         }
 
                         val related: JsonObject? =
-                            mangaResponse.get(TypesEnum.Related.type) as JsonObject?
+                            mangaResponse.get("related") as JsonObject?
                         if (related != null) {
                             val adaptations: JsonArray? =
-                                related.getAsJsonArray(TypesEnum.Adaptation.type)
+                                related.getAsJsonArray("Adaptation")
                             if (adaptations != null) {
                                 for (adaptation in 0 until adaptations.size()) {
                                     val adaptationObject: JsonObject? =
@@ -157,11 +156,11 @@ class MangaDetailFragment : Fragment() {
                                 listAdaptations.clear()
                             } else {
                                 mangaAdaptations.text =
-                                    auxServicesHelper.capitalize(MessagesEnum.MissingAdaptations.message)
+                                    auxServicesHelper.capitalize("not was found adaptations from this manga")
                             }
 
                             val spinoffs: JsonArray? =
-                                related.getAsJsonArray(TypesEnum.SpinOff.type)
+                                related.getAsJsonArray("Spin-off")
                             if (spinoffs != null) {
                                 for (spinoff in 0 until spinoffs.size()) {
                                     val sprinoffObject: JsonObject? =
@@ -174,13 +173,13 @@ class MangaDetailFragment : Fragment() {
                                 listSpinOff.clear()
                             } else {
                                 mangaSpinOff.text =
-                                    auxServicesHelper.capitalize(MessagesEnum.MissingSpinOff.message)
+                                    auxServicesHelper.capitalize("not found spin-offs from this manga")
                             }
                         }
 
                         if(mangaResponse.get("genres").toString().isEmpty() ||
                             mangaResponse.get("genres").toString() == "null") {
-                            mangaGenres.text = auxServicesHelper.capitalize(MessagesEnum.MissingGenres.message)
+                            mangaGenres.text = auxServicesHelper.capitalize("not found the genres")
                         } else {
                             val genres : JsonArray? = mangaResponse.get("genres") as JsonArray?
                             if(genres != null) {

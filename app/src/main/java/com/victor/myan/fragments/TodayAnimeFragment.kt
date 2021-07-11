@@ -1,6 +1,5 @@
 package com.victor.myan.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -18,10 +17,10 @@ import com.victor.myan.databinding.FragmentTodayAnimeBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.screens.PresentationActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class TodayAnimeFragment : Fragment() {
 
@@ -39,7 +38,7 @@ class TodayAnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Handler(Looper.getMainLooper()).postDelayed({
-            val currentDay = auxServicesHelper.getCurrentDay()
+            val currentDay = auxServicesHelper.getCurrentDay().lowercase(Locale.getDefault())
             val animeList = arrayListOf<Anime>()
             val todayAnimeText = binding.todayAnimeText
             val recyclerViewTodayAnime = binding.recyclerViewToday

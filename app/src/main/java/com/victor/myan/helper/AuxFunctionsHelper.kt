@@ -1,12 +1,8 @@
 package com.victor.myan.helper
 
 import android.content.Context
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.view.View
-import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.enums.MonthsEnum
@@ -40,13 +36,13 @@ class AuxFunctionsHelper {
 
     fun getCurrentDay(): String {
         return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
-            1 -> DaysEnum.Sunday.day
-            2 -> DaysEnum.Monday.day
-            3 -> DaysEnum.Tuesday.day
-            4 -> DaysEnum.Wednesday.day
-            5 -> DaysEnum.Thursday.day
-            6 -> DaysEnum.Friday.day
-            else -> DaysEnum.Saturday.day
+            1 -> DaysEnum.Sunday.name
+            2 -> DaysEnum.Monday.name
+            3 -> DaysEnum.Tuesday.name
+            4 -> DaysEnum.Wednesday.name
+            5 -> DaysEnum.Thursday.name
+            6 -> DaysEnum.Friday.name
+            else -> DaysEnum.Saturday.name
         }
     }
 
@@ -63,12 +59,12 @@ class AuxFunctionsHelper {
 
         return when {
             currentMonth >= MonthsEnum.March.month && currentMonth <= MonthsEnum.May.month ->
-                SeasonsEnum.Spring.season
+                SeasonsEnum.Spring.name
             currentMonth > MonthsEnum.May.month && currentMonth <= MonthsEnum.August.month ->
-                SeasonsEnum.Summer.season
+                SeasonsEnum.Summer.name
             currentMonth > MonthsEnum.August.month && currentMonth <= MonthsEnum.November.month ->
-                SeasonsEnum.Fall.season
-            else -> SeasonsEnum.Winter.season
+                SeasonsEnum.Fall.name
+            else -> SeasonsEnum.Winter.name
         }
     }
 

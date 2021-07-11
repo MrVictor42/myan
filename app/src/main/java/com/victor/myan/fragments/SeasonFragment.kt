@@ -12,13 +12,13 @@ import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentSeasonBinding
-import com.victor.myan.enums.TypesEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.Locale
 
 class SeasonFragment : Fragment() {
 
@@ -49,7 +49,7 @@ class SeasonFragment : Fragment() {
         recyclerViewSeason.adapter = animeAdapter
 
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
-        api.getCurrentSeason(currentYear,currentSeason).enqueue(object : Callback<JsonObject> {
+        api.getCurrentSeason(currentYear, currentSeason.lowercase(Locale.getDefault())).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
             }
@@ -59,7 +59,7 @@ class SeasonFragment : Fragment() {
                     val animeResponse = response.body()
                     animeAdapter.anime.clear()
                     if(animeResponse != null) {
-                        val seasonAnime: JsonArray? = animeResponse.getAsJsonArray(TypesEnum.Anime.type)
+                        val seasonAnime: JsonArray? = animeResponse.getAsJsonArray("anime")
                         if (seasonAnime != null) {
                             for(anime in 0 until seasonAnime.size()) {
                                 val animeObject: JsonObject? = seasonAnime.get(anime) as JsonObject?
