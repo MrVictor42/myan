@@ -17,8 +17,8 @@ class CategoriesAdapter(var categories: MutableList<Category>) :
     RecyclerView.Adapter<CategoriesAdapter.CatalogHolder>() {
 
     class CatalogHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val image : ImageView = itemView.findViewById(R.id.imageCatalog)
-        val textCatalog : TextView = itemView.findViewById(R.id.textCatalog)
+        private val image : ImageView = itemView.findViewById(R.id.imageCatalog)
+        private val textCatalog : TextView = itemView.findViewById(R.id.textCatalog)
 
         fun bind(category: Category) {
             textCatalog.text = category.type

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.core.content.ContextCompat
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -21,22 +20,22 @@ class FirstScreenActivity : AppCompatActivity() {
             supportActionBar!!.hide()
         }
 
-        if(auxFunctionsHelper.userHasConnection(this)) {
-            if(auxFunctionsHelper.userIsAuthenticated()) {
-                val intent = Intent(this, BaseLayout::class.java)
-                startActivity(intent)
-                finish()
-            } else {
-                Handler(Looper.getMainLooper()).postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
+            if(auxFunctionsHelper.userHasConnection(this)) {
+                if(auxFunctionsHelper.userIsAuthenticated()) {
+                    val intent = Intent(this, BaseLayout::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
                     val intent = Intent(this, PresentationActivity::class.java)
                     startActivity(intent)
                     finish()
-                }, 2000)
+                }
+            } else {
+                val intent = Intent(this, WithoutConnectionActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-        } else {
-            val intent = Intent(this, WithoutConnectionActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+        }, 2000)
     }
 }

@@ -5,13 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
-import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -28,7 +26,6 @@ class FormRegisterUserActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
-        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val btnRegister = binding.btnRegister
 
@@ -40,12 +37,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
             message.text = auxServicesHelper.validateFields(email, password)
 
             if(message.text.isEmpty()) {
-                Log.e("Retorno create:", createUser(email, password).toString())
-//                Handler(Looper.getMainLooper()).postDelayed({
-//                    val intentFormLogin = Intent(this, FormLoginActivity::class.java)
-//                    startActivity(intentFormLogin)
-//                    finish()
-//                }, 2000)
+                createUser(email, password)
             }
         }
     }
@@ -54,25 +46,36 @@ class FormRegisterUserActivity : AppCompatActivity() {
         FirebaseAuth.getInstance()
             .createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
-                auxServicesHelper.message(binding.layoutRegister,
-                    auxServicesHelper.capitalize("the user was successfully registered!"))
+                Handler(Looper.getMainLooper()).postDelayed({
+                    Toast.makeText(
+                        this,
+                        "the user was successfully registered!",
+                        Toast.LENGTH_SHORT)
+                        .show()
+                    val intentFormLogin = Intent(this, FormLoginActivity::class.java)
+                    startActivity(intentFormLogin)
+                    finish()
+                }, 2000)
             } else {
                 return@addOnCompleteListener
             }
         }.addOnFailureListener {
+            val messageError = binding.messageError
             when(it) {
                 is FirebaseAuthWeakPasswordException ->
-                    auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize("insert a password with 6 no minimum characters!"))
+                    messageError.text =
+                        auxServicesHelper.capitalize(
+                            "insert a password with 6 no minimum characters!"
+                        )
                 is FirebaseAuthUserCollisionException ->
-                    auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize("this account already exists!"))
+                    messageError.text =
+                        auxServicesHelper.capitalize("this account already exists!")
                 is FirebaseNetworkException ->
-                    auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize("without connection!"))
+                    messageError.text =
+                        auxServicesHelper.capitalize("without connection!")
                 else ->
-                    auxServicesHelper.message(binding.layoutRegister,
-                        auxServicesHelper.capitalize("${ it.message }!"))
+                    messageError.text =
+                        auxServicesHelper.capitalize("${ it.message }!")
             }
             return@addOnFailureListener
         }

@@ -38,10 +38,6 @@ class AuxFunctionsHelper {
         return output
     }
 
-    fun message(view : View, messageResult : String) {
-        Toast.makeText(view.context, messageResult, Toast.LENGTH_LONG).show()
-    }
-
     fun getCurrentDay(): String {
         return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             1 -> DaysEnum.Sunday.day
