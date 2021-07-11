@@ -37,4 +37,5 @@
     <string name="upcoming">Upcoming </string>
     <string name="see_more">See More!</string>
     <string name="result_null">(No Result For This Category)</string>
+    <string name="image_without_connection">Image To Without Connection</string>
 </resources>

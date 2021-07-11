@@ -3,7 +3,6 @@ package com.victor.myan.screens
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
@@ -22,7 +21,6 @@ class WithoutConnectionActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
-        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val imageGif = binding.sadGif
         val withoutConnectionText = binding.withoutConnectionText

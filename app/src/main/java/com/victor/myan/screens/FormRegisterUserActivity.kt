@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -39,12 +40,12 @@ class FormRegisterUserActivity : AppCompatActivity() {
             message.text = auxServicesHelper.validateFields(email, password)
 
             if(message.text.isEmpty()) {
-                createUser(email, password)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    val intentFormLogin = Intent(this, FormLoginActivity::class.java)
-                    startActivity(intentFormLogin)
-                    finish()
-                }, 2000)
+                Log.e("Retorno create:", createUser(email, password).toString())
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    val intentFormLogin = Intent(this, FormLoginActivity::class.java)
+//                    startActivity(intentFormLogin)
+//                    finish()
+//                }, 2000)
             }
         }
     }

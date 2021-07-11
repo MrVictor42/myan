@@ -75,7 +75,6 @@ class AnimeDetailFragment : Fragment() {
         val animeGenres = binding.animeGenres
         val animeProducers = binding.animeProducers
         val animeSynopsis = binding.animeSynopsis
-
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -89,29 +88,35 @@ class AnimeDetailFragment : Fragment() {
 
                         when(animeStatus.text) {
                             AnimeStatusEnum.CurrentlyAiring.status ->
-                                animeStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.green_light))
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.green_light)
+                                )
                             AnimeStatusEnum.NotYetAired.status ->
-                                animeStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                                )
                             AnimeStatusEnum.FinishedAiring.status ->
-                                animeStatus.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.red)
+                                )
                         }
 
                         animeYear.text = year
+
                         if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
-                            animeScore.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                            animeScore.text = "─"
                         } else {
                             animeScore.text = animeResponse.score.toString()
                         }
 
                         if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
-                            animeEpisodes.text = auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                            animeEpisodes.text = "─"
                         } else {
                             animeEpisodes.text = animeResponse.episodes.toString()
                         }
 
                         if(animeResponse.genres.isEmpty()) {
-                            animeGenresTextView.isInvisible = true
-                            animeGenres.isVisible = true
+                            animeGenres.text = "─"
                         } else {
                             for(genre in animeResponse.genres.indices) {
                                 listGenres.add(animeResponse.genres[genre].name)
@@ -121,7 +126,10 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         if(animeResponse.producers.isEmpty()) {
-                            animeProducers.text = auxServicesHelper.capitalize(MessagesEnum.MissingProducers.message)
+                            animeProducers.text =
+                                auxServicesHelper.capitalize(
+                                    "not found the producers for this anime"
+                                )
                         } else {
                             for(producer in animeResponse.producers.indices) {
                                 listProducers.add(animeResponse.producers[producer].name)
@@ -131,7 +139,8 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            binding.animeSynopsis.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+                            binding.animeSynopsis.justificationMode =
+                                Layout.JUSTIFICATION_MODE_INTER_WORD
                             animeSynopsis.text = animeResponse.synopsis
                         } else {
                             animeSynopsis.text = animeResponse.synopsis

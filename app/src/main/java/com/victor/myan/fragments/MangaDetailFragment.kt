@@ -98,7 +98,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("volumes").toString() == "null"
                         ) {
                             mangaVolume.text =
-                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                                auxServicesHelper.capitalize("undefined")
                         } else {
                             mangaVolume.text = mangaResponse.get("volumes").asString
                         }
@@ -107,7 +107,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("chapters").toString() == "null"
                         ) {
                             mangaChapters.text =
-                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                                auxServicesHelper.capitalize("undefined")
                         } else {
                             mangaChapters.text = mangaResponse.get("chapters").asString
                         }
@@ -116,7 +116,7 @@ class MangaDetailFragment : Fragment() {
                             mangaResponse.get("score").toString() == "null"
                         ) {
                             mangaScore.text =
-                                auxServicesHelper.capitalize(MessagesEnum.Undefined.message)
+                                auxServicesHelper.capitalize("undefined")
                         } else {
                             mangaScore.text = mangaResponse.get("score").asString
                         }

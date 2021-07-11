@@ -8,7 +8,6 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     android:background="@color/transparent"
-    android:layout_margin="20dp"
     app:elevation="0dp"
     android:translationZ="0.1dp"
     >
@@ -16,6 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/logo_icon"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
     />
 
 </com.google.android.material.appbar.AppBarLayout>

@@ -20,7 +20,6 @@ class FirstScreenActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
-        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         if(auxFunctionsHelper.userHasConnection(this)) {
             if(auxFunctionsHelper.userIsAuthenticated()) {
