@@ -36,6 +36,7 @@ class CategoriesFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val genreID = arguments?.getInt("genre")
         val type = arguments?.getString("type")
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
@@ -53,6 +54,7 @@ class CategoriesFragment : Fragment() {
             (view.context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()
+                .remove(this)
                 .replace(R.id.content, categoriesListFragment)
                 .addToBackStack(null)
                 .commit()

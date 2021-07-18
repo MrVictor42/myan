@@ -42,16 +42,18 @@ class AnimeDetailFragment : Fragment() {
 
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
                 val fragmentManager = activity?.supportFragmentManager
+                fragmentManager?.popBackStack()
                 fragmentManager?.
                 beginTransaction()?.
                 replace(R.id.content, homeFragment)?.addToBackStack(null)?.commit()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val malID = arguments?.getString("mal_id")
         val year = arguments?.getString("year")
