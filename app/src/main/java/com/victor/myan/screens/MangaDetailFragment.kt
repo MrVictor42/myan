@@ -52,7 +52,7 @@ class MangaDetailFragment : Fragment() {
                     .commit()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val malID = arguments?.getString("mal_id")
         val year = arguments?.getString("year")

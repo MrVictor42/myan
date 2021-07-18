@@ -6,10 +6,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
+import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormRegisterUserBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -26,6 +28,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val btnRegister = binding.btnRegister
 

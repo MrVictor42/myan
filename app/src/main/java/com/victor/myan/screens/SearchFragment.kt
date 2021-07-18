@@ -78,7 +78,7 @@ class SearchFragment : Fragment() {
                 }
                 else -> {
                     when (choice.text) {
-                        "anime" -> {
+                        "Anime" -> {
                             progressBar.visibility = View.VISIBLE
                             val animeSearch = arrayListOf<Anime>()
                             animeAdapter = AnimeAdapter(animeSearch)
@@ -142,7 +142,7 @@ class SearchFragment : Fragment() {
                                 }
                             })
                         }
-                        "manga" -> {
+                        "Manga" -> {
                             progressBar.visibility = View.VISIBLE
                             val mangaSearch = arrayListOf<Manga>()
                             mangaAdapter = MangaAdapter(mangaSearch)

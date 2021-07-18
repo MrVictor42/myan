@@ -3,9 +3,11 @@ package com.victor.myan.screens
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.victor.myan.R
 import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -22,6 +24,7 @@ class FormLoginActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val btnLogin = binding.btnLogin
         val registerUserText = binding.registerUserText

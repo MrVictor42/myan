@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.core.content.ContextCompat
 import com.victor.myan.R
 import com.victor.myan.helper.AuxFunctionsHelper
 
@@ -19,6 +20,7 @@ class FirstScreenActivity : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         Handler(Looper.getMainLooper()).postDelayed({
             if(auxFunctionsHelper.userHasConnection(this)) {

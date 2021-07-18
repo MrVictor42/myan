@@ -55,6 +55,7 @@ class BaseLayout : AppCompatActivity() {
         if(supportActionBar != null) {
             supportActionBar!!.hide()
         }
+        window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
         window.navigationBarColor = ContextCompat.getColor(this, R.color.black)
 
         content = binding.content
