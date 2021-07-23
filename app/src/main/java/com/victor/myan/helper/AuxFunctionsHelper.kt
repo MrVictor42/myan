@@ -14,8 +14,12 @@ import java.util.Date
 
 class AuxFunctionsHelper {
 
-    fun validateFields(email : String, password : String): String {
+    fun validateFields(firstName: String, lastName: String, email : String, password : String): String {
         return when {
+            firstName.isEmpty() -> capitalize("fill the field firstName")
+            firstName.length < 3 -> capitalize("insert the firstName with for more than 3 characters")
+            lastName.isEmpty() -> capitalize("fill the field lastName")
+            lastName.length < 3 -> capitalize("insert the lastName with for more than 3 characters")
             email.isEmpty() -> capitalize("fill the field email!")
             password.isEmpty() -> capitalize("fill the field password!")
             email.isEmpty() || password.isEmpty() -> capitalize("please, fill all fields")

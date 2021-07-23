@@ -33,11 +33,13 @@ class FormRegisterUserActivity : AppCompatActivity() {
         val btnRegister = binding.btnRegister
 
         btnRegister.setOnClickListener {
+            val firstName = binding.editFirstName.text.toString()
+            val lastName = binding.editLastName.text.toString()
             val email = binding.editEmail.text.toString()
             val password = binding.editPassword.text.toString()
             val message = binding.messageError
 
-            message.text = auxServicesHelper.validateFields(email, password)
+            message.text = auxServicesHelper.validateFields(firstName, lastName, email, password)
 
             if(message.text.isEmpty()) {
                 createUser(email, password)
