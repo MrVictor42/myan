@@ -1,15 +1,22 @@
 package com.victor.myan.screens
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.FrameLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
+import com.victor.myan.model.User
 
 class BaseLayout : AppCompatActivity() {
 
@@ -62,6 +69,25 @@ class BaseLayout : AppCompatActivity() {
         binding.bottomMenu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val baseFragment = HomeFragment.newInstance()
+        val user = FirebaseAuth.getInstance().currentUser
+        val reference = FirebaseDatabase.getInstance().getReference("users")
+        val userID = user!!.uid
+
+        reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val currentUser = dataSnapshot.getValue(User::class.java)
+
+                if(currentUser != null) {
+                    Log.e("userprofile", currentUser.name)
+                    Log.e("email", currentUser.email)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@BaseLayout, "Something Wrong Happened!", Toast.LENGTH_SHORT).show()
+            }
+        })
+
         addFragment(baseFragment)
     }
 

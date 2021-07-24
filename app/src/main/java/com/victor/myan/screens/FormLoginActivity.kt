@@ -2,6 +2,8 @@ package com.victor.myan.screens
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.firebase.FirebaseNetworkException
@@ -27,33 +29,60 @@ class FormLoginActivity : AppCompatActivity() {
         window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val btnLogin = binding.btnLogin
-        val registerUserText = binding.registerUserText
-        val messageError = binding.messageError
+        val registerUser = binding.registerUser
+        val forgotPassword = binding.forgotPassword
 
         btnLogin.setOnClickListener {
-            val email = binding.editEmail.text.toString()
-            val password = binding.editPassword.text.toString()
+            val email = binding.editEmail.text.toString().trim()
+            val password = binding.editPassword.text.toString().trim()
 
-            if(email.isEmpty() || password.isEmpty()) {
-                messageError.text = auxServicesHelper.capitalize("please, fill all fields")
+            if(!auxServicesHelper.validateField(email, binding.editEmail) ||
+                !auxServicesHelper.validateField(password, binding.editPassword)) {
+                return@setOnClickListener
             } else {
                 authenticateUser(email, password)
             }
         }
 
-        registerUserText.setOnClickListener {
-            val formRegisterUserIntent = Intent(this, FormRegisterUserActivity::class.java)
-            startActivity(formRegisterUserIntent)
+        registerUser.setOnClickListener {
+            val intent = Intent(this, FormRegisterUserActivity::class.java)
+            startActivity(intent)
+        }
+
+        forgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun authenticateUser(email: String, password: String) {
-        FirebaseAuth.getInstance()
-            .signInWithEmailAndPassword(email, password).addOnCompleteListener {
+        val mAuth = FirebaseAuth.getInstance()
+        val progressBar = binding.progressBar
+
+        progressBar.visibility = View.VISIBLE
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
-                val intentLogin = Intent(this, BaseLayout::class.java)
-                startActivity(intentLogin)
-                finish()
+                val user = FirebaseAuth.getInstance().currentUser!!
+
+                if(user.isEmailVerified) {
+                    val intent = Intent(this, BaseLayout::class.java)
+                    startActivity(intent)
+                    progressBar.visibility = View.GONE
+                    finish()
+                } else {
+                    user.sendEmailVerification()
+                    Toast.makeText(
+                        this,
+                        auxServicesHelper.capitalize("check your email to verify your account!"),
+                        Toast.LENGTH_SHORT)
+                        .show()
+                }
+            } else {
+                Toast.makeText(
+                    this,
+                    auxServicesHelper.capitalize("failed to login! please check your credentials"),
+                    Toast.LENGTH_SHORT)
+                    .show()
             }
         }.addOnFailureListener {
             val messageError = binding.messageError

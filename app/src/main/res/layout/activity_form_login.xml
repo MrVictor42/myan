@@ -25,27 +25,28 @@
         android:layout_height="wrap_content"
         android:hint="@string/email"
         android:textColorHint="@color/black"
-        android:textSize="18sp"
-        android:maxLines="1"
-        android:padding="20dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="100dp"
+        android:textSize="18sp"
+        android:autofillHints="true"
+        android:maxLines="1"
+        android:padding="20dp"
         android:background="@drawable/edit_text_shape"
         android:drawableEnd="@drawable/ic_email"
         android:textColor="@color/black"
         android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        android:autofillHints="false" />
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
+    />
 
     <EditText
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:autofillHints="false"
+        android:autofillHints="true"
         android:textColorHint="@color/black_gray"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_shape"
@@ -57,9 +58,9 @@
         android:textColor="@color/black"
         android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/edit_email"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-    />
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
+        />
 
     <TextView
         android:id="@+id/message_error"
@@ -70,11 +71,11 @@
         android:textStyle="bold"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         app:layout_constraintTop_toBottomOf="@id/edit_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
     />
 
     <Button
@@ -90,15 +91,15 @@
         android:padding="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:drawableEnd="@drawable/ic_login"
         app:layout_constraintTop_toBottomOf="@id/message_error"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
     />
 
     <TextView
-        android:id="@+id/register_user_text"
+        android:id="@+id/register_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/message_register"
@@ -108,6 +109,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/button_options_login"
         app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintStart_toStartOf="@id/btn_login"
     />
@@ -124,6 +127,8 @@
         android:layout_marginBottom="40dp"
         android:layout_marginEnd="5dp"
         android:textSize="20sp"
+        android:padding="10dp"
+        android:background="@drawable/button_options_login"
         app:layout_constraintTop_toBottomOf="@id/btn_login"
         app:layout_constraintEnd_toEndOf="@id/btn_login"
     />
@@ -137,7 +142,6 @@
         app:layout_constraintTop_toBottomOf="@id/edit_password"
         android:indeterminateTint="@color/green_light"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:visibility="gone"
     />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,7 @@
 package com.victor.myan.screens
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -63,7 +60,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
                 user.email = email
 
                 FirebaseDatabase.getInstance().getReference("users")
-                .child(FirebaseAuth.getInstance().currentUser.uid)
+                .child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .setValue(user).addOnCompleteListener {
                     if(it.isSuccessful) {
                         Toast.makeText(this,
@@ -79,44 +76,28 @@ class FormRegisterUserActivity : AppCompatActivity() {
                         progressBar.visibility = View.GONE
                     }
                 }
+            } else {
+                return@addOnCompleteListener
             }
+        }.addOnFailureListener {
+            val messageError = binding.messageError
+            when(it) {
+                is FirebaseAuthWeakPasswordException ->
+                    messageError.text =
+                        auxServicesHelper.capitalize(
+                            "insert a password with 6 no minimum characters!"
+                        )
+                is FirebaseAuthUserCollisionException ->
+                    messageError.text =
+                        auxServicesHelper.capitalize("this account already exists!")
+                is FirebaseNetworkException ->
+                    messageError.text =
+                        auxServicesHelper.capitalize("without connection!")
+                else ->
+                    messageError.text =
+                        auxServicesHelper.capitalize("${ it.message }!")
+            }
+            return@addOnFailureListener
         }
     }
-//        FirebaseAuth.getInstance()
-//            .createUserWithEmailAndPassword(email, password).addOnCompleteListener {
-//            if(it.isSuccessful) {
-//                Handler(Looper.getMainLooper()).postDelayed({
-//                    Toast.makeText(
-//                        this,
-//                        "the user was successfully registered!",
-//                        Toast.LENGTH_SHORT)
-//                        .show()
-//                    val intentFormLogin = Intent(this, FormLoginActivity::class.java)
-//                    startActivity(intentFormLogin)
-//                    finish()
-//                }, 2000)
-//            } else {
-//                return@addOnCompleteListener
-//            }
-//        }.addOnFailureListener {
-//            val messageError = binding.messageError
-//            when(it) {
-//                is FirebaseAuthWeakPasswordException ->
-//                    messageError.text =
-//                        auxServicesHelper.capitalize(
-//                            "insert a password with 6 no minimum characters!"
-//                        )
-//                is FirebaseAuthUserCollisionException ->
-//                    messageError.text =
-//                        auxServicesHelper.capitalize("this account already exists!")
-//                is FirebaseNetworkException ->
-//                    messageError.text =
-//                        auxServicesHelper.capitalize("without connection!")
-//                else ->
-//                    messageError.text =
-//                        auxServicesHelper.capitalize("${ it.message }!")
-//            }
-//            return@addOnFailureListener
-//        }
-//    }
 }
