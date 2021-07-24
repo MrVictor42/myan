@@ -3,6 +3,8 @@ package com.victor.myan.helper
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.widget.EditText
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.enums.MonthsEnum
@@ -14,16 +16,24 @@ import java.util.Date
 
 class AuxFunctionsHelper {
 
-    fun validateFields(firstName: String, lastName: String, email : String, password : String): String {
+    fun validateField(field : String, editText: EditText): Boolean {
         return when {
-            firstName.isEmpty() -> capitalize("fill the field firstName")
-            firstName.length < 3 -> capitalize("insert the firstName with for more than 3 characters")
-            lastName.isEmpty() -> capitalize("fill the field lastName")
-            lastName.length < 3 -> capitalize("insert the lastName with for more than 3 characters")
-            email.isEmpty() -> capitalize("fill the field email!")
-            password.isEmpty() -> capitalize("fill the field password!")
-            email.isEmpty() || password.isEmpty() -> capitalize("please, fill all fields")
-            else -> ""
+            field.isEmpty() -> {
+                editText.error = capitalize("fill the field ${editText.hint}")
+                editText.requestFocus()
+                false
+            }
+            field.length < 3 -> {
+                editText.error = capitalize(
+                    "please, insert the field ${editText.hint} with more 3 characters"
+                )
+                editText.requestFocus()
+                false
+            }
+            else -> {
+                editText.clearFocus()
+                true
+            }
         }
     }
 
@@ -32,7 +42,7 @@ class AuxFunctionsHelper {
         var output = ""
 
         for(word in words) {
-            output += word.capitalize(Locale.ENGLISH) + " "
+            output += word.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() } + " "
         }
         output = output.trim()
         return output
