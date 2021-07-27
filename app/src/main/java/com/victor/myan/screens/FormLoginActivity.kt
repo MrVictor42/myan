@@ -62,21 +62,10 @@ class FormLoginActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
             if(it.isSuccessful) {
-                val user = FirebaseAuth.getInstance().currentUser!!
-
-                if(user.isEmailVerified) {
-                    val intent = Intent(this, BaseLayout::class.java)
-                    startActivity(intent)
-                    progressBar.visibility = View.GONE
-                    finish()
-                } else {
-                    user.sendEmailVerification()
-                    Toast.makeText(
-                        this,
-                        auxServicesHelper.capitalize("check your email to verify your account!"),
-                        Toast.LENGTH_SHORT)
-                        .show()
-                }
+                val intent = Intent(this, BaseLayout::class.java)
+                startActivity(intent)
+                progressBar.visibility = View.GONE
+                finish()
             } else {
                 Toast.makeText(
                     this,
