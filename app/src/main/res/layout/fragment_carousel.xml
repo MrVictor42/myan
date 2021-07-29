@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_gray"
-    tools:context=".fragments.ViewPagerFragment"
+    tools:context=".fragments.CarouselFragment"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carouselView"
@@ -25,23 +25,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:strokeWidth="1dp"/>
-
-<!--        <androidx.viewpager.widget.ViewPager-->
-<!--            android:id="@+id/viewPagerAnime"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="350dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-<!--        <LinearLayout-->
-<!--            android:id="@+id/dots"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="horizontal"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/viewPagerAnime" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
