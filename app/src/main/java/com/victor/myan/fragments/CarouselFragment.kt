@@ -1,14 +1,18 @@
 package com.victor.myan.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
+import com.victor.myan.R
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCarouselBinding
 import com.victor.myan.helper.JikanApiInstanceHelper
@@ -17,6 +21,7 @@ import com.victor.myan.model.Anime
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class CarouselFragment : Fragment() {
 
@@ -33,7 +38,8 @@ class CarouselFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val carouselView = binding.carouselView
-        val listAnime: MutableList<Anime> = mutableListOf()
+        val listAnime : MutableList<Anime> = mutableListOf()
+        val listAnimeTitle : MutableList<String> = mutableListOf()
         val bottomSheetFragment = AnimeBottomSheetFragment()
         val bundle = Bundle()
 
@@ -44,6 +50,7 @@ class CarouselFragment : Fragment() {
 
             }
 
+            @SuppressLint("InflateParams")
             override fun onResponse(
                 call: Call<JsonObject>,
                 response: Response<JsonObject>
@@ -75,11 +82,19 @@ class CarouselFragment : Fragment() {
                                         anime.airing_start = animeFound.get("start_date").asString
                                     }
                                     listAnime.add(anime)
+                                    listAnimeTitle.add(anime.title)
                                 }
                             }
                             for (anime in 0 until listAnime.size) {
-                                carouselView.setImageListener { position, imageView ->
-                                    Picasso.get().load(listAnime[position].image_url).fit().into(imageView)
+                                carouselView.setViewListener { position ->
+                                    val view = layoutInflater.inflate(R.layout.fragment_carousel_custom, null)
+
+                                    val animeTitle = view.findViewById<TextView>(R.id.anime_title_carousel)
+                                    val animeImage = view.findViewById<ImageView>(R.id.anime_image_carousel)
+
+                                    Picasso.get().load(listAnime[position].image_url).fit().into(animeImage)
+                                    animeTitle.text = listAnimeTitle[position]
+                                    view
                                 }
 
                                 carouselView.setImageClickListener { position ->
