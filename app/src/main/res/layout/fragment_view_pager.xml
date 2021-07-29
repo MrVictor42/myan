@@ -9,25 +9,39 @@
     tools:context=".fragments.ViewPagerFragment"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPagerAnime"
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/carouselView"
             android:layout_width="match_parent"
             android:layout_height="350dp"
+            app:fillColor="#FFFFFFFF"
+            app:pageColor="#00000000"
+            app:radius="6dp"
+            app:slideInterval="4000"
+            app:strokeColor="#FF777777"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <LinearLayout
-            android:id="@+id/dots"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewPagerAnime" />
+            app:strokeWidth="1dp"/>
+
+<!--        <androidx.viewpager.widget.ViewPager-->
+<!--            android:id="@+id/viewPagerAnime"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="350dp"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/dots"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:gravity="center"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/viewPagerAnime" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
