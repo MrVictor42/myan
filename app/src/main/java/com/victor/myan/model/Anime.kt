@@ -21,6 +21,12 @@ data class Anime (
     var episodes : Int = 0,
     @SerializedName("score")
     var score : Double = 0.0,
+    @SerializedName("popularity")
+    var popularity : Int = 0,
+    @SerializedName("members")
+    var members : Int = 0,
+    @SerializedName("favorites")
+    var favorites : Int = 0,
     @SerializedName("producers")
     var producers : List<Producer> = arrayListOf(),
     @SerializedName("genres")

@@ -13,17 +13,114 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
+        <include
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:showFullScreenButton="false"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            layout="@layout/toolbar_back"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp"
+            app:navigationIcon="@drawable/ic_arrow_back_white"
+        />
+
+        <ImageView
+            android:id="@+id/anime_image"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+        />
+
+        <TextView
+            android:id="@+id/anime_score_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/anime_image"
+            app:layout_constraintStart_toEndOf="@id/anime_image"
+            android:text="@string/score"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="20dp"
+        />
+
+        <TextView
+            android:id="@+id/anime_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_score_textView"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_popularity_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_score"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:text="@string/popularity"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_popularity_textview"
+            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_members_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_popularity"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:text="@string/members"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_members_textview"
+            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_favorites_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_members"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:text="@string/members"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_favorites_textview"
+            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
         />
 
         <TextView
@@ -33,174 +130,165 @@
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
+            app:layout_constraintStart_toStartOf="@id/anime_image"
+            app:layout_constraintTop_toBottomOf="@id/anime_image"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
         />
 
-        <TextView
-            android:id="@+id/anime_status_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/anime_title"
-            app:layout_constraintStart_toStartOf="@id/anime_title"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/white"
-            android:text="@string/status"
-            android:textSize="14sp"
-            android:textStyle="bold"
-        />
-
-        <TextView
-            android:id="@+id/anime_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/anime_title"
-            app:layout_constraintStart_toEndOf="@id/anime_status_textView"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textSize="14sp"
-        />
-
-        <TextView
-            android:id="@+id/anime_year"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/anime_title"
-            app:layout_constraintStart_toEndOf="@id/anime_status"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-        />
-
-        <TextView
-            android:id="@+id/anime_score_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/anime_status_textView"
-            app:layout_constraintTop_toBottomOf="@id/anime_status_textView"
-            android:text="@string/score"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-        />
-
-        <TextView
-            android:id="@+id/anime_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/anime_status_textView"
-            app:layout_constraintTop_toBottomOf="@id/anime_status"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-        />
-
-        <TextView
-            android:id="@+id/anime_episodes_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/anime_score"
-            app:layout_constraintTop_toBottomOf="@id/anime_status"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/episodes"
-        />
-
-        <TextView
-            android:id="@+id/anime_episodes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toEndOf="@id/anime_episodes_textView"
-            app:layout_constraintTop_toBottomOf="@id/anime_status"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginStart="5dp"
-        />
-
-        <TextView
-            android:id="@+id/anime_genres_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
-            app:layout_constraintTop_toBottomOf="@id/anime_score_textView"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/genres"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-        />
-
-        <TextView
-            android:id="@+id/anime_genres"
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/anime_genres_textView"
-            app:layout_constraintTop_toBottomOf="@id/anime_genres_textView"
+            android:layout_height="200dp"
+            app:showFullScreenButton="false"
+            app:layout_constraintTop_toBottomOf="@id/anime_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="14sp"
         />
 
-        <TextView
-            android:id="@+id/anime_producers_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/anime_genres"
-            app:layout_constraintTop_toBottomOf="@id/anime_genres"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@string/producers"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="14sp"
-        />
 
-        <TextView
-            android:id="@+id/anime_producers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/anime_producers_textView"
-            app:layout_constraintTop_toBottomOf="@id/anime_producers_textView"
-            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="14sp"
-        />
 
-        <TextView
-            android:id="@+id/anime_synopsis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/anime_producers"
-            app:layout_constraintTop_toBottomOf="@id/anime_producers"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"
-            android:layout_margin="20dp"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-        />
+<!--        <TextView-->
+<!--            android:id="@+id/anime_status_textView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_title"-->
+<!--            app:layout_constraintStart_toStartOf="@id/anime_title"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:text="@string/status"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_status"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_title"-->
+<!--            app:layout_constraintStart_toEndOf="@id/anime_status_textView"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_year"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_title"-->
+<!--            app:layout_constraintStart_toEndOf="@id/anime_status"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/white"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_episodes_textView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toEndOf="@id/anime_score"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_status"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:text="@string/episodes"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_episodes"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            app:layout_constraintStart_toEndOf="@id/anime_episodes_textView"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_status"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_genres_textView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="@id/anime_score_textView"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_members"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:text="@string/genres"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_genres"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="@id/anime_genres_textView"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_genres_textView"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_producers_textView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="@id/anime_genres"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_genres"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:text="@string/producers"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_producers"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="@id/anime_producers_textView"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_producers_textView"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textSize="14sp"-->
+<!--        />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_synopsis"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintStart_toStartOf="@id/anime_producers"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/anime_producers"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"-->
+<!--            android:layout_margin="20dp"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:textColor="@color/white"-->
+<!--        />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
