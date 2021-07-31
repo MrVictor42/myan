@@ -1,9 +1,7 @@
 package com.victor.myan.screens
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +25,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import android.graphics.drawable.Drawable
+
+import androidx.palette.graphics.Palette
+
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.widget.ImageView
+import androidx.palette.graphics.Palette.PaletteAsyncListener
+import com.bumptech.glide.request.target.SimpleTarget
+import com.github.florent37.picassopalette.PicassoPalette
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso.LoadedFrom
+import com.squareup.picasso.RequestCreator
+import java.lang.Exception
+import com.squareup.picasso.Target as Target
+
 
 class AnimeDetailFragment : Fragment() {
 
@@ -69,12 +83,14 @@ class AnimeDetailFragment : Fragment() {
         val animeScore = binding.animeScore
 //        val animeEpisodes = binding.animeEpisodes
         val animeImage = binding.animeImage
+        val backgroundTop = binding.backgroundTop
 //        val animeGenres = binding.animeGenres
 //        val animeProducers = binding.animeProducers
 //        val animeSynopsis = binding.animeSynopsis
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
+        val target : Target
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         val toolbar = binding.toolbar
 
@@ -103,6 +119,77 @@ class AnimeDetailFragment : Fragment() {
                         animeMembers.text = animeResponse.members.toString()
                         animeFavorites.text = animeResponse.favorites.toString()
                         Picasso.get().load(animeResponse.image_url).fit().into(animeImage)
+                        
+
+//                        , object : Target
+//                             {
+//                            override fun onBitmapLoaded(bitmap: Bitmap?, from: LoadedFrom?) {
+//                                                                Palette.from(bitmap!!).generate { palette ->
+//                                                                    val defaultValue = 0x000000
+//                                                                    val vibrant =
+//                                                                        palette!!.getVibrantColor(
+//                                                                            defaultValue
+//                                                                        )
+//                                                                    val vibrantLight =
+//                                                                        palette.getLightVibrantColor(
+//                                                                            defaultValue
+//                                                                        )
+//                                                                    val vibrantDark =
+//                                                                        palette.getDarkVibrantColor(
+//                                                                            defaultValue
+//                                                                        )
+//                                                                    val muted =
+//                                                                        palette.getMutedColor(
+//                                                                            defaultValue
+//                                                                        )
+//                                                                    val mutedLight =
+//                                                                        palette.getLightMutedColor(
+//                                                                            defaultValue
+//                                                                        )
+//                                                                    val mutedDark =
+//                                                                        palette.getDarkMutedColor(
+//                                                                            defaultValue
+//                                                                        )
+//                                                                    backgroundTop.setBackgroundColor(
+//                                                                        Color.GREEN
+//                                                                    )
+//                                                                }
+//                            }
+//
+//                            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+//                                TODO("Not yet implemented")
+//                            }
+//
+//                            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+//                                TODO("Not yet implemented")
+//                            }
+//
+//
+//
+//                        })
+//                        Picasso.get().load(animeResponse.image_url).fit().into(object : Target() {
+//                            fun onBitmapLoaded(bitmap: Bitmap?, from: LoadedFrom?) {
+//                                Palette.from(bitmap!!).generate { palette ->
+//                                    val defaultValue = 0x000000
+//                                    val vibrant = palette!!.getVibrantColor(defaultValue)
+//                                    val vibrantLight = palette.getLightVibrantColor(defaultValue)
+//                                    val vibrantDark = palette.getDarkVibrantColor(defaultValue)
+//                                    val muted = palette.getMutedColor(defaultValue)
+//                                    val mutedLight = palette.getLightMutedColor(defaultValue)
+//                                    val mutedDark = palette.getDarkMutedColor(defaultValue)
+//                                    backgroundTop.setBackgroundColor(vibrant)
+//                                }
+//                            }
+//                        })
+
+//                        Picasso.get().load(animeResponse.image_url).fit().into(animeImage,
+//                            object : Target() {
+//                                fun onBitmapLoaded(bitmap: Bitmap?, from: LoadedFrom?) {}
+//                                fun onBitmapFailed(errorDrawable: Drawable?) {}
+//                                fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
+//                            })
+
+
 
 //                        when(animeStatus.text) {
 //                            "Currently Airing" ->
