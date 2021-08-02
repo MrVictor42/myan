@@ -31,10 +31,19 @@ import androidx.palette.graphics.Palette
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.palette.graphics.Palette.PaletteAsyncListener
+import androidx.palette.graphics.Target.VIBRANT
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.SimpleTarget
 import com.github.florent37.picassopalette.PicassoPalette
+import com.github.florent37.picassopalette.PicassoPalette.Profile.VIBRANT
+import com.github.florent37.picassopalette.PicassoPalette.Profile.VIBRANT_LIGHT
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso.LoadedFrom
 import com.squareup.picasso.RequestCreator
@@ -118,77 +127,33 @@ class AnimeDetailFragment : Fragment() {
                         animePopularity.text = animeResponse.popularity.toString()
                         animeMembers.text = animeResponse.members.toString()
                         animeFavorites.text = animeResponse.favorites.toString()
-                        Picasso.get().load(animeResponse.image_url).fit().into(animeImage)
-                        
+                        Glide.with(this@AnimeDetailFragment).load(animeResponse.image_url).listener(object : RequestListener<Drawable>{
+                            override fun onLoadFailed(
+                                e: GlideException?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                Log.d("TAG Anime Detail", "Image not working")
+                                return false
+                            }
 
-//                        , object : Target
-//                             {
-//                            override fun onBitmapLoaded(bitmap: Bitmap?, from: LoadedFrom?) {
-//                                                                Palette.from(bitmap!!).generate { palette ->
-//                                                                    val defaultValue = 0x000000
-//                                                                    val vibrant =
-//                                                                        palette!!.getVibrantColor(
-//                                                                            defaultValue
-//                                                                        )
-//                                                                    val vibrantLight =
-//                                                                        palette.getLightVibrantColor(
-//                                                                            defaultValue
-//                                                                        )
-//                                                                    val vibrantDark =
-//                                                                        palette.getDarkVibrantColor(
-//                                                                            defaultValue
-//                                                                        )
-//                                                                    val muted =
-//                                                                        palette.getMutedColor(
-//                                                                            defaultValue
-//                                                                        )
-//                                                                    val mutedLight =
-//                                                                        palette.getLightMutedColor(
-//                                                                            defaultValue
-//                                                                        )
-//                                                                    val mutedDark =
-//                                                                        palette.getDarkMutedColor(
-//                                                                            defaultValue
-//                                                                        )
-//                                                                    backgroundTop.setBackgroundColor(
-//                                                                        Color.GREEN
-//                                                                    )
-//                                                                }
-//                            }
-//
-//                            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-//                                TODO("Not yet implemented")
-//                            }
-//
-//                            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-//                                TODO("Not yet implemented")
-//                            }
-//
-//
-//
-//                        })
-//                        Picasso.get().load(animeResponse.image_url).fit().into(object : Target() {
-//                            fun onBitmapLoaded(bitmap: Bitmap?, from: LoadedFrom?) {
-//                                Palette.from(bitmap!!).generate { palette ->
-//                                    val defaultValue = 0x000000
-//                                    val vibrant = palette!!.getVibrantColor(defaultValue)
-//                                    val vibrantLight = palette.getLightVibrantColor(defaultValue)
-//                                    val vibrantDark = palette.getDarkVibrantColor(defaultValue)
-//                                    val muted = palette.getMutedColor(defaultValue)
-//                                    val mutedLight = palette.getLightMutedColor(defaultValue)
-//                                    val mutedDark = palette.getDarkMutedColor(defaultValue)
-//                                    backgroundTop.setBackgroundColor(vibrant)
-//                                }
-//                            }
-//                        })
-
-//                        Picasso.get().load(animeResponse.image_url).fit().into(animeImage,
-//                            object : Target() {
-//                                fun onBitmapLoaded(bitmap: Bitmap?, from: LoadedFrom?) {}
-//                                fun onBitmapFailed(errorDrawable: Drawable?) {}
-//                                fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
-//                            })
-
+                            override fun onResourceReady(
+                                resource: Drawable?,
+                                model: Any?,
+                                target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                Palette.from(resource!!.toBitmap()).generate() { palette ->
+                                    palette?.let {
+                                        val color = it.darkVibrantSwatch?.rgb?:0
+                                        backgroundTop.setBackgroundColor(color)
+                                    }
+                                }
+                                return false
+                            }
+                        }).into(animeImage)
 
 
 //                        when(animeStatus.text) {
