@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.helper.JikanApiInstanceHelper
@@ -26,30 +25,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import android.graphics.drawable.Drawable
-
 import androidx.palette.graphics.Palette
-
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.util.Log
-import android.widget.ImageView
 import androidx.core.graphics.drawable.toBitmap
-import androidx.palette.graphics.Palette.PaletteAsyncListener
-import androidx.palette.graphics.Target.VIBRANT
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.SimpleTarget
-import com.github.florent37.picassopalette.PicassoPalette
-import com.github.florent37.picassopalette.PicassoPalette.Profile.VIBRANT
-import com.github.florent37.picassopalette.PicassoPalette.Profile.VIBRANT_LIGHT
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso.LoadedFrom
-import com.squareup.picasso.RequestCreator
-import java.lang.Exception
-import com.squareup.picasso.Target as Target
-
 
 class AnimeDetailFragment : Fragment() {
 
@@ -99,11 +81,10 @@ class AnimeDetailFragment : Fragment() {
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
-        val target : Target
+        val typeYear = binding.typeYear
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         val toolbar = binding.toolbar
 
-        toolbar.toolbar.title = "Home"
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
             val homeFragment = HomeFragment()
@@ -123,6 +104,8 @@ class AnimeDetailFragment : Fragment() {
                     val animeResponse = call.body()
                     if (animeResponse != null) {
                         animeTitle.text = animeResponse.title
+                        toolbar.toolbar.title = animeResponse.title
+
 //                        animeStatus.text = animeResponse.status
                         animePopularity.text = animeResponse.popularity.toString()
                         animeMembers.text = animeResponse.members.toString()
@@ -155,6 +138,20 @@ class AnimeDetailFragment : Fragment() {
                             }
                         }).into(animeImage)
 
+                        val type = when(animeResponse.type) {
+                            "" -> ""
+                            "null" -> ""
+                            else -> animeResponse.type
+                        }
+
+                        typeYear.text = "$type, $year"
+
+//                        if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
+//                            animeEpisodes.text = "─"
+//                        } else {
+//                            animeEpisodes.text = animeResponse.episodes.toString()
+//                        }
+
 
 //                        when(animeStatus.text) {
 //                            "Currently Airing" ->
@@ -170,8 +167,9 @@ class AnimeDetailFragment : Fragment() {
 //                                    ContextCompat.getColor(requireContext(), R.color.red)
 //                                )
 //                        }
+
 //
-//                        animeYear.text = year
+//
 
                         if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
                             animeScore.text = "─"

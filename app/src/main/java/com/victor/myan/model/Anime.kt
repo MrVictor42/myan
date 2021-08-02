@@ -21,6 +21,10 @@ data class Anime (
     var episodes : Int = 0,
     @SerializedName("score")
     var score : Double = 0.0,
+    @SerializedName("type")
+    var type : String = "",
+    @SerializedName("duration")
+    var duration : String = "",
     @SerializedName("popularity")
     var popularity : Int = 0,
     @SerializedName("members")

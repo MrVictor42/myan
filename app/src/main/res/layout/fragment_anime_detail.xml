@@ -159,12 +159,36 @@
             android:gravity="center"
         />
 
+        <LinearLayout
+            android:id="@+id/anime_information"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anime_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+        >
+            <TextView
+                android:id="@+id/type_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/anime"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginEnd="20dp"
+            />
+
+        </LinearLayout>
+
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:showFullScreenButton="false"
-            app:layout_constraintTop_toBottomOf="@id/anime_title"
+            app:layout_constraintTop_toBottomOf="@id/anime_information"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"

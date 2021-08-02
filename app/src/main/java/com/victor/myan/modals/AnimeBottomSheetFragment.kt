@@ -39,7 +39,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val yearModal = binding.yearModal
         val episodesModal = binding.episodeModal
         val scoreModal = binding.scoreModal
-        val btnMoreInformations = binding.btnMoreInformationModal
+        val btnMoreInformation = binding.btnMoreInformationModal
 
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
@@ -62,7 +62,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
             } else -> scoreModal.text = score.toString()
         }
 
-        btnMoreInformations.setOnClickListener {
+        btnMoreInformation.setOnClickListener {
             val fragment = AnimeDetailFragment()
             val fragmentManager = activity?.supportFragmentManager
 
