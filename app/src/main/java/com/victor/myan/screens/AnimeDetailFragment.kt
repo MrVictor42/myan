@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.victor.myan.enums.StatusEnum
 
 class AnimeDetailFragment : Fragment() {
 
@@ -69,8 +70,7 @@ class AnimeDetailFragment : Fragment() {
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
-//        val animeStatus = binding.animeStatus
-//        val animeYear = binding.animeYear
+        val animeStatus = binding.animeStatus
         val animeScore = binding.animeScore
 //        val animeEpisodes = binding.animeEpisodes
         val animeImage = binding.animeImage
@@ -78,6 +78,7 @@ class AnimeDetailFragment : Fragment() {
 //        val animeGenres = binding.animeGenres
 //        val animeProducers = binding.animeProducers
 //        val animeSynopsis = binding.animeSynopsis
+        val episodeDuration = binding.episodeDuration
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
@@ -105,8 +106,6 @@ class AnimeDetailFragment : Fragment() {
                     if (animeResponse != null) {
                         animeTitle.text = animeResponse.title
                         toolbar.toolbar.title = animeResponse.title
-
-//                        animeStatus.text = animeResponse.status
                         animePopularity.text = animeResponse.popularity.toString()
                         animeMembers.text = animeResponse.members.toString()
                         animeFavorites.text = animeResponse.favorites.toString()
@@ -139,34 +138,51 @@ class AnimeDetailFragment : Fragment() {
                         }).into(animeImage)
 
                         val type = when(animeResponse.type) {
-                            "" -> ""
-                            "null" -> ""
+                            "" -> "─"
+                            "null" -> "─"
                             else -> animeResponse.type
                         }
 
-                        typeYear.text = "$type, $year"
+                        val typeYearConcat = "$type, $year"
 
-//                        if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
-//                            animeEpisodes.text = "─"
-//                        } else {
-//                            animeEpisodes.text = animeResponse.episodes.toString()
-//                        }
+                        typeYear.text = typeYearConcat
 
+                        val episode = when(animeResponse.episodes.toString()) {
+                            "null" -> "─"
+                            "0" -> "─"
+                            else -> animeResponse.episodes
+                        }
 
-//                        when(animeStatus.text) {
-//                            "Currently Airing" ->
-//                                animeStatus.setTextColor(
-//                                    ContextCompat.getColor(requireContext(), R.color.green_light)
-//                                )
-//                            "Not yet aired" ->
-//                                animeStatus.setTextColor(
-//                                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
-//                                )
-//                            "Finished Airing" ->
-//                                animeStatus.setTextColor(
-//                                    ContextCompat.getColor(requireContext(), R.color.red)
-//                                )
-//                        }
+                        val duration = auxServicesHelper.formatDurationEpisode(type, animeResponse.duration)
+                        val epiDuration = "$episode ep, $duration"
+//
+                        episodeDuration.text = "epiDuration"
+
+                        when(animeResponse.status) {
+                            "null" -> animeStatus.text = "─"
+                            "" -> animeStatus.text = "─"
+
+                            StatusEnum.CurrentlyAiring.status -> {
+                                animeStatus.text = StatusEnum.CurrentlyAiring.status
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.green_light)
+                                )
+                            }
+
+                            StatusEnum.NotYetAired.status -> {
+                                animeStatus.text = StatusEnum.NotYetAired.status
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                                )
+                            }
+
+                            StatusEnum.FinishedAiring.status -> {
+                                animeStatus.text = StatusEnum.FinishedAiring.status
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.red)
+                                )
+                            }
+                        }
 
 //
 //

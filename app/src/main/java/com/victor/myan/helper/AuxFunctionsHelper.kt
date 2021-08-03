@@ -6,6 +6,7 @@ import android.net.NetworkInfo
 import android.widget.EditText
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.victor.myan.enums.AnimeTypeEnum
 import com.victor.myan.enums.DaysEnum
 import com.victor.myan.enums.MonthsEnum
 import com.victor.myan.enums.SeasonsEnum
@@ -99,5 +100,30 @@ class AuxFunctionsHelper {
             25 -> year.substring(0,4)
             else -> year.substring(4,8)
         }
+    }
+
+    fun formatDurationEpisode(typeAnime : String, duration : String) : String {
+        var episodePerMinute : String = ""
+
+        when(typeAnime) {
+            AnimeTypeEnum.TV.name, AnimeTypeEnum.OVA.name -> {
+                when(duration.length) {
+                    13 -> episodePerMinute.substring(0,6)
+                    else -> episodePerMinute = duration
+                }
+            }
+
+            AnimeTypeEnum.Special.name, AnimeTypeEnum.ONA.name -> {
+                when(duration.length) {
+                    12 -> episodePerMinute.substring(0,6)
+                    13 -> episodePerMinute.substring(0,6)
+                    else -> episodePerMinute = duration
+                }
+            }
+
+            AnimeTypeEnum.Movie.name, AnimeTypeEnum.Music.name -> episodePerMinute = duration
+        }
+
+        return episodePerMinute
     }
 }

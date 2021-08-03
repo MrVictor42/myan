@@ -10,7 +10,7 @@
         <entry key="app/src/main/res/drawable/anime_detail_linear.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/drawable/edit_text_shape.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/layout/activity_form_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
       </map>
     </option>
   </component>
