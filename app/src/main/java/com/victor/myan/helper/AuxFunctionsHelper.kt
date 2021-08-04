@@ -107,17 +107,17 @@ class AuxFunctionsHelper {
 
         when(typeAnime) {
             AnimeTypeEnum.TV.name, AnimeTypeEnum.OVA.name -> {
-                when(duration.length) {
-                    13 -> episodePerMinute.substring(0,6)
-                    else -> episodePerMinute = duration
+                episodePerMinute = when(duration.length) {
+                    13 -> duration.substring(0,6)
+                    else -> duration
                 }
             }
 
             AnimeTypeEnum.Special.name, AnimeTypeEnum.ONA.name -> {
-                when(duration.length) {
-                    12 -> episodePerMinute.substring(0,6)
-                    13 -> episodePerMinute.substring(0,6)
-                    else -> episodePerMinute = duration
+                episodePerMinute = when(duration.length) {
+                    12 -> duration.substring(0,6)
+                    13 -> duration.substring(0,6)
+                    else -> duration
                 }
             }
 

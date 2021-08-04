@@ -65,17 +65,15 @@ class AnimeDetailFragment : Fragment() {
 
         val malID = arguments?.getString("mal_id")
         val year = arguments?.getString("year")
-        val listGenres: MutableList<String> = mutableListOf()
-        val listProducers: MutableList<String> = mutableListOf()
+        var listGenres : String = ""
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
         val animeStatus = binding.animeStatus
         val animeScore = binding.animeScore
-//        val animeEpisodes = binding.animeEpisodes
         val animeImage = binding.animeImage
         val backgroundTop = binding.backgroundTop
-//        val animeGenres = binding.animeGenres
+        val animeGenres = binding.animeGenres
 //        val animeProducers = binding.animeProducers
 //        val animeSynopsis = binding.animeSynopsis
         val episodeDuration = binding.episodeDuration
@@ -154,9 +152,9 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         val duration = auxServicesHelper.formatDurationEpisode(type, animeResponse.duration)
-                        val epiDuration = "$episode ep, $duration"
-//
-                        episodeDuration.text = "epiDuration"
+                        val epiDuration = "$episode eps, $duration"
+
+                        episodeDuration.text = epiDuration
 
                         when(animeResponse.status) {
                             "null" -> animeStatus.text = "─"
@@ -184,43 +182,26 @@ class AnimeDetailFragment : Fragment() {
                             }
                         }
 
-//
-//
-
                         if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
                             animeScore.text = "─"
                         } else {
                             animeScore.text = animeResponse.score.toString()
                         }
 
-//                        if(animeResponse.episodes.toString() == "" || animeResponse.episodes == 0) {
-//                            animeEpisodes.text = "─"
-//                        } else {
-//                            animeEpisodes.text = animeResponse.episodes.toString()
-//                        }
-//
-//                        if(animeResponse.genres.isEmpty()) {
-//                            animeGenres.text = "─"
-//                        } else {
-//                            for(genre in animeResponse.genres.indices) {
-//                                listGenres.add(animeResponse.genres[genre].name)
-//                            }
-//                            animeGenres.text = listGenres.toString()
-//                            listGenres.clear()
-//                        }
-//
-//                        if(animeResponse.producers.isEmpty()) {
-//                            animeProducers.text =
-//                                auxServicesHelper.capitalize(
-//                                    "not found the producers for this anime"
-//                                )
-//                        } else {
-//                            for(producer in animeResponse.producers.indices) {
-//                                listProducers.add(animeResponse.producers[producer].name)
-//                            }
-//                            animeProducers.text = listProducers.toString()
-//                            listProducers.clear()
-//                        }
+                        if(animeResponse.genres.isEmpty()) {
+                            animeGenres.text = "─"
+                        } else {
+                            for(genre in animeResponse.genres.indices) {
+
+                                listGenres += animeResponse.genres[genre].name
+                                if(genre < animeResponse.genres.size -1) {
+                                    listGenres += " • "
+                                }
+                            }
+                            animeGenres.text = listGenres
+                        }
+
+
 //
 //                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //                            binding.animeSynopsis.justificationMode =
