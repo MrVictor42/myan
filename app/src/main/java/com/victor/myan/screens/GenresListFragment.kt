@@ -9,21 +9,22 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
-import com.victor.myan.adapter.CategoriesAdapter
+import com.victor.myan.adapter.GenresAdapter
 import com.victor.myan.databinding.FragmentCategoriesListBinding
 import com.victor.myan.model.Category
+import com.victor.myan.model.Genre
 
-class CategoriesListFragment : Fragment() {
+class GenresListFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoriesListBinding
-    private lateinit var categoriesAdapter : CategoriesAdapter
+    private lateinit var genresAdapter: GenresAdapter
 
     companion object {
-        fun newInstance(): CategoriesListFragment {
-            val catalogFragment = CategoriesListFragment()
+        fun newInstance(): GenresListFragment {
+            val genreListFragment = GenresListFragment()
             val args = Bundle()
-            catalogFragment.arguments = args
-            return catalogFragment
+            genreListFragment.arguments = args
+            return genreListFragment
         }
     }
 
@@ -37,32 +38,37 @@ class CategoriesListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val categoryList = arrayListOf<Category>()
+        val genreList = arrayListOf<Genre>()
         val recyclerViewCatalog = binding.recyclerViewCatalog
         recyclerViewCatalog.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
 
-        categoriesAdapter = CategoriesAdapter(categoryList)
-        recyclerViewCatalog.adapter = categoriesAdapter
+        genresAdapter = GenresAdapter(genreList)
+        recyclerViewCatalog.adapter = genresAdapter
         recyclerViewCatalog.layoutManager = GridLayoutManager(context, 2)
 
-        categoriesAdapter.categories.clear()
+        genresAdapter.genres.clear()
 
-        FirebaseFirestore.getInstance().collection("categories")
+        FirebaseFirestore.getInstance().collection("genres")
             .addSnapshotListener {
                 snapshot, exception -> exception?.let {
             return@addSnapshotListener
         }
             snapshot?.let {
                 for(doc in snapshot) {
-                    val category = Category()
+                    val genre = Genre()
 
-                    category.type = doc.get("type").toString()
-                    category.image = doc.get("image").toString()
-                    category.genre = Integer.parseInt(doc.get("genre").toString())
-                    categoriesAdapter.categories.add(category)
+                    genre.name = doc.get("name").toString()
+                    genre.image = doc.get("image").toString()
+                    genre.mal_id = Integer.parseInt(doc.get("mal_id").toString())
+//                    val category = Category()
+//
+//                    category.type = doc.get("type").toString()
+//                    category.image = doc.get("image").toString()
+//                    category.genre = Integer.parseInt(doc.get("genre").toString())
+//                    categoriesAdapter.categories.add(category)
                 }
-                categoriesAdapter.notifyDataSetChanged()
+                genresAdapter.notifyDataSetChanged()
             }
         }
     }

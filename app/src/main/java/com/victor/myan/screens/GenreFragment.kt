@@ -23,7 +23,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CategoriesFragment : Fragment() {
+class GenreFragment : Fragment() {
 
     private lateinit var binding : FragmentCategoriesBinding
 
@@ -50,7 +50,7 @@ class CategoriesFragment : Fragment() {
         toolbar.toolbar.title = type
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
-            val categoriesListFragment = CategoriesListFragment()
+            val categoriesListFragment = GenresListFragment()
             (view.context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()

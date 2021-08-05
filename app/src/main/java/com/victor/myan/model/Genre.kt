@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class Genre(
     @SerializedName("name")
     var name : String = "",
-    @SerializedName("type")
-    var type : String = "",
+    @SerializedName("image")
+    var image : String = "",
     @SerializedName("mal_id")
     var mal_id : Int = 0,
 )

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -77,7 +76,7 @@ class BaseLayout : AppCompatActivity() {
                 }
 
                 R.id.categories -> {
-                    addFragment(CategoriesListFragment.newInstance())
+                    addFragment(GenresListFragment.newInstance())
                     return@setOnNavigationItemSelectedListener true
                 }
 

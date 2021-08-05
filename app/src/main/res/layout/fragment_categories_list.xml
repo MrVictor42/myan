@@ -8,13 +8,13 @@
     android:background="@color/black_gray"
     android:fitsSystemWindows="true"
     android:overScrollMode="never"
-    tools:context=".screens.CategoriesListFragment"
+    tools:context=".screens.GenresListFragment"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_gray"
-        tools:context=".screens.CategoriesListFragment">
+        tools:context=".screens.GenresListFragment">
 
         <TextView
             android:id="@+id/categories_title"

@@ -10,28 +10,32 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.model.Category
-import com.victor.myan.screens.CategoriesFragment
+import com.victor.myan.model.Genre
+import com.victor.myan.screens.GenreFragment
 
-class CategoriesAdapter(var categories: MutableList<Category>) :
-    RecyclerView.Adapter<CategoriesAdapter.CatalogHolder>() {
+class GenresAdapter(var genres: MutableList<Genre>) :
+    RecyclerView.Adapter<GenresAdapter.CatalogHolder>() {
 
     class CatalogHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val image : ImageView = itemView.findViewById(R.id.imageCatalog)
         private val textCatalog : TextView = itemView.findViewById(R.id.textCatalog)
 
-        fun bind(category: Category) {
-            textCatalog.text = category.type
-            Picasso.get().load(category.image).placeholder(R.drawable.placeholder).fit().into(image)
+        fun bind(genre : Genre) {
+            textCatalog.text = genre.name
+            Picasso.get().load(genre.image).placeholder(R.drawable.placeholder).fit().into(image)
 
             itemView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putInt("genre", category.genre)
-                bundle.putString("type", category.type)
+                bundle.putInt("mal_id", genre.mal_id)
+                bundle.putString("name", genre.name)
 
-                val categoryFragment = CategoriesFragment()
-                categoryFragment.arguments = bundle
-                (itemView.context as FragmentActivity).supportFragmentManager.beginTransaction().replace(R.id.content, categoryFragment).addToBackStack(null).commit()
+                val genreFragment = GenreFragment()
+                genreFragment.arguments = bundle
+                (itemView.context as FragmentActivity)
+                    .supportFragmentManager
+                    .beginTransaction().replace(R.id.content, genreFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
@@ -42,10 +46,10 @@ class CategoriesAdapter(var categories: MutableList<Category>) :
     }
 
     override fun onBindViewHolder(holder: CatalogHolder, position: Int) {
-        holder.bind(categories[position])
+        holder.bind(genres[position])
     }
 
     override fun getItemCount(): Int {
-        return categories.size
+        return genres.size
     }
 }
