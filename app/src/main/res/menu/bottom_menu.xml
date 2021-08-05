@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/home" android:icon="@drawable/ic_home" android:title="@string/home"/>
     <item android:id="@+id/search" android:icon="@drawable/ic_search" android:title="@string/search"/>
-    <item android:id="@+id/categories" android:icon="@drawable/ic_catalog" android:title="@string/categories"/>
+    <item android:id="@+id/genres" android:icon="@drawable/ic_catalog" android:title="@string/genres"/>
     <item android:id="@+id/logout" android:icon="@drawable/ic_exit" android:title="@string/logout"/>
 </menu>

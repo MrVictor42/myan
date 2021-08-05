@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1875" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_carousel.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/list_image_adapter.xml" value="0.10182370820668693" />
@@ -10,7 +11,13 @@
         <entry key="app/src/main/res/drawable/anime_detail_linear.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/drawable/edit_text_shape.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/layout/activity_form_login.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_categories_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_season.xml" value="0.13677536231884058" />
+        <entry key="app/src/main/res/layout/fragment_top_anime.xml" value="0.13677536231884058" />
+        <entry key="app/src/main/res/layout/fragment_top_manga.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/genres_text.xml" value="0.13677536231884058" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -231,60 +231,32 @@
 
         </LinearLayout>
 
+            <TextView
+                android:id="@+id/anime_synopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/linear_genres"
+                app:layout_constraintEnd_toEndOf="@id/youtube_player_view"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+            />
+
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:showFullScreenButton="false"
-            app:layout_constraintTop_toBottomOf="@id/linear_genres"
+            app:layout_constraintTop_toBottomOf="@id/anime_synopsis"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
         />
-
-<!--        <TextView-->
-<!--            android:id="@+id/anime_producers_textView"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintStart_toStartOf="@id/anime_genres"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/anime_genres"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginEnd="10dp"-->
-<!--            android:text="@string/producers"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="14sp"-->
-<!--        />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/anime_producers"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintStart_toStartOf="@id/anime_producers_textView"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/anime_producers_textView"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="14sp"-->
-<!--        />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/anime_synopsis"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintStart_toStartOf="@id/anime_producers"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/anime_producers"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/youtube_player_view"-->
-<!--            android:layout_margin="20dp"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@color/white"-->
-<!--        />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -25,14 +25,19 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import android.graphics.drawable.Drawable
+import android.os.Build
+import android.text.Layout
 import androidx.palette.graphics.Palette
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.victor.myan.adapter.GenresAdapter
 import com.victor.myan.enums.StatusEnum
+import com.victor.myan.model.Genre
 
 class AnimeDetailFragment : Fragment() {
 
@@ -74,15 +79,14 @@ class AnimeDetailFragment : Fragment() {
         val animeImage = binding.animeImage
         val backgroundTop = binding.backgroundTop
         val animeGenres = binding.animeGenres
-//        val animeProducers = binding.animeProducers
-//        val animeSynopsis = binding.animeSynopsis
+        val animeSynopsis = binding.animeSynopsis
         val episodeDuration = binding.episodeDuration
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
         val typeYear = binding.typeYear
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         val toolbar = binding.toolbar
+        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
 
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
@@ -189,7 +193,7 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         if(animeResponse.genres.isEmpty()) {
-                            animeGenres.text = "─"
+                            // Nothing to do
                         } else {
                             for(genre in animeResponse.genres.indices) {
 
@@ -200,16 +204,6 @@ class AnimeDetailFragment : Fragment() {
                             }
                             animeGenres.text = listGenres
                         }
-
-
-//
-//                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                            binding.animeSynopsis.justificationMode =
-//                                Layout.JUSTIFICATION_MODE_INTER_WORD
-//                            animeSynopsis.text = animeResponse.synopsis
-//                        } else {
-//                            animeSynopsis.text = animeResponse.synopsis
-//                        }
 
                         animeVideo.addYouTubePlayerListener(object :
                             AbstractYouTubePlayerListener() {
@@ -226,6 +220,14 @@ class AnimeDetailFragment : Fragment() {
                                 }
                             }
                         })
+
+                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            binding.animeSynopsis.justificationMode =
+                                Layout.JUSTIFICATION_MODE_INTER_WORD
+                            animeSynopsis.text = animeResponse.synopsis
+                        } else {
+                            animeSynopsis.text = animeResponse.synopsis
+                        }
                     }
                 } else {
                     Toast.makeText(

@@ -26,7 +26,7 @@
             android:textStyle="bold"
             android:textSize="40sp"
             android:layout_margin="20dp"
-            android:text="@string/categories"
+            android:text="@string/genres"
             android:textColor="@color/white"
             android:gravity="center"
             />

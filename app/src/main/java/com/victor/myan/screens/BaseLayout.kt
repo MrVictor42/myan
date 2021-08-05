@@ -75,7 +75,7 @@ class BaseLayout : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.categories -> {
+                R.id.genres -> {
                     addFragment(GenresListFragment.newInstance())
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -91,7 +91,6 @@ class BaseLayout : AppCompatActivity() {
         }
 
         navigationView.setOnApplyWindowInsetsListener(null)
-        navigationView.setPadding(0)
     }
 
     private fun addFragment(fragment: Fragment) {

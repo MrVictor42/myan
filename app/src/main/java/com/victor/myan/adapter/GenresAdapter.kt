@@ -22,6 +22,7 @@ class GenresAdapter(var genres: MutableList<Genre>) :
 
         fun bind(genre : Genre) {
             textCatalog.text = genre.name
+
             Picasso.get().load(genre.image).placeholder(R.drawable.placeholder).fit().into(image)
 
             itemView.setOnClickListener {

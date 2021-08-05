@@ -37,8 +37,8 @@ class GenreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val genreID = arguments?.getInt("genre")
-        val type = arguments?.getString("type")
+        val genreID = arguments?.getInt("mal_id")
+        val name = arguments?.getString("name")
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
         val toolbar = binding.toolbar
         val highestScoreNull = binding.highestScoreNull
@@ -47,7 +47,7 @@ class GenreFragment : Fragment() {
         val completedNull = binding.completedNull
         var recyclerView : RecyclerView
 
-        toolbar.toolbar.title = type
+        toolbar.toolbar.title = name
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
             val categoriesListFragment = GenresListFragment()

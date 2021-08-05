@@ -61,12 +61,7 @@ class GenresListFragment : Fragment() {
                     genre.name = doc.get("name").toString()
                     genre.image = doc.get("image").toString()
                     genre.mal_id = Integer.parseInt(doc.get("mal_id").toString())
-//                    val category = Category()
-//
-//                    category.type = doc.get("type").toString()
-//                    category.image = doc.get("image").toString()
-//                    category.genre = Integer.parseInt(doc.get("genre").toString())
-//                    categoriesAdapter.categories.add(category)
+                    genresAdapter.genres.add(genre)
                 }
                 genresAdapter.notifyDataSetChanged()
             }
