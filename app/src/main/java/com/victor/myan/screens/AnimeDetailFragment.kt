@@ -1,6 +1,5 @@
 package com.victor.myan.screens
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,19 +24,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import android.graphics.drawable.Drawable
-import android.os.Build
-import android.text.Layout
 import androidx.palette.graphics.Palette
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.victor.myan.adapter.GenresAdapter
 import com.victor.myan.enums.StatusEnum
-import com.victor.myan.model.Genre
 
 class AnimeDetailFragment : Fragment() {
 
@@ -53,7 +47,6 @@ class AnimeDetailFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val callback = object : OnBackPressedCallback(true) {
@@ -79,11 +72,11 @@ class AnimeDetailFragment : Fragment() {
         val animeImage = binding.animeImage
         val backgroundTop = binding.backgroundTop
         val animeGenres = binding.animeGenres
-        val animeSynopsis = binding.animeSynopsis
         val episodeDuration = binding.episodeDuration
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
+        val expandableTextView = binding.expandableTextContent
         val typeYear = binding.typeYear
         val toolbar = binding.toolbar
         val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
@@ -221,13 +214,7 @@ class AnimeDetailFragment : Fragment() {
                             }
                         })
 
-                        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            binding.animeSynopsis.justificationMode =
-                                Layout.JUSTIFICATION_MODE_INTER_WORD
-                            animeSynopsis.text = animeResponse.synopsis
-                        } else {
-                            animeSynopsis.text = animeResponse.synopsis
-                        }
+                        expandableTextView.text = animeResponse.synopsis
                     }
                 } else {
                     Toast.makeText(
