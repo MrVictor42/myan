@@ -31,8 +31,6 @@ data class Anime (
     var members : Int = 0,
     @SerializedName("favorites")
     var favorites : Int = 0,
-    @SerializedName("producers")
-    var producers : List<Producer> = arrayListOf(),
     @SerializedName("genres")
     var genres : List<Genre> = arrayListOf()
 )
