@@ -27,15 +27,25 @@ import android.graphics.drawable.Drawable
 import androidx.palette.graphics.Palette
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.victor.myan.adapter.CharactersAdapter
+import com.victor.myan.api.StaffApi
 import com.victor.myan.enums.StatusEnum
+import com.victor.myan.model.Character
+import retrofit2.Call
+import retrofit2.Callback
 
 class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
+    private lateinit var characterAdapter : CharactersAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
 
@@ -79,7 +89,10 @@ class AnimeDetailFragment : Fragment() {
         val expandableTextView = binding.expandableTextContent
         val typeYear = binding.typeYear
         val toolbar = binding.toolbar
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val characterList = arrayListOf<Character>()
+        val characterRecyclerView = binding.animeCharacter
+        val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val staffApi = JikanApiInstanceHelper.getJikanApiInstance().create(StaffApi::class.java)
 
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
@@ -93,8 +106,13 @@ class AnimeDetailFragment : Fragment() {
                 .commit()
         }
 
+        characterRecyclerView.layoutManager =
+            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        characterAdapter = CharactersAdapter(characterList)
+        characterRecyclerView.adapter = characterAdapter
+
         CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<Anime> = api.getAnime(malID.toString())
+            val call: Response<Anime> = animeApi.getAnime(malID.toString())
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful) {
                     val animeResponse = call.body()
@@ -215,6 +233,37 @@ class AnimeDetailFragment : Fragment() {
                         })
 
                         expandableTextView.text = animeResponse.synopsis
+
+                        staffApi.getCharactersStaff(animeResponse.mal_id).enqueue(object : Callback<JsonObject> {
+                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+                            }
+
+                            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                                if(response.isSuccessful) {
+                                    val staffResponse = response.body()
+                                    characterAdapter.character.clear()
+                                    if(staffResponse != null) {
+                                        val animeCharacters : JsonArray? = staffResponse.getAsJsonArray("characters")
+                                        if(animeCharacters != null) {
+                                            for(characters in 0 until animeCharacters.size()) {
+                                                val characterObject : JsonObject? = animeCharacters.get(characters) as JsonObject?
+                                                if(characterObject != null) {
+                                                    val character = Character()
+
+                                                    character.mal_id = characterObject.get("mal_id").asInt
+                                                    character.image_url = characterObject.get("image_url").asString
+                                                    character.name = characterObject.get("name").asString
+
+                                                    characterAdapter.character.add(character)
+                                                }
+                                            }
+                                            characterAdapter.notifyDataSetChanged()
+                                        }
+                                    }
+                                }
+                            }
+                        })
                     }
                 } else {
                     Toast.makeText(

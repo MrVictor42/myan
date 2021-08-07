@@ -2,7 +2,7 @@ package com.victor.myan.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Staff (
+data class Character(
     @SerializedName("mal_id")
     var mal_id : Int = 0,
     @SerializedName("image_url")
