@@ -287,30 +287,109 @@
             android:layout_marginTop="20dp"
         />
 
-        <TextView
-            android:id="@+id/licensors_text_view"
+        <LinearLayout
+            android:id="@+id/linear_licensors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/licensors"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/anime_character"
-        />
-
-        <TextView
-            android:id="@+id/anime_licensors"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/licensors_text_view"
             app:layout_constraintStart_toStartOf="parent"
-        />
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            >
+            <TextView
+                android:id="@+id/licensors_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/licensors"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+            />
+
+            <TextView
+                android:id="@+id/anime_licensors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/licensors_text_view"
+                app:layout_constraintStart_toStartOf="@id/licensors_text_view"
+            />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@id/linear_licensors"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+        >
+            <TextView
+                android:id="@+id/studios_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/linear_licensors"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                android:text="@string/studios"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+            />
+
+            <TextView
+                android:id="@+id/anime_studios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/studios_text_view"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+            />
+        </LinearLayout>
+
+
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/linear_licensors"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--        >-->
+<!--            -->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/opening_theme_text_view"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="14sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="@string/opening_themes"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/white"&ndash;&gt;-->
+<!--&lt;!&ndash;            />&ndash;&gt;-->
+
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/anime_opening"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_marginEnd="20dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="@color/white"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="16sp"&ndash;&gt;-->
+<!--&lt;!&ndash;            />&ndash;&gt;-->
+<!--        </LinearLayout>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

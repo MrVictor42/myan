@@ -22,8 +22,9 @@
         <entry key="app/src/main/res/layout/fragment_top_anime.xml" value="0.13677536231884058" />
         <entry key="app/src/main/res/layout/fragment_top_manga.xml" value="0.1" />
         <entry key="app/src/main/res/layout/genres_text.xml" value="0.13677536231884058" />
-        <entry key="app/src/main/res/layout/list_image_adapter.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_image_adapter.xml" value="0.15" />
         <entry key="app/src/main/res/layout/list_staff_person_adapter.xml" value="0.12409420289855072" />
+        <entry key="app/src/main/res/layout/toolbar_back.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>

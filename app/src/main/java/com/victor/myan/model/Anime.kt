@@ -36,5 +36,9 @@ data class Anime (
     @SerializedName("licensors")
     var licensors : List<Licensor> = arrayListOf(),
     @SerializedName("studios")
-    var studios : List<Studio> = arrayListOf()
+    var studios : List<Studio> = arrayListOf(),
+    @SerializedName("title_synonyms")
+    var title_synonyms : List<String> = arrayListOf(),
+    @SerializedName("opening_themes")
+    var opening_themes : List<String> = arrayListOf()
 )

@@ -27,6 +27,7 @@ import android.graphics.drawable.Drawable
 import androidx.palette.graphics.Palette
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -75,6 +76,8 @@ class AnimeDetailFragment : Fragment() {
         val year = arguments?.getString("year")
         var listGenres : String = ""
         var listLicensors : String = ""
+        var listStudios : String = ""
+        var listOpening : String = ""
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
@@ -84,6 +87,7 @@ class AnimeDetailFragment : Fragment() {
         val backgroundTop = binding.backgroundTop
         val animeGenres = binding.animeGenres
         val animeLicensors = binding.animeLicensors
+        val animeStudios = binding.animeStudios
         val episodeDuration = binding.episodeDuration
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
@@ -96,7 +100,6 @@ class AnimeDetailFragment : Fragment() {
         val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
         val staffApi = JikanApiInstanceHelper.getJikanApiInstance().create(StaffApi::class.java)
 
-        toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
             val homeFragment = HomeFragment()
             (view.context as FragmentActivity)
@@ -271,7 +274,6 @@ class AnimeDetailFragment : Fragment() {
                             animeLicensors.text = "Unknown"
                         } else {
                             for(licensor in animeResponse.licensors.indices) {
-
                                 listLicensors += animeResponse.licensors[licensor].name
                                 if(licensor < animeResponse.licensors.size -1) {
                                     listLicensors += "\n"
@@ -279,7 +281,34 @@ class AnimeDetailFragment : Fragment() {
                             }
                             animeLicensors.text = listLicensors
                         }
+
+                        if(animeResponse.studios.isEmpty()) {
+                            animeStudios.text = "UnKnown"
+                        } else {
+                            for(studio in animeResponse.studios.indices) {
+                                listStudios += animeResponse.studios[studio].name
+                                if(studio < animeResponse.studios.size -1) {
+                                    listStudios += "\n"
+                                }
+                            }
+                            animeStudios.text = listStudios
+                        }
                     }
+
+                    if(animeResponse?.title_synonyms?.size == 0) {
+                        toolbar.toolbar.subtitle = "─"
+                    } else {
+                        toolbar.toolbar.subtitle = animeResponse?.title_synonyms?.toString()
+                    }
+
+
+//                    if(animeResponse?.opening_themes?.isEmpty() == true) {
+//                        openingTheme.text = "UnKnown"
+//                    } else {
+//                        openingTheme.text = animeResponse?.opening_themes.toString().replace(",", "\n").replace("[","").replace("]","")
+//                    }
+
+
                 } else {
                     Toast.makeText(
                         context,

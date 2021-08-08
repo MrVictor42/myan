@@ -22,11 +22,13 @@
     <string name="year">Year: </string>
     <string name="popularity">Popularity </string>
     <string name="status">Status</string>
+    <string name="opening_themes">Opening Themes</string>
+    <string name="ending_themes">Ending Themes</string>
     <string name="members">Members</string>
     <string name="licensors">Licensors</string>
     <string name="studios">Studios</string>
     <string name="favorites">Favorites</string>
-    <string name="more_informations">More Informations? Click Here!</string>
+    <string name="more_informations">More Information? Click Here!</string>
     <string name="genres">Genres </string>
     <string name="anime">Anime</string>
     <string name="manga">Manga</string>
