@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
@@ -17,6 +18,10 @@ class CharactersAdapter(var character: MutableList<Character>) :
 
         fun bind(character: Character) {
             Picasso.get().load(character.image_url).placeholder(R.drawable.placeholder).fit().into(image)
+
+            image.setOnClickListener {
+                Toast.makeText(itemView.context, character.name, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

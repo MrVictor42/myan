@@ -141,7 +141,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_password"
-        android:indeterminateTint="@color/green_light"
+        android:indeterminateTint="@color/orange"
         android:layout_marginTop="10dp"
         android:visibility="gone"
     />

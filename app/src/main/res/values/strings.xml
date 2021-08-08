@@ -23,6 +23,8 @@
     <string name="popularity">Popularity </string>
     <string name="status">Status</string>
     <string name="members">Members</string>
+    <string name="licensors">Licensors</string>
+    <string name="studios">Studios</string>
     <string name="favorites">Favorites</string>
     <string name="more_informations">More Informations? Click Here!</string>
     <string name="genres">Genres </string>

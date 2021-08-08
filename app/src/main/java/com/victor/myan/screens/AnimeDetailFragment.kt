@@ -74,6 +74,7 @@ class AnimeDetailFragment : Fragment() {
         val malID = arguments?.getString("mal_id")
         val year = arguments?.getString("year")
         var listGenres : String = ""
+        var listLicensors : String = ""
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
@@ -82,6 +83,7 @@ class AnimeDetailFragment : Fragment() {
         val animeImage = binding.animeImage
         val backgroundTop = binding.backgroundTop
         val animeGenres = binding.animeGenres
+        val animeLicensors = binding.animeLicensors
         val episodeDuration = binding.episodeDuration
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
@@ -264,6 +266,19 @@ class AnimeDetailFragment : Fragment() {
                                 }
                             }
                         })
+
+                        if(animeResponse.licensors.isEmpty()) {
+                            animeLicensors.text = "Unknown"
+                        } else {
+                            for(licensor in animeResponse.licensors.indices) {
+
+                                listLicensors += animeResponse.licensors[licensor].name
+                                if(licensor < animeResponse.licensors.size -1) {
+                                    listLicensors += "\n"
+                                }
+                            }
+                            animeLicensors.text = listLicensors
+                        }
                     }
                 } else {
                     Toast.makeText(
