@@ -27,7 +27,6 @@ import android.graphics.drawable.Drawable
 import androidx.palette.graphics.Palette
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -65,19 +64,17 @@ class AnimeDetailFragment : Fragment() {
                 val homeFragment = HomeFragment.newInstance()
                 val fragmentManager = activity?.supportFragmentManager
                 fragmentManager?.popBackStack()
-                fragmentManager?.
-                beginTransaction()?.
-                replace(R.id.content, homeFragment)?.addToBackStack(null)?.commit()
+                fragmentManager?.beginTransaction()?.replace(R.id.content, homeFragment)
+                    ?.addToBackStack(null)?.commit()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val malID = arguments?.getString("mal_id")
         val year = arguments?.getString("year")
-        var listGenres : String = ""
-        var listLicensors : String = ""
-        var listStudios : String = ""
-        var listOpening : String = ""
+        var listGenres = ""
+        var listLicensors = ""
+        var listStudios = ""
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
@@ -92,7 +89,9 @@ class AnimeDetailFragment : Fragment() {
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
-        val expandableTextView = binding.expandableTextContent
+        val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
+        val expandableTextViewOpening = binding.expandableTextViewOpening.expandableTextView
+        val expandableTextViewEnding = binding.expandableTextViewEnding.expandableTextView
         val typeYear = binding.typeYear
         val toolbar = binding.toolbar
         val characterList = arrayListOf<Character>()
@@ -127,35 +126,43 @@ class AnimeDetailFragment : Fragment() {
                         animePopularity.text = animeResponse.popularity.toString()
                         animeMembers.text = animeResponse.members.toString()
                         animeFavorites.text = animeResponse.favorites.toString()
-                        Glide.with(this@AnimeDetailFragment).load(animeResponse.image_url).listener(object : RequestListener<Drawable>{
-                            override fun onLoadFailed(
-                                e: GlideException?,
-                                model: Any?,
-                                target: com.bumptech.glide.request.target.Target<Drawable>?,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                Log.d("TAG Anime Detail", "Image not working")
-                                return false
-                            }
 
-                            override fun onResourceReady(
-                                resource: Drawable?,
-                                model: Any?,
-                                target: com.bumptech.glide.request.target.Target<Drawable>?,
-                                dataSource: DataSource?,
-                                isFirstResource: Boolean
-                            ): Boolean {
-                                Palette.from(resource!!.toBitmap()).generate() { palette ->
-                                    palette?.let {
-                                        val color = it.darkVibrantSwatch?.rgb?:0
-                                        backgroundTop.setBackgroundColor(color)
-                                    }
+                        if (animeResponse.title_synonyms.isEmpty()) {
+                            toolbar.toolbar.subtitle = "─"
+                        } else {
+                            toolbar.toolbar.subtitle = animeResponse.title_synonyms.toString()
+                        }
+
+                        Glide.with(this@AnimeDetailFragment).load(animeResponse.image_url)
+                            .listener(object : RequestListener<Drawable> {
+                                override fun onLoadFailed(
+                                    e: GlideException?,
+                                    model: Any?,
+                                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    Log.d("TAG Anime Detail", "Image not working")
+                                    return false
                                 }
-                                return false
-                            }
-                        }).into(animeImage)
 
-                        val type = when(animeResponse.type) {
+                                override fun onResourceReady(
+                                    resource: Drawable?,
+                                    model: Any?,
+                                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                    dataSource: DataSource?,
+                                    isFirstResource: Boolean
+                                ): Boolean {
+                                    Palette.from(resource!!.toBitmap()).generate() { palette ->
+                                        palette?.let {
+                                            val color = it.darkVibrantSwatch?.rgb ?: 0
+                                            backgroundTop.setBackgroundColor(color)
+                                        }
+                                    }
+                                    return false
+                                }
+                            }).into(animeImage)
+
+                        val type = when (animeResponse.type) {
                             "" -> "─"
                             "null" -> "─"
                             else -> animeResponse.type
@@ -165,18 +172,19 @@ class AnimeDetailFragment : Fragment() {
 
                         typeYear.text = typeYearConcat
 
-                        val episode = when(animeResponse.episodes.toString()) {
+                        val episode = when (animeResponse.episodes.toString()) {
                             "null" -> "─"
                             "0" -> "─"
                             else -> animeResponse.episodes
                         }
 
-                        val duration = auxServicesHelper.formatDurationEpisode(type, animeResponse.duration)
+                        val duration =
+                            auxServicesHelper.formatDurationEpisode(type, animeResponse.duration)
                         val epiDuration = "$episode eps, $duration"
 
                         episodeDuration.text = epiDuration
 
-                        when(animeResponse.status) {
+                        when (animeResponse.status) {
                             "null" -> animeStatus.text = "─"
                             "" -> animeStatus.text = "─"
 
@@ -202,19 +210,21 @@ class AnimeDetailFragment : Fragment() {
                             }
                         }
 
-                        if(animeResponse.score.toString().isNullOrEmpty() || animeResponse.score == 0.0) {
+                        if (animeResponse.score.toString()
+                                .isNullOrEmpty() || animeResponse.score == 0.0
+                        ) {
                             animeScore.text = "─"
                         } else {
                             animeScore.text = animeResponse.score.toString()
                         }
 
-                        if(animeResponse.genres.isEmpty()) {
+                        if (animeResponse.genres.isEmpty()) {
                             // Nothing to do
                         } else {
-                            for(genre in animeResponse.genres.indices) {
+                            for (genre in animeResponse.genres.indices) {
 
                                 listGenres += animeResponse.genres[genre].name
-                                if(genre < animeResponse.genres.size -1) {
+                                if (genre < animeResponse.genres.size - 1) {
                                     listGenres += " • "
                                 }
                             }
@@ -224,97 +234,101 @@ class AnimeDetailFragment : Fragment() {
                         animeVideo.addYouTubePlayerListener(object :
                             AbstractYouTubePlayerListener() {
                             override fun onReady(youTubePlayer: YouTubePlayer) {
-                                if(animeResponse.trailer_url.isNullOrEmpty()) {
+                                if (animeResponse.trailer_url.isNullOrEmpty()) {
                                     Toast.makeText(
                                         context,
                                         auxServicesHelper.capitalize(
                                             "this anime doesn't have a preview yet"
-                                        ), Toast.LENGTH_LONG).show()
+                                        ), Toast.LENGTH_LONG
+                                    ).show()
                                 } else {
-                                    val videoId = youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url).toString()
+                                    val videoId =
+                                        youtubeHelper.extractVideoIdFromUrl(animeResponse.trailer_url)
+                                            .toString()
                                     youTubePlayer.loadVideo(videoId, 0f)
+                                    youTubePlayer.pause()
                                 }
                             }
                         })
 
-                        expandableTextView.text = animeResponse.synopsis
+                        expandableTextViewSynopsis.text = animeResponse.synopsis
+                        expandableTextViewOpening.text =
+                            animeResponse.opening_themes.toString().replace(",", "\n")
+                                .replace("[", "").replace("]", "")
+                        expandableTextViewEnding.text =
+                            animeResponse.ending_themes.toString().replace(",", "\n")
+                                .replace("[", "").replace("]", "")
 
-                        staffApi.getCharactersStaff(animeResponse.mal_id).enqueue(object : Callback<JsonObject> {
-                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                        staffApi.getCharactersStaff(animeResponse.mal_id)
+                            .enqueue(object : Callback<JsonObject> {
+                                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
-                            }
+                                }
 
-                            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                                if(response.isSuccessful) {
-                                    val staffResponse = response.body()
-                                    characterAdapter.character.clear()
-                                    if(staffResponse != null) {
-                                        val animeCharacters : JsonArray? = staffResponse.getAsJsonArray("characters")
-                                        if(animeCharacters != null) {
-                                            for(characters in 0 until animeCharacters.size()) {
-                                                val characterObject : JsonObject? = animeCharacters.get(characters) as JsonObject?
-                                                if(characterObject != null) {
-                                                    val character = Character()
+                                override fun onResponse(
+                                    call: Call<JsonObject>,
+                                    response: Response<JsonObject>
+                                ) {
+                                    if (response.isSuccessful) {
+                                        val staffResponse = response.body()
+                                        characterAdapter.character.clear()
+                                        if (staffResponse != null) {
+                                            val animeCharacters: JsonArray? =
+                                                staffResponse.getAsJsonArray("characters")
+                                            if (animeCharacters != null) {
+                                                for (characters in 0 until animeCharacters.size()) {
+                                                    val characterObject: JsonObject? =
+                                                        animeCharacters.get(characters) as JsonObject?
+                                                    if (characterObject != null) {
+                                                        val character = Character()
 
-                                                    character.mal_id = characterObject.get("mal_id").asInt
-                                                    character.image_url = characterObject.get("image_url").asString
-                                                    character.name = characterObject.get("name").asString
+                                                        character.mal_id =
+                                                            characterObject.get("mal_id").asInt
+                                                        character.image_url =
+                                                            characterObject.get("image_url").asString
+                                                        character.name =
+                                                            characterObject.get("name").asString
 
-                                                    characterAdapter.character.add(character)
+                                                        characterAdapter.character.add(character)
+                                                    }
                                                 }
+                                                characterAdapter.notifyDataSetChanged()
                                             }
-                                            characterAdapter.notifyDataSetChanged()
                                         }
                                     }
                                 }
-                            }
-                        })
+                            })
 
-                        if(animeResponse.licensors.isEmpty()) {
+                        if (animeResponse.licensors.isEmpty()) {
                             animeLicensors.text = "Unknown"
                         } else {
-                            for(licensor in animeResponse.licensors.indices) {
+                            for (licensor in animeResponse.licensors.indices) {
                                 listLicensors += animeResponse.licensors[licensor].name
-                                if(licensor < animeResponse.licensors.size -1) {
+                                if (licensor < animeResponse.licensors.size - 1) {
                                     listLicensors += "\n"
                                 }
                             }
                             animeLicensors.text = listLicensors
                         }
 
-                        if(animeResponse.studios.isEmpty()) {
-                            animeStudios.text = "UnKnown"
+                        if (animeResponse.studios.isEmpty()) {
+                            animeStudios.text = "Unknown"
                         } else {
-                            for(studio in animeResponse.studios.indices) {
+                            for (studio in animeResponse.studios.indices) {
                                 listStudios += animeResponse.studios[studio].name
-                                if(studio < animeResponse.studios.size -1) {
+                                if (studio < animeResponse.studios.size - 1) {
                                     listStudios += "\n"
                                 }
                             }
                             animeStudios.text = listStudios
                         }
-                    }
-
-                    if(animeResponse?.title_synonyms?.size == 0) {
-                        toolbar.toolbar.subtitle = "─"
                     } else {
-                        toolbar.toolbar.subtitle = animeResponse?.title_synonyms?.toString()
+                        Toast.makeText(
+                            context,
+                            auxServicesHelper.capitalize("not was possible load this now, try again later"),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-
-
-//                    if(animeResponse?.opening_themes?.isEmpty() == true) {
-//                        openingTheme.text = "UnKnown"
-//                    } else {
-//                        openingTheme.text = animeResponse?.opening_themes.toString().replace(",", "\n").replace("[","").replace("]","")
-//                    }
-
-
-                } else {
-                    Toast.makeText(
-                        context,
-                        auxServicesHelper.capitalize("not was possible load this now, try again later"),
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
             }
         }

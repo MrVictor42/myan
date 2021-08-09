@@ -225,49 +225,34 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintEnd_toEndOf="@id/youtube_player_view"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="14sp"
             />
         </LinearLayout>
 
-        <com.ms.square.android.expandabletextview.ExpandableTextView
-            android:id="@+id/expandable_text_content"
+        <LinearLayout
+            android:id="@+id/linear_expandable_text_synopsis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:maxCollapsedLines="4"
-            app:animDuration="200"
+            android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/linear_genres"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
         >
-            <TextView
-                android:id="@+id/expandable_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:textColor="@color/white"
-                android:textSize="16sp"
+            <include
+                android:id="@+id/expandable_text_view_synopsis"
+                layout="@layout/expandable_text_view"
             />
-
-            <ImageButton
-                android:id="@+id/expand_collapse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|bottom"
-                android:background="@color/transparent"
-                android:padding="16dp"
-            />
-        </com.ms.square.android.expandabletextview.ExpandableTextView>
+        </LinearLayout>
 
         <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
             android:id="@+id/youtube_player_view"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             app:showFullScreenButton="false"
-            app:layout_constraintTop_toBottomOf="@id/expandable_text_content"
+            app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_synopsis"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
@@ -357,39 +342,59 @@
             />
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/opening_theme_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/opening_themes"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/linear_licensors"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+        />
 
+        <LinearLayout
+            android:id="@+id/linear_expandable_text_opening"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/opening_theme_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <include
+                android:id="@+id/expandable_text_view_opening"
+                layout="@layout/expandable_text_view"
+            />
+        </LinearLayout>
 
+        <TextView
+            android:id="@+id/ending_theme_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/ending_themes"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_opening"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+        />
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/linear_licensors"-->
-<!--            android:layout_marginStart="20dp"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--        >-->
-<!--            -->
-
-<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/opening_theme_text_view"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textSize="14sp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:text="@string/opening_themes"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textColor="@color/white"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
-
-<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
-<!--&lt;!&ndash;                android:id="@+id/anime_opening"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:layout_marginEnd="20dp"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textColor="@color/white"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textStyle="bold"&ndash;&gt;-->
-<!--&lt;!&ndash;                android:textSize="16sp"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
-<!--        </LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/linear_expandable_text_ending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/ending_theme_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+            <include
+                android:id="@+id/expandable_text_view_ending"
+                layout="@layout/expandable_text_view"
+            />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

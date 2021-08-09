@@ -40,5 +40,7 @@ data class Anime (
     @SerializedName("title_synonyms")
     var title_synonyms : List<String> = arrayListOf(),
     @SerializedName("opening_themes")
-    var opening_themes : List<String> = arrayListOf()
+    var opening_themes : List<String> = arrayListOf(),
+    @SerializedName("ending_themes")
+    var ending_themes : List<String> = arrayListOf()
 )
