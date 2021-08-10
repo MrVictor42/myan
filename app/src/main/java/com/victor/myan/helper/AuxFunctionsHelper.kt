@@ -98,6 +98,7 @@ class AuxFunctionsHelper {
     fun formatYear(year : String) : String {
         return when (year.length) {
             25 -> year.substring(0,4)
+            5 -> year.substring(6,11)
             else -> year.substring(4,8)
         }
     }

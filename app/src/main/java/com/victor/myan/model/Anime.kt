@@ -17,6 +17,8 @@ data class Anime (
     var status : String = "",
     @SerializedName("airing_start")
     var airing_start : String = "",
+    @SerializedName("premiered")
+    var premiered : String = "",
     @SerializedName("episodes")
     var episodes : Int = 0,
     @SerializedName("score")

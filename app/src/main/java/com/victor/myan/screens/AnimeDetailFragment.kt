@@ -35,6 +35,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.api.StaffApi
 import com.victor.myan.enums.StatusEnum
@@ -46,6 +47,7 @@ class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
     private lateinit var characterAdapter : CharactersAdapter
+    private lateinit var animeAdapter: AnimeAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
 
@@ -75,6 +77,7 @@ class AnimeDetailFragment : Fragment() {
         var listGenres = ""
         var listLicensors = ""
         var listStudios = ""
+        val animeList = arrayListOf<Anime>()
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
@@ -86,6 +89,7 @@ class AnimeDetailFragment : Fragment() {
         val animeLicensors = binding.animeLicensors
         val animeStudios = binding.animeStudios
         val episodeDuration = binding.episodeDuration
+        val recommendationRecyclerView = binding.recyclerRecommendations
         val animePopularity = binding.animePopularity
         val animeMembers = binding.animeMembers
         val animeFavorites = binding.animeFavorites
@@ -114,6 +118,11 @@ class AnimeDetailFragment : Fragment() {
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         characterAdapter = CharactersAdapter(characterList)
         characterRecyclerView.adapter = characterAdapter
+
+        recommendationRecyclerView.layoutManager =
+            LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
+        animeAdapter = AnimeAdapter(animeList)
+        recommendationRecyclerView.adapter = animeAdapter
 
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<Anime> = animeApi.getAnime(malID.toString())
@@ -259,45 +268,41 @@ class AnimeDetailFragment : Fragment() {
                             animeResponse.ending_themes.toString().replace(",", "\n")
                                 .replace("[", "").replace("]", "")
 
-                        staffApi.getCharactersStaff(animeResponse.mal_id)
-                            .enqueue(object : Callback<JsonObject> {
-                                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                        staffApi.getCharactersStaff(animeResponse.mal_id).enqueue(object : Callback<JsonObject> {
+                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
-                                }
+                            }
 
-                                override fun onResponse(
-                                    call: Call<JsonObject>,
-                                    response: Response<JsonObject>
-                                ) {
-                                    if (response.isSuccessful) {
-                                        val staffResponse = response.body()
-                                        characterAdapter.character.clear()
-                                        if (staffResponse != null) {
-                                            val animeCharacters: JsonArray? =
-                                                staffResponse.getAsJsonArray("characters")
-                                            if (animeCharacters != null) {
-                                                for (characters in 0 until animeCharacters.size()) {
-                                                    val characterObject: JsonObject? =
-                                                        animeCharacters.get(characters) as JsonObject?
-                                                    if (characterObject != null) {
-                                                        val character = Character()
+                            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                                if (response.isSuccessful) {
+                                    val staffResponse = response.body()
+                                    characterAdapter.character.clear()
+                                    if (staffResponse != null) {
+                                        val animeCharacters: JsonArray? =
+                                            staffResponse.getAsJsonArray("characters")
+                                        if (animeCharacters != null) {
+                                            for (characters in 0 until animeCharacters.size()) {
+                                                val characterObject: JsonObject? =
+                                                    animeCharacters.get(characters) as JsonObject?
+                                                if (characterObject != null) {
+                                                    val character = Character()
 
-                                                        character.mal_id =
-                                                            characterObject.get("mal_id").asInt
-                                                        character.image_url =
-                                                            characterObject.get("image_url").asString
-                                                        character.name =
-                                                            characterObject.get("name").asString
+                                                    character.mal_id =
+                                                        characterObject.get("mal_id").asInt
+                                                    character.image_url =
+                                                        characterObject.get("image_url").asString
+                                                    character.name =
+                                                        characterObject.get("name").asString
 
-                                                        characterAdapter.character.add(character)
-                                                    }
+                                                    characterAdapter.character.add(character)
                                                 }
-                                                characterAdapter.notifyDataSetChanged()
                                             }
+                                            characterAdapter.notifyDataSetChanged()
                                         }
                                     }
                                 }
-                            })
+                            }
+                        })
 
                         if (animeResponse.licensors.isEmpty()) {
                             animeLicensors.text = "Unknown"
@@ -322,6 +327,61 @@ class AnimeDetailFragment : Fragment() {
                             }
                             animeStudios.text = listStudios
                         }
+
+                        Log.e("MAL_ID", animeResponse.mal_id)
+
+                        animeApi.getRecommendations(animeResponse.mal_id).enqueue(object : Callback<JsonObject> {
+                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+                            }
+
+                            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                                if(response.isSuccessful) {
+                                    val animeRecommendationResponse = response.body()
+                                    animeAdapter.anime.clear()
+                                    if(animeRecommendationResponse != null) {
+                                        val recommendationArray : JsonArray? = animeRecommendationResponse.getAsJsonArray("recommendations")
+                                        if(recommendationArray != null) {
+                                            for(recommendation in 0 until recommendationArray.size()) {
+                                                val recommendationObject : JsonObject? = recommendationArray.get(recommendation) as JsonObject?
+                                                if(recommendationObject != null) {
+                                                    val animeRecommendation = Anime()
+                                                    animeRecommendation.mal_id = recommendationObject.get("mal_id").asString
+                                                    CoroutineScope(Dispatchers.IO).launch {
+                                                        val callGetAnime : Response<Anime> = animeApi.getAnime(animeRecommendation.mal_id)
+                                                        withContext(Dispatchers.Default) {
+                                                            val animeResponseGetAnime = callGetAnime.body()
+                                                            if(animeResponseGetAnime != null) {
+                                                                val anime = Anime()
+
+                                                                anime.mal_id = animeResponseGetAnime.mal_id
+                                                                anime.title = animeResponseGetAnime.title
+                                                                anime.synopsis = animeResponseGetAnime.synopsis
+                                                                anime.image_url = animeResponseGetAnime.image_url
+
+                                                                if(animeResponseGetAnime.episodes.toString().isEmpty() || animeResponseGetAnime.episodes.toString() == "null") {
+                                                                    anime.episodes = 0
+                                                                } else {
+                                                                    anime.episodes = animeResponseGetAnime.episodes
+                                                                }
+
+                                                                if(animeResponseGetAnime.score.toString().isEmpty() || animeResponseGetAnime.score.toString() == "null") {
+                                                                    anime.score = 0.0
+                                                                } else {
+                                                                    anime.score = animeResponseGetAnime.score
+                                                                }
+
+                                                                animeAdapter.anime.add(anime)
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        })
                     } else {
                         Toast.makeText(
                             context,

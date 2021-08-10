@@ -21,4 +21,7 @@ interface AnimeApi {
 
     @GET("top/anime")
     fun getTopAnime() : Call<JsonObject>
+
+    @GET("anime/{mal_id}/recommendations")
+    fun getRecommendations(@Path("mal_id") mal_id : String) : Call<JsonObject>
 }
