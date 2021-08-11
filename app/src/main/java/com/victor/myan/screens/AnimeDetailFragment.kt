@@ -36,6 +36,7 @@ import com.bumptech.glide.request.RequestListener
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeRecommendationAdapter
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.api.StaffApi
 import com.victor.myan.enums.StatusEnum
@@ -47,7 +48,7 @@ class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
     private lateinit var characterAdapter : CharactersAdapter
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeRecommendationAdapter: AnimeRecommendationAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
 
@@ -73,7 +74,6 @@ class AnimeDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val malID = arguments?.getString("mal_id")
-        val year = arguments?.getString("year")
         var listGenres = ""
         var listLicensors = ""
         var listStudios = ""
@@ -121,8 +121,8 @@ class AnimeDetailFragment : Fragment() {
 
         recommendationRecyclerView.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
-        animeAdapter = AnimeAdapter(animeList)
-        recommendationRecyclerView.adapter = animeAdapter
+        animeRecommendationAdapter = AnimeRecommendationAdapter(animeList)
+        recommendationRecyclerView.adapter = animeRecommendationAdapter
 
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<Anime> = animeApi.getAnime(malID.toString())
@@ -135,6 +135,8 @@ class AnimeDetailFragment : Fragment() {
                         animePopularity.text = animeResponse.popularity.toString()
                         animeMembers.text = animeResponse.members.toString()
                         animeFavorites.text = animeResponse.favorites.toString()
+
+                        val year = auxServicesHelper.formatPremiered(animeResponse.premiered)
 
                         if (animeResponse.title_synonyms.isEmpty()) {
                             toolbar.toolbar.subtitle = "─"
@@ -328,8 +330,6 @@ class AnimeDetailFragment : Fragment() {
                             animeStudios.text = listStudios
                         }
 
-                        Log.e("MAL_ID", animeResponse.mal_id)
-
                         animeApi.getRecommendations(animeResponse.mal_id).enqueue(object : Callback<JsonObject> {
                             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
@@ -338,7 +338,7 @@ class AnimeDetailFragment : Fragment() {
                             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                                 if(response.isSuccessful) {
                                     val animeRecommendationResponse = response.body()
-                                    animeAdapter.anime.clear()
+                                    animeRecommendationAdapter.anime.clear()
                                     if(animeRecommendationResponse != null) {
                                         val recommendationArray : JsonArray? = animeRecommendationResponse.getAsJsonArray("recommendations")
                                         if(recommendationArray != null) {
@@ -346,37 +346,16 @@ class AnimeDetailFragment : Fragment() {
                                                 val recommendationObject : JsonObject? = recommendationArray.get(recommendation) as JsonObject?
                                                 if(recommendationObject != null) {
                                                     val animeRecommendation = Anime()
+
+                                                    animeRecommendation.title = recommendationObject.get("title").asString
                                                     animeRecommendation.mal_id = recommendationObject.get("mal_id").asString
-                                                    CoroutineScope(Dispatchers.IO).launch {
-                                                        val callGetAnime : Response<Anime> = animeApi.getAnime(animeRecommendation.mal_id)
-                                                        withContext(Dispatchers.Default) {
-                                                            val animeResponseGetAnime = callGetAnime.body()
-                                                            if(animeResponseGetAnime != null) {
-                                                                val anime = Anime()
+                                                    animeRecommendation.image_url = recommendationObject.get("image_url").asString
+                                                    animeRecommendation.premiered = year.toString()
 
-                                                                anime.mal_id = animeResponseGetAnime.mal_id
-                                                                anime.title = animeResponseGetAnime.title
-                                                                anime.synopsis = animeResponseGetAnime.synopsis
-                                                                anime.image_url = animeResponseGetAnime.image_url
-
-                                                                if(animeResponseGetAnime.episodes.toString().isEmpty() || animeResponseGetAnime.episodes.toString() == "null") {
-                                                                    anime.episodes = 0
-                                                                } else {
-                                                                    anime.episodes = animeResponseGetAnime.episodes
-                                                                }
-
-                                                                if(animeResponseGetAnime.score.toString().isEmpty() || animeResponseGetAnime.score.toString() == "null") {
-                                                                    anime.score = 0.0
-                                                                } else {
-                                                                    anime.score = animeResponseGetAnime.score
-                                                                }
-
-                                                                animeAdapter.anime.add(anime)
-                                                            }
-                                                        }
-                                                    }
+                                                    animeRecommendationAdapter.anime.add(animeRecommendation)
                                                 }
                                             }
+                                            animeRecommendationAdapter.notifyDataSetChanged()
                                         }
                                     }
                                 }

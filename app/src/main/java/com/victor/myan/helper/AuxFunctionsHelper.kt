@@ -95,10 +95,30 @@ class AuxFunctionsHelper {
         return FirebaseAuth.getInstance().currentUser != null
     }
 
+    fun formatPremiered(premiered : String) : String {
+        var year = ""
+
+        when {
+            premiered.contains("spring",true) -> {
+                year = premiered.substring(6,11)
+            }
+            premiered.contains("winter",true) -> {
+                year = premiered.substring(6,11)
+            }
+            premiered.contains("fall",true) -> {
+                year = premiered.substring(5,9)
+            }
+            premiered.contains("summer",true) -> {
+                year = premiered.substring(6,11)
+            }
+        }
+
+        return year
+    }
+
     fun formatYear(year : String) : String {
         return when (year.length) {
             25 -> year.substring(0,4)
-            5 -> year.substring(6,11)
             else -> year.substring(4,8)
         }
     }

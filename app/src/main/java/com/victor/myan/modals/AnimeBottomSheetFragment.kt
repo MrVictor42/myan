@@ -32,8 +32,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val title = arguments?.getString("title")
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
-        var year = ""
-
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
         val yearModal = binding.yearModal
@@ -47,7 +45,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         when {
             airingStart != null && airingStart.isNotEmpty() -> {
                 yearModal.text = auxFunctionsHelper.formatYear(airingStart)
-                year = auxFunctionsHelper.formatYear(airingStart)
             } else -> yearModal.text = "─"
         }
 
@@ -68,7 +65,6 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
-            bundle.putString("year", year)
 
             fragment.arguments = bundle
 
