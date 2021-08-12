@@ -1,8 +1,7 @@
 package com.victor.myan.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,6 +53,7 @@ class TodayAnimeFragment : Fragment() {
 
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if(response.isSuccessful) {
                     val animeResponse = response.body()

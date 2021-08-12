@@ -29,9 +29,12 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val malID = arguments?.getString("mal_id")
         val imageUrl = arguments?.getString("image_url")
         val airingStart = arguments?.getString("airing_start")
+        val premiered = arguments?.getString("premiered")
         val title = arguments?.getString("title")
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
+        val year: String
+
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
         val yearModal = binding.yearModal
@@ -42,10 +45,15 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
 
-        when {
-            airingStart != null && airingStart.isNotEmpty() -> {
-                yearModal.text = auxFunctionsHelper.formatYear(airingStart)
-            } else -> yearModal.text = "─"
+        if(airingStart == null && (premiered != null && premiered != "")) {
+            yearModal.text = auxFunctionsHelper.formatPremiered(premiered)
+            year = auxFunctionsHelper.formatPremiered(premiered)
+        } else if((airingStart != null && airingStart != "") && premiered == null) {
+            yearModal.text = auxFunctionsHelper.formatYear(airingStart)
+            year = auxFunctionsHelper.formatYear(airingStart)
+        } else {
+            yearModal.text = "─"
+            year = "─"
         }
 
         when(episodes) {
@@ -65,6 +73,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
             val bundle = Bundle()
             bundle.putString("mal_id", malID)
+            bundle.putString("year", year)
 
             fragment.arguments = bundle
 

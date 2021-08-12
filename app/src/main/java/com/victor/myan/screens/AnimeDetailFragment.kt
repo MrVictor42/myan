@@ -1,5 +1,6 @@
 package com.victor.myan.screens
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,14 +19,9 @@ import com.victor.myan.databinding.FragmentAnimeDetailBinding
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Response
 import android.graphics.drawable.Drawable
 import androidx.palette.graphics.Palette
-import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +32,6 @@ import com.bumptech.glide.request.RequestListener
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
-import com.victor.myan.adapter.AnimeRecommendationAdapter
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.api.StaffApi
 import com.victor.myan.enums.StatusEnum
@@ -48,7 +43,7 @@ class AnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
     private lateinit var characterAdapter : CharactersAdapter
-    private lateinit var animeRecommendationAdapter: AnimeRecommendationAdapter
+    private lateinit var animeAdapter: AnimeAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
 
@@ -74,6 +69,7 @@ class AnimeDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val malID = arguments?.getString("mal_id")
+        val year = arguments?.getString("year")
         var listGenres = ""
         var listLicensors = ""
         var listStudios = ""
@@ -121,22 +117,23 @@ class AnimeDetailFragment : Fragment() {
 
         recommendationRecyclerView.layoutManager =
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
-        animeRecommendationAdapter = AnimeRecommendationAdapter(animeList)
-        recommendationRecyclerView.adapter = animeRecommendationAdapter
+        animeAdapter = AnimeAdapter(animeList)
+        recommendationRecyclerView.adapter = animeAdapter
 
-        CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<Anime> = animeApi.getAnime(malID.toString())
-            withContext(Dispatchers.Main) {
-                if (call.isSuccessful) {
-                    val animeResponse = call.body()
-                    if (animeResponse != null) {
+        animeApi.getAnime(malID.toString()).enqueue(object : Callback<Anime> {
+            override fun onFailure(call: Call<Anime>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<Anime>, response: Response<Anime>) {
+                if (response.isSuccessful) {
+                    val animeResponse = response.body()
+                    if(animeResponse != null) {
                         animeTitle.text = animeResponse.title
                         toolbar.toolbar.title = animeResponse.title
                         animePopularity.text = animeResponse.popularity.toString()
                         animeMembers.text = animeResponse.members.toString()
                         animeFavorites.text = animeResponse.favorites.toString()
-
-                        val year = auxServicesHelper.formatPremiered(animeResponse.premiered)
 
                         if (animeResponse.title_synonyms.isEmpty()) {
                             toolbar.toolbar.subtitle = "─"
@@ -152,7 +149,6 @@ class AnimeDetailFragment : Fragment() {
                                     target: com.bumptech.glide.request.target.Target<Drawable>?,
                                     isFirstResource: Boolean
                                 ): Boolean {
-                                    Log.d("TAG Anime Detail", "Image not working")
                                     return false
                                 }
 
@@ -163,7 +159,7 @@ class AnimeDetailFragment : Fragment() {
                                     dataSource: DataSource?,
                                     isFirstResource: Boolean
                                 ): Boolean {
-                                    Palette.from(resource!!.toBitmap()).generate() { palette ->
+                                    Palette.from(resource!!.toBitmap()).generate { palette ->
                                         palette?.let {
                                             val color = it.darkVibrantSwatch?.rgb ?: 0
                                             backgroundTop.setBackgroundColor(color)
@@ -171,7 +167,8 @@ class AnimeDetailFragment : Fragment() {
                                     }
                                     return false
                                 }
-                            }).into(animeImage)
+                            }
+                        ).into(animeImage)
 
                         val type = when (animeResponse.type) {
                             "" -> "─"
@@ -180,7 +177,6 @@ class AnimeDetailFragment : Fragment() {
                         }
 
                         val typeYearConcat = "$type, $year"
-
                         typeYear.text = typeYearConcat
 
                         val episode = when (animeResponse.episodes.toString()) {
@@ -275,6 +271,7 @@ class AnimeDetailFragment : Fragment() {
 
                             }
 
+                            @SuppressLint("NotifyDataSetChanged")
                             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                                 if (response.isSuccessful) {
                                     val staffResponse = response.body()
@@ -329,47 +326,78 @@ class AnimeDetailFragment : Fragment() {
                             }
                             animeStudios.text = listStudios
                         }
+                    }
 
-                        animeApi.getRecommendations(animeResponse.mal_id).enqueue(object : Callback<JsonObject> {
-                            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    animeApi.getRecommendations(animeResponse?.mal_id.toString()).enqueue(object : Callback<JsonObject> {
+                        override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
-                            }
+                        }
 
-                            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                                if(response.isSuccessful) {
-                                    val animeRecommendationResponse = response.body()
-                                    animeRecommendationAdapter.anime.clear()
-                                    if(animeRecommendationResponse != null) {
-                                        val recommendationArray : JsonArray? = animeRecommendationResponse.getAsJsonArray("recommendations")
-                                        if(recommendationArray != null) {
-                                            for(recommendation in 0 until recommendationArray.size()) {
-                                                val recommendationObject : JsonObject? = recommendationArray.get(recommendation) as JsonObject?
-                                                if(recommendationObject != null) {
-                                                    val animeRecommendation = Anime()
+                        override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                            if(response.isSuccessful) {
+                                val animeRecommendationResponse = response.body()
+                                animeAdapter.anime.clear()
+                                if(animeRecommendationResponse != null) {
+                                    val recommendationArray : JsonArray? = animeRecommendationResponse.getAsJsonArray("recommendations")
+                                    if(recommendationArray != null) {
+                                        for(recommendation in 0 until recommendationArray.size()) {
+                                            val recommendationObject : JsonObject? = recommendationArray.get(recommendation) as JsonObject?
+                                            if(recommendationObject != null) {
+                                                animeApi.getAnime(recommendationObject.get("mal_id").asString).enqueue(object : Callback<Anime> {
+                                                    override fun onFailure(call: Call<Anime>, t: Throwable) {
 
-                                                    animeRecommendation.title = recommendationObject.get("title").asString
-                                                    animeRecommendation.mal_id = recommendationObject.get("mal_id").asString
-                                                    animeRecommendation.image_url = recommendationObject.get("image_url").asString
-                                                    animeRecommendation.premiered = year.toString()
+                                                    }
 
-                                                    animeRecommendationAdapter.anime.add(animeRecommendation)
-                                                }
+                                                    @SuppressLint("NotifyDataSetChanged")
+                                                    override fun onResponse(call: Call<Anime>, response: Response<Anime>) {
+                                                        if (response.isSuccessful) {
+                                                            val animeResponseRecommendation = response.body()
+                                                            if(animeResponseRecommendation != null) {
+                                                                val animeRecommendation = Anime()
+
+                                                                animeRecommendation.mal_id = animeResponseRecommendation.mal_id
+                                                                animeRecommendation.image_url = animeResponseRecommendation.image_url
+                                                                animeRecommendation.title = animeResponseRecommendation.title
+
+                                                                if(animeResponseRecommendation.episodes.toString().isNullOrEmpty()) {
+                                                                    animeRecommendation.episodes = 0
+                                                                } else {
+                                                                    animeRecommendation.episodes = animeResponseRecommendation.episodes
+                                                                }
+
+                                                                if(animeResponseRecommendation.premiered.isNullOrEmpty()) {
+                                                                    animeRecommendation.premiered = ""
+                                                                } else {
+                                                                    animeRecommendation.premiered = auxServicesHelper.formatPremiered(animeResponseRecommendation.premiered)
+                                                                }
+
+                                                                if(animeResponseRecommendation.score.toString().isNullOrEmpty()) {
+                                                                    animeRecommendation.score = 0.0
+                                                                } else {
+                                                                    animeRecommendation.score = animeResponseRecommendation.score
+                                                                }
+
+                                                                animeAdapter.anime.add(animeRecommendation)
+                                                            }
+                                                            animeAdapter.notifyDataSetChanged()
+                                                        }
+                                                    }
+                                                })
                                             }
-                                            animeRecommendationAdapter.notifyDataSetChanged()
                                         }
                                     }
                                 }
                             }
-                        })
-                    } else {
-                        Toast.makeText(
-                            context,
-                            auxServicesHelper.capitalize("not was possible load this now, try again later"),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                        }
+                    })
+                } else {
+                    Toast.makeText(
+                        context,
+                        auxServicesHelper.capitalize("not was possible load this now, try again later"),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-        }
+        })
     }
 }

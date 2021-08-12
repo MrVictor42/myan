@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -29,9 +28,9 @@ class AnimeAdapter(var anime: MutableList<Anime>) :
                 bundle.putString("title", anime.title)
                 bundle.putString("image_url", anime.image_url)
                 bundle.putString("airing_start", anime.airing_start)
+                bundle.putString("premiered", anime.premiered)
                 bundle.putInt("episodes", anime.episodes)
                 bundle.putDouble("score", anime.score)
-                bundle.putString("synopsis", anime.synopsis)
 
                 bottomSheetFragment.arguments = bundle
                 bottomSheetFragment.show((itemView.context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)

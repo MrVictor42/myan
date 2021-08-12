@@ -38,6 +38,7 @@ class BaseLayout : AppCompatActivity() {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
+            navigationBarColor = Color.BLACK
         }
 
         val navigationView = binding.bottomMenu
