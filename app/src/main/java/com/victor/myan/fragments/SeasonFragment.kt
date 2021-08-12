@@ -75,7 +75,7 @@ class SeasonFragment : Fragment() {
                                         animeObject.get("airing_start").toString() == "null") {
                                         animeSeason.airing_start = ""
                                     } else {
-                                        animeSeason.airing_start = animeObject.get("airing_start").asString
+                                        animeSeason.airing_start = auxServicesHelper.formatYear(animeObject.get("airing_start").asString)
                                     }
 
                                     if(animeObject.get("episodes").toString().isEmpty() ||
