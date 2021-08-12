@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCarouselBinding
+import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.modals.AnimeBottomSheetFragment
 import com.victor.myan.model.Anime
@@ -26,6 +27,7 @@ import retrofit2.Response
 class CarouselFragment : Fragment() {
 
     private lateinit var binding : FragmentCarouselBinding
+    private val auxFunctionsHelper = AuxFunctionsHelper()
     private val limit = 12
 
     override fun onCreateView(
@@ -79,7 +81,7 @@ class CarouselFragment : Fragment() {
                                     if (animeFound.get("start_date").toString() == "null") {
                                         anime.airing_start = ""
                                     } else {
-                                        anime.airing_start = animeFound.get("start_date").asString
+                                        anime.airing_start = auxFunctionsHelper.formatYear(animeFound.get("start_date").asString)
                                     }
                                     listAnime.add(anime)
                                     listAnimeTitle.add(anime.title)

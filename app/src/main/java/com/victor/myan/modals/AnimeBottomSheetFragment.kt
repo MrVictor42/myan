@@ -9,12 +9,10 @@ import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentAnimeBottomSheetBinding
 import com.victor.myan.screens.AnimeDetailFragment
-import com.victor.myan.helper.AuxFunctionsHelper
 
 class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding : FragmentAnimeBottomSheetBinding
-    private val auxFunctionsHelper = AuxFunctionsHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +31,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         val title = arguments?.getString("title")
         val episodes = arguments?.getInt("episodes")
         val score = arguments?.getDouble("score")
-        val year: String
+        val year : String
 
         val titleModal = binding.titleModal
         val imageModal = binding.imageModal
@@ -45,15 +43,18 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         Picasso.get().load(imageUrl).into(imageModal)
         titleModal.text = title
 
-        if(airingStart == null && (premiered != null && premiered != "")) {
-            yearModal.text = auxFunctionsHelper.formatPremiered(premiered)
-            year = auxFunctionsHelper.formatPremiered(premiered)
-        } else if((airingStart != null && airingStart != "") && premiered == null) {
-            yearModal.text = auxFunctionsHelper.formatYear(airingStart)
-            year = auxFunctionsHelper.formatYear(airingStart)
-        } else {
-            yearModal.text = "─"
-            year = "─"
+        when {
+            airingStart != null && airingStart != "" -> {
+                yearModal.text = airingStart
+                year = airingStart
+            }
+            premiered != null && premiered != "" -> {
+                yearModal.text = premiered
+                year = premiered
+            } else -> {
+                yearModal.text = "─"
+                year = "─"
+            }
         }
 
         when(episodes) {

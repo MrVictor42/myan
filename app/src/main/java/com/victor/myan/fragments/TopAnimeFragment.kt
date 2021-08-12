@@ -1,5 +1,6 @@
 package com.victor.myan.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentTopAnimeBinding
+import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -22,6 +24,7 @@ class TopAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentTopAnimeBinding
     private lateinit var animeAdapter: AnimeAdapter
+    private val auxFunctionsHelper = AuxFunctionsHelper()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +49,7 @@ class TopAnimeFragment : Fragment() {
 
             }
 
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if(response.isSuccessful) {
                     val animeResponse = response.body()
@@ -67,7 +71,7 @@ class TopAnimeFragment : Fragment() {
                                         animeObject.get("start_date").toString() == "null") {
                                         animeTop.airing_start = ""
                                     } else {
-                                        animeTop.airing_start = animeObject.get("start_date").asString
+                                        animeTop.airing_start = auxFunctionsHelper.formatYear(animeObject.get("start_date").asString)
                                     }
 
                                     if(animeObject.get("episodes").toString().isEmpty() ||

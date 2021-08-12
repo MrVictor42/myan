@@ -75,7 +75,7 @@ class TodayAnimeFragment : Fragment() {
                                         animeObject.get("airing_start").toString() == "null") {
                                         animeToday.airing_start = ""
                                     } else {
-                                        animeToday.airing_start = animeObject.get("airing_start").asString
+                                        animeToday.airing_start = auxServicesHelper.formatYear(animeObject.get("airing_start").asString)
                                     }
 
                                     if(animeObject.get("episodes").toString().isEmpty() ||
