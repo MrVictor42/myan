@@ -78,4 +78,5 @@ dependencies {
     implementation 'com.synnapps:carouselview:0.1.5'
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.ms-square:expandableTextView:0.1.4'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

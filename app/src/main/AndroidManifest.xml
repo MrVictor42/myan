@@ -13,7 +13,13 @@
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
-        <activity android:name=".screens.ForgotPasswordActivity"></activity>
+        <activity
+            android:name=".screens.animeDetail.BaseAnimeDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".screens.animeDetail.TabLayout"
+            android:exported="true" />
+        <activity android:name=".screens.ForgotPasswordActivity" />
         <activity android:name=".screens.SearchActivity" />
         <activity android:name=".screens.HomeActivity" />
         <activity android:name=".screens.WithoutConnectionActivity" />

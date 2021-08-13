@@ -1,4 +1,4 @@
-package com.victor.myan.screens
+package com.victor.myan.screens.animeDetail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -10,6 +10,10 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
@@ -20,26 +24,17 @@ import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.helper.AuxFunctionsHelper
 import retrofit2.Response
-import android.graphics.drawable.Drawable
-import androidx.palette.graphics.Palette
-import androidx.core.graphics.drawable.toBitmap
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import com.squareup.picasso.Picasso
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.api.StaffApi
 import com.victor.myan.enums.StatusEnum
 import com.victor.myan.model.Character
+import com.victor.myan.screens.HomeFragment
 import retrofit2.Call
 import retrofit2.Callback
 
-class AnimeDetailFragment : Fragment() {
+class BaseAnimeDetailFragment2 : Fragment() {
 
     private lateinit var binding : FragmentAnimeDetailBinding
     private lateinit var characterAdapter : CharactersAdapter
@@ -78,22 +73,23 @@ class AnimeDetailFragment : Fragment() {
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
         val animeStatus = binding.animeStatus
-        val animeScore = binding.animeScore
-        val animeImage = binding.animeImage
+//        val animeScore = binding.animeScore
+//        val animeImage = binding.animeImage
         val backgroundTop = binding.backgroundTop
         val animeGenres = binding.animeGenres
         val animeLicensors = binding.animeLicensors
         val animeStudios = binding.animeStudios
         val episodeDuration = binding.episodeDuration
         val recommendationRecyclerView = binding.recyclerRecommendations
-        val animePopularity = binding.animePopularity
-        val animeMembers = binding.animeMembers
-        val animeFavorites = binding.animeFavorites
+//        val animePopularity = binding.animePopularity
+//        val animeMembers = binding.animeMembers
+//        val animeFavorites = binding.animeFavorites
         val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
         val expandableTextViewOpening = binding.expandableTextViewOpening.expandableTextView
         val expandableTextViewEnding = binding.expandableTextViewEnding.expandableTextView
         val typeYear = binding.typeYear
         val toolbar = binding.toolbar
+        val backgroundImage = binding.imageBackgroundAnime
         val characterList = arrayListOf<Character>()
         val characterRecyclerView = binding.animeCharacter
         val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
@@ -119,7 +115,6 @@ class AnimeDetailFragment : Fragment() {
             LinearLayoutManager(view.context, RecyclerView.HORIZONTAL, false)
         animeAdapter = AnimeAdapter(animeList)
         recommendationRecyclerView.adapter = animeAdapter
-
         animeApi.getAnime(malID.toString()).enqueue(object : Callback<Anime> {
             override fun onFailure(call: Call<Anime>, t: Throwable) {
 
@@ -128,12 +123,14 @@ class AnimeDetailFragment : Fragment() {
             override fun onResponse(call: Call<Anime>, response: Response<Anime>) {
                 if (response.isSuccessful) {
                     val animeResponse = response.body()
-                    if(animeResponse != null) {
-                        animeTitle.text = animeResponse.title
-                        toolbar.toolbar.title = animeResponse.title
-                        animePopularity.text = animeResponse.popularity.toString()
-                        animeMembers.text = animeResponse.members.toString()
-                        animeFavorites.text = animeResponse.favorites.toString()
+                    if (animeResponse != null) {
+                        Picasso.get().load(animeResponse.image_url).placeholder(R.drawable.placeholder).fit().into(backgroundImage)
+
+//                        animeTitle.text = animeResponse.title
+//                        toolbar.toolbar.title = animeResponse.title
+//                        animePopularity.text = animeResponse.popularity.toString()
+//                        animeMembers.text = animeResponse.members.toString()
+//                        animeFavorites.text = animeResponse.favorites.toString()
 
                         if (animeResponse.title_synonyms.isEmpty()) {
                             toolbar.toolbar.subtitle = "─"
@@ -141,34 +138,35 @@ class AnimeDetailFragment : Fragment() {
                             toolbar.toolbar.subtitle = animeResponse.title_synonyms.toString()
                         }
 
-                        Glide.with(this@AnimeDetailFragment).load(animeResponse.image_url)
-                            .listener(object : RequestListener<Drawable> {
-                                override fun onLoadFailed(
-                                    e: GlideException?,
-                                    model: Any?,
-                                    target: com.bumptech.glide.request.target.Target<Drawable>?,
-                                    isFirstResource: Boolean
-                                ): Boolean {
-                                    return false
-                                }
 
-                                override fun onResourceReady(
-                                    resource: Drawable?,
-                                    model: Any?,
-                                    target: com.bumptech.glide.request.target.Target<Drawable>?,
-                                    dataSource: DataSource?,
-                                    isFirstResource: Boolean
-                                ): Boolean {
-                                    Palette.from(resource!!.toBitmap()).generate { palette ->
-                                        palette?.let {
-                                            val color = it.darkVibrantSwatch?.rgb ?: 0
-                                            backgroundTop.setBackgroundColor(color)
-                                        }
-                                    }
-                                    return false
-                                }
-                            }
-                        ).into(animeImage)
+//                        Glide.with(this@AnimeDetailFragment).load(animeResponse.image_url)
+//                            .listener(object : RequestListener<Drawable> {
+//                                override fun onLoadFailed(
+//                                    e: GlideException?,
+//                                    model: Any?,
+//                                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+//                                    isFirstResource: Boolean
+//                                ): Boolean {
+//                                    return false
+//                                }
+//
+//                                override fun onResourceReady(
+//                                    resource: Drawable?,
+//                                    model: Any?,
+//                                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+//                                    dataSource: DataSource?,
+//                                    isFirstResource: Boolean
+//                                ): Boolean {
+//                                    Palette.from(resource!!.toBitmap()).generate { palette ->
+//                                        palette?.let {
+//                                            val color = it.darkVibrantSwatch?.rgb ?: 0
+//                                            backgroundTop.setBackgroundColor(color)
+//                                        }
+//                                    }
+//                                    return false
+//                                }
+//                            }
+//                        ).into(animeImage)
 
                         val type = when (animeResponse.type) {
                             "" -> "─"
@@ -217,13 +215,13 @@ class AnimeDetailFragment : Fragment() {
                             }
                         }
 
-                        if (animeResponse.score.toString()
-                                .isNullOrEmpty() || animeResponse.score == 0.0
-                        ) {
-                            animeScore.text = "─"
-                        } else {
-                            animeScore.text = animeResponse.score.toString()
-                        }
+//                        if (animeResponse.score.toString()
+//                                .isNullOrEmpty() || animeResponse.score == 0.0
+//                        ) {
+//                            animeScore.text = "─"
+//                        } else {
+//                            animeScore.text = animeResponse.score.toString()
+//                        }
 
                         if (animeResponse.genres.isEmpty()) {
                             // Nothing to do

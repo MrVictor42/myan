@@ -5,6 +5,7 @@ import com.victor.myan.model.Anime
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface AnimeApi {
 
@@ -23,4 +24,7 @@ interface AnimeApi {
 
     @GET("anime/{mal_id}/recommendations")
     fun getRecommendations(@Path("mal_id") mal_id : String) : Call<JsonObject>
+
+    @GET("anime/{mal_id}/pictures")
+    fun getPictures(@Path("mal_id") mal_id : String) : Call<JsonObject>
 }
