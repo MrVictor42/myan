@@ -33,6 +33,8 @@
     <string name="more_informations">More Information? Click Here!</string>
     <string name="genres">Genres </string>
     <string name="anime">Anime</string>
+    <string name="title">Title</string>
+    <string name="title_synonyms">Title Synonyms</string>
     <string name="manga">Manga</string>
     <string name="type_search">Search Anime or Manga</string>
     <string name="volumes">Volumes: </string>

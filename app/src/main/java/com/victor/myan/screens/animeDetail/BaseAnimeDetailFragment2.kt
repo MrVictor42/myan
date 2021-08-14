@@ -63,7 +63,7 @@ class BaseAnimeDetailFragment2 : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val malID = arguments?.getString("mal_id")
+        val malID = "21"
         val year = arguments?.getString("year")
         var listGenres = ""
         var listLicensors = ""
@@ -73,17 +73,17 @@ class BaseAnimeDetailFragment2 : Fragment() {
         lifecycle.addObserver(animeVideo)
         val animeTitle = binding.animeTitle
         val animeStatus = binding.animeStatus
-//        val animeScore = binding.animeScore
-//        val animeImage = binding.animeImage
+        val animeScore = binding.animeScore
+        val animeImage = binding.animeImage
         val backgroundTop = binding.backgroundTop
         val animeGenres = binding.animeGenres
         val animeLicensors = binding.animeLicensors
         val animeStudios = binding.animeStudios
         val episodeDuration = binding.episodeDuration
         val recommendationRecyclerView = binding.recyclerRecommendations
-//        val animePopularity = binding.animePopularity
-//        val animeMembers = binding.animeMembers
-//        val animeFavorites = binding.animeFavorites
+        val animePopularity = binding.animePopularity
+        val animeMembers = binding.animeMembers
+        val animeFavorites = binding.animeFavorites
         val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
         val expandableTextViewOpening = binding.expandableTextViewOpening.expandableTextView
         val expandableTextViewEnding = binding.expandableTextViewEnding.expandableTextView

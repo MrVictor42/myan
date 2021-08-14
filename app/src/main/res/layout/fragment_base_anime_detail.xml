@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,60 +7,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_gray"
-    android:orientation="vertical"
     tools:context=".screens.animeDetail.BaseAnimeDetailFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
+        android:id="@+id/carouselView"
+        layout="@layout/fragment_carousel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.synnapps.carouselview.CarouselView
-            android:id="@+id/carouselView"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:fillColor="#FFFFFFFF"
-            app:pageColor="#00000000"
-            app:indicatorVisibility="invisible"
-            app:radius="6dp"
-            app:slideInterval="5000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp"
-        />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tabIndicatorColor="@color/green_light"
+        app:tabTextColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/carouselView"
+    />
 
-        <include
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            layout="@layout/toolbar_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:navigationIcon="@drawable/ic_arrow_back_white"
-        />
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tabIndicatorColor="@color/green_light"
-            app:tabTextColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/carouselView"
-        />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/tab_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-        />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+</androidx.constraintlayout.widget.ConstraintLayout>

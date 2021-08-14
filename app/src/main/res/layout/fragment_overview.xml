@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,14 +8,389 @@
     android:background="@color/black_gray"
     tools:context=".screens.animeDetail.Overview">
 
-    <TextView
-        android:id="@+id/text"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="@color/white"
-        android:textSize="42sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:cardElevation="10dp">
+            <ImageView
+                android:id="@+id/anime_image"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="fitXY"
+                android:background="@color/black_gray"
+                android:contentDescription="@string/anime"
+            />
+        </androidx.cardview.widget.CardView>
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintStart_toEndOf="@id/cardView"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:text="@string/title"-->
+<!--        />-->
+
+        <TextView
+            android:id="@+id/anime_score_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardView"
+            android:text="@string/score"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/anime_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_score_textView"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_popularity_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_score"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:text="@string/popularity"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_popularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_popularity_textview"
+            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_members_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_popularity"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:text="@string/members"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_members_textview"
+            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_favorites_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_members"
+            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
+            android:text="@string/favorites"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_favorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/anime_favorites_textview"
+            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+        />
+
+        <TextView
+            android:id="@+id/anime_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="@string/title"
+        />
+
+        <TextView
+            android:id="@+id/anime_title_synonyms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anime_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="@string/title_synonyms"
+        />
+
+        <LinearLayout
+            android:id="@+id/anime_information"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anime_title_synonyms"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:id="@+id/type_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_year"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_marginEnd="20dp"
+            />
+
+            <TextView
+                android:id="@+id/anime_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginEnd="20dp"
+            />
+
+            <TextView
+                android:id="@+id/episode_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/ep_duration"
+                android:textStyle="bold"
+                android:textSize="14sp"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_genres"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/anime_information"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:gravity="center_horizontal"
+        >
+            <TextView
+                android:id="@+id/anime_genres"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"
+            />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_expandable_text_synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/linear_genres"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        >
+            <include
+                android:id="@+id/expandable_text_view_synopsis"
+                layout="@layout/expandable_text_view"
+            />
+        </LinearLayout>
+
+        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+            android:id="@+id/youtube_player_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:showFullScreenButton="false"
+            app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_synopsis"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+        />
+
+        <LinearLayout
+            android:id="@+id/linear_licensors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+        >
+            <TextView
+                android:id="@+id/licensors_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/licensors"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+            />
+
+            <TextView
+                android:id="@+id/anime_licensors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/licensors_text_view"
+                app:layout_constraintStart_toStartOf="@id/licensors_text_view"
+            />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="@id/linear_licensors"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+        >
+            <TextView
+                android:id="@+id/studios_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/linear_licensors"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                android:text="@string/studios"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+            />
+
+            <TextView
+                android:id="@+id/anime_studios"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/studios_text_view"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+            />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/opening_theme_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/opening_themes"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/linear_licensors"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+        />
+
+        <LinearLayout
+            android:id="@+id/linear_expandable_text_opening"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/opening_theme_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+        >
+            <include
+                android:id="@+id/expandable_text_view_opening"
+                layout="@layout/expandable_text_view"
+            />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ending_theme_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:text="@string/ending_themes"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_opening"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+        />
+
+        <LinearLayout
+            android:id="@+id/linear_expandable_text_ending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/ending_theme_text_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <include
+                android:id="@+id/expandable_text_view_ending"
+                layout="@layout/expandable_text_view"
+            />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

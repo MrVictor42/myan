@@ -2,13 +2,13 @@ package com.victor.myan.screens.animeDetail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -37,12 +37,13 @@ class BaseAnimeDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val toolbar = binding.toolbar.toolbar
+        val malID = arguments?.getString("mal_id").toString()
+        val year = arguments?.getString("year").toString()
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val listPictures : MutableList<Picture> = mutableListOf()
-        val carouselView = binding.carouselView
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, arguments?.getString("mal_id").toString())
+        val carouselView = binding.carouselView.carouselView
+        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, malID, year)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
@@ -64,17 +65,6 @@ class BaseAnimeDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
-
-        toolbar.setNavigationOnClickListener {
-            val homeFragment = HomeFragment()
-            (view.context as FragmentActivity)
-                .supportFragmentManager
-                .beginTransaction()
-                .remove(this)
-                .replace(R.id.content, homeFragment)
-                .addToBackStack(null)
-                .commit()
-        }
 
         animeApi.getPictures(arguments?.getString("mal_id").toString()).enqueue(object :
             Callback<JsonObject> {
