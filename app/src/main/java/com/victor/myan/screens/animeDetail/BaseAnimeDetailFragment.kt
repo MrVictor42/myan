@@ -1,5 +1,6 @@
 package com.victor.myan.screens.animeDetail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,7 +42,7 @@ class BaseAnimeDetailFragment : Fragment() {
         val viewPager = binding.viewPager2
         val listPictures : MutableList<Picture> = mutableListOf()
         val carouselView = binding.carouselView
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, arguments?.getString("mal_id").toString())
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
@@ -62,7 +63,6 @@ class BaseAnimeDetailFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val malID = arguments?.getString("mal_id")
         val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
 
         toolbar.setNavigationOnClickListener {
@@ -76,12 +76,13 @@ class BaseAnimeDetailFragment : Fragment() {
                 .commit()
         }
 
-        animeApi.getPictures(malID.toString()).enqueue(object :
+        animeApi.getPictures(arguments?.getString("mal_id").toString()).enqueue(object :
             Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
             }
 
+            @SuppressLint("InflateParams")
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if (response.isSuccessful) {
                     val picturesResponse = response.body()

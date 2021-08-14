@@ -8,9 +8,9 @@
     tools:context=".screens.animeDetail.Overview">
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="overview"
         android:textColor="@color/white"
         android:textSize="42sp"
         app:layout_constraintTop_toTopOf="parent"
