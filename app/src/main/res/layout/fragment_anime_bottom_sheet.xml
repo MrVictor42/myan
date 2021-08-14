@@ -21,7 +21,6 @@
                 android:layout_width="70dp"
                 android:layout_height="3dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +36,7 @@
                 android:scaleType="fitXY"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewLineExpanded" />
+                app:layout_constraintTop_toBottomOf="@+id/title_modal" />
 
             <TextView
                 android:id="@+id/title_modal"
@@ -48,10 +47,10 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_modal"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewLineExpanded"/>
 
             <TextView
@@ -59,10 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/image_modal"
-                app:layout_constraintTop_toBottomOf="@id/title_modal"
+                app:layout_constraintTop_toTopOf="@id/image_modal"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:text="@string/year"
@@ -74,10 +72,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/year_modal_text"
-                app:layout_constraintTop_toBottomOf="@id/title_modal"
+                app:layout_constraintTop_toTopOf="@id/image_modal"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="14sp"
                 android:textColor="@color/white"

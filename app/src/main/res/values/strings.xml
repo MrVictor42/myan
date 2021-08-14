@@ -18,6 +18,7 @@
     <string name="top_anime">Top Anime</string>
     <string name="top_manga">Top Manga</string>
     <string name="episodes">Episodes: </string>
+    <string name="episodes_">Episodes</string>
     <string name="score">Score </string>
     <string name="year">Year: </string>
     <string name="popularity">Popularity </string>
