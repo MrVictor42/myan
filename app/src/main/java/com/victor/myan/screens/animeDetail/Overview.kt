@@ -23,6 +23,9 @@ import com.victor.myan.screens.HomeFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.content.Intent
+import android.net.Uri
+
 
 class Overview : Fragment() {
 

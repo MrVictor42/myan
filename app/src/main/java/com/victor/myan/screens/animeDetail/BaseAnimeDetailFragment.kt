@@ -2,7 +2,6 @@ package com.victor.myan.screens.animeDetail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
-import com.victor.myan.adapter.ViewPagerAdapter
+import com.victor.myan.adapter.ViewPagerAnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.helper.JikanApiInstanceHelper
@@ -41,15 +40,17 @@ class BaseAnimeDetailFragment : Fragment() {
         val year = arguments?.getString("year").toString()
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
+        val sizePager = 3
         val listPictures : MutableList<Picture> = mutableListOf()
         val carouselView = binding.carouselView.carouselView
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle, malID, year)
+        val adapter = ViewPagerAnimeAdapter(parentFragmentManager, lifecycle, malID, year, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Recommendation"
+                1 -> tab.text = "Characters"
+                2 -> tab.text = "Recommendation"
             }
         }.attach()
 
