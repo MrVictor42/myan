@@ -5,14 +5,12 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1875" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_carousel.xml" value="0.10182370820668693" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_staff.xml" value="0.12590579710144928" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/list_image_adapter.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/top_page.xml" value="0.12590579710144928" />
         <entry key="app/src/main/res/drawable/anime_detail_linear.xml" value="0.1574074074074074" />
         <entry key="app/src/main/res/drawable/edit_text_shape.xml" value="0.1574074074074074" />
+        <entry key="app/src/main/res/layout/activity_base_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_form_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/cardview_category.xml" value="0.12409420289855072" />
         <entry key="app/src/main/res/layout/expandable_text_view.xml" value="0.11141304347826086" />
@@ -20,11 +18,17 @@
         <entry key="app/src/main/res/layout/fragment_anime_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_episodes.xml" value="0.1490036231884058" />
+        <entry key="app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.12" />
+        <entry key="app/src/main/res/layout/fragment_base_characters_staff.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/fragment_carousel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_carousel_custom.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_categories_list.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_character.xml" value="0.12681159420289856" />
+        <entry key="app/src/main/res/layout/fragment_character_staff.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.30819366852886404" />
         <entry key="app/src/main/res/layout/fragment_season.xml" value="0.13677536231884058" />
+        <entry key="app/src/main/res/layout/fragment_staff.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/fragment_today_anime.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_top_anime.xml" value="0.13677536231884058" />
         <entry key="app/src/main/res/layout/fragment_top_manga.xml" value="0.1" />

@@ -6,19 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.victor.myan.R
-import com.victor.myan.databinding.FragmentCharacterStaffBinding
+import com.victor.myan.databinding.FragmentCharacterBinding
 
-class CharacterStaff : Fragment() {
+class Character : Fragment() {
 
-    private lateinit var binding : FragmentCharacterStaffBinding
+    private lateinit var binding : FragmentCharacterBinding
 
     companion object {
-        fun newInstance(mal_id : String): CharacterStaff {
-            val characterStaffFragment = CharacterStaff()
+        fun newInstance(mal_id : String): Character {
+            val characterFragment = Character()
             val args = Bundle()
             args.putString("mal_id", mal_id)
-            characterStaffFragment.arguments = args
-            return characterStaffFragment
+            characterFragment.arguments = args
+            return characterFragment
         }
     }
 
@@ -26,7 +26,7 @@ class CharacterStaff : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCharacterStaffBinding.inflate(layoutInflater, container, false)
+        binding = FragmentCharacterBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 }
