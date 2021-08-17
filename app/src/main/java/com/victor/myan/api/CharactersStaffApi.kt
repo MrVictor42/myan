@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface StaffApi {
+interface CharactersStaffApi {
     @GET("anime/{mal_id}/characters_staff")
     fun getCharactersStaff(@Path("mal_id") mal_id : String) : Call<JsonObject>
 }

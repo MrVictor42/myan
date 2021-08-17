@@ -1,0 +1,16 @@
+package com.victor.myan.model
+
+import com.google.gson.annotations.SerializedName
+
+data class Staff (
+    @SerializedName("mal_id")
+    var mal_id : Int = 0,
+    @SerializedName("image_url")
+    var image_url : String = "",
+    @SerializedName("name")
+    var name : String = "",
+    @SerializedName("birthday")
+    var birthday : String = "",
+    @SerializedName("about")
+    var about : String = ""
+)

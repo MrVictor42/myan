@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.screens.animeDetail.BaseCharactersStaff
+import com.victor.myan.screens.animeDetail.CharacterStaffFragment
 import com.victor.myan.screens.animeDetail.Overview
-import com.victor.myan.screens.animeDetail.Recommendation
+import com.victor.myan.screens.animeDetail.RecommendationFragment
 
 class ViewPagerAnimeAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, year : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
@@ -21,8 +21,8 @@ class ViewPagerAnimeAdapter(fragment : FragmentManager, lifecycle : Lifecycle, m
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> Overview.newInstance(malID, animeYear)
-            1 -> BaseCharactersStaff.newInstance(malID)
-            2 -> Recommendation.newInstance(malID)
+            1 -> CharacterStaffFragment.newInstance(malID)
+            2 -> RecommendationFragment.newInstance(malID)
             else -> Fragment()
         }
     }
