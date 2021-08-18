@@ -49,7 +49,7 @@ class BaseAnimeDetailFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Characters | Staff"
+                1 -> tab.text = "Characters"
                 2 -> tab.text = "Recommendation"
             }
         }.attach()
