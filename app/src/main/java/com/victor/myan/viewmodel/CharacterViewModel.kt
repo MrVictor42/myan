@@ -3,6 +3,7 @@ package com.victor.myan.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.victor.myan.api.CharacterApi
 import com.victor.myan.helper.JikanApiInstanceHelper
 import com.victor.myan.model.CharacterResponse
@@ -10,7 +11,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CharacterViewModel : ViewModel() {
+class CharacterViewModel(private val malID: String) : ViewModel() {
 
     private val _response = MutableLiveData<CharacterResponse>()
     val response: LiveData<CharacterResponse>
@@ -26,10 +27,17 @@ class CharacterViewModel : ViewModel() {
 
     init {
         _loading.value = true
-        getApiResponse("21")
+        getApiResponse()
     }
 
-    private fun getApiResponse(malID : String) {
+    @Suppress("UNCHECKED_CAST")
+    class CharacterFactory(private val malID: String) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return CharacterViewModel(malID) as T
+        }
+    }
+
+    private fun getApiResponse() {
         val characterApi = JikanApiInstanceHelper.getJikanApiInstance().create(CharacterApi::class.java)
 
         characterApi.getCharactersStaff(malID).enqueue(object : Callback<CharacterResponse> {

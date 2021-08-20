@@ -7,17 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
 import com.victor.myan.viewmodel.CharacterViewModel
 
 class CharacterFragment : Fragment() {
-
-    private lateinit var binding : FragmentCharacterBinding
-    private val viewModel by lazy { ViewModelProvider(this).get(CharacterViewModel::class.java) }
-    private lateinit var characterAdapter : CharactersAdapter
 
     companion object {
         fun newInstance(mal_id : String): CharacterFragment {
@@ -28,6 +24,9 @@ class CharacterFragment : Fragment() {
             return characterFragment
         }
     }
+
+    private lateinit var binding : FragmentCharacterBinding
+    private lateinit var characterAdapter : CharactersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +39,9 @@ class CharacterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val characterRecyclerView = binding.animeCharacter
         characterAdapter = CharactersAdapter()
+
+        val malID = arguments?.getString("mal_id").toString()
+        val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID)}
 
         viewModel.response.observe(viewLifecycleOwner, { character ->
             val characterList = character.characters
