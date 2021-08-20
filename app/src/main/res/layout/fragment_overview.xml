@@ -1,70 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/background_anime"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
-    tools:context=".screens.AnimeDetailFragment">
+    tools:context=".screens.animeDetail.OverviewFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/background_top"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="horizontal" />
-
-        <include
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            layout="@layout/toolbar_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:navigationIcon="@drawable/ic_arrow_back_white"
-        />
-
+        android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             app:cardElevation="10dp">
-
             <ImageView
                 android:id="@+id/anime_image"
-                android:layout_width="200dp"
-                android:layout_height="250dp"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
                 android:scaleType="fitXY"
                 android:background="@color/black_gray"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="@string/anime" />
+                android:contentDescription="@string/anime"
+            />
         </androidx.cardview.widget.CardView>
+
+<!--        <TextView-->
+<!--            android:id="@+id/anime_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="18sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintStart_toEndOf="@id/cardView"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:text="@string/title"-->
+<!--        />-->
 
         <TextView
             android:id="@+id/anime_score_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/cardView"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
             android:text="@string/score"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
         />
 
         <TextView
@@ -151,13 +143,30 @@
             android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/cardView"
-            app:layout_constraintTop_toBottomOf="@id/cardView"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardView"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
+            android:text="@string/title"
+        />
+
+        <TextView
+            android:id="@+id/anime_title_synonyms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anime_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            android:text="@string/title_synonyms"
         />
 
         <LinearLayout
@@ -166,12 +175,13 @@
             android:layout_height="30dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/anime_title"
+            app:layout_constraintTop_toBottomOf="@id/anime_title_synonyms"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:gravity="center_horizontal"
-        >
+            >
             <TextView
                 android:id="@+id/type_year"
                 android:layout_width="wrap_content"
@@ -202,7 +212,6 @@
                 android:textStyle="bold"
                 android:textSize="14sp"
             />
-
         </LinearLayout>
 
         <LinearLayout
@@ -221,11 +230,9 @@
                 android:id="@+id/anime_genres"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="14sp"
@@ -260,29 +267,17 @@
             android:layout_marginEnd="20dp"
         />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/anime_character"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-        />
-
         <LinearLayout
             android:id="@+id/linear_licensors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/anime_character"
+            app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="20dp"
-            >
+        >
             <TextView
                 android:id="@+id/licensors_text_view"
                 android:layout_width="wrap_content"
@@ -290,6 +285,7 @@
                 android:text="@string/licensors"
                 android:textColor="@color/white"
                 android:textSize="14sp"
+                android:layout_marginTop="20dp"
             />
 
             <TextView
@@ -312,6 +308,7 @@
             app:layout_constraintGuide_percent="0.5" />
 
         <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -361,9 +358,9 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/opening_theme_text_view"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/opening_theme_text_view"
             app:layout_constraintEnd_toEndOf="parent"
-            >
+        >
             <include
                 android:id="@+id/expandable_text_view_opening"
                 layout="@layout/expandable_text_view"
@@ -378,8 +375,7 @@
             android:text="@string/ending_themes"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_opening"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="@id/opening_theme_text_view"
         />
 
         <LinearLayout
@@ -388,40 +384,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/ending_theme_text_view"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/opening_theme_text_view"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             >
             <include
                 android:id="@+id/expandable_text_view_ending"
                 layout="@layout/expandable_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
             />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/recommendations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:text="@string/recommendations"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_ending"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-        />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerRecommendations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/recommendations"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-        />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+</ScrollView>

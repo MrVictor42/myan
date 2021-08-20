@@ -8,7 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.squareup.picasso.Picasso
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentAnimeBottomSheetBinding
-import com.victor.myan.screens.AnimeDetailFragment
+import com.victor.myan.screens.animeDetail.BaseAnimeDetailFragment
 
 class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
 
@@ -69,7 +69,7 @@ class AnimeBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         btnMoreInformation.setOnClickListener {
-            val fragment = AnimeDetailFragment()
+            val fragment = BaseAnimeDetailFragment()
             val fragmentManager = activity?.supportFragmentManager
 
             val bundle = Bundle()

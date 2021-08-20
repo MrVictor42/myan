@@ -44,5 +44,7 @@ data class Anime (
     @SerializedName("opening_themes")
     var opening_themes : List<String> = arrayListOf(),
     @SerializedName("ending_themes")
-    var ending_themes : List<String> = arrayListOf()
+    var ending_themes : List<String> = arrayListOf(),
+    @SerializedName("pictures")
+    var pictures : List<Picture> = arrayListOf()
 )

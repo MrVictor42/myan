@@ -30,6 +30,6 @@
             android:layout_gravity="center|bottom"
             android:background="@color/transparent"
             android:padding="16dp"
-            />
+        />
     </com.ms.square.android.expandabletextview.ExpandableTextView>
 </LinearLayout>

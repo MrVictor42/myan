@@ -89,14 +89,14 @@ class CarouselFragment : Fragment() {
                             }
                             for (anime in 0 until listAnime.size) {
                                 carouselView.setViewListener { position ->
-                                    val view = layoutInflater.inflate(R.layout.fragment_carousel_custom, null)
+                                    val viewCarousel = layoutInflater.inflate(R.layout.fragment_carousel_custom, null)
 
-                                    val animeTitle = view.findViewById<TextView>(R.id.anime_title_carousel)
-                                    val animeImage = view.findViewById<ImageView>(R.id.anime_image_carousel)
+                                    val animeTitle = viewCarousel.findViewById<TextView>(R.id.anime_title_carousel)
+                                    val animeImage = viewCarousel.findViewById<ImageView>(R.id.anime_image_carousel)
 
                                     Picasso.get().load(listAnime[position].image_url).fit().into(animeImage)
                                     animeTitle.text = listAnimeTitle[position]
-                                    view
+                                    viewCarousel
                                 }
 
                                 carouselView.setImageClickListener { position ->
