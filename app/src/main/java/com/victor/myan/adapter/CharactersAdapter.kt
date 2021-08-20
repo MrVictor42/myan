@@ -1,23 +1,34 @@
 package com.victor.myan.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import com.victor.myan.R
+import com.victor.myan.databinding.ListImageAdapterBinding
 import com.victor.myan.model.Character
 
-class CharactersAdapter(var character: MutableList<Character>) :
-    RecyclerView.Adapter<CharactersAdapter.CharacterHolder>() {
+class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHolder>(MyDiffUtil) {
 
-    class CharacterHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val image : ImageView = itemView.findViewById(R.id.list_image_adapter)
+    companion object MyDiffUtil : DiffUtil.ItemCallback<Character>() {
+        override fun areItemsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Character, newItem: Character): Boolean {
+            return oldItem.mal_id == newItem.mal_id
+        }
+    }
+
+    inner class CharacterHolder(binding: ListImageAdapterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val image = binding.listImageAdapter
 
         fun bind(character: Character) {
-            Picasso.get().load(character.image_url).placeholder(R.drawable.placeholder).fit().into(image)
+            Glide.with(itemView.context).load(character.image_url).into(image)
 
             image.setOnClickListener {
                 Toast.makeText(itemView.context, character.name, Toast.LENGTH_SHORT).show()
@@ -26,15 +37,13 @@ class CharactersAdapter(var character: MutableList<Character>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_image_adapter, parent, false)
-        return CharacterHolder(view)
+        return CharacterHolder(
+            ListImageAdapterBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        )
     }
 
-    override fun onBindViewHolder(holder: CharacterHolder, position: Int) {
-        holder.bind(character[position])
-    }
-
-    override fun getItemCount(): Int {
-        return character.size
+    override fun onBindViewHolder(holder: CharactersAdapter.CharacterHolder, position: Int) {
+        val character = getItem(position)
+        holder.bind(character)
     }
 }

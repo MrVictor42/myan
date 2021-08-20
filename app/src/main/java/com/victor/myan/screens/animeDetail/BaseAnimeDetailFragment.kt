@@ -54,6 +54,7 @@ class BaseAnimeDetailFragment : Fragment() {
             }
         }.attach()
 
+
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
