@@ -5,7 +5,9 @@
     <color name="black_gray">#262626</color>
     <color name="orange">#E95d00</color>
     <color name="red">#CB3537</color>
+    <color name="red_light">#D94C4C</color>
     <color name="yellow">#F2D245</color>
+    <color name="yellow_light">#F5E25B</color>
     <color name="gray">#B8B8B8</color>
     <color name="green_light">#68D20F</color>
     <color name="dark_blue">#0066FF</color>

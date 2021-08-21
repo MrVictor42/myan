@@ -21,7 +21,7 @@ class PresentationActivity : IntroActivity() {
             SimpleSlide.Builder()
                 .background(R.color.yellow)
                 .image(R.drawable.gohan)
-                .backgroundDark(R.color.yellow)
+                .backgroundDark(R.color.yellow_light)
                 .title(auxServicesHelper.capitalize("everything in same place!"))
                 .description(auxServicesHelper.capitalize(
                     "know the top anime and manga, search for them and much more, " +
@@ -33,7 +33,7 @@ class PresentationActivity : IntroActivity() {
             SimpleSlide.Builder()
                 .background(R.color.red)
                 .image(R.drawable.luffy)
-                .backgroundDark(R.color.red)
+                .backgroundDark(R.color.red_light)
                 .title(auxServicesHelper.capitalize("every day, one new story!"))
                 .canGoBackward(true)
                 .description(auxServicesHelper.capitalize(
