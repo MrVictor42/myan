@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
 import com.victor.myan.helper.AuxFunctionsHelper
@@ -24,19 +24,10 @@ class WithoutConnectionActivity : AppCompatActivity() {
         }
         window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
-        val imageGif = binding.sadGif
-        val withoutConnectionText = binding.withoutConnectionText
-        val btnUpdate = binding.btnUpdate
-        val messageError = binding.messageError
+        val imgRefresh = binding.imgRefresh
+        val btnRefresh = binding.btnRefresh
 
-        Glide.with(this).load(R.drawable.sad_naruto).into(imageGif)
-
-        withoutConnectionText.text = auxFunctionsHelper.capitalize(
-            "you haven't connection Wifi/4G in this moment, please able some " +
-                    "connection and try again"
-        )
-
-        btnUpdate.setOnClickListener {
+        imgRefresh.setOnClickListener {
             if(auxFunctionsHelper.userHasConnection(this)) {
                 if(auxFunctionsHelper.userIsAuthenticated()) {
                     val intent = Intent(this, BaseLayout::class.java)
@@ -48,7 +39,23 @@ class WithoutConnectionActivity : AppCompatActivity() {
                     finish()
                 }
             } else {
-                messageError.text = auxFunctionsHelper.capitalize("without connection!")
+                Snackbar.make(binding.withoutConnection, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+            }
+        }
+
+        btnRefresh.setOnClickListener {
+            if(auxFunctionsHelper.userHasConnection(this)) {
+                if(auxFunctionsHelper.userIsAuthenticated()) {
+                    val intent = Intent(this, BaseLayout::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    val intent = Intent(this, PresentationActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+            } else {
+                Snackbar.make(binding.withoutConnection, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
             }
         }
     }

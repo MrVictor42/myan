@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
-import com.victor.myan.helper.ScreenState
+import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Character
 import com.victor.myan.viewmodel.CharacterViewModel
 
@@ -50,16 +50,16 @@ class CharacterFragment : Fragment() {
         })
     }
 
-    private fun processCharacterResponse(state : ScreenState<List<Character>?>) {
+    private fun processCharacterResponse(state : ScreenStateHelper<List<Character>?>) {
 
         characterRecyclerView = binding.animeCharacter
         progressBar = binding.progressBar
 
         when(state) {
-            is ScreenState.Loading -> {
+            is ScreenStateHelper.Loading -> {
                 progressBar.visibility = View.VISIBLE
             }
-            is ScreenState.Success -> {
+            is ScreenStateHelper.Success -> {
                 if(state.data != null) {
                     val characterList = state.data
                     characterRecyclerView.setHasFixedSize(true)
@@ -70,7 +70,7 @@ class CharacterFragment : Fragment() {
                     characterRecyclerView.adapter = characterAdapter
                 }
             }
-            is ScreenState.Error -> {
+            is ScreenStateHelper.Error -> {
                 progressBar.visibility = View.VISIBLE
                 val view = progressBar.rootView
                 Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
