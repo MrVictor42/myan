@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.victor.myan.api.CharacterApi
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.helper.ScreenState
+import com.victor.myan.model.Character
 import com.victor.myan.model.CharacterResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,21 +14,12 @@ import retrofit2.Response
 
 class CharacterViewModel(private val malID: String) : ViewModel() {
 
-    private val _response = MutableLiveData<CharacterResponse>()
-    val response: LiveData<CharacterResponse>
-        get() = _response
-
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean>
-        get() = _loading
-
-    private val _failed = MutableLiveData<String>()
-    val failed: LiveData<String>
-        get() = _failed
+    private val _characterLiveData = MutableLiveData<ScreenState<List<Character>?>>()
+    val characterLiveData : LiveData<ScreenState<List<Character>?>>
+        get() = _characterLiveData
 
     init {
-        _loading.value = true
-        getApiResponse()
+        getCharactersApi()
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -37,18 +29,21 @@ class CharacterViewModel(private val malID: String) : ViewModel() {
         }
     }
 
-    private fun getApiResponse() {
-        val characterApi = JikanApiInstanceHelper.getJikanApiInstance().create(CharacterApi::class.java)
+    private fun getCharactersApi() {
+        val characterApi = JikanApiInstance.characterApi.fetchCharacters(malID)
+        _characterLiveData.postValue(ScreenState.Loading(null))
 
-        characterApi.getCharactersStaff(malID).enqueue(object : Callback<CharacterResponse> {
+        characterApi.enqueue(object : Callback<CharacterResponse> {
             override fun onResponse(call: Call<CharacterResponse>, response: Response<CharacterResponse>) {
-                _response.value = response.body()
-                _loading.value = false
+                if(response.isSuccessful) {
+                    _characterLiveData.postValue(ScreenState.Success(response.body()?.characters))
+                } else {
+                    _characterLiveData.postValue(ScreenState.Error(response.code().toString(), null))
+                }
             }
 
             override fun onFailure(call: Call<CharacterResponse>, t: Throwable) {
-                _loading.value = false
-                _failed.value = t.localizedMessage
+                _characterLiveData.postValue(ScreenState.Error(t.message.toString(), null))
             }
         })
     }

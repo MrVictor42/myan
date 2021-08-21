@@ -4,9 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class Character(
     @SerializedName("mal_id")
-    var mal_id : Int = 0,
+    val mal_id : Int,
     @SerializedName("image_url")
-    var image_url : String = "",
+    val image_url : String,
     @SerializedName("name")
-    var name : String = ""
+    val name : String
+)
+
+data class CharacterResponse (
+    val characters : MutableList<Character>
 )

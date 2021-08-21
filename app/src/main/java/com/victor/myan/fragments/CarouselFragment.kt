@@ -16,7 +16,7 @@ import com.victor.myan.R
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCarouselBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.modals.AnimeBottomSheetFragment
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -45,7 +45,7 @@ class CarouselFragment : Fragment() {
         val bottomSheetFragment = AnimeBottomSheetFragment()
         val bundle = Bundle()
 
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(CategoryApi::class.java)
         api.slide("airing", "score", limit).enqueue(object :
             Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {

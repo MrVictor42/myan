@@ -9,7 +9,7 @@
     android:fitsSystemWindows="false"
     android:overScrollMode="never"
     android:background="@color/black_gray"
-    tools:context=".screens.HomeFragment"
+    tools:context=".fragments.HomeFragment"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

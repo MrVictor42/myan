@@ -18,8 +18,9 @@ import com.victor.myan.R
 import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
+import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +76,7 @@ class MangaDetailFragment : Fragment() {
         val listAdaptations: MutableList<String> = mutableListOf()
         val listSpinOff: MutableList<String> = mutableListOf()
 
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(MangaApi::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(MangaApi::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
             val call: Response<JsonObject> = api.getManga(malID.toString())

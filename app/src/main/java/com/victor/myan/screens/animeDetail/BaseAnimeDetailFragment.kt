@@ -16,9 +16,9 @@ import com.victor.myan.R
 import com.victor.myan.adapter.ViewPagerAnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.model.Picture
-import com.victor.myan.screens.HomeFragment
+import com.victor.myan.fragments.HomeFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -66,7 +66,7 @@ class BaseAnimeDetailFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val animeApi = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
 
         animeApi.getPictures(arguments?.getString("mal_id").toString()).enqueue(object :
             Callback<JsonObject> {

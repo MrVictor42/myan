@@ -13,7 +13,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentRecommendationBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.model.Anime
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,7 +47,7 @@ class RecommendationFragment : Fragment() {
         val malID = arguments?.getString("mal_id").toString()
         val animeList = arrayListOf<Anime>()
         val recommendationRecyclerView = binding.recyclerRecommendations
-        val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val animeApi = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
 
         recommendationRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         animeAdapter = AnimeAdapter(animeList)

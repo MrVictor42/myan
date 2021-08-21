@@ -15,7 +15,7 @@ import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentOverviewBinding
 import com.victor.myan.enums.StatusEnum
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import retrofit2.Call
@@ -72,7 +72,7 @@ class OverviewFragment : Fragment() {
         val expandableTextViewOpening = binding.expandableTextViewOpening.expandableTextView
         val expandableTextViewEnding = binding.expandableTextViewEnding.expandableTextView
         val typeYear = binding.typeYear
-        val animeApi = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val animeApi = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
 
         animeApi.getAnime(malID).enqueue(object : Callback<Anime> {
             override fun onFailure(call: Call<Anime>, t: Throwable) {

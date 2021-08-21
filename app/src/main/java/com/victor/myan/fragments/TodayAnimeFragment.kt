@@ -14,7 +14,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentTodayAnimeBinding
 import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.model.Anime
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,7 +47,7 @@ class TodayAnimeFragment : Fragment() {
         animeAdapter = AnimeAdapter(animeList)
         recyclerViewTodayAnime.adapter = animeAdapter
 
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(AnimeApi::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(AnimeApi::class.java)
         api.getTodayAnime(currentDay).enqueue(object : Callback<JsonObject> {
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 

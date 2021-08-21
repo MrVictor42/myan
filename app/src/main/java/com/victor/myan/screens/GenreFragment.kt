@@ -17,7 +17,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCategoriesBinding
 import com.victor.myan.enums.CategoriesEnum
-import com.victor.myan.helper.JikanApiInstanceHelper
+import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.model.Anime
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,7 +39,7 @@ class GenreFragment : Fragment() {
 
         val genreID = arguments?.getInt("mal_id")
         val name = arguments?.getString("name")
-        val api = JikanApiInstanceHelper.getJikanApiInstance().create(CategoryApi::class.java)
+        val api = JikanApiInstance.getJikanApiInstance().create(CategoryApi::class.java)
         val toolbar = binding.toolbar
         val highestScoreNull = binding.highestScoreNull
         val upcomingNull = binding.upcomingNull
