@@ -5,10 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
@@ -30,8 +28,6 @@ class CharacterFragment : Fragment() {
 
     private lateinit var binding : FragmentCharacterBinding
     private lateinit var characterAdapter : CharactersAdapter
-    private lateinit var characterRecyclerView : RecyclerView
-    private lateinit var progressBar : ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,8 +48,8 @@ class CharacterFragment : Fragment() {
 
     private fun processCharacterResponse(state : ScreenStateHelper<List<Character>?>) {
 
-        characterRecyclerView = binding.animeCharacter
-        progressBar = binding.progressBar
+        val characterRecyclerView = binding.animeCharacter
+        val progressBar = binding.progressBar
 
         when(state) {
             is ScreenStateHelper.Loading -> {

@@ -50,7 +50,6 @@ class OverviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val year = arguments?.getString("year").toString()
         var listGenres = ""
         var listLicensors = ""
         var listStudios = ""
@@ -102,6 +101,8 @@ class OverviewFragment : Fragment() {
                             "null" -> "─"
                             else -> animeResponse.type
                         }
+
+                        val year = auxServicesHelper.formatPremiered(animeResponse.premiered)
 
                         val typeYearConcat = "$type, $year"
                         typeYear.text = typeYearConcat

@@ -37,11 +37,4 @@ interface CategoryApi {
         @Query("status") status: CategoriesEnum,
         @Query("type") type: CategoriesEnum
     ) : Call<JsonObject>
-
-    @GET("search/anime")
-    fun slide(
-        @Query("status") status : String,
-        @Query("order_by") order_by : String,
-        @Query("limit") limit : Int
-    ) : Call<JsonObject>
 }

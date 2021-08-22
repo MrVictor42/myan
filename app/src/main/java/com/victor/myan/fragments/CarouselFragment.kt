@@ -8,27 +8,20 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import com.squareup.picasso.Picasso
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.R
-import com.victor.myan.api.CategoryApi
 import com.victor.myan.databinding.FragmentCarouselBinding
-import com.victor.myan.helper.AuxFunctionsHelper
-import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.modals.AnimeBottomSheetFragment
+import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
+import com.victor.myan.screens.animeDetail.BaseAnimeDetailFragment
+import com.victor.myan.viewmodel.AnimeListCarouselViewModel
 
 class CarouselFragment : Fragment() {
 
     private lateinit var binding : FragmentCarouselBinding
-    private val auxFunctionsHelper = AuxFunctionsHelper()
-    private val limit = 12
+    private val viewModel by lazy { ViewModelProvider(this).get(AnimeListCarouselViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,83 +32,61 @@ class CarouselFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        viewModel.listAnimeLiveData.observe(viewLifecycleOwner, { state ->
+            processAnimeListCarouselResponse(state)
+        })
+    }
+
+    @SuppressLint("InflateParams")
+    private fun processAnimeListCarouselResponse(state: ScreenStateHelper<List<Anime>?>?) {
+        val progressBar = binding.progressBar
         val carouselView = binding.carouselView
-        val listAnime : MutableList<Anime> = mutableListOf()
-        val listAnimeTitle : MutableList<String> = mutableListOf()
-        val bottomSheetFragment = AnimeBottomSheetFragment()
-        val bundle = Bundle()
 
-        val api = JikanApiInstance.getJikanApiInstance().create(CategoryApi::class.java)
-        api.slide("airing", "score", limit).enqueue(object :
-            Callback<JsonObject> {
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
+        when(state) {
+            is ScreenStateHelper.Loading -> {
+                progressBar.visibility = View.VISIBLE
             }
+            is ScreenStateHelper.Success -> {
+                if(state.data != null) {
+                    val animeList = state.data
+                    for(aux in animeList.indices) {
+                        carouselView.setViewListener { position ->
+                            val viewCarousel = layoutInflater.inflate(R.layout.fragment_carousel_anime_list, null)
+                            val animeTitle = viewCarousel.findViewById<TextView>(R.id.anime_title_carousel)
+                            val animeImage = viewCarousel.findViewById<ImageView>(R.id.anime_image_carousel)
 
-            @SuppressLint("InflateParams")
-            override fun onResponse(
-                call: Call<JsonObject>,
-                response: Response<JsonObject>
-            ) {
-                if (response.isSuccessful) {
-                    val animeResponse = response.body()
-                    if (animeResponse != null) {
-                        val results: JsonArray? =
-                            animeResponse.getAsJsonArray("results")
-                        if (results != null) {
-                            for (result in 0 until results.size()) {
-                                val animeFound: JsonObject? =
-                                    results.get(result) as JsonObject?
-                                if (animeFound != null) {
-                                    val anime = Anime()
+                            Glide.with(viewCarousel.context).load(animeList[position].image_url).into(animeImage)
+                            animeTitle.text = animeList[position].title
 
-                                    anime.title = animeFound.get("title").asString
-                                    anime.mal_id =
-                                        animeFound.get("mal_id").asInt.toString()
-                                    anime.episodes = animeFound.get("episodes").asInt
-                                    anime.image_url =
-                                        animeFound.get("image_url").asString
-                                    anime.score = animeFound.get("score").asDouble
-                                    anime.synopsis = animeFound.get("synopsis").asString
+                            viewCarousel
+                        }
 
-                                    if (animeFound.get("start_date").toString() == "null") {
-                                        anime.airing_start = ""
-                                    } else {
-                                        anime.airing_start = auxFunctionsHelper.formatYear(animeFound.get("start_date").asString)
-                                    }
-                                    listAnime.add(anime)
-                                    listAnimeTitle.add(anime.title)
-                                }
-                            }
-                            for (anime in 0 until listAnime.size) {
-                                carouselView.setViewListener { position ->
-                                    val viewCarousel = layoutInflater.inflate(R.layout.fragment_carousel_custom, null)
+                        carouselView.setImageClickListener { position ->
+                            val fragment = BaseAnimeDetailFragment()
+                            val fragmentManager = activity?.supportFragmentManager
 
-                                    val animeTitle = viewCarousel.findViewById<TextView>(R.id.anime_title_carousel)
-                                    val animeImage = viewCarousel.findViewById<ImageView>(R.id.anime_image_carousel)
+                            val bundle = Bundle()
+                            bundle.putString("mal_id", animeList[position].mal_id)
 
-                                    Picasso.get().load(listAnime[position].image_url).fit().into(animeImage)
-                                    animeTitle.text = listAnimeTitle[position]
-                                    viewCarousel
-                                }
+                            fragment.arguments = bundle
 
-                                carouselView.setImageClickListener { position ->
-                                    bundle.putString("mal_id", listAnime[position].mal_id)
-                                    bundle.putString("title", listAnime[position].title)
-                                    bundle.putString("image_url", listAnime[position].image_url)
-                                    bundle.putString("airing_start", listAnime[position].airing_start)
-                                    bundle.putInt("episodes", listAnime[position].episodes)
-                                    bundle.putDouble("score", listAnime[position].score)
-
-                                    bottomSheetFragment.arguments = bundle
-                                    bottomSheetFragment.show((context as FragmentActivity).supportFragmentManager, bottomSheetFragment.tag)
-                                }
-                            }
-                            carouselView.pageCount = limit
+                            val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+                            transaction?.commit()
+                            fragmentManager?.beginTransaction()?.commit()
                         }
                     }
+                    progressBar.visibility = View.GONE
+                    carouselView.pageCount = animeList.size
                 }
             }
-        })
+            is ScreenStateHelper.Error -> {
+                progressBar.visibility = View.VISIBLE
+                val view = progressBar.rootView
+                Snackbar.make(view,
+                    "Connection with internet not found or internal error... Try again later",
+                    Snackbar.LENGTH_LONG).show()
+            }
+        }
     }
 }

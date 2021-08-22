@@ -48,3 +48,7 @@ data class Anime (
     @SerializedName("pictures")
     var pictures : List<Picture> = arrayListOf()
 )
+
+data class AnimeListCarouselResponse (
+    val results : List<Anime>
+)
