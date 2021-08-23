@@ -14,7 +14,7 @@ interface AnimeApi {
     fun getAnime(@Path("mal_id") mal_id : String) : Call<Anime>
 
     @GET("season/{year}/{season}")
-    fun getCurrentSeason(@Path("year") currentYear : Int,
+    fun getSeason(@Path("year") currentYear : Int,
                          @Path("season") currentSeason : String) : Call<JsonObject>
 
     @GET("schedule/{day}")

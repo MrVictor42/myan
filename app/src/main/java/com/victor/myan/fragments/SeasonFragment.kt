@@ -36,6 +36,8 @@ class SeasonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        /*
+
         val currentSeason = auxServicesHelper.getSeason()
         val currentYear = auxServicesHelper.getCurrentYear()
         val animeList = arrayListOf<Anime>()
@@ -101,5 +103,7 @@ class SeasonFragment : Fragment() {
                 }
             }
         })
+
+         */
     }
 }

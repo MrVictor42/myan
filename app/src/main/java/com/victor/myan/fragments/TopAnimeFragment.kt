@@ -35,6 +35,7 @@ class TopAnimeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        /*
         val animeList = arrayListOf<Anime>()
         val recyclerViewTopAnime = binding.recyclerViewTopAnime
 
@@ -97,5 +98,7 @@ class TopAnimeFragment : Fragment() {
                 }
             }
         })
+
+         */
     }
 }

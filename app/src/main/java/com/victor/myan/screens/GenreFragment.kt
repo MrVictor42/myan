@@ -119,6 +119,7 @@ class GenreFragment : Fragment() {
         request : Call<JsonObject>,
         resultNull : TextView
     ) {
+        /*
         val animeList = arrayListOf<Anime>()
         recyclerView.layoutManager =
             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -173,5 +174,7 @@ class GenreFragment : Fragment() {
                 }
             }
         })
+
+         */
     }
 }

@@ -34,18 +34,18 @@
             class="com.victor.myan.fragments.CarouselFragment"
         />
 
-<!--        <fragment-->
-<!--            android:id="@+id/todayAnimeFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/carouselFragment"-->
-<!--            tools:layout="@layout/fragment_today_anime"-->
-<!--            class="com.victor.myan.fragments.TodayAnimeFragment"-->
-<!--        />-->
+        <fragment
+            android:id="@+id/todayAnimeFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/carouselFragment"
+            tools:layout="@layout/fragment_today_anime"
+            class="com.victor.myan.fragments.TodayAnimeFragment"
+        />
 
 <!--        <fragment-->
 <!--            android:id="@+id/seasonFragment"-->

@@ -4,13 +4,18 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1875" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_anime_placeholder.xml" value="0.14175724637681159" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_item_placeholder.xml" value="0.14175724637681159" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder.xml" value="0.14175724637681159" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_carousel.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_staff.xml" value="0.12590579710144928" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_home.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_recommendation.xml" value="0.11322463768115942" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_today_anime.xml" value="0.15" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/list_image_adapter.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/top_page.xml" value="0.12590579710144928" />
         <entry key="app/src/main/res/drawable/anime_detail_linear.xml" value="0.1574074074074074" />

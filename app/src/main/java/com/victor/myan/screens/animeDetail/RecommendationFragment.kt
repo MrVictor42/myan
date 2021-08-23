@@ -44,6 +44,7 @@ class RecommendationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        /*
         val malID = arguments?.getString("mal_id").toString()
         val animeList = arrayListOf<Anime>()
         val recommendationRecyclerView = binding.recyclerRecommendations
@@ -117,5 +118,7 @@ class RecommendationFragment : Fragment() {
                 }
             }
         })
+
+         */
     }
 }

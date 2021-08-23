@@ -39,6 +39,8 @@ android {
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
+def lifecycle_version = "2.3.1"
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -79,7 +81,7 @@ dependencies {
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.ms-square:expandableTextView:0.1.4'
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
-    def lifecycle_version = "2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

@@ -42,6 +42,7 @@
     <string name="adaptations">Adaptations: </string>
     <string name="authors">Authors: </string>
     <string name="spin_off">Spin-Off: </string>
+    <string name="image_placeholder">Image Placeholder</string>
     <string name="highest_scores">Highest Scores </string>
     <string name="currently_airing">Currently Airing </string>
     <string name="completed">Completed </string>

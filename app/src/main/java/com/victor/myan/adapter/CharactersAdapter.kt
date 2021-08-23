@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.databinding.ListImageAdapterBinding
 import com.victor.myan.model.Character
 
@@ -22,9 +23,9 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
         }
     }
 
-    inner class CharacterHolder(binding: ListImageAdapterBinding) :
+    inner class CharacterHolder(binding: CardviewPlaceholderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val image = binding.listImageAdapter
+        private val image = binding.imagePlaceholder
 
         fun bind(character: Character) {
             Glide.with(itemView.context).load(character.image_url).into(image)
@@ -37,7 +38,7 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CharacterHolder {
         return CharacterHolder(
-            ListImageAdapterBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            CardviewPlaceholderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 

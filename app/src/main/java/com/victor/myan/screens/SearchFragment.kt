@@ -50,6 +50,7 @@ class SearchFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        /*
         val searchButton = binding.searchButton
         val radioGroup = binding.selectionType
         val search = binding.searchView
@@ -211,6 +212,8 @@ class SearchFragment : Fragment() {
                 }
             }
         }
+
+         */
     }
 
     private fun Fragment.hideKeyboard() {
