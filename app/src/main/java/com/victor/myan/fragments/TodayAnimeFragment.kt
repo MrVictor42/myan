@@ -42,11 +42,13 @@ class TodayAnimeFragment : Fragment() {
     private fun processAnimeListCarouselResponse(state: ScreenStateHelper<List<Anime>?>?) {
         val todayAnimeText = binding.todayAnimeText
         val todayAnimeRecyclerView = binding.recyclerViewToday
+        val shimmerFrameLayout = binding.shimmerFrameLayout
+
         todayAnimeText.text = viewModel.currentDayFormatted
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                // Aqui vai ficar o lance legal de carregamento de página que não foi feito ainda
+                shimmerFrameLayout.startShimmer()
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -56,14 +58,15 @@ class TodayAnimeFragment : Fragment() {
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
                     todayAnimeRecyclerView.adapter = animeAdapter
+                    shimmerFrameLayout.stopShimmer()
+                    shimmerFrameLayout.visibility = View.GONE
+                    todayAnimeText.visibility = View.VISIBLE
                 }
             }
             is ScreenStateHelper.Error -> {
                 val view = binding.todayAnimeContainer
+                shimmerFrameLayout.stopShimmer()
                 Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-            else -> {
-
             }
         }
     }
