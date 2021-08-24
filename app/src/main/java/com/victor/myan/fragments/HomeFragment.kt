@@ -90,10 +90,8 @@ class HomeFragment : Fragment() {
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
                     todayAnimeRecyclerView.adapter = animeAdapter
-//                    shimmerFrameLayout.stopShimmer()
-//                    shimmerFrameLayout.visibility = View.GONE
-//                    todayAnimeText.visibility = View.VISIBLE
                     todayAnimeText.text = viewModelAnimeToday.currentDayFormatted
+                    todayAnimeText.visibility = View.VISIBLE
                 }
             }
             is ScreenStateHelper.Error -> {
@@ -120,10 +118,8 @@ class HomeFragment : Fragment() {
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
                     seasonAnimeRecyclerView.adapter = animeAdapter
-//                    shimmerFrameLayout.stopShimmer()
-//                    shimmerFrameLayout.visibility = View.GONE
-//                    seasonAnimeText.visibility = View.VISIBLE
                     seasonAnimeText.text = viewModelAnimeSeason.currentSeasonFormatted
+                    seasonAnimeText.visibility = View.VISIBLE
                 }
             }
             is ScreenStateHelper.Error -> {
@@ -149,7 +145,7 @@ class HomeFragment : Fragment() {
                 animeAdapter = AnimeAdapter()
                 animeAdapter.submitList(animeList)
                 topAnimeRecyclerView.adapter = animeAdapter
-                topAnimeText.text = getString(R.string.top_anime)
+                topAnimeText.visibility = View.VISIBLE
             }
             is ScreenStateHelper.Error -> {
                 val view = binding.nestedScrollView
@@ -175,6 +171,9 @@ class HomeFragment : Fragment() {
                 mangaAdapter.submitList(mangaList)
                 topMangaRecyclerView.adapter = mangaAdapter
                 topMangaText.text = getString(R.string.top_manga)
+                topMangaText.visibility = View.VISIBLE
+                shimmerFrameLayout.stopShimmer()
+                shimmerFrameLayout.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
                 val view = binding.nestedScrollView
