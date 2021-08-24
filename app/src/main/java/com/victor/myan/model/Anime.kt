@@ -1,7 +1,6 @@
 package com.victor.myan.model
 
 import com.google.gson.annotations.SerializedName
-import com.victor.myan.enums.DaysEnum
 
 data class Anime (
     @SerializedName("mal_id")

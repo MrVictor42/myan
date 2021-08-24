@@ -24,8 +24,8 @@ class AnimeListCarouselViewModel : ViewModel() {
 
     private fun getAnimeListCarouselApi() {
         val animeApi = JikanApiInstance.animeApi.animeListCarousel("airing", "score", limit)
-        _listAnimeLiveData.postValue(ScreenStateHelper.Loading(null))
 
+        _listAnimeLiveData.postValue(ScreenStateHelper.Loading(null))
         animeApi.enqueue(object : Callback<AnimeListCarouselResponse> {
             override fun onResponse(call: Call<AnimeListCarouselResponse>, response: Response<AnimeListCarouselResponse>) {
                 if(response.isSuccessful) {

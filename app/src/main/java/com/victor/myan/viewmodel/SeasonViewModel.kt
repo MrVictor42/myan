@@ -14,33 +14,35 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.Locale
 
-class TodayAnimeViewModel : ViewModel() {
+class SeasonViewModel : ViewModel() {
 
     private val auxFunctionsHelper = AuxFunctionsHelper()
-    private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
-    private val _animeListToday = MutableLiveData<ScreenStateHelper<List<Anime>?>>()
-    val animeListToday : LiveData<ScreenStateHelper<List<Anime>?>>
-        get() = _animeListToday
-    val currentDayFormatted = auxFunctionsHelper.capitalize("today anime : $currentDay")
+    private val currentSeason = auxFunctionsHelper.getSeason()
+    private val currentYear = auxFunctionsHelper.getCurrentYear()
+    private val _animeListSeason = MutableLiveData<ScreenStateHelper<List<Anime>?>>()
+    val animeListSeason : LiveData<ScreenStateHelper<List<Anime>?>>
+        get() = _animeListSeason
+    val currentSeasonFormatted = auxFunctionsHelper.capitalize("season $currentSeason")
 
     init {
-        getAnimeListTodayApi()
+        getAnimeListSeasonApi()
     }
 
-    private fun getAnimeListTodayApi() {
-        val animeApi = JikanApiInstance.animeApi.getTodayAnime(currentDay)
+    private fun getAnimeListSeasonApi() {
+        val animeApi =
+            JikanApiInstance.animeApi.getSeason(currentYear, currentSeason.lowercase(Locale.getDefault()))
         val animeList : MutableList<Anime> = arrayListOf()
 
-        _animeListToday.postValue(ScreenStateHelper.Loading(null))
+        _animeListSeason.postValue(ScreenStateHelper.Loading(null))
         animeApi.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if(response.isSuccessful) {
                     val animeResponse = response.body()
                     if(animeResponse != null) {
-                        val dayAnime : JsonArray? = animeResponse.getAsJsonArray(currentDay)
-                        if(dayAnime != null) {
-                            for(aux in 0 until dayAnime.size()) {
-                                val animeObject : JsonObject? = dayAnime.get(aux) as JsonObject?
+                        val animeSeason : JsonArray? = animeResponse.getAsJsonArray("anime")
+                        if(animeSeason != null) {
+                            for(aux in 0 until animeSeason.size()) {
+                                val animeObject : JsonObject? = animeSeason.get(aux) as JsonObject?
                                 if(animeObject != null) {
                                     val anime = Anime()
                                     anime.mal_id = animeObject.get("mal_id").asString
@@ -49,15 +51,15 @@ class TodayAnimeViewModel : ViewModel() {
                                 }
                             }
                         }
+                        _animeListSeason.postValue(ScreenStateHelper.Success(animeList))
                     }
-                    _animeListToday.postValue(ScreenStateHelper.Success(animeList))
                 } else {
-                    _animeListToday.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    _animeListSeason.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                _animeListToday.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                _animeListSeason.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }
