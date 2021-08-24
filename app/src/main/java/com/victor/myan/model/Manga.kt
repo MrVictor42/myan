@@ -28,3 +28,7 @@ data class Manga (
     @SerializedName("authors")
     var authors : List<Author> = arrayListOf()
 )
+
+data class MangaListTopResponse (
+    val top : List<Manga>
+)

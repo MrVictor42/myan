@@ -13,10 +13,10 @@ import retrofit2.Response
 
 class AnimeListCarouselViewModel : ViewModel() {
 
-    private val _listAnimeLiveData = MutableLiveData<ScreenStateHelper<List<Anime>?>>()
+    private val _animeListCarouselLiveData = MutableLiveData<ScreenStateHelper<List<Anime>?>>()
     private val limit = 12
-    val listAnimeLiveData : LiveData<ScreenStateHelper<List<Anime>?>>
-        get() = _listAnimeLiveData
+    val animeListCarouselLiveData : LiveData<ScreenStateHelper<List<Anime>?>>
+        get() = _animeListCarouselLiveData
 
     init {
         getAnimeListCarouselApi()
@@ -25,18 +25,18 @@ class AnimeListCarouselViewModel : ViewModel() {
     private fun getAnimeListCarouselApi() {
         val animeApi = JikanApiInstance.animeApi.animeListCarousel("airing", "score", limit)
 
-        _listAnimeLiveData.postValue(ScreenStateHelper.Loading(null))
+        _animeListCarouselLiveData.postValue(ScreenStateHelper.Loading(null))
         animeApi.enqueue(object : Callback<AnimeListCarouselResponse> {
             override fun onResponse(call: Call<AnimeListCarouselResponse>, response: Response<AnimeListCarouselResponse>) {
                 if(response.isSuccessful) {
-                    _listAnimeLiveData.postValue(ScreenStateHelper.Success(response.body()?.results))
+                    _animeListCarouselLiveData.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
-                    _listAnimeLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    _animeListCarouselLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<AnimeListCarouselResponse>, t: Throwable) {
-                _listAnimeLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                _animeListCarouselLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }

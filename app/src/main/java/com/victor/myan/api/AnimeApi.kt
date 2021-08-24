@@ -3,6 +3,7 @@ package com.victor.myan.api
 import com.google.gson.JsonObject
 import com.victor.myan.model.Anime
 import com.victor.myan.model.AnimeListCarouselResponse
+import com.victor.myan.model.AnimeListTopResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,7 +22,7 @@ interface AnimeApi {
     fun getTodayAnime(@Path("day") currentDay : String) : Call<JsonObject>
 
     @GET("top/anime")
-    fun getTopAnime() : Call<JsonObject>
+    fun getTopAnime() : Call<AnimeListTopResponse>
 
     @GET("anime/{mal_id}/recommendations")
     fun getRecommendations(@Path("mal_id") mal_id : String) : Call<JsonObject>

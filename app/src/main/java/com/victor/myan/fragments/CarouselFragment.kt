@@ -33,7 +33,7 @@ class CarouselFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.listAnimeLiveData.observe(viewLifecycleOwner, { state ->
+        viewModel.animeListCarouselLiveData.observe(viewLifecycleOwner, { state ->
             processAnimeListCarouselResponse(state)
         })
     }

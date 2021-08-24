@@ -52,3 +52,7 @@ data class Anime (
 data class AnimeListCarouselResponse (
     val results : List<Anime>
 )
+
+data class AnimeListTopResponse (
+    val top : List<Anime>
+)
