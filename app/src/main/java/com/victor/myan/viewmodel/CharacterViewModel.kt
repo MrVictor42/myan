@@ -31,8 +31,8 @@ class CharacterViewModel(private val malID: String) : ViewModel() {
 
     private fun getCharactersApi() {
         val characterApi = JikanApiInstance.characterApi.fetchCharacters(malID)
-        _characterLiveData.postValue(ScreenStateHelper.Loading(null))
 
+        _characterLiveData.postValue(ScreenStateHelper.Loading(null))
         characterApi.enqueue(object : Callback<CharacterResponse> {
             override fun onResponse(call: Call<CharacterResponse>, response: Response<CharacterResponse>) {
                 if(response.isSuccessful) {

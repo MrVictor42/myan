@@ -84,159 +84,161 @@ class OverviewFragment : Fragment() {
                 progressBar.visibility = View.VISIBLE
             }
             is ScreenStateHelper.Success -> {
-                progressBar.visibility = View.INVISIBLE
-                with(state.data!!) {
-                    animeTitle.text = title
-                    Glide.with(view?.context!!).load(image_url).into(animeImage)
+                if(state.data != null) {
+                    progressBar.visibility = View.INVISIBLE
+                    with(state.data) {
+                        animeTitle.text = title
+                        Glide.with(view?.context!!).load(image_url).into(animeImage)
 
-                    if(title_synonyms.isEmpty() || title_synonyms.equals("null")) {
-                        animeTitleSynonyms.text = "─"
-                    } else {
-                        animeTitleSynonyms.text = title_synonyms.toString()
-                    }
-
-                    if(members.toString().isEmpty() || members.toString() == "null") {
-                        animeMembers.text = "─"
-                    } else {
-                        animeMembers.text = members.toString()
-                    }
-
-                    if(popularity.toString().isEmpty() || popularity.toString() == "null") {
-                        animePopularity.text = "─"
-                    } else {
-                        animePopularity.text = popularity.toString()
-                    }
-
-                    if(favorites.toString().isEmpty() || favorites.toString() == "null") {
-                        animeFavorites.text = "─"
-                    } else {
-                        animeFavorites.text = favorites.toString()
-                    }
-
-                    val animeType = when(type) {
-                        "" -> "─"
-                        "null" -> "─"
-                        else -> type
-                    }
-
-                    val year = when(premiered) {
-                        "" -> "─"
-                        "null" -> "─"
-                        else -> auxServicesHelper.formatPremiered(premiered)
-                    }
-                    val typeYearConcat = "$animeType, $year"
-                    typeYear.text = typeYearConcat
-
-                    if(score.toString().isEmpty() || score.toString() == "null") {
-                        animeScore.text = "─"
-                    } else {
-                        animeScore.text = score.toString()
-                    }
-
-                    when (status) {
-                        "null" -> animeStatus.text = "─"
-                        "" -> animeStatus.text = "─"
-
-                        StatusEnum.CurrentlyAiring.status -> {
-                            animeStatus.text = StatusEnum.CurrentlyAiring.status
-                            animeStatus.setTextColor(
-                                ContextCompat.getColor(requireContext(), R.color.green_light)
-                            )
+                        if(title_synonyms.isEmpty() || title_synonyms.equals("null")) {
+                            animeTitleSynonyms.text = "─"
+                        } else {
+                            animeTitleSynonyms.text = title_synonyms.toString()
                         }
 
-                        StatusEnum.NotYetAired.status -> {
-                            animeStatus.text = StatusEnum.NotYetAired.status
-                            animeStatus.setTextColor(
-                                ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                            )
+                        if(members.toString().isEmpty() || members.toString() == "null") {
+                            animeMembers.text = "─"
+                        } else {
+                            animeMembers.text = members.toString()
                         }
 
-                        StatusEnum.FinishedAiring.status -> {
-                            animeStatus.text = StatusEnum.FinishedAiring.status
-                            animeStatus.setTextColor(
-                                ContextCompat.getColor(requireContext(), R.color.red)
-                            )
+                        if(popularity.toString().isEmpty() || popularity.toString() == "null") {
+                            animePopularity.text = "─"
+                        } else {
+                            animePopularity.text = popularity.toString()
                         }
-                    }
 
-                    val episode = when (episodes.toString()) {
-                        "null" -> "─"
-                        "0" -> "─"
-                        else -> episodes
-                    }
+                        if(favorites.toString().isEmpty() || favorites.toString() == "null") {
+                            animeFavorites.text = "─"
+                        } else {
+                            animeFavorites.text = favorites.toString()
+                        }
 
-                    val duration = when(duration) {
-                        "null" -> "─"
-                        "0" -> "─"
-                        "" -> "─"
-                        else -> auxServicesHelper.formatDurationEpisode(animeType, duration)
-                    }
+                        val animeType = when(type) {
+                            "" -> "─"
+                            "null" -> "─"
+                            else -> type
+                        }
 
-                    val epiDuration = "$episode eps, $duration"
-                    episodeDuration.text = epiDuration
+                        val year = when(premiered) {
+                            "" -> "─"
+                            "null" -> "─"
+                            else -> auxServicesHelper.formatPremiered(premiered)
+                        }
+                        val typeYearConcat = "$animeType, $year"
+                        typeYear.text = typeYearConcat
 
-                    if (genres.isEmpty()) {
-                        // Nothing to do
-                    } else {
-                        for (genre in genres.indices) {
+                        if(score.toString().isEmpty() || score.toString() == "null") {
+                            animeScore.text = "─"
+                        } else {
+                            animeScore.text = score.toString()
+                        }
 
-                            listGenres += genres[genre].name
-                            if (genre < genres.size - 1) {
-                                listGenres += " • "
+                        when (status) {
+                            "null" -> animeStatus.text = "─"
+                            "" -> animeStatus.text = "─"
+
+                            StatusEnum.CurrentlyAiring.status -> {
+                                animeStatus.text = StatusEnum.CurrentlyAiring.status
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.green_light)
+                                )
+                            }
+
+                            StatusEnum.NotYetAired.status -> {
+                                animeStatus.text = StatusEnum.NotYetAired.status
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                                )
+                            }
+
+                            StatusEnum.FinishedAiring.status -> {
+                                animeStatus.text = StatusEnum.FinishedAiring.status
+                                animeStatus.setTextColor(
+                                    ContextCompat.getColor(requireContext(), R.color.red)
+                                )
                             }
                         }
-                        animeGenres.text = listGenres
-                    }
 
-                    if (licensors.isEmpty()) {
-                        animeLicensors.text = "Unknown"
-                    } else {
-                        for (licensor in licensors.indices) {
-                            listLicensors += licensors[licensor].name
-                            if (licensor < licensors.size - 1) {
-                                listLicensors += "\n"
-                            }
+                        val episode = when (episodes.toString()) {
+                            "null" -> "─"
+                            "0" -> "─"
+                            else -> episodes
                         }
-                        animeLicensors.text = listLicensors
-                    }
 
-                    if (studios.isEmpty()) {
-                        animeStudios.text = "Unknown"
-                    } else {
-                        for (studio in studios.indices) {
-                            listStudios += studios[studio].name
-                            if (studio < studios.size - 1) {
-                                listStudios += "\n"
-                            }
+                        val duration = when(duration) {
+                            "null" -> "─"
+                            "0" -> "─"
+                            "" -> "─"
+                            else -> auxServicesHelper.formatDurationEpisode(animeType, duration)
                         }
-                        animeStudios.text = listStudios
-                    }
 
-                    animeVideo.addYouTubePlayerListener(object :
-                        AbstractYouTubePlayerListener() {
-                        override fun onReady(youTubePlayer: YouTubePlayer) {
-                            if (trailer_url.isEmpty() || trailer_url == "null") {
-                                Toast.makeText(
-                                    context,
-                                    auxServicesHelper.capitalize(
-                                        "this anime doesn't have a preview yet"
-                                    ), Toast.LENGTH_LONG
-                                ).show()
-                            } else {
-                                val videoId =
-                                    youtubeHelper.extractVideoIdFromUrl(trailer_url)
-                                        .toString()
-                                youTubePlayer.loadVideo(videoId, 0f)
-                                youTubePlayer.pause()
+                        val epiDuration = "$episode eps, $duration"
+                        episodeDuration.text = epiDuration
+
+                        if (genres.isEmpty()) {
+                            // Nothing to do
+                        } else {
+                            for (genre in genres.indices) {
+
+                                listGenres += genres[genre].name
+                                if (genre < genres.size - 1) {
+                                    listGenres += " • "
+                                }
                             }
+                            animeGenres.text = listGenres
                         }
-                    })
 
-                    expandableTextViewSynopsis.text = synopsis
-                    expandableTextViewOpening.text = opening_themes.toString().replace(",", "\n")
+                        if (licensors.isEmpty()) {
+                            animeLicensors.text = "Unknown"
+                        } else {
+                            for (licensor in licensors.indices) {
+                                listLicensors += licensors[licensor].name
+                                if (licensor < licensors.size - 1) {
+                                    listLicensors += "\n"
+                                }
+                            }
+                            animeLicensors.text = listLicensors
+                        }
+
+                        if (studios.isEmpty()) {
+                            animeStudios.text = "Unknown"
+                        } else {
+                            for (studio in studios.indices) {
+                                listStudios += studios[studio].name
+                                if (studio < studios.size - 1) {
+                                    listStudios += "\n"
+                                }
+                            }
+                            animeStudios.text = listStudios
+                        }
+
+                        animeVideo.addYouTubePlayerListener(object :
+                            AbstractYouTubePlayerListener() {
+                            override fun onReady(youTubePlayer: YouTubePlayer) {
+                                if (trailer_url.isEmpty() || trailer_url == "null") {
+                                    Toast.makeText(
+                                        context,
+                                        auxServicesHelper.capitalize(
+                                            "this anime doesn't have a preview yet"
+                                        ), Toast.LENGTH_LONG
+                                    ).show()
+                                } else {
+                                    val videoId =
+                                        youtubeHelper.extractVideoIdFromUrl(trailer_url)
+                                            .toString()
+                                    youTubePlayer.loadVideo(videoId, 0f)
+                                    youTubePlayer.pause()
+                                }
+                            }
+                        })
+
+                        expandableTextViewSynopsis.text = synopsis
+                        expandableTextViewOpening.text = opening_themes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
-                    expandableTextViewEnding.text = ending_themes.toString().replace(",", "\n")
+                        expandableTextViewEnding.text = ending_themes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
+                    }
                 }
             }
             is ScreenStateHelper.Error -> {

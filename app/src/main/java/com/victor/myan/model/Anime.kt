@@ -56,3 +56,7 @@ data class AnimeListCarouselResponse (
 data class AnimeListTopResponse (
     val top : List<Anime>
 )
+
+data class AnimeListRecommendationResponse (
+    val recommendations : List<Anime>
+)

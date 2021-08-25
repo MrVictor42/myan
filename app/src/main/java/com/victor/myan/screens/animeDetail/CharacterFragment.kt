@@ -16,6 +16,9 @@ import com.victor.myan.viewmodel.CharacterViewModel
 
 class CharacterFragment : Fragment() {
 
+    private lateinit var binding : FragmentCharacterBinding
+    private lateinit var characterAdapter : CharactersAdapter
+
     companion object {
         fun newInstance(mal_id : String): CharacterFragment {
             val characterFragment = CharacterFragment()
@@ -25,9 +28,6 @@ class CharacterFragment : Fragment() {
             return characterFragment
         }
     }
-
-    private lateinit var binding : FragmentCharacterBinding
-    private lateinit var characterAdapter : CharactersAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +49,11 @@ class CharacterFragment : Fragment() {
     private fun processCharacterResponse(state : ScreenStateHelper<List<Character>?>) {
 
         val characterRecyclerView = binding.animeCharacter
-        val progressBar = binding.progressBar
+        val fragmentCharacter = binding.fragmentCharacter
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                progressBar.visibility = View.VISIBLE
+
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -67,9 +67,8 @@ class CharacterFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                progressBar.visibility = View.VISIBLE
-                val view = progressBar.rootView
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+                val view = fragmentCharacter.rootView
+                Snackbar.make(view, "Not found characters ...", Snackbar.LENGTH_LONG).show()
             }
         }
     }
