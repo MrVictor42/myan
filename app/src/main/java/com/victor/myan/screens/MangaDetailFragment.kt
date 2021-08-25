@@ -18,7 +18,6 @@ import com.victor.myan.R
 import com.victor.myan.api.MangaApi
 import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
-import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.api.JikanApiInstance
 import kotlinx.coroutines.CoroutineScope

@@ -18,7 +18,7 @@ import com.victor.myan.api.AnimeApi
 import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.model.Picture
-import com.victor.myan.fragments.HomeFragment
+import com.victor.myan.screens.HomeFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,7 +42,7 @@ class BaseAnimeDetailFragment : Fragment() {
         val viewPager = binding.viewPager2
         val sizePager = 3
         val listPictures : MutableList<Picture> = mutableListOf()
-        val carouselView = binding.carouselView.carouselView
+        val carouselView = binding.carouselView.carouselViewCarousel
         val adapter = ViewPagerAnimeAdapter(parentFragmentManager, lifecycle, malID, year, sizePager)
         viewPager.adapter = adapter
 

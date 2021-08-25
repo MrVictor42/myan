@@ -9,7 +9,7 @@
     android:fitsSystemWindows="false"
     android:overScrollMode="never"
     android:background="@color/black_gray"
-    tools:context=".fragments.HomeFragment"
+    tools:context=".screens.HomeFragment"
     >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,48 +22,45 @@
             app:layout_constraintEnd_toEndOf="parent"
         />
 
-        <fragment
-            android:id="@+id/carouselFragment"
-            class="com.victor.myan.fragments.CarouselFragment"
+        <LinearLayout
+            android:id="@+id/carousel_view_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="FragmentTagUsage"
-            tools:layout="@layout/fragment_carousel" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="35dp"
-            app:layout_constraintTop_toBottomOf="@id/carouselFragment"
-            app:layout_constraintBottom_toBottomOf="@id/recyclerViewToday"
+            app:layout_constraintEnd_toEndOf="parent"
         >
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmerFrameLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-                <LinearLayout
+                android:layout_height="wrap_content">
+                <com.synnapps.carouselview.CarouselView
+                    android:id="@+id/carousel_view_carousel"
                     android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    app:fillColor="#FFFFFFFF"
+                    app:indicatorVisibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:pageColor="#00000000"
+                    app:radius="6dp"
+                    app:slideInterval="4000"
+                    app:strokeColor="#FF777777"
+                    app:strokeWidth="1dp" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar_carousel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-                    <include
-                        layout="@layout/placeholder_text_recyclerview_layout"
-                    />
-                    <include
-                        layout="@layout/placeholder_text_recyclerview_layout"
-                    />
-                    <include
-                        layout="@layout/placeholder_text_recyclerview_layout"
-                    />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:indeterminateTint="@color/orange"
+                />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
 
         <TextView
@@ -79,7 +76,7 @@
             android:layout_marginEnd="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/carouselFragment"
+            app:layout_constraintTop_toBottomOf="@id/carousel_view_linear"
             android:visibility="invisible"
         />
 
@@ -147,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/topAnimeText"
@@ -176,7 +172,6 @@
             android:id="@+id/recyclerViewTopManga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
