@@ -8,10 +8,9 @@ import com.victor.myan.screens.animeDetail.CharacterFragment
 import com.victor.myan.screens.animeDetail.OverviewFragment
 import com.victor.myan.screens.animeDetail.RecommendationFragment
 
-class ViewPagerAnimeAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, year : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class ViewPagerAnimeAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
-    private val animeYear = year
     private val size = sizePager
 
     override fun getItemCount(): Int {
@@ -20,7 +19,7 @@ class ViewPagerAnimeAdapter(fragment : FragmentManager, lifecycle : Lifecycle, m
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> OverviewFragment.newInstance(malID, animeYear)
+            0 -> OverviewFragment.newInstance(malID)
             1 -> CharacterFragment.newInstance(malID)
             2 -> RecommendationFragment.newInstance(malID)
             else -> Fragment()

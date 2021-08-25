@@ -37,13 +37,12 @@ class BaseAnimeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val year = arguments?.getString("year").toString()
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
         val listPictures : MutableList<Picture> = mutableListOf()
         val carouselView = binding.carouselView.carouselViewCarousel
-        val adapter = ViewPagerAnimeAdapter(parentFragmentManager, lifecycle, malID, year, sizePager)
+        val adapter = ViewPagerAnimeAdapter(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
@@ -94,7 +93,7 @@ class BaseAnimeDetailFragment : Fragment() {
                             for (pictures in 0 until listPictures.size) {
                                 carouselView.setViewListener { position ->
                                     val viewListener = layoutInflater.inflate(
-                                        R.layout.fragment_carousel_custom,
+                                        R.layout.carousel_custom,
                                         null
                                     )
 

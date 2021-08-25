@@ -99,16 +99,16 @@ class AuxFunctionsHelper {
         var year = ""
 
         when {
-            premiered.contains("spring",true) -> {
+            premiered.contains(SeasonsEnum.Spring.name,true) -> {
                 year = premiered.substring(6,11)
             }
-            premiered.contains("winter",true) -> {
+            premiered.contains(SeasonsEnum.Winter.name,true) -> {
                 year = premiered.substring(6,11)
             }
-            premiered.contains("fall",true) -> {
+            premiered.contains(SeasonsEnum.Fall.name,true) -> {
                 year = premiered.substring(5,9)
             }
-            premiered.contains("summer",true) -> {
+            premiered.contains(SeasonsEnum.Summer.name,true) -> {
                 year = premiered.substring(6,11)
             }
         }
@@ -124,7 +124,7 @@ class AuxFunctionsHelper {
     }
 
     fun formatDurationEpisode(typeAnime : String, duration : String) : String {
-        var episodePerMinute : String = ""
+        var episodePerMinute = ""
 
         when(typeAnime) {
             AnimeTypeEnum.TV.name, AnimeTypeEnum.OVA.name -> {

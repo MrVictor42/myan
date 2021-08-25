@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -88,8 +87,8 @@ class HomeFragment : Fragment() {
 
     @SuppressLint("InflateParams")
     private fun processAnimeListCarouselResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val progressBar = binding.progressBarCarousel
-        val carouselView = binding.carouselViewCarousel
+        val progressBar = binding.carouselView.progressBarCarousel
+        val carouselView = binding.carouselView.carouselViewCarousel
 
         when(state) {
             is ScreenStateHelper.Loading -> {

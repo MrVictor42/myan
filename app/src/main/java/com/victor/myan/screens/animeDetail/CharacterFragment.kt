@@ -39,7 +39,7 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID)}
+        val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID) }
 
         viewModel.characterLiveData.observe(this, { state ->
             processCharacterResponse(state)

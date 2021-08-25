@@ -1,6 +1,5 @@
 package com.victor.myan.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,7 +28,6 @@ class TopMangaViewModel : ViewModel() {
         mangaApi.enqueue(object : Callback<MangaListTopResponse> {
             override fun onResponse(call: Call<MangaListTopResponse>, response: Response<MangaListTopResponse>) {
                 if(response.isSuccessful) {
-                    Log.e("Response", response.body()?.top.toString())
                     _mangaListTopLiveData.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
                     _mangaListTopLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
