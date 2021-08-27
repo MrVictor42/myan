@@ -12,7 +12,7 @@ import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Character
-import com.victor.myan.viewmodel.CharacterViewModel
+import com.victor.myan.viewmodel.AnimeCharacterViewModel
 
 class CharacterFragment : Fragment() {
 
@@ -39,7 +39,7 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID) }
+        val viewModel : AnimeCharacterViewModel by viewModels { AnimeCharacterViewModel.CharacterFactory(malID) }
 
         viewModel.characterLiveData.observe(this, { state ->
             processCharacterResponse(state)

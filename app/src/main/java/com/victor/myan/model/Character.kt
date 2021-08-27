@@ -8,9 +8,13 @@ data class Character(
     @SerializedName("image_url")
     val image_url : String,
     @SerializedName("name")
-    val name : String
+    val name : String,
+    @SerializedName("nicknames")
+    val nicknames : List<String> = arrayListOf(),
+    @SerializedName("about")
+    val about : String
 )
 
-data class CharacterResponse (
+data class AnimeCharacterResponse (
     val characters : MutableList<Character>
 )

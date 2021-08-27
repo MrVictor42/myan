@@ -1,10 +1,11 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.victor.myan.R
 import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Character
+import com.victor.myan.screens.characterDetail.BaseCharacterDetailFragment
 
 class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHolder>(MyDiffUtil) {
 
@@ -54,8 +57,18 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
                 }
             }).into(image)
 
-            image.setOnClickListener {
-                Toast.makeText(itemView.context, character.name, Toast.LENGTH_SHORT).show()
+            itemView.setOnClickListener {
+                val fragment = BaseCharacterDetailFragment()
+                val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
+
+                val bundle = Bundle()
+                bundle.putString("mal_id", character.mal_id.toString())
+
+                fragment.arguments = bundle
+
+                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+                transaction?.commit()
+                fragmentManager?.beginTransaction()?.commit()
             }
         }
     }
