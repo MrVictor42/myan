@@ -2,8 +2,6 @@ package com.victor.myan.screens
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,29 +15,24 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
-import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.model.Manga
 import com.victor.myan.screens.animeDetail.BaseAnimeDetailFragment
 import com.victor.myan.viewmodel.AnimeListCarouselViewModel
 import com.victor.myan.viewmodel.SeasonViewModel
 import com.victor.myan.viewmodel.TodayAnimeViewModel
 import com.victor.myan.viewmodel.TopAnimeViewModel
-import com.victor.myan.viewmodel.TopMangaViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var animeAdapter: AnimeAdapter
-    private lateinit var mangaAdapter : MangaAdapter
     private val viewModelAnimeCarousel by lazy { ViewModelProvider(this).get(
         AnimeListCarouselViewModel::class.java) }
     private val viewModelAnimeToday by lazy { ViewModelProvider(this).get(TodayAnimeViewModel::class.java) }
     private val viewModelAnimeSeason by lazy { ViewModelProvider(this).get(SeasonViewModel::class.java) }
     private val viewModelAnimeTop by lazy { ViewModelProvider(this).get(TopAnimeViewModel::class.java) }
-    private val viewModelMangaTop by lazy { ViewModelProvider(this).get(TopMangaViewModel::class.java) }
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -72,17 +65,9 @@ class HomeFragment : Fragment() {
             processSeasonAnimeListResponse(state)
         })
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewModelAnimeTop.animeListTopLiveData.observe(viewLifecycleOwner, { state ->
-                processTopAnimeListResponse(state)
-            })
-        }, 2000)
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewModelMangaTop.mangaListTopLiveData.observe(viewLifecycleOwner, { state ->
-                processTopMangaListResponse(state)
-            })
-        }, 2000)
+        viewModelAnimeTop.animeListTopLiveData.observe(viewLifecycleOwner, { state ->
+            processTopAnimeListResponse(state)
+        })
     }
 
     @SuppressLint("InflateParams")
@@ -212,31 +197,6 @@ class HomeFragment : Fragment() {
             is ScreenStateHelper.Error -> {
                 val view = binding.nestedScrollView
 
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun processTopMangaListResponse(state: ScreenStateHelper<List<Manga>?>?) {
-        val topMangaText = binding.topMangaText
-        val topMangaRecyclerView = binding.recyclerViewTopManga
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                val mangaList = state.data
-                topMangaRecyclerView.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                mangaAdapter = MangaAdapter()
-                mangaAdapter.submitList(mangaList)
-                topMangaRecyclerView.adapter = mangaAdapter
-                topMangaText.text = getString(R.string.top_manga)
-                topMangaText.visibility = View.VISIBLE
-            }
-            is ScreenStateHelper.Error -> {
-                val view = binding.nestedScrollView
                 Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
             }
         }

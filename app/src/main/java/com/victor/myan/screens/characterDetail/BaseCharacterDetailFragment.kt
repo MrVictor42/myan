@@ -1,21 +1,19 @@
 package com.victor.myan.screens.characterDetail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import com.victor.myan.adapter.CharactersAdapter
+import com.google.android.material.tabs.TabLayoutMediator
+import com.victor.myan.R
+import com.victor.myan.adapter.CharacterDetailViewPagerAdapter
 import com.victor.myan.databinding.FragmentBaseCharacterDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Anime
 import com.victor.myan.model.Character
-import com.victor.myan.screens.animeDetail.OverviewFragment
-import com.victor.myan.viewmodel.AnimeCharacterViewModel
+import com.victor.myan.screens.HomeFragment
 import com.victor.myan.viewmodel.CharacterViewModel
 
 class BaseCharacterDetailFragment : Fragment() {
@@ -43,6 +41,30 @@ class BaseCharacterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
         val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID) }
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.viewPager2
+        val sizePager = 3
+        val adapter = CharacterDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
+        viewPager.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+            when(position) {
+                0 -> tab.text = "Overview"
+                1 -> tab.text = "Anime | Manga"
+                2 -> tab.text = "Voices"
+            }
+        }.attach()
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val homeFragment = HomeFragment.newInstance()
+                val fragmentManager = activity?.supportFragmentManager
+                fragmentManager?.popBackStack()
+                fragmentManager?.beginTransaction()?.replace(R.id.content, homeFragment)
+                    ?.addToBackStack(null)?.commit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
 
         viewModel.characterLiveData.observe(this, { state ->
             processCharacterResponse(state)
@@ -51,22 +73,20 @@ class BaseCharacterDetailFragment : Fragment() {
 
     private fun processCharacterResponse(state: ScreenStateHelper<Character>?) {
 
-        val about = binding.about
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    with(state.data) {
-                        about.text = about.toString()
-                    }
-                }
-            }
-            is ScreenStateHelper.Error -> {
-//                Snackbar.make(view, "Not found characters ...", Snackbar.LENGTH_LONG).show()
-            }
-        }
+//        val aboutText = binding.about
+//
+//        when(state) {
+//            is ScreenStateHelper.Loading -> {
+//
+//            }
+//            is ScreenStateHelper.Success -> {
+//                if(state.data != null) {
+//                    aboutText.text = state.data.about
+//                }
+//            }
+//            is ScreenStateHelper.Error -> {
+////                Snackbar.make(view, "Not found characters ...", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
     }
 }

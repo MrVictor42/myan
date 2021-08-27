@@ -8,7 +8,7 @@ import com.victor.myan.screens.animeDetail.CharacterFragment
 import com.victor.myan.screens.animeDetail.OverviewFragment
 import com.victor.myan.screens.animeDetail.RecommendationFragment
 
-class ViewPagerAnimeAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class AnimeDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
     private val size = sizePager
