@@ -28,9 +28,6 @@ interface AnimeApi {
     @GET("anime/{mal_id}/recommendations")
     fun getRecommendations(@Path("mal_id") mal_id : String) : Call<AnimeListRecommendationResponse>
 
-    @GET("anime/{mal_id}/pictures")
-    fun getPictures(@Path("mal_id") mal_id : String) : Call<JsonObject>
-
     @GET("search/anime")
     fun animeListCarousel(
         @Query("status") status : String,

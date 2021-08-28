@@ -13,29 +13,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AnimePicturesViewModel(private val malID: String) : ViewModel() {
+class PicturesViewModel(private val malID: String) : ViewModel() {
 
-    private val _animePicturesLiveData = MutableLiveData<ScreenStateHelper<List<Picture>?>>()
-    val animePicturesLiveData : LiveData<ScreenStateHelper<List<Picture>?>>
-        get() = _animePicturesLiveData
+    private val _picturesLiveData = MutableLiveData<ScreenStateHelper<List<Picture>?>>()
+    val picturesLiveData : LiveData<ScreenStateHelper<List<Picture>?>>
+        get() = _picturesLiveData
 
     init {
-        getAnimePicturesApi()
+        getPicturesApi()
     }
 
     @Suppress("UNCHECKED_CAST")
-    class AnimePicturesViewModelFactory(private val malID: String) : ViewModelProvider.Factory {
+    class PicturesViewModelFactory(private val malID: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return AnimePicturesViewModel(malID) as T
+            return PicturesViewModel(malID) as T
         }
     }
 
-    private fun getAnimePicturesApi() {
-        val animeApi = JikanApiInstance.animeApi.getPictures(malID)
+    private fun getPicturesApi() {
+        val picturesApi = JikanApiInstance.picturesApi.getPictures(malID)
         val pictureList : MutableList<Picture> = arrayListOf()
 
-        _animePicturesLiveData.postValue(ScreenStateHelper.Loading(null))
-        animeApi.enqueue(object : Callback<JsonObject> {
+        _picturesLiveData.postValue(ScreenStateHelper.Loading(null))
+        picturesApi.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if(response.isSuccessful) {
                     val picturesResponse = response.body()
@@ -53,14 +53,14 @@ class AnimePicturesViewModel(private val malID: String) : ViewModel() {
                             }
                         }
                     }
-                    _animePicturesLiveData.postValue(ScreenStateHelper.Success(pictureList))
+                    _picturesLiveData.postValue(ScreenStateHelper.Success(pictureList))
                 } else {
-                    _animePicturesLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    _picturesLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                _animePicturesLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                _picturesLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }

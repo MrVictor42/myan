@@ -32,4 +32,8 @@ object JikanApiInstance {
     val mangaApi : MangaApi by lazy {
         retrofit.create(MangaApi::class.java)
     }
+
+    val picturesApi : PicturesApi by lazy {
+        retrofit.create(PicturesApi::class.java)
+    }
 }

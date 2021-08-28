@@ -17,7 +17,7 @@ import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
 import com.victor.myan.screens.HomeFragment
-import com.victor.myan.viewmodel.AnimePicturesViewModel
+import com.victor.myan.viewmodel.PicturesViewModel
 
 class BaseAnimeDetailFragment : Fragment() {
 
@@ -33,11 +33,7 @@ class BaseAnimeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : AnimePicturesViewModel by viewModels { AnimePicturesViewModel.AnimePicturesViewModelFactory(malID) }
-
-        viewModel.animePicturesLiveData.observe(this, { state ->
-            processAnimePictureResponse(state)
-        })
+        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory(malID) }
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
@@ -51,6 +47,10 @@ class BaseAnimeDetailFragment : Fragment() {
                 2 -> tab.text = "Recommendation"
             }
         }.attach()
+
+        viewModel.picturesLiveData.observe(this, { state ->
+            processAnimePictureResponse(state)
+        })
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -66,19 +66,18 @@ class BaseAnimeDetailFragment : Fragment() {
 
     private fun processAnimePictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
 
-        val progressBar = binding.progressBar
         val carouselView = binding.carouselView.carouselViewCarousel
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                progressBar.visibility = View.VISIBLE
+
             }
             is ScreenStateHelper.Success -> {
                 if (state.data != null) {
                     for(pictures in state.data.indices) {
                         carouselView.setViewListener { position ->
                             val viewListener = layoutInflater.inflate(
-                                R.layout.carousel_custom,
+                                R.layout.fragment_carousel_anime_list,
                                 null
                             )
 
@@ -88,12 +87,12 @@ class BaseAnimeDetailFragment : Fragment() {
                             viewListener
                         }
                     }
+                    carouselView.pageCount = state.data.size
                 }
             }
             is ScreenStateHelper.Error -> {
-                progressBar.visibility = View.VISIBLE
-                val view = progressBar.rootView
-                Snackbar.make(view, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
+                val baseAnimeDetailView = binding.baseAnimeDetail
+                Snackbar.make(baseAnimeDetailView, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
             }
         }
     }

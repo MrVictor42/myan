@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.victor.myan.screens.characterDetail.OverviewCharacterFragment
 
 class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
@@ -16,7 +17,7 @@ class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Li
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-//            0 -> OverviewFragment.newInstance(malID)
+            0 -> OverviewCharacterFragment.newInstance(malID)
 //            1 -> CharacterFragment.newInstance(malID)
 //            2 -> RecommendationFragment.newInstance(malID)
             else -> Fragment()
