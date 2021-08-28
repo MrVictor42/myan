@@ -13,7 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
-import com.victor.myan.databinding.FragmentOverviewBinding
+import com.victor.myan.databinding.FragmentOverviewAnimeBinding
 import com.victor.myan.enums.StatusEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
@@ -21,15 +21,15 @@ import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
 
-class OverviewFragment : Fragment() {
+class OverviewAnimeFragment : Fragment() {
 
-    private lateinit var binding : FragmentOverviewBinding
+    private lateinit var binding : FragmentOverviewAnimeBinding
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
 
     companion object {
-        fun newInstance(mal_id : String): OverviewFragment {
-            val overviewFragment = OverviewFragment()
+        fun newInstance(mal_id : String): OverviewAnimeFragment {
+            val overviewFragment = OverviewAnimeFragment()
             val args = Bundle()
             args.putString("mal_id", mal_id)
             overviewFragment.arguments = args
@@ -41,7 +41,7 @@ class OverviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOverviewBinding.inflate(layoutInflater, container, false)
+        binding = FragmentOverviewAnimeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

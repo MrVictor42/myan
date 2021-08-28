@@ -56,6 +56,9 @@
         You don\'t have connection with internet now,
         please connect with the internet and try again.
     </string>
+    <string name="character_name">Character Name</string>
+    <string name="character_name_kanji">Character Name Kanji</string>
+    <string name="character_nickname">Nickname</string>
     <string name="retry">Retry</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

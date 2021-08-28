@@ -13,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PicturesViewModel(private val malID: String) : ViewModel() {
+class PicturesViewModel(private val type : String, private val malID: String) : ViewModel() {
 
     private val _picturesLiveData = MutableLiveData<ScreenStateHelper<List<Picture>?>>()
     val picturesLiveData : LiveData<ScreenStateHelper<List<Picture>?>>
@@ -24,14 +24,14 @@ class PicturesViewModel(private val malID: String) : ViewModel() {
     }
 
     @Suppress("UNCHECKED_CAST")
-    class PicturesViewModelFactory(private val malID: String) : ViewModelProvider.Factory {
+    class PicturesViewModelFactory(private val type: String, private val malID: String) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return PicturesViewModel(malID) as T
+            return PicturesViewModel(type, malID) as T
         }
     }
 
     private fun getPicturesApi() {
-        val picturesApi = JikanApiInstance.picturesApi.getPictures(malID)
+        val picturesApi = JikanApiInstance.picturesApi.getPictures(type, malID)
         val pictureList : MutableList<Picture> = arrayListOf()
 
         _picturesLiveData.postValue(ScreenStateHelper.Loading(null))

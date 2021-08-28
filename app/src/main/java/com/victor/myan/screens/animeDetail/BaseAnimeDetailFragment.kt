@@ -33,7 +33,7 @@ class BaseAnimeDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory(malID) }
+        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory("anime", malID) }
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3

@@ -2,6 +2,7 @@ package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +63,7 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()
-                bundle.putString("mal_id", character.mal_id.toString())
+                bundle.putString("mal_id", character.mal_id)
 
                 fragment.arguments = bundle
 

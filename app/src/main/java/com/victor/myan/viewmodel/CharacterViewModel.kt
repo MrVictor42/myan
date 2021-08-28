@@ -44,7 +44,6 @@ class CharacterViewModel(private val malID : String) : ViewModel() {
             override fun onFailure(call: Call<Character>, t: Throwable) {
                 _characterLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
-
         })
     }
 }

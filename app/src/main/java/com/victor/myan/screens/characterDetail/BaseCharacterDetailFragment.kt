@@ -1,7 +1,6 @@
 package com.victor.myan.screens.characterDetail
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +33,7 @@ class BaseCharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory(malID) }
+        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory("character", malID) }
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
@@ -68,7 +67,6 @@ class BaseCharacterDetailFragment : Fragment() {
     private fun processAnimePictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
 
         val carouselView = binding.carouselView.carouselViewCarousel
-        Log.e("state", state?.data.toString())
 
         when(state) {
             is ScreenStateHelper.Loading -> {
@@ -94,7 +92,7 @@ class BaseCharacterDetailFragment : Fragment() {
             }
             is ScreenStateHelper.Error -> {
                 val baseAnimeDetailView = binding.fragmentBaseCharacterDetail
-                Snackbar.make(baseAnimeDetailView, "Not found pictures for this character...", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(baseAnimeDetailView, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
             }
         }
     }
