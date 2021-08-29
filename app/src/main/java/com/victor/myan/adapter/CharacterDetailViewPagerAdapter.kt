@@ -4,7 +4,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.victor.myan.screens.characterDetail.CharacterAnimeFragment
+import com.victor.myan.screens.characterDetail.MangaCharacterFragment
 import com.victor.myan.screens.characterDetail.OverviewCharacterFragment
+import com.victor.myan.screens.characterDetail.VoiceCharacterFragment
 
 class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
@@ -18,8 +21,9 @@ class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Li
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> OverviewCharacterFragment.newInstance(malID)
-//            1 -> CharacterFragment.newInstance(malID)
-//            2 -> RecommendationFragment.newInstance(malID)
+            1 -> CharacterAnimeFragment.newInstance(malID)
+            2 -> MangaCharacterFragment.newInstance(malID)
+            3 -> VoiceCharacterFragment.newInstance(malID)
             else -> Fragment()
         }
     }

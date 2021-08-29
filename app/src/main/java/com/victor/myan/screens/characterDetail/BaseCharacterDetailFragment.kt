@@ -36,15 +36,16 @@ class BaseCharacterDetailFragment : Fragment() {
         val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory("character", malID) }
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
-        val sizePager = 3
+        val sizePager = 4
         val adapter = CharacterDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Anime | Manga"
-                2 -> tab.text = "Voices"
+                1 -> tab.text = "Anime"
+                2 -> tab.text = "Manga"
+                3 -> tab.text = "Voices"
             }
         }.attach()
 
