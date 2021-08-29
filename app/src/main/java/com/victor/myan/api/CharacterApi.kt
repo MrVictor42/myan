@@ -1,9 +1,6 @@
 package com.victor.myan.api
 
-import com.victor.myan.model.AnimeCharacterResponse
-import com.victor.myan.model.AnimeListCharacterAnimeResponse
-import com.victor.myan.model.Character
-import com.victor.myan.model.MangaListCharacterMangaResponse
+import com.victor.myan.model.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -20,4 +17,7 @@ interface CharacterApi {
 
     @GET("character/{mal_id}")
     fun getCharacterManga(@Path("mal_id") mal_id: String) : Call<MangaListCharacterMangaResponse>
+
+    @GET("character/{mal_id}")
+    fun getCharacterVoice(@Path("mal_id") mal_id: String) : Call<ActorsListCharacterResponse>
 }
