@@ -20,3 +20,11 @@ data class Character(
 data class AnimeCharacterResponse (
     val characters : MutableList<Character>
 )
+
+data class AnimeListCharacterAnimeResponse (
+    val animeography : MutableList<Anime>
+)
+
+data class MangaListCharacterMangaResponse (
+    val mangaography : MutableList<Manga>
+)

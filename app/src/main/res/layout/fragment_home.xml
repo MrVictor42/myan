@@ -61,7 +61,7 @@
             tools:listitem="@layout/cardview_placeholder"
             android:orientation="horizontal"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            />
+        />
 
         <TextView
             android:id="@+id/seasonAnimeText"

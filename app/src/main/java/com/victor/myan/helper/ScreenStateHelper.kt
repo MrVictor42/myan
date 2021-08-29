@@ -4,4 +4,5 @@ sealed class ScreenStateHelper<T> (val data : T? = null, val message : String? =
     class Success<T>(data : T?) : ScreenStateHelper<T>(data)
     class Loading<T>(data : T?) : ScreenStateHelper<T>(data)
     class Error<T>(message: String, data : T?) : ScreenStateHelper<T>(data, message)
+    class Empty<T>(message: String, data : T?) : ScreenStateHelper<T>(data, message)
 }

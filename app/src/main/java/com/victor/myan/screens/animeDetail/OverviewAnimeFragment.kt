@@ -247,6 +247,9 @@ class OverviewAnimeFragment : Fragment() {
                 val view = progressBar.rootView
                 Snackbar.make(view, "Not found information about this anime...", Snackbar.LENGTH_LONG).show()
             }
+            else -> {
+                //"Nothing to do"
+            }
         }
     }
 }

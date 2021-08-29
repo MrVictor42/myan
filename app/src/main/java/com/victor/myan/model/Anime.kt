@@ -46,7 +46,7 @@ data class Anime (
     @SerializedName("ending_themes")
     var ending_themes : List<String>? = arrayListOf(),
     @SerializedName("pictures")
-    var pictures : List<Picture>? = arrayListOf()
+    var pictures : List<Picture>? = arrayListOf(),
 )
 
 data class AnimeListCarouselResponse (
