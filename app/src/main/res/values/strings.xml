@@ -58,7 +58,12 @@
     </string>
     <string name="character_name">Character Name</string>
     <string name="character_name_kanji">Character Name Kanji</string>
+    <string name="person_name">Person Name</string>
     <string name="character_nickname">Nickname</string>
+    <string name="given_name">Given Name</string>
+    <string name="family_name">Family Name</string>
+    <string name="person_birthday">Birthday</string>
+    <string name="alternatives_names">Alternatives Names</string>
     <string name="retry">Retry</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

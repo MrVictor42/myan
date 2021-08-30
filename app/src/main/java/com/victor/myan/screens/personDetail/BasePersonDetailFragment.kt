@@ -1,4 +1,4 @@
-package com.victor.myan.screens.animeDetail
+package com.victor.myan.screens.personDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,47 +9,46 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.adapter.AnimeDetailViewPagerAdapter
-import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
+import com.victor.myan.adapter.PersonDetailViewPagerAdapter
+import com.victor.myan.databinding.FragmentBasePersonDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
 import com.victor.myan.screens.HomeFragment
 import com.victor.myan.viewmodel.PicturesViewModel
 
-class BaseAnimeDetailFragment : Fragment() {
+class BasePersonDetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseAnimeDetailBinding
+    private lateinit var binding : FragmentBasePersonDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseAnimeDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBasePersonDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory("anime", malID) }
+        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory("person", malID) }
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
-        val adapter = AnimeDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = PersonDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Characters"
-                2 -> tab.text = "Recommendation"
+                1 -> tab.text = "Anime"
+                2 -> tab.text = "Character"
             }
         }.attach()
 
         viewModel.picturesLiveData.observe(this, { state ->
-            processAnimePictureResponse(state)
+            processPersonPictureResponse(state)
         })
 
         val callback = object : OnBackPressedCallback(true) {
@@ -64,7 +63,7 @@ class BaseAnimeDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
-    private fun processAnimePictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
+    private fun processPersonPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
 
         val carouselView = binding.carouselView.carouselViewCarousel
 
@@ -91,8 +90,7 @@ class BaseAnimeDetailFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                val baseAnimeDetailView = binding.baseAnimeDetail
-                Snackbar.make(baseAnimeDetailView, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
+
             }
             else -> {
                 // Nothing to do

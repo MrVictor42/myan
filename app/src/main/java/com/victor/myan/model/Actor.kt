@@ -9,10 +9,26 @@ data class Actor (
     var name : String? = "",
     @SerializedName("image_url")
     var image_url : String? = "",
-    @SerializedName("language")
-    var language : String? = ""
+    @SerializedName("given_name")
+    var given_name : String? = "",
+    @SerializedName("family_name")
+    var family_name : String? = "",
+    @SerializedName("alternate_names")
+    var alternate_names : List<String> = arrayListOf(),
+    @SerializedName("birthday")
+    var birthday : String? = "",
+    @SerializedName("about")
+    var about : String = ""
 )
 
 data class ActorsListCharacterResponse (
     val voice_actors : List<Actor>
+)
+
+data class VoiceActingRolesAnimeResponse (
+    val voice_acting_roles : List<Anime>
+)
+
+data class VoiceActingRolesCharacterResponse (
+    val voice_acting_roles : List<Character>
 )
