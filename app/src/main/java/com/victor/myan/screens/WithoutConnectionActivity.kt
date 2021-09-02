@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.R
+import com.victor.myan.baseFragments.BaseLayout
 import com.victor.myan.databinding.ActivityWithoutConnectionBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 

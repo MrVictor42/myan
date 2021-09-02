@@ -30,9 +30,9 @@ class HomeFragment : Fragment() {
     private lateinit var animeAdapter: AnimeAdapter
     private val viewModelAnimeCarousel by lazy { ViewModelProvider(this).get(
         AnimeListCarouselViewModel::class.java) }
-    private val viewModelAnimeToday by lazy { ViewModelProvider(this).get(TodayAnimeViewModel::class.java) }
-    private val viewModelAnimeSeason by lazy { ViewModelProvider(this).get(SeasonViewModel::class.java) }
-    private val viewModelAnimeTop by lazy { ViewModelProvider(this).get(TopAnimeViewModel::class.java) }
+//    private val viewModelAnimeToday by lazy { ViewModelProvider(this).get(TodayAnimeViewModel::class.java) }
+//    private val viewModelAnimeSeason by lazy { ViewModelProvider(this).get(SeasonViewModel::class.java) }
+//    private val viewModelAnimeTop by lazy { ViewModelProvider(this).get(TopAnimeViewModel::class.java) }
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -57,27 +57,26 @@ class HomeFragment : Fragment() {
             processAnimeListCarouselResponse(state)
         })
 
-        viewModelAnimeToday.animeListToday.observe(viewLifecycleOwner, { state ->
-            processTodayAnimeListResponse(state)
-        })
-
-        viewModelAnimeSeason.animeListSeason.observe(viewLifecycleOwner, { state ->
-            processSeasonAnimeListResponse(state)
-        })
-
-        viewModelAnimeTop.animeListTopLiveData.observe(viewLifecycleOwner, { state ->
-            processTopAnimeListResponse(state)
-        })
+//        viewModelAnimeToday.animeListToday.observe(viewLifecycleOwner, { state ->
+//            processTodayAnimeListResponse(state)
+//        })
+//
+//        viewModelAnimeSeason.animeListSeason.observe(viewLifecycleOwner, { state ->
+//            processSeasonAnimeListResponse(state)
+//        })
+//
+//        viewModelAnimeTop.animeListTopLiveData.observe(viewLifecycleOwner, { state ->
+//            processTopAnimeListResponse(state)
+//        })
     }
 
     @SuppressLint("InflateParams")
     private fun processAnimeListCarouselResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val progressBar = binding.carouselView.progressBarCarousel
         val carouselView = binding.carouselView.carouselViewCarousel
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                progressBar.visibility = View.VISIBLE
+
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -108,13 +107,11 @@ class HomeFragment : Fragment() {
                             fragmentManager?.beginTransaction()?.commit()
                         }
                     }
-                    progressBar.visibility = View.GONE
                     carouselView.pageCount = animeList.size
                 }
             }
             is ScreenStateHelper.Error -> {
-                progressBar.visibility = View.VISIBLE
-                val view = progressBar.rootView
+                val view = binding.homeFragment
                 Snackbar.make(view,
                     "Connection with internet not found or internal error... Try again later",
                     Snackbar.LENGTH_LONG).show()
@@ -122,83 +119,83 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun processTodayAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val todayAnimeText = binding.todayAnimeText
-        val todayAnimeRecyclerView = binding.recyclerViewToday
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    val animeList = state.data
-                    todayAnimeRecyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeList)
-                    todayAnimeRecyclerView.adapter = animeAdapter
-                    todayAnimeText.text = viewModelAnimeToday.currentDayFormatted
-                    todayAnimeText.visibility = View.VISIBLE
-                }
-            }
-            is ScreenStateHelper.Error -> {
-                val view = binding.nestedScrollView
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun processSeasonAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val seasonAnimeText = binding.seasonAnimeText
-        val seasonAnimeRecyclerView = binding.recyclerViewSeason
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    val animeList = state.data
-                    seasonAnimeRecyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeList)
-                    seasonAnimeRecyclerView.adapter = animeAdapter
-                    seasonAnimeText.text = viewModelAnimeSeason.currentSeasonFormatted
-                    seasonAnimeText.visibility = View.VISIBLE
-                }
-            }
-            is ScreenStateHelper.Error -> {
-                val view = binding.nestedScrollView
-
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-        }
-    }
-
-    private fun processTopAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val topAnimeText = binding.topAnimeText
-        val topAnimeRecyclerView = binding.recyclerViewTopAnime
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                val animeList = state.data
-                topAnimeRecyclerView.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                animeAdapter = AnimeAdapter()
-                animeAdapter.submitList(animeList)
-                topAnimeRecyclerView.adapter = animeAdapter
-                topAnimeText.visibility = View.VISIBLE
-            }
-            is ScreenStateHelper.Error -> {
-                val view = binding.nestedScrollView
-
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-        }
-    }
+//    private fun processTodayAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
+//        val todayAnimeText = binding.todayAnimeText
+//        val todayAnimeRecyclerView = binding.recyclerViewToday
+//
+//        when(state) {
+//            is ScreenStateHelper.Loading -> {
+//
+//            }
+//            is ScreenStateHelper.Success -> {
+//                if(state.data != null) {
+//                    val animeList = state.data
+//                    todayAnimeRecyclerView.layoutManager =
+//                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+//                    animeAdapter = AnimeAdapter()
+//                    animeAdapter.submitList(animeList)
+//                    todayAnimeRecyclerView.adapter = animeAdapter
+//                    todayAnimeText.text = viewModelAnimeToday.currentDayFormatted
+//                    todayAnimeText.visibility = View.VISIBLE
+//                }
+//            }
+//            is ScreenStateHelper.Error -> {
+//                val view = binding.nestedScrollView
+//                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
+//    }
+//
+//    private fun processSeasonAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
+//        val seasonAnimeText = binding.seasonAnimeText
+//        val seasonAnimeRecyclerView = binding.recyclerViewSeason
+//
+//        when(state) {
+//            is ScreenStateHelper.Loading -> {
+//
+//            }
+//            is ScreenStateHelper.Success -> {
+//                if(state.data != null) {
+//                    val animeList = state.data
+//                    seasonAnimeRecyclerView.layoutManager =
+//                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+//                    animeAdapter = AnimeAdapter()
+//                    animeAdapter.submitList(animeList)
+//                    seasonAnimeRecyclerView.adapter = animeAdapter
+//                    seasonAnimeText.text = viewModelAnimeSeason.currentSeasonFormatted
+//                    seasonAnimeText.visibility = View.VISIBLE
+//                }
+//            }
+//            is ScreenStateHelper.Error -> {
+//                val view = binding.nestedScrollView
+//
+//                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
+//    }
+//
+//    private fun processTopAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
+//        val topAnimeText = binding.topAnimeText
+//        val topAnimeRecyclerView = binding.recyclerViewTopAnime
+//
+//        when(state) {
+//            is ScreenStateHelper.Loading -> {
+//
+//            }
+//            is ScreenStateHelper.Success -> {
+//                val animeList = state.data
+//                topAnimeRecyclerView.layoutManager =
+//                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+//                animeAdapter = AnimeAdapter()
+//                animeAdapter.submitList(animeList)
+//                topAnimeRecyclerView.adapter = animeAdapter
+//                topAnimeText.visibility = View.VISIBLE
+//            }
+//            is ScreenStateHelper.Error -> {
+//                val view = binding.nestedScrollView
+//
+//                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+//            }
+//        }
+//    }
 }

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.victor.myan.R
+import com.victor.myan.baseFragments.BaseLayout
 import com.victor.myan.helper.AuxFunctionsHelper
 
 class FirstScreenActivity : AppCompatActivity() {

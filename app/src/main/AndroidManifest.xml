@@ -23,7 +23,7 @@
         <activity android:name=".screens.SearchActivity" />
         <activity android:name=".screens.HomeActivity" />
         <activity android:name=".screens.WithoutConnectionActivity" />
-        <activity android:name=".screens.BaseLayout" />
+        <activity android:name=".baseFragments.BaseLayout" />
         <activity android:name=".screens.FormRegisterUserActivity" />
         <activity android:name=".screens.FormLoginActivity" />
         <activity

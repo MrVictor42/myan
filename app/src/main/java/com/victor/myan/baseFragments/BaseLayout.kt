@@ -1,4 +1,4 @@
-package com.victor.myan.screens
+package com.victor.myan.baseFragments
 
 import android.content.Intent
 import android.graphics.Color
@@ -17,6 +17,10 @@ import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.model.User
+import com.victor.myan.screens.FormLoginActivity
+import com.victor.myan.screens.GenresListFragment
+import com.victor.myan.screens.HomeFragment
+import com.victor.myan.screens.SearchFragment
 
 class BaseLayout : AppCompatActivity() {
 
@@ -96,7 +100,7 @@ class BaseLayout : AppCompatActivity() {
 
     private fun addFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.content, fragment, fragment.javaClass.simpleName)
+            .replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .commit()
     }
