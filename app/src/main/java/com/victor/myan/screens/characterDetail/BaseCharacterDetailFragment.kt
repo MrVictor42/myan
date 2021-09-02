@@ -16,7 +16,7 @@ import com.victor.myan.adapter.CharacterDetailViewPagerAdapter
 import com.victor.myan.databinding.FragmentBaseCharacterDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
-import com.victor.myan.screens.HomeFragment
+import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewmodel.PicturesViewModel
 
 class BaseCharacterDetailFragment : Fragment() {
@@ -58,7 +58,7 @@ class BaseCharacterDetailFragment : Fragment() {
                 val homeFragment = HomeFragment.newInstance()
                 val fragmentManager = activity?.supportFragmentManager
                 fragmentManager?.popBackStack()
-                fragmentManager?.beginTransaction()?.replace(R.id.content, homeFragment)
+                fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, homeFragment)
                     ?.addToBackStack(null)?.commit()
             }
         }

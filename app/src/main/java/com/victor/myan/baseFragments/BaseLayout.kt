@@ -19,7 +19,7 @@ import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.model.User
 import com.victor.myan.screens.FormLoginActivity
 import com.victor.myan.screens.GenresListFragment
-import com.victor.myan.screens.HomeFragment
+import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.screens.SearchFragment
 
 class BaseLayout : AppCompatActivity() {
