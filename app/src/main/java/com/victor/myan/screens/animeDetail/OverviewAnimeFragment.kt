@@ -47,11 +47,11 @@ class OverviewAnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : AnimeViewModel by viewModels { AnimeViewModel.AnimeFactory(malID) }
-
-        viewModel.animeLiveData.observe(this, { state ->
-            processAnimeResponse(state)
-        })
+//        val viewModel : AnimeViewModel by viewModels { AnimeViewModel.AnimeFactory(malID) }
+//
+//        viewModel.animeLiveData.observe(this, { state ->
+//            processAnimeResponse(state)
+//        })
     }
 
     private fun processAnimeResponse(state: ScreenStateHelper<Anime>?) {

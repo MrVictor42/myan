@@ -2,38 +2,37 @@ package com.victor.myan.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Anime
 import com.victor.myan.screens.animeDetail.BaseAnimeDetailFragment
-import com.victor.myan.viewmodel.AnimeListCarouselViewModel
-import com.victor.myan.viewmodel.SeasonViewModel
-import com.victor.myan.viewmodel.TodayAnimeViewModel
-import com.victor.myan.viewmodel.TopAnimeViewModel
+import com.victor.myan.viewmodel.AnimeViewModel
+import com.victor.myan.viewmodel.MangaViewModel
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var animeAdapter: AnimeAdapter
-
-    private val viewModelAnimeToday by lazy { ViewModelProvider(this).get(TodayAnimeViewModel::class.java) }
-    private val viewModelAnimeSeason by lazy { ViewModelProvider(this).get(SeasonViewModel::class.java) }
-    private val viewModelAnimeTop by lazy { ViewModelProvider(this).get(TopAnimeViewModel::class.java) }
+    private lateinit var mangaAdapter: MangaAdapter
+    private val animeViewModel by lazy {
+        ViewModelProvider(this).get(AnimeViewModel::class.java)
+    }
+    private val mangaViewModel by lazy {
+        ViewModelProvider(this).get(MangaViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -53,166 +52,226 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        getAnimeListCarousel()
-
-//        viewModelAnimeToday.animeListToday.observe(viewLifecycleOwner, { state ->
-//            processTodayAnimeListResponse(state)
-//        })
-//
-//        viewModelAnimeSeason.animeListSeason.observe(viewLifecycleOwner, { state ->
-//            processSeasonAnimeListResponse(state)
-//        })
-//
-//        viewModelAnimeTop.animeListTopLiveData.observe(viewLifecycleOwner, { state ->
-//            processTopAnimeListResponse(state)
-//        })
+        processAnimeListCarouselResponse()
+        processAnimeListTodayResponse()
+        processAnimeListSeasonResponse()
+        processAnimeListTopResponse()
+        processMangaListTopResponse()
     }
 
-    @SuppressLint("InflateParams")
-    private fun getAnimeListCarousel() {
-        val animeListCarouselViewModel by lazy {
-            ViewModelProvider(this).get(AnimeListCarouselViewModel::class.java)
-        }
-        animeListCarouselViewModel.getAnimeListAiringCarouselApi(12)
-        animeListCarouselViewModel.getAnimeListCarouselObserver().observe(viewLifecycleOwner, { state ->
-            if(state == null) {
-                // Nothing to do
-            } else {
-                val carouselView = binding.carouselView.carouselViewCarousel
+    private fun processMangaListTopResponse() {
+        val topMangaText = binding.topManga.titleRecyclerView
+        val topMangaRecyclerView = binding.topManga.recyclerView
 
-                when(state) {
+        mangaViewModel.getMangaListTopApi()
+        mangaViewModel.mangaTopListObserver().observe(viewLifecycleOwner, { state ->
+            when(state) {
+                null -> {
+                    mangaViewModel.getMangaListTopApi()
+                    SystemClock.sleep(2000)
+                }
                     is ScreenStateHelper.Loading -> {
 
                     }
                     is ScreenStateHelper.Success -> {
-                        if(state.data != null) {
-                            val animeList = state.data
-                            for(aux in animeList.indices) {
-                                carouselView.setViewListener { position ->
-                                    val viewCarousel = layoutInflater.inflate(R.layout.fragment_carousel_anime_list, null)
-                                    val animeTitle = viewCarousel.findViewById<TextView>(R.id.anime_title_carousel)
-                                    val animeImage = viewCarousel.findViewById<ImageView>(R.id.anime_image_carousel)
-
-                                    Glide.with(viewCarousel.context)
-                                        .load(animeList[position].image_url)
-                                        .placeholder(R.drawable.ic_launcher_foreground)
-                                        .error(R.drawable.ic_launcher_foreground)
-                                        .fallback(R.drawable.ic_launcher_foreground)
-                                        .fitCenter()
-                                        .into(animeImage)
-                                    animeTitle.text = animeList[position].title
-
-                                    viewCarousel
-                                }
-
-                                carouselView.setImageClickListener { position ->
-                                    val fragment = BaseAnimeDetailFragment()
-                                    val fragmentManager = activity?.supportFragmentManager
-
-                                    val bundle = Bundle()
-                                    bundle.putString("mal_id", animeList[position].mal_id)
-
-                                    fragment.arguments = bundle
-
-                                    val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
-                                    transaction?.commit()
-                                    fragmentManager?.beginTransaction()?.commit()
-                                }
-                            }
-                            carouselView.pageCount = animeList.size
-                        }
+                        val mangaList = state.data
+                        topMangaRecyclerView.layoutManager =
+                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        mangaAdapter = MangaAdapter()
+                        mangaAdapter.submitList(mangaList)
+                        topMangaRecyclerView.adapter = mangaAdapter
+                        topMangaText.text = getString(R.string.top_manga)
+                        topMangaText.visibility = View.VISIBLE
+                        topMangaRecyclerView.visibility = View.VISIBLE
                     }
                     is ScreenStateHelper.Error -> {
-                        val view = binding.homeFragment
-                        Snackbar.make(view,
-                            "Connection with internet not found or internal error... Try again later",
-                            Snackbar.LENGTH_LONG).show()
+                        mangaViewModel.getMangaListTopApi()
+                        SystemClock.sleep(2000)
                     }
-                    else -> {
-                        // Nothing to do
-                    }
+                else -> {
+                    mangaViewModel.getMangaListTopApi()
+                    SystemClock.sleep(2000)
                 }
             }
         })
     }
 
-    private fun processTodayAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val todayAnimeText = binding.todayAnimeText
-        val todayAnimeRecyclerView = binding.recyclerViewToday
+    private fun processAnimeListTopResponse() {
+        val topAnimeText = binding.topAnime.titleRecyclerView
+        val topAnimeRecyclerView = binding.topAnime.recyclerView
 
-        when(state) {
-            is ScreenStateHelper.Loading -> {
+        animeViewModel.getAnimeListTopApi()
+        animeViewModel.animeListTopObserver().observe(viewLifecycleOwner, { state ->
+            when(state) {
+                null -> {
+                    animeViewModel.getAnimeListTopApi()
+                    SystemClock.sleep(2000)
+                }
+                is ScreenStateHelper.Loading -> {
 
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
+                }
+                is ScreenStateHelper.Success -> {
                     val animeList = state.data
-                    todayAnimeRecyclerView.layoutManager =
+                    topAnimeRecyclerView.layoutManager =
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
-                    todayAnimeRecyclerView.adapter = animeAdapter
-                    todayAnimeText.text = viewModelAnimeToday.currentDayFormatted
-                    todayAnimeText.visibility = View.VISIBLE
+                    topAnimeRecyclerView.adapter = animeAdapter
+                    topAnimeText.text = getString(R.string.top_anime)
+                    topAnimeText.visibility = View.VISIBLE
+                    topAnimeRecyclerView.visibility = View.VISIBLE
+                }
+                is ScreenStateHelper.Error -> {
+                    animeViewModel.getAnimeListTopApi()
+                    SystemClock.sleep(2000)
+                }
+                else -> {
+                    animeViewModel.getAnimeListTopApi()
+                    SystemClock.sleep(2000)
                 }
             }
-            is ScreenStateHelper.Error -> {
-                val view = binding.homeFragment
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-        }
+        })
     }
 
-    private fun processSeasonAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val seasonAnimeText = binding.seasonAnimeText
-        val seasonAnimeRecyclerView = binding.recyclerViewSeason
+    private fun processAnimeListSeasonResponse() {
+        val seasonAnimeText = binding.seasonAnime.titleRecyclerView
+        val seasonAnimeRecyclerView = binding.seasonAnime.recyclerView
 
-        when(state) {
-            is ScreenStateHelper.Loading -> {
+        animeViewModel.getAnimeListSeasonApi()
+        animeViewModel.animeListSeasonObserver().observe(viewLifecycleOwner, { state ->
+            when(state) {
+                null -> {
+                    animeViewModel.getAnimeListSeasonApi()
+                    SystemClock.sleep(2000)
+                }
+                is ScreenStateHelper.Loading -> {
 
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    val animeList = state.data
-                    seasonAnimeRecyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeList)
-                    seasonAnimeRecyclerView.adapter = animeAdapter
-                    seasonAnimeText.text = viewModelAnimeSeason.currentSeasonFormatted
-                    seasonAnimeText.visibility = View.VISIBLE
+                }
+                is ScreenStateHelper.Success -> {
+                    if(state.data != null) {
+                        val animeList = state.data
+                        seasonAnimeRecyclerView.layoutManager =
+                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        animeAdapter = AnimeAdapter()
+                        animeAdapter.submitList(animeList)
+                        seasonAnimeRecyclerView.adapter = animeAdapter
+                        seasonAnimeText.text = animeViewModel.currentSeasonFormatted
+                        seasonAnimeText.visibility = View.VISIBLE
+                        seasonAnimeRecyclerView.visibility = View.VISIBLE
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+                    animeViewModel.getAnimeListSeasonApi()
+                    SystemClock.sleep(2000)
+                }
+                else -> {
+                    animeViewModel.getAnimeListSeasonApi()
+                    SystemClock.sleep(2000)
                 }
             }
-            is ScreenStateHelper.Error -> {
-                val view = binding.homeFragment
-
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
-            }
-        }
+        })
     }
 
-    private fun processTopAnimeListResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val topAnimeText = binding.topAnimeText
-        val topAnimeRecyclerView = binding.recyclerViewTopAnime
+    private fun processAnimeListTodayResponse() {
+        val todayAnimeText = binding.todayAnime.titleRecyclerView
+        val todayAnimeRecyclerView = binding.todayAnime.recyclerView
 
-        when(state) {
-            is ScreenStateHelper.Loading -> {
+        animeViewModel.getAnimeListTodayApi()
+        animeViewModel.animeListTodayObserver().observe(viewLifecycleOwner, { state ->
+            when(state) {
+                null -> {
+                    processAnimeListTodayResponse()
+                    SystemClock.sleep(2000)
+                }
+                is ScreenStateHelper.Loading -> {
 
+                }
+                is ScreenStateHelper.Success -> {
+                    if(state.data != null) {
+                        val animeList = state.data
+                        todayAnimeRecyclerView.layoutManager =
+                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        animeAdapter = AnimeAdapter()
+                        animeAdapter.submitList(animeList)
+                        todayAnimeRecyclerView.adapter = animeAdapter
+                        todayAnimeText.text = animeViewModel.currentDayFormatted
+                        todayAnimeText.visibility = View.VISIBLE
+                        todayAnimeRecyclerView.visibility = View.VISIBLE
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+                    processAnimeListTodayResponse()
+                    SystemClock.sleep(2000)
+                }
+                else -> {
+                    processAnimeListTodayResponse()
+                    SystemClock.sleep(2000)
+                }
             }
-            is ScreenStateHelper.Success -> {
-                val animeList = state.data
-                topAnimeRecyclerView.layoutManager =
-                    LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                animeAdapter = AnimeAdapter()
-                animeAdapter.submitList(animeList)
-                topAnimeRecyclerView.adapter = animeAdapter
-                topAnimeText.visibility = View.VISIBLE
-            }
-            is ScreenStateHelper.Error -> {
-                val view = binding.homeFragment
+        })
+    }
 
-                Snackbar.make(view, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+    @SuppressLint("InflateParams")
+    private fun processAnimeListCarouselResponse() {
+        val carouselView = binding.carouselView.carouselViewCarousel
+
+        animeViewModel.getAnimeListAiringCarouselApi(12)
+        animeViewModel.animeListCarouselObserver().observe(viewLifecycleOwner, { state ->
+            when(state) {
+                null -> {
+                    animeViewModel.getAnimeListAiringCarouselApi(12)
+                    SystemClock.sleep(2000)
+                }
+                is ScreenStateHelper.Loading -> {
+
+                }
+                is ScreenStateHelper.Success -> {
+                    if(state.data != null) {
+                        val animeList = state.data
+                        for(aux in animeList.indices) {
+                            carouselView.setViewListener { position ->
+                                val viewCarousel = layoutInflater.inflate(R.layout.fragment_carousel_anime_list, null)
+                                val animeTitle = viewCarousel.findViewById<TextView>(R.id.anime_title_carousel)
+                                val animeImage = viewCarousel.findViewById<ImageView>(R.id.anime_image_carousel)
+
+                                Glide.with(viewCarousel.context)
+                                    .load(animeList[position].image_url)
+                                    .placeholder(R.drawable.ic_launcher_foreground)
+                                    .error(R.drawable.ic_launcher_foreground)
+                                    .fallback(R.drawable.ic_launcher_foreground)
+                                    .fitCenter()
+                                    .into(animeImage)
+                                animeTitle.text = animeList[position].title
+
+                                viewCarousel
+                            }
+
+                            carouselView.setImageClickListener { position ->
+                                val fragment = BaseAnimeDetailFragment()
+                                val fragmentManager = activity?.supportFragmentManager
+
+                                val bundle = Bundle()
+                                bundle.putString("mal_id", animeList[position].mal_id)
+
+                                fragment.arguments = bundle
+
+                                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+                                transaction?.commit()
+                                fragmentManager?.beginTransaction()?.commit()
+                            }
+                        }
+                        carouselView.pageCount = animeList.size
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+                    animeViewModel.getAnimeListAiringCarouselApi(12)
+                    SystemClock.sleep(2000)
+                }
+                else -> {
+                    animeViewModel.getAnimeListAiringCarouselApi(12)
+                    SystemClock.sleep(2000)
+                }
             }
-        }
+        })
     }
 }

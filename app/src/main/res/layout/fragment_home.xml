@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    android:id="@+id/home_fragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -35,95 +34,32 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
 
-                    <TextView
-                        android:id="@+id/todayAnimeText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:text="@string/today_anime"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/carousel_view"
-                        android:visibility="invisible"
-                        />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewToday"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/todayAnimeText"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:listitem="@layout/cardview_placeholder"
-                        android:orientation="horizontal"
-                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    />
-
-                    <TextView
-                        android:id="@+id/seasonAnimeText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="@string/season_anime"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/recyclerViewToday"
-                        android:visibility="invisible"
-                        />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewSeason"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/seasonAnimeText"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:listitem="@layout/cardview_placeholder"
-                        android:orientation="horizontal"
-                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        />
-
-                    <TextView
-                        android:id="@+id/topAnimeText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginEnd="20dp"
-                        android:textSize="20sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:text="@string/top_anime"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/recyclerViewSeason"
-                        android:visibility="invisible"
-                        />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewTopAnime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/topAnimeText"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:listitem="@layout/cardview_placeholder"
-                        android:orientation="horizontal"
-                        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/carousel_view">
+                <include
+                    android:id="@+id/today_anime"
+                    layout="@layout/recyclerview"
+                />
+                <include
+                    android:id="@+id/season_anime"
+                    layout="@layout/recyclerview"
+                />
+                <include
+                    android:id="@+id/top_anime"
+                    layout="@layout/recyclerview"
+                />
+                <include
+                    android:id="@+id/top_manga"
+                    layout="@layout/recyclerview"
+                />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

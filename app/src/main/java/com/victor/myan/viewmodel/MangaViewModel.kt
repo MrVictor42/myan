@@ -1,6 +1,5 @@
 package com.victor.myan.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.victor.myan.api.JikanApiInstance
@@ -11,31 +10,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class TopMangaViewModel : ViewModel() {
+class MangaViewModel : ViewModel() {
 
-    private val _mangaListTopLiveData = MutableLiveData<ScreenStateHelper<List<Manga>?>>()
-    val mangaListTopLiveData : LiveData<ScreenStateHelper<List<Manga>?>>
-        get() = _mangaListTopLiveData
+    val mangaTopList : MutableLiveData<ScreenStateHelper<List<Manga>?>> = MutableLiveData()
 
-    init {
-        getMangaListTopApi()
+    fun mangaTopListObserver() : MutableLiveData<ScreenStateHelper<List<Manga>?>> {
+        return mangaTopList
     }
 
-    private fun getMangaListTopApi() {
+    fun getMangaListTopApi() {
         val mangaApi = JikanApiInstance.mangaApi.getTopManga()
 
-        _mangaListTopLiveData.postValue(ScreenStateHelper.Loading(null))
+        mangaTopList.postValue(ScreenStateHelper.Loading(null))
         mangaApi.enqueue(object : Callback<MangaListTopResponse> {
             override fun onResponse(call: Call<MangaListTopResponse>, response: Response<MangaListTopResponse>) {
                 if(response.isSuccessful) {
-                    _mangaListTopLiveData.postValue(ScreenStateHelper.Success(response.body()?.top))
+                    mangaTopList.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
-                    _mangaListTopLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    mangaTopList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<MangaListTopResponse>, t: Throwable) {
-                _mangaListTopLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                mangaTopList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }
