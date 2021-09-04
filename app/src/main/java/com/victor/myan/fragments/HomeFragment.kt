@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         processAnimeListCarouselResponse()
         processAnimeListTodayResponse()
+        SystemClock.sleep(2000)
         processAnimeListSeasonResponse()
         processAnimeListTopResponse()
         processMangaListTopResponse()
@@ -67,8 +68,7 @@ class HomeFragment : Fragment() {
         mangaViewModel.mangaTopListObserver().observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
-                    mangaViewModel.getMangaListTopApi()
-                    SystemClock.sleep(2000)
+
                 }
                     is ScreenStateHelper.Loading -> {
 
@@ -89,8 +89,7 @@ class HomeFragment : Fragment() {
                         SystemClock.sleep(2000)
                     }
                 else -> {
-                    mangaViewModel.getMangaListTopApi()
-                    SystemClock.sleep(2000)
+
                 }
             }
         })
@@ -104,8 +103,7 @@ class HomeFragment : Fragment() {
         animeViewModel.animeListTopObserver().observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
-                    animeViewModel.getAnimeListTopApi()
-                    SystemClock.sleep(2000)
+
                 }
                 is ScreenStateHelper.Loading -> {
 
@@ -126,8 +124,7 @@ class HomeFragment : Fragment() {
                     SystemClock.sleep(2000)
                 }
                 else -> {
-                    animeViewModel.getAnimeListTopApi()
-                    SystemClock.sleep(2000)
+
                 }
             }
         })
@@ -141,8 +138,7 @@ class HomeFragment : Fragment() {
         animeViewModel.animeListSeasonObserver().observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
-                    animeViewModel.getAnimeListSeasonApi()
-                    SystemClock.sleep(2000)
+
                 }
                 is ScreenStateHelper.Loading -> {
 
@@ -165,8 +161,7 @@ class HomeFragment : Fragment() {
                     SystemClock.sleep(2000)
                 }
                 else -> {
-                    animeViewModel.getAnimeListSeasonApi()
-                    SystemClock.sleep(2000)
+
                 }
             }
         })
@@ -204,8 +199,7 @@ class HomeFragment : Fragment() {
                     SystemClock.sleep(2000)
                 }
                 else -> {
-                    processAnimeListTodayResponse()
-                    SystemClock.sleep(2000)
+
                 }
             }
         })
@@ -219,8 +213,7 @@ class HomeFragment : Fragment() {
         animeViewModel.animeListCarouselObserver().observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
-                    animeViewModel.getAnimeListAiringCarouselApi(12)
-                    SystemClock.sleep(2000)
+
                 }
                 is ScreenStateHelper.Loading -> {
 
@@ -268,8 +261,7 @@ class HomeFragment : Fragment() {
                     SystemClock.sleep(2000)
                 }
                 else -> {
-                    animeViewModel.getAnimeListAiringCarouselApi(12)
-                    SystemClock.sleep(2000)
+
                 }
             }
         })

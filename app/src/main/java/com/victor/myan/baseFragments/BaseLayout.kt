@@ -71,8 +71,12 @@ class BaseLayout : AppCompatActivity() {
         navigationView.setOnNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.home -> {
-                    addFragment(HomeFragment.newInstance())
-                    return@setOnNavigationItemSelectedListener true
+                    if(navigationView.menu.findItem(navigationView.selectedItemId).toString() == "Home") {
+                        // Nothing to do
+                    } else {
+                        addFragment(HomeFragment.newInstance())
+                        return@setOnNavigationItemSelectedListener true
+                    }
                 }
 
                 R.id.search -> {

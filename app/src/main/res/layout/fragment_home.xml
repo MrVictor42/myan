@@ -9,7 +9,7 @@
     android:overScrollMode="never"
     android:background="@color/black_gray"
     tools:context=".fragments.HomeFragment">
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
@@ -61,5 +61,5 @@
                 />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </FrameLayout>
