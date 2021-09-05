@@ -8,9 +8,9 @@
     android:layout_height="match_parent"
     android:background="@color/black_gray"
     android:orientation="vertical"
-    tools:context=".screens.animeDetail.BaseAnimeDetailFragment"
+    tools:context=".baseFragments.BaseAnimeDetailFragment"
 >
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,5 +46,5 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </FrameLayout>

@@ -5,19 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.databinding.FragmentRecommendationBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.viewmodel.AnimeRecommendationViewModel
+import com.victor.myan.viewmodel.AnimeViewModel
 
 class RecommendationFragment : Fragment() {
 
     private lateinit var binding : FragmentRecommendationBinding
     private lateinit var animeAdapter: AnimeAdapter
+    private val animeViewModel by lazy {
+        ViewModelProvider(this).get(AnimeViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(mal_id : String): RecommendationFragment {
@@ -39,9 +41,9 @@ class RecommendationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : AnimeRecommendationViewModel by viewModels { AnimeRecommendationViewModel.AnimeRecommendationFactory(malID) }
 
-        viewModel.animeRecommendationLiveData.observe(this, { state ->
+        animeViewModel.getAnimeRecommendationApi(malID)
+        animeViewModel.animeRecommendationList.observe(viewLifecycleOwner, { state ->
             processAnimeRecommendationResponse(state)
         })
     }
@@ -66,8 +68,10 @@ class RecommendationFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                val view = recommendations.rootView
-                Snackbar.make(view, "Not found recommendations ...", Snackbar.LENGTH_LONG).show()
+
+            }
+            else -> {
+                // Nothing to do
             }
         }
     }

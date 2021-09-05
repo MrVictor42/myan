@@ -35,11 +35,11 @@ class OverviewCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID) }
-
-        viewModel.characterLiveData.observe(this, { state ->
-            processCharacterResponse(state)
-        })
+//        val viewModel : CharacterViewModel by viewModels { CharacterViewModel.CharacterFactory(malID) }
+//
+//        viewModel.characterLiveData.observe(this, { state ->
+//            processCharacterResponse(state)
+//        })
     }
 
     private fun processCharacterResponse(state: ScreenStateHelper<Character>?) {

@@ -6,43 +6,59 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.ScreenStateHelper
+import com.victor.myan.model.AnimeCharacterResponse
 import com.victor.myan.model.Character
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class CharacterViewModel(private val malID : String) : ViewModel() {
+class CharacterViewModel : ViewModel() {
 
-    private val _characterLiveData = MutableLiveData<ScreenStateHelper<Character>?>()
-    val characterLiveData : LiveData<ScreenStateHelper<Character>?>
-        get() = _characterLiveData
+    val character : MutableLiveData<ScreenStateHelper<Character>?> = MutableLiveData()
+    val characterList : MutableLiveData<ScreenStateHelper<List<Character>?>> = MutableLiveData()
 
-    init {
-        getCharacterApi()
+    fun getCharacterObserver() : MutableLiveData<ScreenStateHelper<Character>?> {
+        return character
     }
 
-    @Suppress("UNCHECKED_CAST")
-    class CharacterFactory(private val malID: String) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return CharacterViewModel(malID) as T
-        }
+    fun getCharacterListObserver() : MutableLiveData<ScreenStateHelper<List<Character>?>> {
+        return characterList
     }
 
-    private fun getCharacterApi() {
+    fun getCharacterApi(malID : String) {
         val characterApi = JikanApiInstance.characterApi.getCharacter(malID)
 
-        _characterLiveData.postValue(ScreenStateHelper.Loading(null))
+        character.postValue(ScreenStateHelper.Loading(null))
         characterApi.enqueue(object : Callback<Character> {
             override fun onResponse(call: Call<Character>, response: Response<Character>) {
                 if(response.isSuccessful) {
-                    _characterLiveData.postValue(ScreenStateHelper.Success(response.body()))
+                    character.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
-                    _characterLiveData.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    character.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<Character>, t: Throwable) {
-                _characterLiveData.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                character.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+            }
+        })
+    }
+
+    fun getCharacterListApi(malID: String) {
+        val characterApi = JikanApiInstance.characterApi.animeCharacters(malID)
+
+        characterList.postValue(ScreenStateHelper.Loading(null))
+        characterApi.enqueue(object : Callback<AnimeCharacterResponse> {
+            override fun onResponse(call: Call<AnimeCharacterResponse>, response: Response<AnimeCharacterResponse>) {
+                if(response.isSuccessful) {
+                    characterList.postValue(ScreenStateHelper.Success(response.body()?.characters))
+                } else {
+                    characterList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                }
+            }
+
+            override fun onFailure(call: Call<AnimeCharacterResponse>, t: Throwable) {
+                characterList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }

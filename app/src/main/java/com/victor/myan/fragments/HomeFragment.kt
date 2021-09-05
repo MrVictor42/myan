@@ -18,7 +18,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.screens.animeDetail.BaseAnimeDetailFragment
+import com.victor.myan.baseFragments.BaseAnimeDetailFragment
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
 
@@ -54,8 +54,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         processAnimeListCarouselResponse()
         processAnimeListTodayResponse()
-        SystemClock.sleep(2000)
         processAnimeListSeasonResponse()
+        SystemClock.sleep(2000)
         processAnimeListTopResponse()
         processMangaListTopResponse()
     }
@@ -70,24 +70,24 @@ class HomeFragment : Fragment() {
                 null -> {
 
                 }
-                    is ScreenStateHelper.Loading -> {
+                is ScreenStateHelper.Loading -> {
 
-                    }
-                    is ScreenStateHelper.Success -> {
-                        val mangaList = state.data
-                        topMangaRecyclerView.layoutManager =
-                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        mangaAdapter = MangaAdapter()
-                        mangaAdapter.submitList(mangaList)
-                        topMangaRecyclerView.adapter = mangaAdapter
-                        topMangaText.text = getString(R.string.top_manga)
-                        topMangaText.visibility = View.VISIBLE
-                        topMangaRecyclerView.visibility = View.VISIBLE
-                    }
-                    is ScreenStateHelper.Error -> {
-                        mangaViewModel.getMangaListTopApi()
-                        SystemClock.sleep(2000)
-                    }
+                }
+                is ScreenStateHelper.Success -> {
+                    val mangaList = state.data
+                    topMangaRecyclerView.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    mangaAdapter = MangaAdapter()
+                    mangaAdapter.submitList(mangaList)
+                    topMangaRecyclerView.adapter = mangaAdapter
+                    topMangaText.text = getString(R.string.top_manga)
+                    topMangaText.visibility = View.VISIBLE
+                    topMangaRecyclerView.visibility = View.VISIBLE
+                }
+                is ScreenStateHelper.Error -> {
+                    mangaViewModel.getMangaListTopApi()
+                    SystemClock.sleep(2000)
+                }
                 else -> {
 
                 }
@@ -248,7 +248,7 @@ class HomeFragment : Fragment() {
 
                                 fragment.arguments = bundle
 
-                                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+                                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment)
                                 transaction?.commit()
                                 fragmentManager?.beginTransaction()?.commit()
                             }

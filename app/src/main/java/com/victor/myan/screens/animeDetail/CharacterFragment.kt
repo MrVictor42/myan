@@ -5,19 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Character
-import com.victor.myan.viewmodel.AnimeCharacterViewModel
+import com.victor.myan.viewmodel.CharacterViewModel
 
 class CharacterFragment : Fragment() {
 
     private lateinit var binding : FragmentCharacterBinding
     private lateinit var characterAdapter : CharactersAdapter
+    private val characterViewModel by lazy {
+        ViewModelProvider(this).get(CharacterViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(mal_id : String): CharacterFragment {
@@ -39,15 +42,14 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : AnimeCharacterViewModel by viewModels { AnimeCharacterViewModel.CharacterFactory(malID) }
 
-        viewModel.characterLiveData.observe(this, { state ->
-            processCharacterResponse(state)
+        characterViewModel.getCharacterListApi(malID)
+        characterViewModel.characterList.observe(viewLifecycleOwner, { state ->
+            processCharacterListResponse(state)
         })
     }
 
-    private fun processCharacterResponse(state : ScreenStateHelper<List<Character>?>) {
-
+    private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
         val characterRecyclerView = binding.animeCharacter
         val fragmentCharacter = binding.fragmentCharacter
 
@@ -69,6 +71,9 @@ class CharacterFragment : Fragment() {
             is ScreenStateHelper.Error -> {
                 val view = fragmentCharacter.rootView
                 Snackbar.make(view, "Not found characters ...", Snackbar.LENGTH_LONG).show()
+            }
+            else -> {
+                // Nothing to do
             }
         }
     }

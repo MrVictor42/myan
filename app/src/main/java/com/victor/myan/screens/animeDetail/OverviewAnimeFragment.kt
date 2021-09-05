@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -26,6 +26,9 @@ class OverviewAnimeFragment : Fragment() {
     private lateinit var binding : FragmentOverviewAnimeBinding
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
+    private val animeViewModel by lazy {
+        ViewModelProvider(this).get(AnimeViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(mal_id : String): OverviewAnimeFragment {
@@ -47,11 +50,11 @@ class OverviewAnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-//        val viewModel : AnimeViewModel by viewModels { AnimeViewModel.AnimeFactory(malID) }
-//
-//        viewModel.animeLiveData.observe(this, { state ->
-//            processAnimeResponse(state)
-//        })
+
+        animeViewModel.getAnimeApi(malID)
+        animeViewModel.getAnimeObserver().observe(viewLifecycleOwner, { state ->
+            processAnimeResponse(state)
+        })
     }
 
     private fun processAnimeResponse(state: ScreenStateHelper<Anime>?) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
@@ -21,6 +22,9 @@ import com.victor.myan.viewmodel.PicturesViewModel
 class BasePersonDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentBasePersonDetailBinding
+    private val pictureViewModel by lazy {
+        ViewModelProvider(this).get(PicturesViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,6 @@ class BasePersonDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : PicturesViewModel by viewModels { PicturesViewModel.PicturesViewModelFactory("person", malID) }
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
@@ -47,8 +50,9 @@ class BasePersonDetailFragment : Fragment() {
             }
         }.attach()
 
-        viewModel.picturesLiveData.observe(this, { state ->
-            processPersonPictureResponse(state)
+        pictureViewModel.getPicturesApi("anime", malID)
+        pictureViewModel.picturesList.observe(viewLifecycleOwner, { state ->
+            processPictureResponse(state)
         })
 
         val callback = object : OnBackPressedCallback(true) {
@@ -63,7 +67,7 @@ class BasePersonDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
-    private fun processPersonPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
+    private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
 
         val carouselView = binding.carouselView.carouselViewCarousel
 
@@ -82,7 +86,13 @@ class BasePersonDetailFragment : Fragment() {
 
                             val animeImage =
                                 viewListener.findViewById<ImageView>(R.id.anime_image_carousel)
-                            Glide.with(view?.context!!).load(state.data[position].large).into(animeImage)
+                            Glide.with(view?.context!!)
+                                .load(state.data[position].large)
+                                .placeholder(R.drawable.ic_launcher_foreground)
+                                .error(R.drawable.ic_launcher_foreground)
+                                .fallback(R.drawable.ic_launcher_foreground)
+                                .fitCenter()
+                                .into(animeImage)
                             viewListener
                         }
                     }

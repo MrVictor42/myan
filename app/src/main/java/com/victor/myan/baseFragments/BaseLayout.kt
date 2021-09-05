@@ -72,7 +72,7 @@ class BaseLayout : AppCompatActivity() {
             when(it.itemId) {
                 R.id.home -> {
                     if(navigationView.menu.findItem(navigationView.selectedItemId).toString() == "Home") {
-                        // Nothing to do
+                        // Same fragment, nothing to do
                     } else {
                         addFragment(HomeFragment.newInstance())
                         return@setOnNavigationItemSelectedListener true
