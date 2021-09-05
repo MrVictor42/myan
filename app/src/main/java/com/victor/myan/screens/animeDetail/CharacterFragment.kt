@@ -50,8 +50,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
-        val characterRecyclerView = binding.animeCharacter
-        val fragmentCharacter = binding.fragmentCharacter
+        val characterRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
             is ScreenStateHelper.Loading -> {
@@ -69,8 +68,7 @@ class CharacterFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                val view = fragmentCharacter.rootView
-                Snackbar.make(view, "Not found characters ...", Snackbar.LENGTH_LONG).show()
+
             }
             else -> {
                 // Nothing to do

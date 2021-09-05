@@ -32,30 +32,6 @@ class AnimeViewModel : ViewModel() {
     val currentDayFormatted = auxFunctionsHelper.capitalize("today anime : $currentDay")
     val currentSeasonFormatted = auxFunctionsHelper.capitalize("season $currentSeason")
 
-    fun animeListCarouselObserver() : MutableLiveData<ScreenStateHelper<List<Anime>?>> {
-        return animeListCarousel
-    }
-
-    fun animeListTodayObserver() : MutableLiveData<ScreenStateHelper<List<Anime>?>> {
-        return animeListToday
-    }
-
-    fun animeListSeasonObserver() : MutableLiveData<ScreenStateHelper<List<Anime>?>> {
-        return animeListSeason
-    }
-
-    fun animeListTopObserver() : MutableLiveData<ScreenStateHelper<List<Anime>?>> {
-        return animeListTop
-    }
-
-    fun getAnimeObserver() : MutableLiveData<ScreenStateHelper<Anime>?> {
-        return anime
-    }
-
-    fun getAnimeListRecommendationObserver() : MutableLiveData<ScreenStateHelper<List<Anime>?>> {
-        return animeRecommendationList
-    }
-
     fun getAnimeListAiringCarouselApi(limit : Int) {
         val animeApi = JikanApiInstance.animeApi.animeListCarousel("airing", "score", limit)
 

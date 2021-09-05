@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
         val topMangaRecyclerView = binding.topManga.recyclerView
 
         mangaViewModel.getMangaListTopApi()
-        mangaViewModel.mangaTopListObserver().observe(viewLifecycleOwner, { state ->
+        mangaViewModel.mangaTopList.observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
 
@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
         val topAnimeRecyclerView = binding.topAnime.recyclerView
 
         animeViewModel.getAnimeListTopApi()
-        animeViewModel.animeListTopObserver().observe(viewLifecycleOwner, { state ->
+        animeViewModel.animeListTop.observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
 
@@ -135,7 +135,7 @@ class HomeFragment : Fragment() {
         val seasonAnimeRecyclerView = binding.seasonAnime.recyclerView
 
         animeViewModel.getAnimeListSeasonApi()
-        animeViewModel.animeListSeasonObserver().observe(viewLifecycleOwner, { state ->
+        animeViewModel.animeListSeason.observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
 
@@ -172,7 +172,7 @@ class HomeFragment : Fragment() {
         val todayAnimeRecyclerView = binding.todayAnime.recyclerView
 
         animeViewModel.getAnimeListTodayApi()
-        animeViewModel.animeListTodayObserver().observe(viewLifecycleOwner, { state ->
+        animeViewModel.animeListToday.observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
                     processAnimeListTodayResponse()
@@ -210,7 +210,7 @@ class HomeFragment : Fragment() {
         val carouselView = binding.carouselView.carouselViewCarousel
 
         animeViewModel.getAnimeListAiringCarouselApi(12)
-        animeViewModel.animeListCarouselObserver().observe(viewLifecycleOwner, { state ->
+        animeViewModel.animeListCarousel.observe(viewLifecycleOwner, { state ->
             when(state) {
                 null -> {
 

@@ -49,8 +49,7 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun processAnimeRecommendationResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val recommendationRecyclerView = binding.recyclerRecommendations
-        val recommendations = binding.fragmentRecommendations
+        val recommendationRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
             is ScreenStateHelper.Loading -> {

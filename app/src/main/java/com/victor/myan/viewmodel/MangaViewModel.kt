@@ -14,10 +14,6 @@ class MangaViewModel : ViewModel() {
 
     val mangaTopList : MutableLiveData<ScreenStateHelper<List<Manga>?>> = MutableLiveData()
 
-    fun mangaTopListObserver() : MutableLiveData<ScreenStateHelper<List<Manga>?>> {
-        return mangaTopList
-    }
-
     fun getMangaListTopApi() {
         val mangaApi = JikanApiInstance.mangaApi.getTopManga()
 

@@ -52,7 +52,7 @@ class OverviewAnimeFragment : Fragment() {
         val malID = arguments?.getString("mal_id").toString()
 
         animeViewModel.getAnimeApi(malID)
-        animeViewModel.getAnimeObserver().observe(viewLifecycleOwner, { state ->
+        animeViewModel.anime.observe(viewLifecycleOwner, { state ->
             processAnimeResponse(state)
         })
     }

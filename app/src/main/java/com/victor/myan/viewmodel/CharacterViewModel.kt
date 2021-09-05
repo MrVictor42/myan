@@ -17,14 +17,6 @@ class CharacterViewModel : ViewModel() {
     val character : MutableLiveData<ScreenStateHelper<Character>?> = MutableLiveData()
     val characterList : MutableLiveData<ScreenStateHelper<List<Character>?>> = MutableLiveData()
 
-    fun getCharacterObserver() : MutableLiveData<ScreenStateHelper<Character>?> {
-        return character
-    }
-
-    fun getCharacterListObserver() : MutableLiveData<ScreenStateHelper<List<Character>?>> {
-        return characterList
-    }
-
     fun getCharacterApi(malID : String) {
         val characterApi = JikanApiInstance.characterApi.getCharacter(malID)
 

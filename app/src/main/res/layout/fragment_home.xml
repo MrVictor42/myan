@@ -45,19 +45,19 @@
                 app:layout_constraintTop_toBottomOf="@id/carousel_view">
                 <include
                     android:id="@+id/today_anime"
-                    layout="@layout/recyclerview"
+                    layout="@layout/recyclerview_horizontal"
                 />
                 <include
                     android:id="@+id/season_anime"
-                    layout="@layout/recyclerview"
+                    layout="@layout/recyclerview_horizontal"
                 />
                 <include
                     android:id="@+id/top_anime"
-                    layout="@layout/recyclerview"
+                    layout="@layout/recyclerview_horizontal"
                 />
                 <include
                     android:id="@+id/top_manga"
-                    layout="@layout/recyclerview"
+                    layout="@layout/recyclerview_horizontal"
                 />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
