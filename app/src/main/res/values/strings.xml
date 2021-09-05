@@ -65,7 +65,8 @@
     <string name="person_birthday">Birthday</string>
     <string name="alternatives_names">Alternatives Names</string>
     <string name="retry">Retry</string>
-    <string name="none">None</string>
+    <string name="anime_airing">Anime Airing</string>
+    <string name="manga_airing">Manga Airing</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -8,18 +8,18 @@ import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.model.AnimeListCarouselResponse
+import com.victor.myan.model.AnimeListAiringResponse
 import com.victor.myan.model.AnimeListRecommendationResponse
 import com.victor.myan.model.AnimeListTopResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.util.Locale
 
 class AnimeViewModel : ViewModel() {
 
     val anime : MutableLiveData<ScreenStateHelper<Anime>?> = MutableLiveData()
-    val animeListCarousel : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
+    val animeListAiring : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListSeason : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListTop : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
@@ -32,21 +32,21 @@ class AnimeViewModel : ViewModel() {
     val currentDayFormatted = auxFunctionsHelper.capitalize("today anime : $currentDay")
     val currentSeasonFormatted = auxFunctionsHelper.capitalize("season $currentSeason")
 
-    fun getAnimeListAiringCarouselApi(limit : Int) {
-        val animeApi = JikanApiInstance.animeApi.animeListCarousel("airing", "score", limit)
+    fun getAnimeListAiringApi() {
+        val animeApi = JikanApiInstance.animeApi.animeListAiring("airing", "score")
 
-        animeListCarousel.postValue(ScreenStateHelper.Loading(null))
-        animeApi.enqueue(object : Callback<AnimeListCarouselResponse> {
-            override fun onResponse(call: Call<AnimeListCarouselResponse>, response: Response<AnimeListCarouselResponse>) {
+        animeListAiring.postValue(ScreenStateHelper.Loading(null))
+        animeApi.enqueue(object : Callback<AnimeListAiringResponse> {
+            override fun onResponse(call: Call<AnimeListAiringResponse>, response: Response<AnimeListAiringResponse>) {
                 if(response.isSuccessful) {
-                    animeListCarousel.postValue(ScreenStateHelper.Success(response.body()?.results))
+                    animeListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
-                    animeListCarousel.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    animeListAiring.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
-            override fun onFailure(call: Call<AnimeListCarouselResponse>, t: Throwable) {
-                animeListCarousel.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+            override fun onFailure(call: Call<AnimeListAiringResponse>, t: Throwable) {
+                animeListAiring.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }

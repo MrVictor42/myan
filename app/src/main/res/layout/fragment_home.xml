@@ -13,53 +13,39 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
             <include
                 layout="@layout/toolbar_home"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
+            />
             <include
-                android:id="@+id/carousel_view"
-                layout="@layout/carousel_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/carousel_view">
-                <include
-                    android:id="@+id/today_anime"
-                    layout="@layout/recyclerview_horizontal"
-                />
-                <include
-                    android:id="@+id/season_anime"
-                    layout="@layout/recyclerview_horizontal"
-                />
-                <include
-                    android:id="@+id/top_anime"
-                    layout="@layout/recyclerview_horizontal"
-                />
-                <include
-                    android:id="@+id/top_manga"
-                    layout="@layout/recyclerview_horizontal"
-                />
-            </LinearLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:id="@+id/today_anime"
+                layout="@layout/recyclerview_horizontal"
+            />
+            <include
+                android:id="@+id/anime_airing"
+                layout="@layout/recyclerview_horizontal"
+            />
+            <include
+                android:id="@+id/manga_airing"
+                layout="@layout/recyclerview_horizontal"
+            />
+            <include
+                android:id="@+id/season_anime"
+                layout="@layout/recyclerview_horizontal"
+            />
+            <include
+                android:id="@+id/top_anime"
+                layout="@layout/recyclerview_horizontal"
+            />
+            <include
+                android:id="@+id/top_manga"
+                layout="@layout/recyclerview_horizontal"
+            />
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>
