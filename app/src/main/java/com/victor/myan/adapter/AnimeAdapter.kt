@@ -66,7 +66,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
                 fragment.arguments = bundle
 
-                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment)
+                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

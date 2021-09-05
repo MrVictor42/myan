@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -69,9 +70,12 @@ class BaseLayout : AppCompatActivity() {
 
         addFragment(baseFragment)
         navigationView.setOnNavigationItemSelectedListener {
+            val fragment = supportFragmentManager.findFragmentById(R.id.fragment_layout)
+
             when(it.itemId) {
                 R.id.home -> {
-                    if(navigationView.menu.findItem(navigationView.selectedItemId).toString() == "Home") {
+                    if(fragment?.tag == "HomeFragment" &&
+                        navigationView.menu.findItem(navigationView.selectedItemId).toString() == "Home") {
                         // Same fragment, nothing to do
                     } else {
                         addFragment(HomeFragment.newInstance())
@@ -106,6 +110,7 @@ class BaseLayout : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            .addToBackStack(null)
             .commit()
     }
 }
