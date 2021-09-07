@@ -30,11 +30,11 @@ class GenresAdapter(var genres: MutableList<Genre>) :
                 bundle.putInt("mal_id", genre.mal_id)
                 bundle.putString("name", genre.name)
 
-                val genreFragment = GenreFragment()
-                genreFragment.arguments = bundle
+                val fragment = GenreFragment()
+                fragment.arguments = bundle
                 (itemView.context as FragmentActivity)
                     .supportFragmentManager
-                    .beginTransaction().replace(R.id.fragment_layout, genreFragment)
+                    .beginTransaction().replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
                     .addToBackStack(null)
                     .commit()
             }

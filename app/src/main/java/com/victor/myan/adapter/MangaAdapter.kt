@@ -66,7 +66,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
 
                 fragment.arguments = bundle
 
-                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment)
+                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment)?.addToBackStack(null)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

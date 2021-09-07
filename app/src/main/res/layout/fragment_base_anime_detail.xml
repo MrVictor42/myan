@@ -3,37 +3,26 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/baseAnimeDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_gray"
-    android:orientation="vertical"
     tools:context=".baseFragments.BaseAnimeDetailFragment"
 >
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <include
-                android:id="@+id/carouselView"
-                layout="@layout/carousel_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:tabIndicatorColor="@color/orange"
                 app:tabTextColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@id/carouselView"
                 />
 
             <androidx.viewpager2.widget.ViewPager2
@@ -45,6 +34,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

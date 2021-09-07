@@ -17,14 +17,10 @@ import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
 import com.victor.myan.fragments.HomeFragment
-import com.victor.myan.viewmodel.PicturesViewModel
 
 class BaseAnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentBaseAnimeDetailBinding
-    private val pictureViewModel by lazy {
-        ViewModelProvider(this).get(PicturesViewModel::class.java)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,11 +46,6 @@ class BaseAnimeDetailFragment : Fragment() {
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("anime", malID)
-        pictureViewModel.picturesList.observe(viewLifecycleOwner, { state ->
-            processPictureResponse(state)
-        })
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
@@ -65,46 +56,5 @@ class BaseAnimeDetailFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
-    }
-
-    @SuppressLint("InflateParams")
-    private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
-        val carouselView = binding.carouselView.carouselViewCarousel
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if (state.data != null) {
-                    for(pictures in state.data.indices) {
-                        carouselView.setViewListener { position ->
-                            val viewListener = layoutInflater.inflate(
-                                R.layout.fragment_carousel_anime_list,
-                                null
-                            )
-
-                            val animeImage =
-                                viewListener.findViewById<ImageView>(R.id.anime_image_carousel)
-                            Glide.with(view?.context!!)
-                                .load(state.data[position].large)
-                                .placeholder(R.drawable.ic_launcher_foreground)
-                                .error(R.drawable.ic_launcher_foreground)
-                                .fallback(R.drawable.ic_launcher_foreground)
-                                .fitCenter()
-                                .into(animeImage)
-                            viewListener
-                        }
-                    }
-                    carouselView.pageCount = state.data.size
-                }
-            }
-            is ScreenStateHelper.Error -> {
-
-            }
-            else -> {
-                // Nothing to do
-            }
-        }
     }
 }

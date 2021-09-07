@@ -5,20 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.victor.myan.databinding.FragmentOverviewPersonBinding
+import com.victor.myan.R
+import com.victor.myan.databinding.FragmentOverviewActorBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Actor
 import com.victor.myan.viewmodel.ActorViewModel
 
-class OverviewPersonFragment : Fragment() {
+class OverviewActorFragment : Fragment() {
 
-    private lateinit var binding : FragmentOverviewPersonBinding
+    private lateinit var binding : FragmentOverviewActorBinding
+    private val actorViewModel by lazy {
+        ViewModelProvider(this).get(ActorViewModel::class.java)
+    }
 
     companion object {
-        fun newInstance(mal_id : String): OverviewPersonFragment {
-            val overviewFragment = OverviewPersonFragment()
+        fun newInstance(mal_id : String): OverviewActorFragment {
+            val overviewFragment = OverviewActorFragment()
             val args = Bundle()
             args.putString("mal_id", mal_id)
             overviewFragment.arguments = args
@@ -30,15 +34,15 @@ class OverviewPersonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentOverviewPersonBinding.inflate(layoutInflater, container, false)
+        binding = FragmentOverviewActorBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : ActorViewModel by viewModels { ActorViewModel.ActorFactory(malID) }
 
-        viewModel.actorLiveData.observe(this, { state ->
+        actorViewModel.getActorApi(malID)
+        actorViewModel.actor.observe(viewLifecycleOwner, { state ->
             processActorResponse(state)
         })
     }
@@ -60,7 +64,13 @@ class OverviewPersonFragment : Fragment() {
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
                     with(state.data) {
-                        Glide.with(view?.context!!).load(image_url).into(personImage)
+                        Glide.with(view?.context!!)
+                            .load(image_url)
+                            .placeholder(R.drawable.ic_launcher_foreground)
+                            .error(R.drawable.ic_launcher_foreground)
+                            .fallback(R.drawable.ic_launcher_foreground)
+                            .fitCenter()
+                            .into(personImage)
                         personName.text = name
                         personName.visibility = View.VISIBLE
                         givenName.text = given_name
@@ -81,6 +91,12 @@ class OverviewPersonFragment : Fragment() {
                         expandableAbout.visibility = View.VISIBLE
                     }
                 }
+            }
+            is ScreenStateHelper.Error -> {
+
+            }
+            else -> {
+
             }
         }
     }
