@@ -8,7 +8,7 @@
     android:background="@color/black_gray"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".screens.characterDetail.BaseCharacterDetailFragment">
+    tools:context=".baseFragments.BaseCharacterDetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

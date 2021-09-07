@@ -18,13 +18,13 @@ data class Character(
 )
 
 data class AnimeCharacterResponse (
-    val characters : MutableList<Character>
+    val characters : List<Character>
 )
 
 data class AnimeListCharacterAnimeResponse (
-    val animeography : MutableList<Anime>
+    val animeography : List<Anime>
 )
 
 data class MangaListCharacterMangaResponse (
-    val mangaography : MutableList<Manga>
+    val mangaography : List<Manga>
 )

@@ -1,4 +1,4 @@
-package com.victor.myan.screens.animeDetail
+package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
@@ -246,7 +245,7 @@ class OverviewAnimeFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                animeViewModel.getAnimeApi(malID)
+
             }
             else -> {
                 //"Nothing to do"

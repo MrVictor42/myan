@@ -1,23 +1,25 @@
-package com.victor.myan.screens.characterDetail
+package com.victor.myan.fragments.tablayouts.characterDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.ActorAdapter
 import com.victor.myan.databinding.FragmentVoiceCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Actor
-import com.victor.myan.viewmodel.CharacterVoiceViewModel
+import com.victor.myan.viewmodel.CharacterViewModel
 
 class VoiceCharacterFragment : Fragment() {
 
     private lateinit var binding : FragmentVoiceCharacterBinding
     private lateinit var actorAdapter: ActorAdapter
+    private val characterViewModel by lazy {
+        ViewModelProvider(this).get(CharacterViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(mal_id : String): VoiceCharacterFragment {
@@ -39,17 +41,17 @@ class VoiceCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : CharacterVoiceViewModel by viewModels { CharacterVoiceViewModel.CharacterVoiceFactory(malID) }
 
-        viewModel.characterVoiceLiveData.observe(this, { state ->
+        characterViewModel.getCharacterVoiceApi(malID)
+        characterViewModel.characterVoiceList.observe(viewLifecycleOwner, { state ->
             processCharacterVoiceResponse(state)
         })
     }
 
-    private fun processCharacterVoiceResponse(state: ScreenStateHelper<List<Actor>>?) {
-
-        val characterVoiceRecyclerView = binding.recyclerViewCharacterVoice
-        val emptyTextView = binding.emptyListTextView
+    private fun processCharacterVoiceResponse(state: ScreenStateHelper<List<Actor>?>) {
+        val malID = arguments?.getString("mal_id").toString()
+        val characterVoiceRecyclerView = binding.recyclerView.recyclerViewVertical
+        val emptyText = binding.emptyListTextView
 
         when(state) {
             is ScreenStateHelper.Loading -> {
@@ -62,17 +64,18 @@ class VoiceCharacterFragment : Fragment() {
                     characterVoiceRecyclerView.setItemViewCacheSize(10)
                     actorAdapter = ActorAdapter()
                     actorAdapter.submitList(characterVoice)
-                    characterVoiceRecyclerView.layoutManager = GridLayoutManager(context, 2 , GridLayout.VERTICAL, false)
+                    characterVoiceRecyclerView.layoutManager = GridLayoutManager(context, 2 , GridLayoutManager.VERTICAL, false)
                     characterVoiceRecyclerView.adapter = actorAdapter
                     characterVoiceRecyclerView.visibility = View.VISIBLE
                 }
             }
             is ScreenStateHelper.Empty -> {
-                emptyTextView.text = state.message
-                emptyTextView.visibility = View.VISIBLE
+                emptyText.text = state.message
+                emptyText.visibility = View.VISIBLE
+                characterVoiceRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-
+                characterViewModel.getCharacterVoiceApi(malID)
             }
         }
     }

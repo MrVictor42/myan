@@ -1,5 +1,6 @@
-package com.victor.myan.screens.personDetail
+package com.victor.myan.baseFragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,21 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.adapter.PersonDetailViewPagerAdapter
-import com.victor.myan.databinding.FragmentBasePersonDetailBinding
+import com.victor.myan.adapter.CharacterDetailViewPagerAdapter
+import com.victor.myan.databinding.FragmentBaseCharacterDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewmodel.PicturesViewModel
 
-class BasePersonDetailFragment : Fragment() {
+class BaseCharacterDetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentBasePersonDetailBinding
+    private lateinit var binding : FragmentBaseCharacterDetailBinding
     private val pictureViewModel by lazy {
         ViewModelProvider(this).get(PicturesViewModel::class.java)
     }
@@ -30,7 +30,7 @@ class BasePersonDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBasePersonDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseCharacterDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -38,19 +38,20 @@ class BasePersonDetailFragment : Fragment() {
         val malID = arguments?.getString("mal_id").toString()
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
-        val sizePager = 3
-        val adapter = PersonDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
+        val sizePager = 4
+        val adapter = CharacterDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
                 1 -> tab.text = "Anime"
-                2 -> tab.text = "Character"
+                2 -> tab.text = "Manga"
+                3 -> tab.text = "Voices"
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("anime", malID)
+        pictureViewModel.getPicturesApi("character", malID)
         pictureViewModel.picturesList.observe(viewLifecycleOwner, { state ->
             processPictureResponse(state)
         })
@@ -67,8 +68,8 @@ class BasePersonDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
+    @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
-
         val carouselView = binding.carouselView.carouselViewCarousel
 
         when(state) {

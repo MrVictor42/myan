@@ -1,24 +1,25 @@
-package com.victor.myan.screens.characterDetail
+package com.victor.myan.fragments.tablayouts.characterDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentMangaCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Manga
-import com.victor.myan.viewmodel.CharacterMangaViewModel
+import com.victor.myan.viewmodel.CharacterViewModel
 
 class MangaCharacterFragment : Fragment() {
 
     private lateinit var binding : FragmentMangaCharacterBinding
     private lateinit var mangaAdapter: MangaAdapter
+    private val characterViewModel by lazy {
+        ViewModelProvider(this).get(CharacterViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(mal_id : String): MangaCharacterFragment {
@@ -40,17 +41,17 @@ class MangaCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getString("mal_id").toString()
-        val viewModel : CharacterMangaViewModel by viewModels { CharacterMangaViewModel.CharacterMangaFactory(malID) }
 
-        viewModel.characterMangaLiveData.observe(this, { state ->
+        characterViewModel.getCharacterMangaApi(malID)
+        characterViewModel.characterMangaList.observe(viewLifecycleOwner, { state ->
             processCharacterMangaResponse(state)
         })
     }
 
-    private fun processCharacterMangaResponse(state: ScreenStateHelper<List<Manga>>?) {
-
-        val characterMangaRecyclerView = binding.recyclerViewCharacterManga
-        val emptyTextView = binding.emptyListTextView
+    private fun processCharacterMangaResponse(state: ScreenStateHelper<List<Manga>?>) {
+        val malID = arguments?.getString("mal_id").toString()
+        val characterMangaRecyclerView = binding.recyclerView.recyclerViewVertical
+        val emptyText = binding.emptyListTextView
 
         when(state) {
             is ScreenStateHelper.Loading -> {
@@ -63,18 +64,18 @@ class MangaCharacterFragment : Fragment() {
                     characterMangaRecyclerView.setItemViewCacheSize(10)
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(characterManga)
-                    characterMangaRecyclerView.layoutManager = GridLayoutManager(context, 2 , GridLayout.VERTICAL, false)
+                    characterMangaRecyclerView.layoutManager = GridLayoutManager(context, 2 , GridLayoutManager.VERTICAL, false)
                     characterMangaRecyclerView.adapter = mangaAdapter
                     characterMangaRecyclerView.visibility = View.VISIBLE
                 }
             }
             is ScreenStateHelper.Empty -> {
-                emptyTextView.text = state.message
-                emptyTextView.visibility = View.VISIBLE
+                emptyText.text = state.message
+                emptyText.visibility = View.VISIBLE
+                characterMangaRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                val view = binding.fragmentCharacterManga
-                Snackbar.make(view, state.message.toString(), Snackbar.LENGTH_LONG).show()
+                characterViewModel.getCharacterMangaApi(malID)
             }
         }
     }

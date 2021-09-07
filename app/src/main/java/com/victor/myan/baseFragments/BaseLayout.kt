@@ -71,7 +71,6 @@ class BaseLayout : AppCompatActivity() {
         addFragment(baseFragment)
         navigationView.setOnNavigationItemSelectedListener {
             val fragment = supportFragmentManager.findFragmentById(R.id.fragment_layout)
-
             when(it.itemId) {
                 R.id.home -> {
                     if(fragment?.tag == "HomeFragment" &&

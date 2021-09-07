@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.widget.ScrollView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +16,6 @@ import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
 
-
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
@@ -31,7 +27,6 @@ class HomeFragment : Fragment() {
     private val mangaViewModel by lazy {
         ViewModelProvider(this).get(MangaViewModel::class.java)
     }
-    private lateinit var scrollview : ScrollView
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -51,9 +46,6 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        scrollview = binding.scrollview
-
-
         processAnimeListTodayResponse()
         processAnimeListAiringResponse()
         processMangaListAiringResponse()

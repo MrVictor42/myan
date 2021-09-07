@@ -1,4 +1,4 @@
-package com.victor.myan.screens.animeDetail
+package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
