@@ -66,7 +66,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
 
                 fragment.arguments = bundle
 
-                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment)
+                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

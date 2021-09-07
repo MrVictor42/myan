@@ -66,7 +66,7 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
 
                 fragment.arguments = bundle
 
-                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment)
+                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)?.addToBackStack(null)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

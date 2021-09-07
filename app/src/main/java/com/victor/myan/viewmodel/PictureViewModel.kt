@@ -11,15 +11,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PicturesViewModel : ViewModel() {
+class PictureViewModel : ViewModel() {
 
-    val picturesList : MutableLiveData<ScreenStateHelper<List<Picture>?>> = MutableLiveData()
+    val picture : MutableLiveData<ScreenStateHelper<Picture>?> = MutableLiveData()
 
     fun getPicturesApi(type : String, malID : String) {
         val picturesApi = JikanApiInstance.picturesApi.getPictures(type, malID)
-        val pictureList : MutableList<Picture> = arrayListOf()
 
-        picturesList.postValue(ScreenStateHelper.Loading(null))
+        picture.postValue(ScreenStateHelper.Loading(null))
         picturesApi.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 if(response.isSuccessful) {
@@ -27,25 +26,24 @@ class PicturesViewModel : ViewModel() {
                     if(picturesResponse != null) {
                         val picturesArray : JsonArray? = picturesResponse.getAsJsonArray("pictures")
                         if(picturesArray != null) {
-                            for(aux in 0 until picturesArray.size()) {
+                            for(aux in 0 until 1) {
                                 val pictureObject : JsonObject? = picturesArray.get(aux) as JsonObject?
                                 if(pictureObject != null) {
-                                    val picture = Picture()
+                                    val pictureLarge = Picture()
 
-                                    picture.large = pictureObject.get("large").asString
-                                    pictureList.add(picture)
+                                    pictureLarge.large = pictureObject.get("large").asString
+                                    picture.postValue(ScreenStateHelper.Success(pictureLarge))
                                 }
                             }
                         }
                     }
-                    picturesList.postValue(ScreenStateHelper.Success(pictureList))
                 } else {
-                    picturesList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    picture.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                picturesList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                picture.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }

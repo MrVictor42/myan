@@ -5,31 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
 import com.victor.myan.adapter.ActorDetailViewPagerAdapter
-import com.victor.myan.databinding.FragmentBasePersonDetailBinding
-import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Picture
+import com.victor.myan.databinding.FragmentBaseActorDetailBinding
 import com.victor.myan.fragments.HomeFragment
-import com.victor.myan.viewmodel.PicturesViewModel
 
 class BaseActorDetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentBasePersonDetailBinding
-    private val pictureViewModel by lazy {
-        ViewModelProvider(this).get(PicturesViewModel::class.java)
-    }
+    private lateinit var binding : FragmentBaseActorDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBasePersonDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseActorDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -49,11 +40,6 @@ class BaseActorDetailFragment : Fragment() {
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("person", malID)
-        pictureViewModel.picturesList.observe(viewLifecycleOwner, { state ->
-            processPictureResponse(state)
-        })
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val homeFragment = HomeFragment.newInstance()
@@ -64,46 +50,5 @@ class BaseActorDetailFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
-    }
-
-    private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
-
-        val carouselView = binding.carouselView.carouselViewCarousel
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if (state.data != null) {
-                    for(pictures in state.data.indices) {
-                        carouselView.setViewListener { position ->
-                            val viewListener = layoutInflater.inflate(
-                                R.layout.fragment_carousel_anime_list,
-                                null
-                            )
-
-                            val animeImage =
-                                viewListener.findViewById<ImageView>(R.id.anime_image_carousel)
-                            Glide.with(view?.context!!)
-                                .load(state.data[position].large)
-                                .placeholder(R.drawable.ic_launcher_foreground)
-                                .error(R.drawable.ic_launcher_foreground)
-                                .fallback(R.drawable.ic_launcher_foreground)
-                                .fitCenter()
-                                .into(animeImage)
-                            viewListener
-                        }
-                    }
-                    carouselView.pageCount = state.data.size
-                }
-            }
-            is ScreenStateHelper.Error -> {
-
-            }
-            else -> {
-                // Nothing to do
-            }
-        }
     }
 }
