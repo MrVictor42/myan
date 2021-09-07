@@ -1,4 +1,4 @@
-package com.victor.myan.screens.animeDetail
+package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
@@ -50,6 +49,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
+        val malID = arguments?.getString("mal_id").toString()
         val characterRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
@@ -68,7 +68,7 @@ class CharacterFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                characterViewModel.getCharacterListApi(malID)
             }
             else -> {
                 // Nothing to do

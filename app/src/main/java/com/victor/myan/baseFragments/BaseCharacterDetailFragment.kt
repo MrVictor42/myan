@@ -1,4 +1,4 @@
-package com.victor.myan.screens.characterDetail
+package com.victor.myan.baseFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
 import com.victor.myan.adapter.CharacterDetailViewPagerAdapter
@@ -53,7 +51,7 @@ class BaseCharacterDetailFragment : Fragment() {
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("anime", malID)
+        pictureViewModel.getPicturesApi("character", malID)
         pictureViewModel.picturesList.observe(viewLifecycleOwner, { state ->
             processPictureResponse(state)
         })
@@ -72,7 +70,6 @@ class BaseCharacterDetailFragment : Fragment() {
 
     @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
-
         val carouselView = binding.carouselView.carouselViewCarousel
 
         when(state) {
@@ -104,8 +101,10 @@ class BaseCharacterDetailFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                val baseAnimeDetailView = binding.fragmentBaseCharacterDetail
-                Snackbar.make(baseAnimeDetailView, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
+
+            }
+            else -> {
+                // Nothing to do
             }
         }
     }

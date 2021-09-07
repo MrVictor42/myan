@@ -1,11 +1,8 @@
 package com.victor.myan.fragments
 
 import android.os.Bundle
-import android.os.SystemClock
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +13,7 @@ import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
+
 
 class HomeFragment : Fragment() {
 
@@ -47,13 +45,16 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        processAnimeListTodayResponse()
         processAnimeListAiringResponse()
         processMangaListAiringResponse()
-        processAnimeListTodayResponse()
-        SystemClock.sleep(2000)
+    }
+
+    override fun onResume() {
         processAnimeListSeasonResponse()
         processAnimeListTopResponse()
         processMangaListTopResponse()
+        super.onResume()
     }
 
     private fun processMangaListAiringResponse() {
@@ -82,7 +83,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     mangaViewModel.getMangaListAiringApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -117,7 +117,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     mangaViewModel.getMangaListTopApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -152,7 +151,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     animeViewModel.getAnimeListTopApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -189,7 +187,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     animeViewModel.getAnimeListSeasonApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -226,7 +223,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     processAnimeListTodayResponse()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -263,7 +259,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     animeViewModel.getAnimeListAiringApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 

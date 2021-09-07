@@ -1,4 +1,4 @@
-package com.victor.myan.screens.animeDetail
+package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -49,6 +49,7 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun processAnimeRecommendationResponse(state: ScreenStateHelper<List<Anime>?>?) {
+        val malID = arguments?.getString("mal_id").toString()
         val recommendationRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
@@ -67,7 +68,7 @@ class RecommendationFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                animeViewModel.getAnimeRecommendationApi(malID)
             }
             else -> {
                 // Nothing to do

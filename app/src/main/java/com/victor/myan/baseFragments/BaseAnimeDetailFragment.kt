@@ -10,7 +10,6 @@ import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeDetailViewPagerAdapter
@@ -101,8 +100,7 @@ class BaseAnimeDetailFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                val baseAnimeDetailView = binding.baseAnimeDetail
-                Snackbar.make(baseAnimeDetailView, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
+
             }
             else -> {
                 // Nothing to do

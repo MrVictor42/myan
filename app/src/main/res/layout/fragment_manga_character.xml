@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_character_manga"
     android:background="@color/black_gray"
-    tools:context=".screens.characterDetail.MangaCharacterFragment">
+    tools:context=".fragments.tablayouts.characterDetail.MangaCharacterFragment">
 
     <TextView
         android:id="@+id/empty_list_text_view"

@@ -2,7 +2,6 @@ package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,7 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Character
-import com.victor.myan.screens.characterDetail.BaseCharacterDetailFragment
+import com.victor.myan.baseFragments.BaseCharacterDetailFragment
 
 class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHolder>(MyDiffUtil) {
 

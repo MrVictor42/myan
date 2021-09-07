@@ -7,7 +7,7 @@
     android:background="@color/black_gray"
     android:id="@+id/fragment_overview_character"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".screens.characterDetail.OverviewCharacterFragment">
+    tools:context=".fragments.tablayouts.characterDetail.OverviewCharacterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

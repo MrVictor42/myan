@@ -7,7 +7,7 @@
     android:id="@+id/fragment_character_anime"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
-    tools:context=".screens.characterDetail.CharacterAnimeFragment">
+    tools:context=".fragments.tablayouts.characterDetail.CharacterAnimeFragment">
 
     <TextView
         android:id="@+id/empty_list_text_view"

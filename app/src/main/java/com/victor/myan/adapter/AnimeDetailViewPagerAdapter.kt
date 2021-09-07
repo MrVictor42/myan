@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.screens.animeDetail.CharacterFragment
-import com.victor.myan.screens.animeDetail.OverviewAnimeFragment
-import com.victor.myan.screens.animeDetail.RecommendationFragment
+import com.victor.myan.fragments.tablayouts.animeDetail.CharacterFragment
+import com.victor.myan.fragments.tablayouts.animeDetail.OverviewAnimeFragment
+import com.victor.myan.fragments.tablayouts.animeDetail.RecommendationFragment
 
 class AnimeDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 

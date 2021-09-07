@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.victor.myan.R
 import com.victor.myan.databinding.FragmentAnimePersonBinding
-import com.victor.myan.screens.characterDetail.CharacterAnimeFragment
-import com.victor.myan.viewmodel.CharacterAnimeViewModel
 import com.victor.myan.viewmodel.PersonAnimeViewModel
 
 class AnimePersonFragment : Fragment() {

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
-    tools:context=".screens.characterDetail.VoiceCharacterFragment">
+    tools:context=".fragments.tablayouts.characterDetail.VoiceCharacterFragment">
 
     <TextView
         android:id="@+id/empty_list_text_view"

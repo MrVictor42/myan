@@ -1,17 +1,15 @@
-package com.victor.myan.screens.characterDetail
+package com.victor.myan.fragments.tablayouts.characterDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.victor.myan.databinding.FragmentOverviewCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Character
-import com.victor.myan.viewmodel.CharacterViewModel
 
 class OverviewCharacterFragment : Fragment() {
 
@@ -85,8 +83,7 @@ class OverviewCharacterFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                val overviewCharacterFragment = binding.fragmentOverviewCharacter
-                Snackbar.make(overviewCharacterFragment, "Not found information about this character...", Snackbar.LENGTH_LONG).show()
+
             }
         }
     }
