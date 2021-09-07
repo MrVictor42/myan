@@ -49,6 +49,7 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun processAnimeRecommendationResponse(state: ScreenStateHelper<List<Anime>?>?) {
+        val malID = arguments?.getString("mal_id").toString()
         val recommendationRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
@@ -67,7 +68,7 @@ class RecommendationFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                animeViewModel.getAnimeRecommendationApi(malID)
             }
             else -> {
                 // Nothing to do

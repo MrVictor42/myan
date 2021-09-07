@@ -53,7 +53,7 @@ class BaseCharacterDetailFragment : Fragment() {
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("anime", malID)
+        pictureViewModel.getPicturesApi("character", malID)
         pictureViewModel.picturesList.observe(viewLifecycleOwner, { state ->
             processPictureResponse(state)
         })

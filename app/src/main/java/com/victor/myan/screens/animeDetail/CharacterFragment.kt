@@ -50,6 +50,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
+        val malID = arguments?.getString("mal_id").toString()
         val characterRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
@@ -68,7 +69,7 @@ class CharacterFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                characterViewModel.getCharacterListApi(malID)
             }
             else -> {
                 // Nothing to do

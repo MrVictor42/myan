@@ -1,11 +1,13 @@
 package com.victor.myan.fragments
 
 import android.os.Bundle
-import android.os.SystemClock
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.widget.ScrollView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +18,7 @@ import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
+
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +31,7 @@ class HomeFragment : Fragment() {
     private val mangaViewModel by lazy {
         ViewModelProvider(this).get(MangaViewModel::class.java)
     }
+    private lateinit var scrollview : ScrollView
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -47,13 +51,19 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        scrollview = binding.scrollview
+
+
+        processAnimeListTodayResponse()
         processAnimeListAiringResponse()
         processMangaListAiringResponse()
-        processAnimeListTodayResponse()
-        SystemClock.sleep(2000)
+    }
+
+    override fun onResume() {
         processAnimeListSeasonResponse()
         processAnimeListTopResponse()
         processMangaListTopResponse()
+        super.onResume()
     }
 
     private fun processMangaListAiringResponse() {
@@ -82,7 +92,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     mangaViewModel.getMangaListAiringApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -117,7 +126,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     mangaViewModel.getMangaListTopApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -152,7 +160,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     animeViewModel.getAnimeListTopApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -189,7 +196,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     animeViewModel.getAnimeListSeasonApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -226,7 +232,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     processAnimeListTodayResponse()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -263,7 +268,6 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     animeViewModel.getAnimeListAiringApi()
-                    SystemClock.sleep(2000)
                 }
                 else -> {
 
@@ -271,4 +275,17 @@ class HomeFragment : Fragment() {
             }
         })
     }
+
+//    override fun onScrollChanged() {
+//        val view: View = scrollview.getChildAt(scrollview.childCount - 1)
+//        val topDetector: Int = scrollview.getScrollY()
+//        val bottomDetector: Int = view.bottom - (scrollview.getHeight() + scrollview.getScrollY())
+//        if (bottomDetector == 0) {
+//            Toast.makeText(context, "Scroll View bottom reached", Toast.LENGTH_SHORT)
+//                .show()
+//        }
+//        if (topDetector <= 0) {
+//            Toast.makeText(context, "Scroll View top reached", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 }

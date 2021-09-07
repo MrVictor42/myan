@@ -58,7 +58,7 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     private fun processAnimeResponse(state: ScreenStateHelper<Anime>?) {
-
+        val malID = arguments?.getString("mal_id").toString()
         val progressBar = binding.progressBarOverview
         val animeTitle = binding.animeTitle
         val animeScore = binding.animeScore
@@ -246,9 +246,7 @@ class OverviewAnimeFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                progressBar.visibility = View.VISIBLE
-                val view = progressBar.rootView
-                Snackbar.make(view, "Not found information about this anime...", Snackbar.LENGTH_LONG).show()
+                animeViewModel.getAnimeApi(malID)
             }
             else -> {
                 //"Nothing to do"
