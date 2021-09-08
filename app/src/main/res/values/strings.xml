@@ -67,6 +67,7 @@
     <string name="retry">Retry</string>
     <string name="anime_airing">Anime Airing</string>
     <string name="manga_airing">Manga Airing</string>
+    <string name="picture">Picture</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

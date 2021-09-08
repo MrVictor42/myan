@@ -35,7 +35,6 @@ class GenresAdapter(var genres: MutableList<Genre>) :
                 (itemView.context as FragmentActivity)
                     .supportFragmentManager
                     .beginTransaction().replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
-                    .addToBackStack(null)
                     .commit()
             }
         }

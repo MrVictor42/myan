@@ -57,7 +57,6 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     private fun processAnimeResponse(state: ScreenStateHelper<Anime>?) {
-        val malID = arguments?.getString("mal_id").toString()
         val progressBar = binding.progressBarOverview
         val animeTitle = binding.animeTitle
         val animeScore = binding.animeScore

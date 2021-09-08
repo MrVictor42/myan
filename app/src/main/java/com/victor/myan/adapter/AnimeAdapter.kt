@@ -69,9 +69,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
                 val transaction =
                     fragmentManager?.
                     beginTransaction()?.
-                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)?.
-                    addToBackStack(null)
-
+                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

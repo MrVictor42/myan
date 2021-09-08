@@ -9,7 +9,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -109,7 +108,6 @@ class BaseLayout : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-            .addToBackStack(null)
             .commit()
     }
 }

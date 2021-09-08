@@ -24,6 +24,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_home.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_manga_character.xml" value="0.12092391304347826" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview.xml" value="0.25" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_anime.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_person.xml" value="0.12092391304347826" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_recommendation.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_voice_character.xml" value="0.12092391304347826" />
@@ -45,7 +46,7 @@
         <entry key="app/src/main/res/layout/fragment_anime_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_episodes.xml" value="0.1490036231884058" />
-        <entry key="app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.12" />
         <entry key="app/src/main/res/layout/fragment_base_character_detail.xml" value="0.11141304347826086" />
         <entry key="app/src/main/res/layout/fragment_carousel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_carousel_anime_list.xml" value="0.12273550724637682" />
@@ -63,6 +64,7 @@
         <entry key="app/src/main/res/layout/genres_text.xml" value="0.13677536231884058" />
         <entry key="app/src/main/res/layout/list_image_adapter.xml" value="0.15" />
         <entry key="app/src/main/res/layout/list_staff_person_adapter.xml" value="0.12409420289855072" />
+        <entry key="app/src/main/res/layout/picture_base.xml" value="0.10597826086956522" />
         <entry key="app/src/main/res/layout/recyclerview.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/toolbar_back.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />

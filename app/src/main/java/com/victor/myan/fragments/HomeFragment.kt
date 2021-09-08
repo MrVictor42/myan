@@ -1,8 +1,6 @@
 package com.victor.myan.fragments
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,12 +52,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onResume() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            processAnimeListSeasonResponse()
-            processAnimeListTopResponse()
-            processMangaListTopResponse()
-        }, 3000)
         super.onResume()
+        processAnimeListSeasonResponse()
+        processAnimeListTopResponse()
+        processMangaListTopResponse()
     }
 
     private fun processMangaListAiringResponse() {
@@ -101,7 +97,7 @@ class HomeFragment : Fragment() {
         val topMangaRecyclerView = binding.topManga.recyclerView
 
         mangaViewModel.getMangaListTopApi()
-        mangaViewModel.mangaTopList.observe(viewLifecycleOwner, { state ->
+        mangaViewModel.mangaTopList.observe(this, { state ->
             when(state) {
                 null -> {
 
@@ -135,7 +131,7 @@ class HomeFragment : Fragment() {
         val topAnimeRecyclerView = binding.topAnime.recyclerView
 
         animeViewModel.getAnimeListTopApi()
-        animeViewModel.animeListTop.observe(viewLifecycleOwner, { state ->
+        animeViewModel.animeListTop.observe(this, { state ->
             when(state) {
                 null -> {
 
@@ -155,7 +151,7 @@ class HomeFragment : Fragment() {
                     topAnimeRecyclerView.visibility = View.VISIBLE
                 }
                 is ScreenStateHelper.Error -> {
-                    animeViewModel.getAnimeListTopApi()
+
                 }
                 else -> {
 
@@ -169,7 +165,7 @@ class HomeFragment : Fragment() {
         val seasonAnimeRecyclerView = binding.seasonAnime.recyclerView
 
         animeViewModel.getAnimeListSeasonApi()
-        animeViewModel.animeListSeason.observe(viewLifecycleOwner, { state ->
+        animeViewModel.animeListSeason.observe(this, { state ->
             when(state) {
                 null -> {
 
@@ -191,7 +187,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    animeViewModel.getAnimeListSeasonApi()
+
                 }
                 else -> {
 
@@ -227,7 +223,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    processAnimeListTodayResponse()
+
                 }
                 else -> {
 
@@ -263,7 +259,7 @@ class HomeFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    animeViewModel.getAnimeListAiringApi()
+
                 }
                 else -> {
 
@@ -271,17 +267,4 @@ class HomeFragment : Fragment() {
             }
         })
     }
-
-//    override fun onScrollChanged() {
-//        val view: View = scrollview.getChildAt(scrollview.childCount - 1)
-//        val topDetector: Int = scrollview.getScrollY()
-//        val bottomDetector: Int = view.bottom - (scrollview.getHeight() + scrollview.getScrollY())
-//        if (bottomDetector == 0) {
-//            Toast.makeText(context, "Scroll View bottom reached", Toast.LENGTH_SHORT)
-//                .show()
-//        }
-//        if (topDetector <= 0) {
-//            Toast.makeText(context, "Scroll View top reached", Toast.LENGTH_SHORT).show()
-//        }
-//    }
 }
