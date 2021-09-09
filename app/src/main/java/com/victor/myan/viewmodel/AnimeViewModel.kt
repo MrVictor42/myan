@@ -41,6 +41,7 @@ class AnimeViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     animeListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
+                    getAnimeListAiringApi()
                     animeListAiring.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -76,6 +77,7 @@ class AnimeViewModel : ViewModel() {
                     }
                     animeListToday.postValue(ScreenStateHelper.Success(animeList))
                 } else {
+                    getAnimeListTopApi()
                     animeListToday.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -113,6 +115,7 @@ class AnimeViewModel : ViewModel() {
                         animeListSeason.postValue(ScreenStateHelper.Success(animeList))
                     }
                 } else {
+                    getAnimeListSeasonApi()
                     animeListSeason.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -132,6 +135,7 @@ class AnimeViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     animeListTop.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
+                    getAnimeListTopApi()
                     animeListTop.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -151,6 +155,7 @@ class AnimeViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     anime.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
+                    getAnimeApi(malID)
                     anime.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }

@@ -17,5 +17,4 @@
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/logo_icon_without_letters"
     />
-
 </com.google.android.material.appbar.AppBarLayout>
