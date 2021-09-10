@@ -30,10 +30,10 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): OverviewAnimeFragment {
+        fun newInstance(mal_id : Int): OverviewAnimeFragment {
             val overviewFragment = OverviewAnimeFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             overviewFragment.arguments = args
             return overviewFragment
         }
@@ -48,9 +48,9 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")
 
-        animeViewModel.getAnimeApi(malID)
+        animeViewModel.getAnimeApi(malID!!)
         animeViewModel.anime.observe(viewLifecycleOwner, { state ->
             processAnimeResponse(state)
         })
@@ -86,7 +86,7 @@ class OverviewAnimeFragment : Fragment() {
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
-                    progressBar.visibility = View.INVISIBLE
+                    progressBar.visibility = View.GONE
                     with(state.data) {
                         animeTitle.text = title
                         Glide.with(view?.context!!).load(imageUrl).into(animeImage)
@@ -121,7 +121,7 @@ class OverviewAnimeFragment : Fragment() {
                             else -> type
                         }
 
-                        val year = if(premiered == "null" || premiered.isNullOrEmpty()) {
+                        val year = if(premiered == "null" || premiered.isEmpty()) {
                             "─"
                         } else {
                             auxServicesHelper.formatPremiered(premiered)
@@ -172,7 +172,7 @@ class OverviewAnimeFragment : Fragment() {
                             "null" -> "─"
                             "0" -> "─"
                             "" -> "─"
-                            else -> auxServicesHelper.formatDurationEpisode(animeType!!, duration!!)
+                            else -> auxServicesHelper.formatDurationEpisode(animeType, duration)
                         }
 
                         val epiDuration = "$episode eps, $duration"
@@ -192,7 +192,7 @@ class OverviewAnimeFragment : Fragment() {
                         }
 
                         if (licensorList.isEmpty()) {
-                            animeLicensors.text = "Unknown"
+                            animeLicensors.text = getString(R.string.unknown)
                         } else {
                             for (licensor in licensorList.indices) {
                                 listLicensors += licensorList[licensor].name
@@ -204,7 +204,7 @@ class OverviewAnimeFragment : Fragment() {
                         }
 
                         if (studioList.isEmpty()) {
-                            animeStudios.text = "Unknown"
+                            animeStudios.text = getString(R.string.unknown)
                         } else {
                             for (studio in studioList.indices) {
                                 listStudios += studioList[studio].name
@@ -215,25 +215,26 @@ class OverviewAnimeFragment : Fragment() {
                             animeStudios.text = listStudios
                         }
 
-                        animeVideo.addYouTubePlayerListener(object :
-                            AbstractYouTubePlayerListener() {
-                            override fun onReady(youTubePlayer: YouTubePlayer) {
-                                if (trailerUrl.isNullOrEmpty() || trailerUrl == "null") {
-                                    Toast.makeText(
-                                        context,
-                                        auxServicesHelper.capitalize(
-                                            "this anime doesn't have a preview yet"
-                                        ), Toast.LENGTH_LONG
-                                    ).show()
-                                } else {
+                        if (trailerUrl.isEmpty() || trailerUrl == "null") {
+                            Toast.makeText(
+                                context,
+                                auxServicesHelper.capitalize(
+                                    "this anime doesn't have a preview yet"
+                                ), Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            animeVideo.visibility = View.VISIBLE
+                            animeVideo.addYouTubePlayerListener(object :
+                                AbstractYouTubePlayerListener() {
+                                override fun onReady(youTubePlayer: YouTubePlayer) {
                                     val videoId =
                                         youtubeHelper.extractVideoIdFromUrl(trailerUrl)
                                             .toString()
                                     youTubePlayer.loadVideo(videoId, 0f)
                                     youTubePlayer.pause()
                                 }
-                            }
-                        })
+                            })
+                        }
 
                         expandableTextViewSynopsis.text = synopsis
                         expandableTextViewOpening.text = openingThemes.toString().replace(",", "\n")

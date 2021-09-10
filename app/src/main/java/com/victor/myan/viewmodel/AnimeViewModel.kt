@@ -146,7 +146,7 @@ class AnimeViewModel : ViewModel() {
         })
     }
 
-    fun getAnimeApi(malID : String) {
+    fun getAnimeApi(malID : Int) {
         val animeApi = JikanApiInstance.animeApi.getAnime(malID)
 
         anime.postValue(ScreenStateHelper.Loading(null))
@@ -166,7 +166,7 @@ class AnimeViewModel : ViewModel() {
         })
     }
 
-    fun getAnimeRecommendationApi(malID: String) {
+    fun getAnimeRecommendationApi(malID: Int) {
         val animeApi = JikanApiInstance.animeApi.getRecommendations(malID)
 
         animeRecommendationList.postValue(ScreenStateHelper.Loading(null))

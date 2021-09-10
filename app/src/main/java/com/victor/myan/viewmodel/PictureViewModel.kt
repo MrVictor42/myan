@@ -15,7 +15,7 @@ class PictureViewModel : ViewModel() {
 
     val pictureList : MutableLiveData<ScreenStateHelper<List<Picture>?>> = MutableLiveData()
 
-    fun getPicturesApi(type : String, malID : String) {
+    fun getPicturesApi(type : String, malID : Int) {
         val picturesApi = JikanApiInstance.picturesApi.getPictures(type, malID)
         val pictures : MutableList<Picture> = arrayListOf()
 

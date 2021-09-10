@@ -36,7 +36,7 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterListApi(malID: String) {
+    fun getCharacterListApi(malID: Int) {
         val characterApi = JikanApiInstance.characterApi.animeCharacters(malID)
 
         characterList.postValue(ScreenStateHelper.Loading(null))

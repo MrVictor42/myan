@@ -35,7 +35,7 @@ class BaseAnimeDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
@@ -71,10 +71,11 @@ class BaseAnimeDetailFragment : Fragment() {
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
 
         val carouselView = binding.carouselView.carouselViewCarousel
+        val progressBar = binding.carouselView.progressBarCarousel
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                progressBar.visibility = View.VISIBLE
             }
             is ScreenStateHelper.Success -> {
                 if (state.data != null) {
@@ -93,6 +94,7 @@ class BaseAnimeDetailFragment : Fragment() {
                     }
                     carouselView.pageCount = state.data.size
                 }
+                progressBar.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
 

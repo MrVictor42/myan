@@ -10,7 +10,7 @@ import retrofit2.http.Query
 interface AnimeApi {
 
     @GET("anime/{mal_id}")
-    fun getAnime(@Path("mal_id") mal_id : String) : Call<Anime>
+    fun getAnime(@Path("mal_id") mal_id : Int) : Call<Anime>
 
     @GET("season/{year}/{season}")
     fun getSeason(@Path("year") currentYear : Int,
@@ -23,7 +23,7 @@ interface AnimeApi {
     fun getTopAnime() : Call<AnimeListTopResponse>
 
     @GET("anime/{mal_id}/recommendations")
-    fun getRecommendations(@Path("mal_id") mal_id : String) : Call<AnimeListRecommendationResponse>
+    fun getRecommendations(@Path("mal_id") mal_id : Int) : Call<AnimeListRecommendationResponse>
 
     @GET("search/anime")
     fun animeListAiring(
