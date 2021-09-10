@@ -68,8 +68,8 @@ class AnimeViewModel : ViewModel() {
                                 val animeObject : JsonObject? = dayAnime.get(aux) as JsonObject?
                                 if(animeObject != null) {
                                     val anime = Anime()
-                                    anime.mal_id = animeObject.get("mal_id").asString
-                                    anime.image_url = animeObject.get("image_url").asString
+                                    anime.malID = animeObject.get("mal_id").asInt
+                                    anime.imageUrl = animeObject.get("image_url").asString
                                     animeList.add(anime)
                                 }
                             }
@@ -106,8 +106,8 @@ class AnimeViewModel : ViewModel() {
                                 val animeObject : JsonObject? = animeSeason.get(aux) as JsonObject?
                                 if(animeObject != null) {
                                     val anime = Anime()
-                                    anime.mal_id = animeObject.get("mal_id").asString
-                                    anime.image_url = animeObject.get("image_url").asString
+                                    anime.malID = animeObject.get("mal_id").asInt
+                                    anime.imageUrl = animeObject.get("image_url").asString
                                     animeList.add(anime)
                                 }
                             }

@@ -89,12 +89,12 @@ class OverviewAnimeFragment : Fragment() {
                     progressBar.visibility = View.INVISIBLE
                     with(state.data) {
                         animeTitle.text = title
-                        Glide.with(view?.context!!).load(image_url).into(animeImage)
+                        Glide.with(view?.context!!).load(imageUrl).into(animeImage)
 
-                        if(title_synonyms!!.isEmpty() || title_synonyms!!.equals("null")) {
+                        if(titleSynonyms.isEmpty() || titleSynonyms.equals("null")) {
                             animeTitleSynonyms.text = "─"
                         } else {
-                            animeTitleSynonyms.text = title_synonyms.toString()
+                            animeTitleSynonyms.text = titleSynonyms.toString()
                         }
 
                         if(members.toString().isEmpty() || members.toString() == "null") {
@@ -121,10 +121,10 @@ class OverviewAnimeFragment : Fragment() {
                             else -> type
                         }
 
-                        val year = if(premiered == null || premiered == "" || premiered.isNullOrEmpty()) {
+                        val year = if(premiered == "null" || premiered.isNullOrEmpty()) {
                             "─"
                         } else {
-                            auxServicesHelper.formatPremiered(premiered!!)
+                            auxServicesHelper.formatPremiered(premiered)
                         }
 
                         val typeYearConcat = "$animeType, $year"
@@ -178,37 +178,37 @@ class OverviewAnimeFragment : Fragment() {
                         val epiDuration = "$episode eps, $duration"
                         episodeDuration.text = epiDuration
 
-                        if (genres!!.isEmpty()) {
+                        if (genreList.isEmpty()) {
                             // Nothing to do
                         } else {
-                            for (genre in genres!!.indices) {
+                            for (genre in genreList.indices) {
 
-                                listGenres += genres!![genre].name
-                                if (genre < genres!!.size - 1) {
+                                listGenres += genreList[genre].name
+                                if (genre < genreList.size - 1) {
                                     listGenres += " • "
                                 }
                             }
                             animeGenres.text = listGenres
                         }
 
-                        if (licensors!!.isEmpty()) {
+                        if (licensorList.isEmpty()) {
                             animeLicensors.text = "Unknown"
                         } else {
-                            for (licensor in licensors!!.indices) {
-                                listLicensors += licensors!![licensor].name
-                                if (licensor < licensors!!.size - 1) {
+                            for (licensor in licensorList.indices) {
+                                listLicensors += licensorList[licensor].name
+                                if (licensor < licensorList.size - 1) {
                                     listLicensors += "\n"
                                 }
                             }
                             animeLicensors.text = listLicensors
                         }
 
-                        if (studios!!.isEmpty()) {
+                        if (studioList.isEmpty()) {
                             animeStudios.text = "Unknown"
                         } else {
-                            for (studio in studios!!.indices) {
-                                listStudios += studios!![studio].name
-                                if (studio < studios!!.size - 1) {
+                            for (studio in studioList.indices) {
+                                listStudios += studioList[studio].name
+                                if (studio < studioList.size - 1) {
                                     listStudios += "\n"
                                 }
                             }
@@ -218,7 +218,7 @@ class OverviewAnimeFragment : Fragment() {
                         animeVideo.addYouTubePlayerListener(object :
                             AbstractYouTubePlayerListener() {
                             override fun onReady(youTubePlayer: YouTubePlayer) {
-                                if (trailer_url!!.isEmpty() || trailer_url == "null") {
+                                if (trailerUrl.isNullOrEmpty() || trailerUrl == "null") {
                                     Toast.makeText(
                                         context,
                                         auxServicesHelper.capitalize(
@@ -227,7 +227,7 @@ class OverviewAnimeFragment : Fragment() {
                                     ).show()
                                 } else {
                                     val videoId =
-                                        youtubeHelper.extractVideoIdFromUrl(trailer_url!!)
+                                        youtubeHelper.extractVideoIdFromUrl(trailerUrl)
                                             .toString()
                                     youTubePlayer.loadVideo(videoId, 0f)
                                     youTubePlayer.pause()
@@ -236,9 +236,9 @@ class OverviewAnimeFragment : Fragment() {
                         })
 
                         expandableTextViewSynopsis.text = synopsis
-                        expandableTextViewOpening.text = opening_themes.toString().replace(",", "\n")
+                        expandableTextViewOpening.text = openingThemes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
-                        expandableTextViewEnding.text = ending_themes.toString().replace(",", "\n")
+                        expandableTextViewEnding.text = endingThemes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
                     }
                 }

@@ -55,8 +55,8 @@ class ActorViewModel : ViewModel() {
                                     if(anime != null) {
                                         for(auxObject in 0 until anime.size()) {
                                             val animeActor = Anime()
-                                            animeActor.mal_id = anime.get("mal_id").asString
-                                            animeActor.image_url = anime.get("image_url").asString
+                                            animeActor.malID = anime.get("mal_id").asInt
+                                            animeActor.imageUrl = anime.get("image_url").asString
                                             animeList.add(animeActor)
                                         }
                                     }
