@@ -49,7 +49,7 @@ data class Anime (
     var pictures : List<Picture>? = arrayListOf(),
 )
 
-data class AnimeListCarouselResponse (
+data class AnimeListAiringResponse (
     val results : List<Anime>
 )
 

@@ -26,9 +26,9 @@ data class ActorsListCharacterResponse (
 )
 
 data class VoiceActingRolesAnimeResponse (
-    val anime : List<Anime>
+    val voice_acting_roles : List<Anime>
 )
 
 data class VoiceActingRolesCharacterResponse (
-    val character : List<Character>
+    val voice_acting_roles : List<Character>
 )

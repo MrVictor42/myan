@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Anime
-import com.victor.myan.screens.animeDetail.BaseAnimeDetailFragment
+import com.victor.myan.baseFragments.BaseAnimeDetailFragment
 
 class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
@@ -66,7 +66,10 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
                 fragment.arguments = bundle
 
-                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+                val transaction =
+                    fragmentManager?.
+                    beginTransaction()?.
+                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

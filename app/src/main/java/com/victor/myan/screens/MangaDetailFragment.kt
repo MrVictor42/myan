@@ -20,6 +20,7 @@ import com.victor.myan.databinding.FragmentMangaDetailBinding
 import com.victor.myan.enums.MangaStatusEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.api.JikanApiInstance
+import com.victor.myan.fragments.HomeFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,7 +48,7 @@ class MangaDetailFragment : Fragment() {
                 (view.context as FragmentActivity)
                     .supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.content, homeFragment)
+                    .replace(R.id.fragment_layout, homeFragment)
                     .addToBackStack(null)
                     .commit()
             }

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black_gray"
-    tools:context=".screens.BaseLayout">
+    tools:context=".baseFragments.BaseLayout">
 
     <FrameLayout
-        android:id="@+id/content"
+        android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginBottom="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,11 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/tab_item"
+        app:itemTextColor="@color/tab_item"
         android:padding="0dp"
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
-        app:layout_constraintTop_toBottomOf="@id/content"
+        app:layout_constraintTop_toBottomOf="@id/fragment_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

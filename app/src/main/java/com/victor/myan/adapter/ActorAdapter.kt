@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Actor
-import com.victor.myan.screens.personDetail.BasePersonDetailFragment
+import com.victor.myan.baseFragments.BaseActorDetailFragment
 
 class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) {
 
@@ -58,7 +58,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
             }).into(image)
 
             itemView.setOnClickListener {
-                val fragment = BasePersonDetailFragment()
+                val fragment = BaseActorDetailFragment()
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()
@@ -66,7 +66,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
 
                 fragment.arguments = bundle
 
-                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.content, fragment)
+                val transaction = fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             }

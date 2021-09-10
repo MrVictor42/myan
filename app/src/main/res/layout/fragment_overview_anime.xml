@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
-    tools:context=".screens.animeDetail.OverviewAnimeFragment">
+    tools:context=".fragments.tablayouts.animeDetail.OverviewAnimeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

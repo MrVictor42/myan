@@ -10,6 +10,7 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.victor.myan.R
+import com.victor.myan.baseFragments.BaseLayout
 import com.victor.myan.databinding.ActivityFormLoginBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 
