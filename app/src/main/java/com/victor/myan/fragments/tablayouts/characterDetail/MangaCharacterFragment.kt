@@ -22,10 +22,10 @@ class MangaCharacterFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): MangaCharacterFragment {
+        fun newInstance(mal_id : Int): MangaCharacterFragment {
             val mangaCharacterFragment = MangaCharacterFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             mangaCharacterFragment.arguments = args
             return mangaCharacterFragment
         }
@@ -40,7 +40,7 @@ class MangaCharacterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
 
         characterViewModel.getCharacterMangaApi(malID)
         characterViewModel.characterMangaList.observe(viewLifecycleOwner, { state ->
@@ -49,7 +49,6 @@ class MangaCharacterFragment : Fragment() {
     }
 
     private fun processCharacterMangaResponse(state: ScreenStateHelper<List<Manga>?>) {
-        val malID = arguments?.getString("mal_id").toString()
         val characterMangaRecyclerView = binding.recyclerView.recyclerViewVertical
         val emptyText = binding.emptyListTextView
 
@@ -75,7 +74,7 @@ class MangaCharacterFragment : Fragment() {
                 characterMangaRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                characterViewModel.getCharacterMangaApi(malID)
+
             }
         }
     }

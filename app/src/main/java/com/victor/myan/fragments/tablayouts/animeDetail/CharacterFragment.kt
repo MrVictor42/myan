@@ -22,10 +22,10 @@ class CharacterFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): CharacterFragment {
+        fun newInstance(mal_id : Int): CharacterFragment {
             val characterFragment = CharacterFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             characterFragment.arguments = args
             return characterFragment
         }
@@ -40,7 +40,7 @@ class CharacterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
 
         characterViewModel.getCharacterListApi(malID)
         characterViewModel.characterList.observe(viewLifecycleOwner, { state ->
@@ -49,7 +49,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
         val characterRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {

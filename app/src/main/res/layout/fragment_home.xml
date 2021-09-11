@@ -21,31 +21,31 @@
             android:layout_marginBottom="10dp">
             <include
                 layout="@layout/toolbar_main"
-            />
+                />
             <include
                 android:id="@+id/today_anime"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
             <include
                 android:id="@+id/anime_airing"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
             <include
                 android:id="@+id/manga_airing"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
             <include
                 android:id="@+id/season_anime"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
             <include
                 android:id="@+id/top_anime"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
             <include
                 android:id="@+id/top_manga"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

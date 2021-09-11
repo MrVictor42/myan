@@ -4,49 +4,47 @@ import com.google.gson.annotations.SerializedName
 
 data class Anime (
     @SerializedName("mal_id")
-    var mal_id: String? = "",
+    var malID : Int = 0,
     @SerializedName("title")
-    var title : String? = "",
+    var title : String = "",
     @SerializedName("synopsis")
-    var synopsis : String? = "",
+    var synopsis : String = "",
     @SerializedName("image_url")
-    var image_url : String? = "",
+    var imageUrl : String = "",
     @SerializedName("trailer_url")
-    var trailer_url : String? = "",
+    var trailerUrl : String = "",
     @SerializedName("status")
-    var status : String? = "",
-    @SerializedName("airing_start")
-    var airing_start : String? = "",
+    var status : String = "",
     @SerializedName("premiered")
-    var premiered : String? = "",
+    var premiered : String = "",
     @SerializedName("episodes")
-    var episodes : Int? = 0,
+    var episodes : Int = 0,
     @SerializedName("score")
-    var score : Double? = 0.0,
+    var score : Double = 0.0,
     @SerializedName("type")
-    var type : String? = "",
+    var type : String = "",
     @SerializedName("duration")
-    var duration : String? = "",
+    var duration : String = "",
     @SerializedName("popularity")
-    var popularity : Int? = 0,
+    var popularity : Int = 0,
     @SerializedName("members")
-    var members : Int? = 0,
+    var members : Int = 0,
     @SerializedName("favorites")
-    var favorites : Int? = 0,
+    var favorites : Int = 0,
     @SerializedName("genres")
-    var genres : List<Genre>? = arrayListOf(),
+    var genreList : List<Genre> = arrayListOf(),
     @SerializedName("licensors")
-    var licensors : List<Licensor>? = arrayListOf(),
+    var licensorList : List<Licensor> = arrayListOf(),
     @SerializedName("studios")
-    var studios : List<Studio>? = arrayListOf(),
+    var studioList : List<Studio> = arrayListOf(),
     @SerializedName("title_synonyms")
-    var title_synonyms : List<String>? = arrayListOf(),
+    var titleSynonyms : List<String> = arrayListOf(),
     @SerializedName("opening_themes")
-    var opening_themes : List<String>? = arrayListOf(),
+    var openingThemes : List<String> = arrayListOf(),
     @SerializedName("ending_themes")
-    var ending_themes : List<String>? = arrayListOf(),
+    var endingThemes : List<String> = arrayListOf(),
     @SerializedName("pictures")
-    var pictures : List<Picture>? = arrayListOf(),
+    var pictureList : List<Picture> = arrayListOf()
 )
 
 data class AnimeListAiringResponse (

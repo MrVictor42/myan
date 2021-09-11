@@ -21,6 +21,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var animeAdapter: AnimeAdapter
     private lateinit var mangaAdapter: MangaAdapter
+
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
     }

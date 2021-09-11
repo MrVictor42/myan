@@ -55,7 +55,7 @@ class MangaDetailFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
 
-        val malID = arguments?.getString("mal_id")
+        val malID = arguments?.getInt("mal_id")!!
         val year = arguments?.getString("year")
 
         val mangaImage = binding.mangaImage
@@ -79,7 +79,7 @@ class MangaDetailFragment : Fragment() {
         val api = JikanApiInstance.getJikanApiInstance().create(MangaApi::class.java)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val call: Response<JsonObject> = api.getManga(malID.toString())
+            val call: Response<JsonObject> = api.getManga(malID)
             withContext(Dispatchers.Main) {
                 if (call.isSuccessful) {
                     val mangaResponse = call.body()

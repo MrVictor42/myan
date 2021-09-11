@@ -26,7 +26,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
         }
 
         override fun areContentsTheSame(oldItem: Manga, newItem: Manga): Boolean {
-            return oldItem.mal_id == newItem.mal_id
+            return oldItem.malID == newItem.malID
         }
     }
 
@@ -36,7 +36,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
         private val progressBar = binding.progressBarPlaceholder
 
         fun bind(manga: Manga) {
-            Glide.with(itemView.context).load(manga.image_url).listener(object :
+            Glide.with(itemView.context).load(manga.imageUrl).listener(object :
                 RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?,
                                           target: com.bumptech.glide.request.target.Target<Drawable>?,
@@ -62,7 +62,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()
-                bundle.putString("mal_id", manga.mal_id)
+                bundle.putInt("mal_id", manga.malID)
 
                 fragment.arguments = bundle
 

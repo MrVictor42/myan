@@ -17,9 +17,13 @@
             android:orientation="vertical"
             >
             <include
-                android:id="@+id/picture_base"
-                layout="@layout/picture_base"
-                />
+                android:id="@+id/carouselView"
+                layout="@layout/carousel_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
@@ -28,7 +32,7 @@
                 app:tabTextColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/picture_base"
+                app:layout_constraintBottom_toBottomOf="@id/carouselView"
                 />
 
             <androidx.viewpager2.widget.ViewPager2

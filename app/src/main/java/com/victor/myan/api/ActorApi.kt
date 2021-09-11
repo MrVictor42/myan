@@ -9,8 +9,8 @@ import retrofit2.http.Path
 interface ActorApi {
 
     @GET("person/{mal_id}")
-    fun getActor(@Path("mal_id") mal_id : String) : Call<Actor>
+    fun getActor(@Path("mal_id") malID : Int) : Call<Actor>
 
     @GET("person/{mal_id}")
-    fun getActorAnime(@Path("mal_id") mal_id : String) : Call<JsonObject>
+    fun getActorAnime(@Path("mal_id") malID : Int) : Call<JsonObject>
 }

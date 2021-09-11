@@ -8,5 +8,5 @@ import retrofit2.http.Path
 interface PicturesApi {
 
     @GET("{type}/{mal_id}/pictures")
-    fun getPictures(@Path("type") type: String, @Path("mal_id") mal_id : String) : Call<JsonObject>
+    fun getPictures(@Path("type") type: String, @Path("mal_id") mal_id : Int) : Call<JsonObject>
 }

@@ -26,7 +26,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
         }
 
         override fun areContentsTheSame(oldItem: Actor, newItem: Actor): Boolean {
-            return oldItem.mal_id == newItem.mal_id
+            return oldItem.malID == newItem.malID
         }
     }
 
@@ -36,7 +36,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
         private val progressBar = binding.progressBarPlaceholder
 
         fun bind(actor : Actor) {
-            Glide.with(itemView.context).load(actor.image_url).listener(object :
+            Glide.with(itemView.context).load(actor.imageUrl).listener(object :
                 RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?,
                                           target: com.bumptech.glide.request.target.Target<Drawable>?,
@@ -62,7 +62,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()
-                bundle.putString("mal_id", actor.mal_id)
+                bundle.putInt("mal_id", actor.malID)
 
                 fragment.arguments = bundle
 

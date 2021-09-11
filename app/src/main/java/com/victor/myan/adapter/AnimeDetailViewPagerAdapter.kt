@@ -8,7 +8,7 @@ import com.victor.myan.fragments.tablayouts.animeDetail.CharacterFragment
 import com.victor.myan.fragments.tablayouts.animeDetail.OverviewAnimeFragment
 import com.victor.myan.fragments.tablayouts.animeDetail.RecommendationFragment
 
-class AnimeDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class AnimeDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
     private val size = sizePager

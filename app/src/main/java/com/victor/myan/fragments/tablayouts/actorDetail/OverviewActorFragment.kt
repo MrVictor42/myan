@@ -21,10 +21,10 @@ class OverviewActorFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): OverviewActorFragment {
+        fun newInstance(mal_id : Int): OverviewActorFragment {
             val overviewFragment = OverviewActorFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             overviewFragment.arguments = args
             return overviewFragment
         }
@@ -39,7 +39,7 @@ class OverviewActorFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
 
         actorViewModel.getActorApi(malID)
         actorViewModel.actor.observe(viewLifecycleOwner, { state ->
@@ -51,8 +51,8 @@ class OverviewActorFragment : Fragment() {
 
         val personImage = binding.personImage
         val personName = binding.personName
-        val givenName = binding.givenName
-        val familyName = binding.familyName
+        val givenNameText = binding.givenName
+        val familyNameText = binding.familyName
         val personBirthday = binding.personBirthday
         val alternativeNames = binding.alternativesNames
         val expandableAbout = binding.expandableTextViewAbout.expandableTextView
@@ -65,7 +65,7 @@ class OverviewActorFragment : Fragment() {
                 if(state.data != null) {
                     with(state.data) {
                         Glide.with(view?.context!!)
-                            .load(image_url)
+                            .load(imageUrl)
                             .placeholder(R.drawable.ic_launcher_foreground)
                             .error(R.drawable.ic_launcher_foreground)
                             .fallback(R.drawable.ic_launcher_foreground)
@@ -73,17 +73,17 @@ class OverviewActorFragment : Fragment() {
                             .into(personImage)
                         personName.text = name
                         personName.visibility = View.VISIBLE
-                        givenName.text = given_name
-                        givenName.visibility = View.VISIBLE
-                        familyName.text = family_name
-                        familyName.visibility = View.VISIBLE
+                        givenNameText.text = givenName
+                        givenNameText.visibility = View.VISIBLE
+                        familyNameText.text = familyName
+                        familyNameText.visibility = View.VISIBLE
                         personBirthday.text = birthday
                         personBirthday.visibility = View.VISIBLE
 
-                        if(alternate_names.isEmpty() || alternate_names.equals("null")) {
+                        if(alternateNames.isNullOrEmpty() || alternateNames.equals("null")) {
                             // Nothing to do
                         } else {
-                            alternativeNames.text = alternate_names.toString()
+                            alternativeNames.text = alternateNames.toString()
                             alternativeNames.visibility = View.VISIBLE
                         }
 

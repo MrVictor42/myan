@@ -30,10 +30,10 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): OverviewAnimeFragment {
+        fun newInstance(mal_id : Int): OverviewAnimeFragment {
             val overviewFragment = OverviewAnimeFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             overviewFragment.arguments = args
             return overviewFragment
         }
@@ -48,9 +48,9 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")
 
-        animeViewModel.getAnimeApi(malID)
+        animeViewModel.getAnimeApi(malID!!)
         animeViewModel.anime.observe(viewLifecycleOwner, { state ->
             processAnimeResponse(state)
         })
@@ -86,15 +86,15 @@ class OverviewAnimeFragment : Fragment() {
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
-                    progressBar.visibility = View.INVISIBLE
+                    progressBar.visibility = View.GONE
                     with(state.data) {
                         animeTitle.text = title
-                        Glide.with(view?.context!!).load(image_url).into(animeImage)
+                        Glide.with(view?.context!!).load(imageUrl).into(animeImage)
 
-                        if(title_synonyms!!.isEmpty() || title_synonyms!!.equals("null")) {
+                        if(titleSynonyms.isEmpty() || titleSynonyms.equals("null")) {
                             animeTitleSynonyms.text = "─"
                         } else {
-                            animeTitleSynonyms.text = title_synonyms.toString()
+                            animeTitleSynonyms.text = titleSynonyms.toString()
                         }
 
                         if(members.toString().isEmpty() || members.toString() == "null") {
@@ -121,10 +121,10 @@ class OverviewAnimeFragment : Fragment() {
                             else -> type
                         }
 
-                        val year = if(premiered == null || premiered == "" || premiered.isNullOrEmpty()) {
+                        val year = if(premiered == "null" || premiered.isEmpty()) {
                             "─"
                         } else {
-                            auxServicesHelper.formatPremiered(premiered!!)
+                            auxServicesHelper.formatPremiered(premiered)
                         }
 
                         val typeYearConcat = "$animeType, $year"
@@ -172,73 +172,74 @@ class OverviewAnimeFragment : Fragment() {
                             "null" -> "─"
                             "0" -> "─"
                             "" -> "─"
-                            else -> auxServicesHelper.formatDurationEpisode(animeType!!, duration!!)
+                            else -> auxServicesHelper.formatDurationEpisode(animeType, duration)
                         }
 
                         val epiDuration = "$episode eps, $duration"
                         episodeDuration.text = epiDuration
 
-                        if (genres!!.isEmpty()) {
+                        if (genreList.isEmpty()) {
                             // Nothing to do
                         } else {
-                            for (genre in genres!!.indices) {
+                            for (genre in genreList.indices) {
 
-                                listGenres += genres!![genre].name
-                                if (genre < genres!!.size - 1) {
+                                listGenres += genreList[genre].name
+                                if (genre < genreList.size - 1) {
                                     listGenres += " • "
                                 }
                             }
                             animeGenres.text = listGenres
                         }
 
-                        if (licensors!!.isEmpty()) {
-                            animeLicensors.text = "Unknown"
+                        if (licensorList.isEmpty()) {
+                            animeLicensors.text = getString(R.string.unknown)
                         } else {
-                            for (licensor in licensors!!.indices) {
-                                listLicensors += licensors!![licensor].name
-                                if (licensor < licensors!!.size - 1) {
+                            for (licensor in licensorList.indices) {
+                                listLicensors += licensorList[licensor].name
+                                if (licensor < licensorList.size - 1) {
                                     listLicensors += "\n"
                                 }
                             }
                             animeLicensors.text = listLicensors
                         }
 
-                        if (studios!!.isEmpty()) {
-                            animeStudios.text = "Unknown"
+                        if (studioList.isEmpty()) {
+                            animeStudios.text = getString(R.string.unknown)
                         } else {
-                            for (studio in studios!!.indices) {
-                                listStudios += studios!![studio].name
-                                if (studio < studios!!.size - 1) {
+                            for (studio in studioList.indices) {
+                                listStudios += studioList[studio].name
+                                if (studio < studioList.size - 1) {
                                     listStudios += "\n"
                                 }
                             }
                             animeStudios.text = listStudios
                         }
 
-                        animeVideo.addYouTubePlayerListener(object :
-                            AbstractYouTubePlayerListener() {
-                            override fun onReady(youTubePlayer: YouTubePlayer) {
-                                if (trailer_url!!.isEmpty() || trailer_url == "null") {
-                                    Toast.makeText(
-                                        context,
-                                        auxServicesHelper.capitalize(
-                                            "this anime doesn't have a preview yet"
-                                        ), Toast.LENGTH_LONG
-                                    ).show()
-                                } else {
+                        if (trailerUrl.isEmpty() || trailerUrl == "null") {
+                            Toast.makeText(
+                                context,
+                                auxServicesHelper.capitalize(
+                                    "this anime doesn't have a preview yet"
+                                ), Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            animeVideo.visibility = View.VISIBLE
+                            animeVideo.addYouTubePlayerListener(object :
+                                AbstractYouTubePlayerListener() {
+                                override fun onReady(youTubePlayer: YouTubePlayer) {
                                     val videoId =
-                                        youtubeHelper.extractVideoIdFromUrl(trailer_url!!)
+                                        youtubeHelper.extractVideoIdFromUrl(trailerUrl)
                                             .toString()
                                     youTubePlayer.loadVideo(videoId, 0f)
                                     youTubePlayer.pause()
                                 }
-                            }
-                        })
+                            })
+                        }
 
                         expandableTextViewSynopsis.text = synopsis
-                        expandableTextViewOpening.text = opening_themes.toString().replace(",", "\n")
+                        expandableTextViewOpening.text = openingThemes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
-                        expandableTextViewEnding.text = ending_themes.toString().replace(",", "\n")
+                        expandableTextViewEnding.text = endingThemes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
                     }
                 }

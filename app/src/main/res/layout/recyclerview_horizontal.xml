@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
+            android:nestedScrollingEnabled="false"
             tools:listitem="@layout/cardview_placeholder"
             android:orientation="horizontal"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

@@ -22,10 +22,10 @@ class RecommendationFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): RecommendationFragment {
+        fun newInstance(mal_id : Int): RecommendationFragment {
             val recommendationFragment = RecommendationFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             recommendationFragment.arguments = args
             return recommendationFragment
         }
@@ -40,7 +40,7 @@ class RecommendationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
 
         animeViewModel.getAnimeRecommendationApi(malID)
         animeViewModel.animeRecommendationList.observe(viewLifecycleOwner, { state ->
@@ -49,7 +49,7 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun processAnimeRecommendationResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
         val recommendationRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {

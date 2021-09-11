@@ -1,10 +1,12 @@
 package com.victor.myan.baseFragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -33,7 +35,7 @@ class BaseActorDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
@@ -48,9 +50,10 @@ class BaseActorDetailFragment : Fragment() {
             }
         }.attach()
 
-//        pictureViewModel.getPicturesApi("person", malID)
-//            processPictureResponse(state)
-//        })
+        pictureViewModel.getPicturesApi("person", malID)
+        pictureViewModel.pictureList.observe(viewLifecycleOwner, { state ->
+            processPictureResponse(state)
+        })
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -64,28 +67,39 @@ class BaseActorDetailFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 
-    private fun processPictureResponse(state: ScreenStateHelper<Picture>?) {
-        val image = binding.pictureBase.image
+    @SuppressLint("InflateParams")
+    private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
+        val carouselView = binding.carouselView.carouselViewCarousel
+        val progressBar = binding.carouselView.progressBarCarousel
+
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                progressBar.visibility = View.VISIBLE
             }
             is ScreenStateHelper.Success -> {
                 if (state.data != null) {
-                    Glide.with(view?.context!!)
-                        .load(state.data.large)
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.ic_launcher_foreground)
-                        .fallback(R.drawable.ic_launcher_foreground)
-                        .fitCenter()
-                        .into(image)
+                    for(pictures in state.data.indices) {
+                        carouselView.setViewListener { position ->
+                            val viewListener = layoutInflater.inflate(
+                                R.layout.fragment_carousel_anime_list,
+                                null
+                            )
+
+                            val animeImage =
+                                viewListener.findViewById<ImageView>(R.id.anime_image_carousel)
+                            Glide.with(view?.context!!).load(state.data[position].large).into(animeImage)
+                            viewListener
+                        }
+                    }
+                    carouselView.pageCount = state.data.size
                 }
+                progressBar.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
 
             }
             else -> {
-
+                // Nothing to do
             }
         }
     }
