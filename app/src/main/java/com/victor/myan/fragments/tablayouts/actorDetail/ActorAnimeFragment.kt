@@ -49,7 +49,6 @@ class ActorAnimeFragment : Fragment() {
     }
 
     private fun processActorAnimeResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val malID = arguments?.getInt("mal_id")!!
         val actorAnimeRecyclerView = binding.recyclerView.recyclerViewVertical
 
         when(state) {
@@ -69,7 +68,7 @@ class ActorAnimeFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-                actorViewModel.getActorAnimeApi(malID)
+
             }
             else -> {
 

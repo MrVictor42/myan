@@ -91,25 +91,25 @@ class OverviewAnimeFragment : Fragment() {
                         animeTitle.text = title
                         Glide.with(view?.context!!).load(imageUrl).into(animeImage)
 
-                        if(titleSynonyms.isEmpty() || titleSynonyms.equals("null")) {
+                        if(titleSynonyms.isNullOrEmpty() || titleSynonyms.equals("null")) {
                             animeTitleSynonyms.text = "─"
                         } else {
                             animeTitleSynonyms.text = titleSynonyms.toString()
                         }
 
-                        if(members.toString().isEmpty() || members.toString() == "null") {
+                        if(members.toString().isNullOrEmpty() || members.toString() == "null") {
                             animeMembers.text = "─"
                         } else {
                             animeMembers.text = members.toString()
                         }
 
-                        if(popularity.toString().isEmpty() || popularity.toString() == "null") {
+                        if(popularity.toString().isNullOrEmpty() || popularity.toString() == "null") {
                             animePopularity.text = "─"
                         } else {
                             animePopularity.text = popularity.toString()
                         }
 
-                        if(favorites.toString().isEmpty() || favorites.toString() == "null") {
+                        if(favorites.toString().isNullOrEmpty() || favorites.toString() == "null") {
                             animeFavorites.text = "─"
                         } else {
                             animeFavorites.text = favorites.toString()
@@ -121,7 +121,7 @@ class OverviewAnimeFragment : Fragment() {
                             else -> type
                         }
 
-                        val year = if(premiered == "null" || premiered.isEmpty()) {
+                        val year = if(premiered == "null" || premiered.isNullOrEmpty()) {
                             "─"
                         } else {
                             auxServicesHelper.formatPremiered(premiered)
@@ -130,7 +130,7 @@ class OverviewAnimeFragment : Fragment() {
                         val typeYearConcat = "$animeType, $year"
                         typeYear.text = typeYearConcat
 
-                        if(score.toString().isEmpty() || score.toString() == "null") {
+                        if(score.toString().isNullOrEmpty() || score.toString() == "null") {
                             animeScore.text = "─"
                         } else {
                             animeScore.text = score.toString()
@@ -215,7 +215,7 @@ class OverviewAnimeFragment : Fragment() {
                             animeStudios.text = listStudios
                         }
 
-                        if (trailerUrl.isEmpty() || trailerUrl == "null") {
+                        if (trailerUrl.isNullOrEmpty() || trailerUrl == "null") {
                             Toast.makeText(
                                 context,
                                 auxServicesHelper.capitalize(
