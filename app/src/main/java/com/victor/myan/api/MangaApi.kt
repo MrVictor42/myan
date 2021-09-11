@@ -15,7 +15,7 @@ interface MangaApi {
     fun getTopManga() : Call<MangaListTopResponse>
 
     @GET("manga/{mal_id}")
-    suspend fun getManga(@Path("mal_id") mal_id : String) : Response<JsonObject>
+    suspend fun getManga(@Path("mal_id") malID : Int) : Response<JsonObject>
 
     @GET("search/manga")
     fun mangaListAiring(

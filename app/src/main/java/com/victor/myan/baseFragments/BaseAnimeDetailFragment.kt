@@ -69,7 +69,6 @@ class BaseAnimeDetailFragment : Fragment() {
 
     @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
-
         val carouselView = binding.carouselView.carouselViewCarousel
         val progressBar = binding.carouselView.progressBarCarousel
 

@@ -17,7 +17,7 @@ class CharacterViewModel : ViewModel() {
     val characterMangaList : MutableLiveData<ScreenStateHelper<List<Manga>?>> = MutableLiveData()
     val characterVoiceList : MutableLiveData<ScreenStateHelper<List<Actor>?>> = MutableLiveData()
 
-    fun getCharacterApi(malID : String) {
+    fun getCharacterApi(malID : Int) {
         val characterApi = JikanApiInstance.characterApi.getCharacter(malID)
 
         character.postValue(ScreenStateHelper.Loading(null))
@@ -26,6 +26,7 @@ class CharacterViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     character.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
+                    getCharacterApi(malID)
                     character.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -45,6 +46,7 @@ class CharacterViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     characterList.postValue(ScreenStateHelper.Success(response.body()?.characters))
                 } else {
+                    getCharacterListApi(malID)
                     characterList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -55,7 +57,7 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterAnimeApi(malID: String) {
+    fun getCharacterAnimeApi(malID : Int) {
         val characterApi = JikanApiInstance.characterApi.getCharacterAnime(malID)
 
         characterAnimeList.postValue(ScreenStateHelper.Loading(null))
@@ -68,6 +70,7 @@ class CharacterViewModel : ViewModel() {
                         characterAnimeList.postValue(ScreenStateHelper.Success(response.body()?.animeography))
                     }
                 } else {
+                    getCharacterAnimeApi(malID)
                     characterAnimeList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -78,7 +81,7 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterMangaApi(malID: String) {
+    fun getCharacterMangaApi(malID : Int) {
         val characterApi = JikanApiInstance.characterApi.getCharacterManga(malID)
 
         characterMangaList.postValue(ScreenStateHelper.Loading(null))
@@ -91,6 +94,7 @@ class CharacterViewModel : ViewModel() {
                         characterMangaList.postValue(ScreenStateHelper.Success(response.body()?.mangaography))
                     }
                 } else {
+                    getCharacterMangaApi(malID)
                     characterMangaList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -101,7 +105,7 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterVoiceApi(malID: String) {
+    fun getCharacterVoiceApi(malID : Int) {
         val characterApi = JikanApiInstance.characterApi.getCharacterVoice(malID)
 
         characterVoiceList.postValue(ScreenStateHelper.Loading(null))
@@ -109,11 +113,12 @@ class CharacterViewModel : ViewModel() {
             override fun onResponse(call: Call<ActorsListCharacterResponse>, response: Response<ActorsListCharacterResponse>) {
                 if(response.isSuccessful) {
                     if(response.body()?.voice_actors?.size == 0) {
-                        characterVoiceList.postValue(ScreenStateHelper.Empty("This character doesn't have a voice", null))
+                        characterVoiceList.postValue(ScreenStateHelper.Empty("This character doesn't have a voices", null))
                     } else {
                         characterVoiceList.postValue(ScreenStateHelper.Success(response.body()?.voice_actors))
                     }
                 } else {
+                    getCharacterVoiceApi(malID)
                     characterVoiceList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }

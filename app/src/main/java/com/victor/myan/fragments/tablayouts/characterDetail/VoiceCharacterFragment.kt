@@ -22,10 +22,10 @@ class VoiceCharacterFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): VoiceCharacterFragment {
+        fun newInstance(mal_id : Int): VoiceCharacterFragment {
             val voiceCharacterFragment = VoiceCharacterFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             voiceCharacterFragment.arguments = args
             return voiceCharacterFragment
         }
@@ -40,7 +40,7 @@ class VoiceCharacterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
 
         characterViewModel.getCharacterVoiceApi(malID)
         characterViewModel.characterVoiceList.observe(viewLifecycleOwner, { state ->
@@ -49,7 +49,6 @@ class VoiceCharacterFragment : Fragment() {
     }
 
     private fun processCharacterVoiceResponse(state: ScreenStateHelper<List<Actor>?>) {
-        val malID = arguments?.getString("mal_id").toString()
         val characterVoiceRecyclerView = binding.recyclerView.recyclerViewVertical
         val emptyText = binding.emptyListTextView
 
@@ -75,7 +74,7 @@ class VoiceCharacterFragment : Fragment() {
                 characterVoiceRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                characterViewModel.getCharacterVoiceApi(malID)
+
             }
         }
     }

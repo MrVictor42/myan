@@ -10,14 +10,14 @@ interface CharacterApi {
     fun animeCharacters(@Path("mal_id") mal_id : Int) : Call<AnimeCharacterResponse>
 
     @GET("character/{mal_id}")
-    fun getCharacter(@Path("mal_id") mal_id: String) : Call<Character>
+    fun getCharacter(@Path("mal_id") malID : Int) : Call<Character>
 
     @GET("character/{mal_id}")
-    fun getCharacterAnime(@Path("mal_id") mal_id: String) : Call<AnimeListCharacterAnimeResponse>
+    fun getCharacterAnime(@Path("mal_id") malID : Int) : Call<AnimeListCharacterAnimeResponse>
 
     @GET("character/{mal_id}")
-    fun getCharacterManga(@Path("mal_id") mal_id: String) : Call<MangaListCharacterMangaResponse>
+    fun getCharacterManga(@Path("mal_id") malID : Int) : Call<MangaListCharacterMangaResponse>
 
     @GET("character/{mal_id}")
-    fun getCharacterVoice(@Path("mal_id") mal_id: String) : Call<ActorsListCharacterResponse>
+    fun getCharacterVoice(@Path("mal_id") malID : Int) : Call<ActorsListCharacterResponse>
 }

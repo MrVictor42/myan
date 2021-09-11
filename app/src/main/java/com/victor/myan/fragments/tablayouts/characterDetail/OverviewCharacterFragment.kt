@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.characterDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,10 +22,10 @@ class OverviewCharacterFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): OverviewCharacterFragment {
+        fun newInstance(mal_id : Int): OverviewCharacterFragment {
             val overviewFragment = OverviewCharacterFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             overviewFragment.arguments = args
             return overviewFragment
         }
@@ -37,7 +38,8 @@ class OverviewCharacterFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
+        Log.e("MAL ID CHARACTER", malID.toString())
 
         characterViewModel.getCharacterApi(malID)
         characterViewModel.character.observe(viewLifecycleOwner, { state ->
@@ -60,28 +62,28 @@ class OverviewCharacterFragment : Fragment() {
                 if(state.data != null) {
                     with(state.data) {
                         Glide.with(view?.context!!)
-                            .load(image_url)
+                            .load(imageUrl)
                             .placeholder(R.drawable.ic_launcher_foreground)
                             .error(R.drawable.ic_launcher_foreground)
                             .fallback(R.drawable.ic_launcher_foreground)
                             .fitCenter()
                             .into(characterImage)
 
-                        if(name.isEmpty()) {
+                        if(name.isNullOrEmpty()) {
                             // Nothing to do
                         } else {
                             characterName.visibility = View.VISIBLE
                             characterName.text = name
                         }
 
-                        if(name_kanji.isEmpty()) {
+                        if(nameKanji.isNullOrEmpty()) {
                             // Nothing to do
                         } else {
                             characterNameKanji.visibility = View.VISIBLE
-                            characterNameKanji.text = name_kanji
+                            characterNameKanji.text = nameKanji
                         }
 
-                        if(nicknames.isEmpty()) {
+                        if(nicknames.isNullOrEmpty()) {
                             // Nothing to do
                         } else {
                             characterNickname.visibility = View.VISIBLE

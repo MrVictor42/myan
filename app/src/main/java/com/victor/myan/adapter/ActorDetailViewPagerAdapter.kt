@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.victor.myan.fragments.tablayouts.actorDetail.ActorAnimeFragment
 import com.victor.myan.fragments.tablayouts.actorDetail.OverviewActorFragment
 
-class ActorDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class ActorDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
     private val size = sizePager

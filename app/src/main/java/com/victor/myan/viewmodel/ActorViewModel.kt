@@ -17,7 +17,7 @@ class ActorViewModel : ViewModel() {
     val actor : MutableLiveData<ScreenStateHelper<Actor>?> = MutableLiveData()
     val actorAnimeList : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
 
-    fun getActorApi(malID: String) {
+    fun getActorApi(malID: Int) {
         val actorApi = JikanApiInstance.actorApi.getActor(malID)
 
         actor.postValue(ScreenStateHelper.Loading(null))
@@ -26,6 +26,7 @@ class ActorViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     actor.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
+                    getActorApi(malID)
                     actor.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -36,7 +37,7 @@ class ActorViewModel : ViewModel() {
         })
     }
 
-    fun getActorAnimeApi(malID: String) {
+    fun getActorAnimeApi(malID: Int) {
         val actorApi = JikanApiInstance.actorApi.getActorAnime(malID)
         val animeList : MutableList<Anime> = arrayListOf()
 
@@ -66,6 +67,7 @@ class ActorViewModel : ViewModel() {
                         actorAnimeList.postValue(ScreenStateHelper.Success(animeList))
                     }
                 } else {
+                    getActorAnimeApi(malID)
                     actorAnimeList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }

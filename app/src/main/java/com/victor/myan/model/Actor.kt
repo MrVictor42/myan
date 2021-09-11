@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName
 
 data class Actor (
     @SerializedName("mal_id")
-    var mal_id : String? = "",
+    var malID : Int = 0,
     @SerializedName("name")
-    var name : String? = "",
+    var name : String = "",
     @SerializedName("image_url")
-    var image_url : String? = "",
+    var imageUrl : String = "",
     @SerializedName("given_name")
-    var given_name : String? = "",
+    var givenName : String = "",
     @SerializedName("family_name")
-    var family_name : String? = "",
+    var familyName : String = "",
     @SerializedName("alternate_names")
-    var alternate_names : List<String> = arrayListOf(),
+    var alternateNames : List<String> = arrayListOf(),
     @SerializedName("birthday")
-    var birthday : String? = "",
+    var birthday : String = "",
     @SerializedName("about")
     var about : String = ""
 )

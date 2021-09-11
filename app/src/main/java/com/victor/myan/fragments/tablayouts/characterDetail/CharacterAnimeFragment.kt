@@ -22,10 +22,10 @@ class CharacterAnimeFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : String): CharacterAnimeFragment {
+        fun newInstance(mal_id : Int): CharacterAnimeFragment {
             val characterAnimeFragment = CharacterAnimeFragment()
             val args = Bundle()
-            args.putString("mal_id", mal_id)
+            args.putInt("mal_id", mal_id)
             characterAnimeFragment.arguments = args
             return characterAnimeFragment
         }
@@ -40,7 +40,7 @@ class CharacterAnimeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
 
         characterViewModel.getCharacterAnimeApi(malID)
         characterViewModel.characterAnimeList.observe(viewLifecycleOwner, { state ->
@@ -49,7 +49,7 @@ class CharacterAnimeFragment : Fragment() {
     }
 
     private fun processCharacterAnimeResponse(state: ScreenStateHelper<List<Anime>?>) {
-        val malID = arguments?.getString("mal_id").toString()
+        val malID = arguments?.getInt("mal_id")!!
         val emptyText = binding.emptyListTextView
         val characterAnimeRecyclerView = binding.recyclerView.recyclerViewVertical
 

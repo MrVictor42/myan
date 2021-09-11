@@ -9,7 +9,7 @@ import com.victor.myan.fragments.tablayouts.characterDetail.MangaCharacterFragme
 import com.victor.myan.fragments.tablayouts.characterDetail.OverviewCharacterFragment
 import com.victor.myan.fragments.tablayouts.characterDetail.VoiceCharacterFragment
 
-class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
     private val size = sizePager

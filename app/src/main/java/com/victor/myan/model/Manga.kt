@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName
 
 data class Manga (
     @SerializedName("mal_id")
-    var mal_id : String = "",
+    var malID : Int = 0,
     @SerializedName("title")
     var title : String = "",
     @SerializedName("volumes")
     var volumes : Int = 0,
     @SerializedName("start_date")
-    var start_date : String = "",
+    var startDate : String = "",
     @SerializedName("end_date")
-    var end_date : String = "",
+    var endDate : String = "",
     @SerializedName("score")
     var score : Double = 0.0,
     @SerializedName("image_url")
-    var image_url : String = "",
+    var imageUrl : String = "",
     @SerializedName("status")
     var status : String = "",
     @SerializedName("chapters")
