@@ -1,43 +1,26 @@
-package com.victor.myan.screens
+package com.victor.myan.baseFragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import com.victor.myan.R
-import com.victor.myan.adapter.AnimeAdapter
-import com.victor.myan.api.CategoryApi
-import com.victor.myan.databinding.FragmentCategoriesBinding
-import com.victor.myan.enums.CategoriesEnum
-import com.victor.myan.api.JikanApiInstance
-import com.victor.myan.model.Anime
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.victor.myan.databinding.FragmentBaseGenreDetailBinding
 
-class GenreFragment : Fragment() {
+class BaseGenreDetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentCategoriesBinding
+    private lateinit var binding : FragmentBaseGenreDetailBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentCategoriesBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseGenreDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        val genreID = arguments?.getInt("mal_id")
+    /*
+    val genreID = arguments?.getInt("mal_id")
         val name = arguments?.getString("name")
         val api = JikanApiInstance.getJikanApiInstance().create(CategoryApi::class.java)
         val toolbar = binding.toolbar
@@ -50,7 +33,7 @@ class GenreFragment : Fragment() {
         toolbar.toolbar.title = name
         toolbar.toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.toolbar.setNavigationOnClickListener {
-            val categoriesListFragment = GenresListFragment()
+            val categoriesListFragment = GenreFragment()
             (view.context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()
@@ -177,4 +160,5 @@ class GenreFragment : Fragment() {
 
          */
     }
+     */
 }

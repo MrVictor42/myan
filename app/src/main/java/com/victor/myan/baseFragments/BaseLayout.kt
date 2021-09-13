@@ -16,11 +16,11 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
+import com.victor.myan.fragments.GenreFragment
 import com.victor.myan.model.User
 import com.victor.myan.screens.FormLoginActivity
-import com.victor.myan.screens.GenresListFragment
 import com.victor.myan.fragments.HomeFragment
-import com.victor.myan.screens.SearchFragment
+import com.victor.myan.fragments.SearchFragment
 
 class BaseLayout : AppCompatActivity() {
 
@@ -87,7 +87,7 @@ class BaseLayout : AppCompatActivity() {
                 }
 
                 R.id.genres -> {
-                    addFragment(GenresListFragment.newInstance())
+                    addFragment(GenreFragment.newInstance())
                     return@setOnNavigationItemSelectedListener true
                 }
 

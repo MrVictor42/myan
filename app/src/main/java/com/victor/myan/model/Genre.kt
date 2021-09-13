@@ -8,5 +8,5 @@ data class Genre (
     @SerializedName("image")
     var image : String = "",
     @SerializedName("mal_id")
-    var mal_id : Int = 0,
+    var malID : Int = 0,
 )

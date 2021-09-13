@@ -3,7 +3,6 @@ package com.victor.myan.adapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -14,7 +13,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
-import com.victor.myan.databinding.CardviewPlaceholderBinding
+import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 import com.victor.myan.model.Actor
 import com.victor.myan.baseFragments.BaseActorDetailFragment
 
@@ -30,10 +29,9 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
         }
     }
 
-    inner class ActorHolder(binding: CardviewPlaceholderBinding) :
+    inner class ActorHolder(binding: CardviewPlaceholderVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val image = binding.imagePlaceholder
-        private val progressBar = binding.progressBarPlaceholder
+        private val image = binding.image
 
         fun bind(actor : Actor) {
             Glide.with(itemView.context).load(actor.imageUrl).listener(object :
@@ -52,7 +50,6 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    progressBar.visibility = View.GONE
                     return false
                 }
             }).into(image)
@@ -75,7 +72,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorAdapter.ActorHolder {
         return ActorHolder(
-            CardviewPlaceholderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            CardviewPlaceholderVerticalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 

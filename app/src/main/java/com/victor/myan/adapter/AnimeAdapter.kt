@@ -3,7 +3,6 @@ package com.victor.myan.adapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -14,9 +13,9 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
-import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Anime
 import com.victor.myan.baseFragments.BaseAnimeDetailFragment
+import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 
 class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
@@ -30,10 +29,9 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
         }
     }
 
-    inner class AnimeHolder(binding: CardviewPlaceholderBinding) :
+    inner class AnimeHolder(binding: CardviewPlaceholderVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        private val image = binding.imagePlaceholder
-        private val progressBar = binding.progressBarPlaceholder
+        private val image = binding.image
 
         fun bind(anime: Anime) {
             Glide.with(itemView.context).load(anime.imageUrl).listener(object :
@@ -52,7 +50,6 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    progressBar.visibility = View.GONE
                     return false
                 }
             }).into(image)
@@ -78,7 +75,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeHolder {
         return AnimeHolder(
-            CardviewPlaceholderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            CardviewPlaceholderVerticalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 

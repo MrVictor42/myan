@@ -13,6 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/cardview_placeholder"
+        tools:listitem="@layout/cardview_placeholder_vertical"
         />
 </LinearLayout>

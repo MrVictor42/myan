@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:background="@color/black_gray"
-    tools:context=".screens.SearchFragment"
+    tools:context=".fragments.SearchFragment"
 >
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
