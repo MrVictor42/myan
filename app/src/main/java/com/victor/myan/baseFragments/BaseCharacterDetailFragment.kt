@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.adapter.CharacterDetailViewPagerAdapter
+import com.victor.myan.viewpager.CharacterDetailViewPager
 import com.victor.myan.databinding.FragmentBaseCharacterDetailBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
@@ -38,7 +38,7 @@ class BaseCharacterDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 4
-        val adapter = CharacterDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = CharacterDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->

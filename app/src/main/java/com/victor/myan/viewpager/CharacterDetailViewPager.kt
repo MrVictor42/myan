@@ -1,4 +1,4 @@
-package com.victor.myan.adapter
+package com.victor.myan.viewpager
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -9,7 +9,7 @@ import com.victor.myan.fragments.tablayouts.characterDetail.MangaCharacterFragme
 import com.victor.myan.fragments.tablayouts.characterDetail.OverviewCharacterFragment
 import com.victor.myan.fragments.tablayouts.characterDetail.VoiceCharacterFragment
 
-class CharacterDetailViewPagerAdapter(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class CharacterDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
     private val size = sizePager

@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import com.google.android.material.tabs.TabLayoutMediator
+import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseGenreDetailBinding
+import com.victor.myan.fragments.HomeFragment
+import com.victor.myan.viewpager.GenreDetailViewPager
+import com.victor.myan.viewpager.TypeViewPager
 
 class BaseGenreDetailFragment : Fragment() {
 
@@ -17,6 +23,51 @@ class BaseGenreDetailFragment : Fragment() {
     ): View {
         binding = FragmentBaseGenreDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val malID = arguments?.getInt("mal_id")!!
+        val name = arguments?.getString("name")
+        val toolbarTitle = binding.toolbar.toolbar
+        val tabLayoutType = binding.tabLayoutType
+        val viewPagerType = binding.viewPagerType
+        val sizePagerType = 2
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.viewPager
+        val sizePager = 4
+        val adapterType = TypeViewPager(parentFragmentManager, lifecycle, sizePagerType)
+        val adapter = GenreDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager, "Anime")
+
+        viewPagerType.adapter = adapterType
+        viewPager.adapter = adapter
+        TabLayoutMediator(tabLayoutType, viewPagerType){tab, position ->
+            when(position) {
+                0 -> tab.text = "Anime"
+                1 -> tab.text = "Manga"
+            }
+        }.attach()
+
+        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+            when(position) {
+                0 -> tab.text = "Airing"
+                1 -> tab.text = "Complete"
+                2 -> tab.text = "Score"
+                3 -> tab.text = "Upcoming"
+            }
+        }.attach()
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val homeFragment = HomeFragment.newInstance()
+                val fragmentManager = activity?.supportFragmentManager
+                fragmentManager?.popBackStack()
+                fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, homeFragment)
+                    ?.addToBackStack(null)?.commit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(callback)
+
+        toolbarTitle.title = name
     }
 
     /*

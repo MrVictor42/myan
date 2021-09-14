@@ -64,6 +64,7 @@ class GenreAdapter : ListAdapter<Genre, GenreAdapter.GenreHolder>(MyDiffUtil) {
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()
+                bundle.putString("name", genre.name)
                 bundle.putInt("mal_id", genre.malID)
 
                 fragment.arguments = bundle

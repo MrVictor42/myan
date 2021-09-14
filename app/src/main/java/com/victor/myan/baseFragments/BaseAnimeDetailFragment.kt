@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.adapter.AnimeDetailViewPagerAdapter
+import com.victor.myan.viewpager.AnimeDetailViewPager
 import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.helper.ScreenStateHelper
@@ -39,7 +39,7 @@ class BaseAnimeDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
-        val adapter = AnimeDetailViewPagerAdapter(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = AnimeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
