@@ -4,12 +4,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.animeDetail.CharacterFragment
-import com.victor.myan.fragments.tablayouts.animeDetail.OverviewAnimeFragment
-import com.victor.myan.fragments.tablayouts.animeDetail.RecommendationFragment
+import com.victor.myan.baseFragments.BaseAnimeGenreDetailFragment
+import com.victor.myan.baseFragments.BaseMangaGenreDetailFragment
 
 class GenreDetailViewPager(
-    fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int, type : String
+    fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int
 ) :
     FragmentStateAdapter(fragment, lifecycle) {
 
@@ -22,9 +21,8 @@ class GenreDetailViewPager(
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> OverviewAnimeFragment.newInstance(malID)
-            1 -> CharacterFragment.newInstance(malID)
-            2 -> RecommendationFragment.newInstance(malID)
+            0 -> BaseAnimeGenreDetailFragment.newInstance(malID)
+            1 -> BaseMangaGenreDetailFragment.newInstance(malID)
             else -> Fragment()
         }
     }

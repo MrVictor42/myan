@@ -11,7 +11,6 @@ import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseGenreDetailBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewpager.GenreDetailViewPager
-import com.victor.myan.viewpager.TypeViewPager
 
 class BaseGenreDetailFragment : Fragment() {
 
@@ -29,30 +28,17 @@ class BaseGenreDetailFragment : Fragment() {
         val malID = arguments?.getInt("mal_id")!!
         val name = arguments?.getString("name")
         val toolbarTitle = binding.toolbar.toolbar
-        val tabLayoutType = binding.tabLayoutType
-        val viewPagerType = binding.viewPagerType
-        val sizePagerType = 2
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
-        val sizePager = 4
-        val adapterType = TypeViewPager(parentFragmentManager, lifecycle, sizePagerType)
-        val adapter = GenreDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager, "Anime")
+        val sizePager = 2
+        val adapter = GenreDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
 
-        viewPagerType.adapter = adapterType
         viewPager.adapter = adapter
-        TabLayoutMediator(tabLayoutType, viewPagerType){tab, position ->
+        viewPager.adapter = adapter
+        TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Anime"
                 1 -> tab.text = "Manga"
-            }
-        }.attach()
-
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
-            when(position) {
-                0 -> tab.text = "Airing"
-                1 -> tab.text = "Complete"
-                2 -> tab.text = "Score"
-                3 -> tab.text = "Upcoming"
             }
         }.attach()
 
