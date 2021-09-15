@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.databinding.FragmentBaseMangaGenreDetailBinding
-import com.victor.myan.fragments.tablayouts.actorDetail.OverviewActorFragment
 import com.victor.myan.viewpager.GenreTypeDetailViewPager
 
 class BaseMangaGenreDetailFragment : Fragment() {
@@ -15,12 +14,12 @@ class BaseMangaGenreDetailFragment : Fragment() {
     private lateinit var binding : FragmentBaseMangaGenreDetailBinding
 
     companion object {
-        fun newInstance(mal_id : Int): OverviewActorFragment {
-            val overviewFragment = OverviewActorFragment()
+        fun newInstance(mal_id : Int): BaseMangaGenreDetailFragment {
+            val baseMangaGenreDetailFragment = BaseMangaGenreDetailFragment()
             val args = Bundle()
             args.putInt("mal_id", mal_id)
-            overviewFragment.arguments = args
-            return overviewFragment
+            baseMangaGenreDetailFragment.arguments = args
+            return baseMangaGenreDetailFragment
         }
     }
 

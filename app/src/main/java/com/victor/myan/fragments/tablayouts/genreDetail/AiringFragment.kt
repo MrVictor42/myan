@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.genreDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,9 +32,12 @@ class AiringFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.e("args", arguments.toString())
         val selected = arguments?.getString("type")
         val text = binding.teste
+        val text2 = binding.teste2
 
         text.text = selected
+        text2.text = "TEXTO 2"
     }
 }

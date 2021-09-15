@@ -3,15 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.tablayouts.genreDetail.AiringFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/teste"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:textSize="42sp"
-        android:gravity="center"/>
-
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/teste"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="42sp"
+            android:textColor="@color/red"
+            android:gravity="center"
+        />
+        <TextView
+            android:id="@+id/teste2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/teste"
+            android:textSize="42sp"
+            android:textColor="@color/dark_blue"
+            android:gravity="center"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
