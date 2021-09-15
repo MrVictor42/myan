@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Manga
-import com.victor.myan.model.MangaListAiringResponse
+import com.victor.myan.model.MangaListResultResponse
 import com.victor.myan.model.MangaListTopResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,8 +39,8 @@ class MangaViewModel : ViewModel() {
         val mangaApi = JikanApiInstance.mangaApi.mangaListAiring("airing", "score")
 
         mangaListAiring.postValue(ScreenStateHelper.Loading(null))
-        mangaApi.enqueue(object : Callback<MangaListAiringResponse> {
-            override fun onResponse(call: Call<MangaListAiringResponse>, response: Response<MangaListAiringResponse>) {
+        mangaApi.enqueue(object : Callback<MangaListResultResponse> {
+            override fun onResponse(call: Call<MangaListResultResponse>, response: Response<MangaListResultResponse>) {
                 if(response.isSuccessful) {
                     mangaListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
@@ -48,7 +48,7 @@ class MangaViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<MangaListAiringResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MangaListResultResponse>, t: Throwable) {
                 mangaListAiring.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })

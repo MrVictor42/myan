@@ -44,4 +44,8 @@ object JikanApiInstance {
     val searchApi : SearchApi by lazy {
         retrofit.create(SearchApi::class.java)
     }
+
+    val genreApi : GenreApi by lazy {
+        retrofit.create(GenreApi::class.java)
+    }
 }

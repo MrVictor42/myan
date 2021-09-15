@@ -36,7 +36,7 @@ class BaseMangaGenreDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
         val sizePager = 4
-        val adapter = GenreTypeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager, "Manga")
+        val adapter = GenreTypeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager, "manga")
 
         viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager){tab, position ->

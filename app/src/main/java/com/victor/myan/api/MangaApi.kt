@@ -1,7 +1,7 @@
 package com.victor.myan.api
 
 import com.google.gson.JsonObject
-import com.victor.myan.model.MangaListAiringResponse
+import com.victor.myan.model.MangaListResultResponse
 import com.victor.myan.model.MangaListTopResponse
 import retrofit2.Call
 import retrofit2.Response
@@ -20,5 +20,5 @@ interface MangaApi {
     @GET("search/manga")
     fun mangaListAiring(
         @Query("status") status : String,
-        @Query("order_by") order_by : String) : Call<MangaListAiringResponse>
+        @Query("order_by") order_by : String) : Call<MangaListResultResponse>
 }

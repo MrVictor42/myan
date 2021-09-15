@@ -48,7 +48,7 @@
         <entry key="app/src/main/res/layout/carousel_view.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/expandable_text_view.xml" value="0.11141304347826086" />
         <entry key="app/src/main/res/layout/expandable_textview.xml" value="0.11141304347826086" />
-        <entry key="app/src/main/res/layout/fragment_airing.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_airing.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_anime_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_episodes.xml" value="0.1490036231884058" />
@@ -62,6 +62,7 @@
         <entry key="app/src/main/res/layout/fragment_carousel_custom.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_categories_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character.xml" value="0.12" />
+        <entry key="app/src/main/res/layout/fragment_character_anime.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_genre.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.1" />

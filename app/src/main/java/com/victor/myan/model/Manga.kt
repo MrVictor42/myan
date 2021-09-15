@@ -33,10 +33,6 @@ data class MangaListTopResponse (
     val top : List<Manga>
 )
 
-data class MangaListAiringResponse (
+data class MangaListResultResponse (
     val results : List<Manga>
-)
-
-data class MangaListSearchResponse (
-    val results: List<Manga>
 )
