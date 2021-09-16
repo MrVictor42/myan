@@ -6,7 +6,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.victor.myan.fragments.tablayouts.genreDetail.AiringFragment
 import com.victor.myan.fragments.tablayouts.genreDetail.CompleteFragment
-import com.victor.myan.fragments.tablayouts.genreDetail.ScoreFragment
 import com.victor.myan.fragments.tablayouts.genreDetail.UpcomingFragment
 
 class GenreTypeDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int, type : String) :
@@ -24,8 +23,7 @@ class GenreTypeDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle
         return when(position) {
             0 -> AiringFragment.newInstance(malID, selected)
             1 -> CompleteFragment.newInstance(malID, selected)
-            2 -> ScoreFragment.newInstance(malID, selected)
-            3 -> UpcomingFragment.newInstance(malID, selected)
+            2 -> UpcomingFragment.newInstance(malID, selected)
             else -> Fragment()
         }
     }

@@ -35,7 +35,7 @@ class BaseMangaGenreDetailFragment : Fragment() {
         val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
-        val sizePager = 4
+        val sizePager = 3
         val adapter = GenreTypeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager, "manga")
 
         viewPager.adapter = adapter
@@ -43,8 +43,7 @@ class BaseMangaGenreDetailFragment : Fragment() {
             when(position) {
                 0 -> tab.text = "Airing"
                 1 -> tab.text = "Complete"
-                2 -> tab.text = "Score"
-                3 -> tab.text = "Upcoming"
+                2 -> tab.text = "Upcoming"
             }
         }.attach()
     }

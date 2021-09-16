@@ -51,19 +51,19 @@ class AiringFragment : Fragment() {
             "anime" -> {
                 genreViewModel.resultAiringApi("anime", genreID, "airing")
                 genreViewModel.resultAnimeList.observe(viewLifecycleOwner, { state ->
-                    processAnimeAiringResponse(state, genreID)
+                    processAnimeResponse(state, genreID)
                 })
             }
             "manga" -> {
-                genreViewModel.resultAiringApi("manga", genreID, "airing")
+                genreViewModel.resultAiringApi("manga", genreID, "publishing")
                 genreViewModel.resultMangaList.observe(viewLifecycleOwner, { state ->
-                    processMangaAiringResponse(state, genreID)
+                    processMangaResponse(state, genreID)
                 })
             }
         }
     }
 
-    private fun processMangaAiringResponse(state: ScreenStateHelper<List<Manga>?>?, genreID: Int) {
+    private fun processMangaResponse(state: ScreenStateHelper<List<Manga>?>?, genreID: Int) {
         val emptyText = binding.emptyListTextView
         val airingRecyclerView = binding.recyclerView.recyclerViewVertical
 
@@ -89,12 +89,12 @@ class AiringFragment : Fragment() {
                 airingRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                genreViewModel.resultAiringApi("manga", genreID, "airing")
+                genreViewModel.resultAiringApi("manga", genreID, "publishing")
             }
         }
     }
 
-    private fun processAnimeAiringResponse(state: ScreenStateHelper<List<Anime>?>?, genreID : Int) {
+    private fun processAnimeResponse(state: ScreenStateHelper<List<Anime>?>?, genreID : Int) {
         val emptyText = binding.emptyListTextView
         val airingRecyclerView = binding.recyclerView.recyclerViewVertical
 

@@ -56,6 +56,7 @@ class GenreViewModel : ViewModel() {
                             if(response.body()?.results?.size == 0) {
                                 resultMangaList.postValue(ScreenStateHelper.Empty("This section does not have manga", null))
                             } else {
+
                                 resultMangaList.postValue(ScreenStateHelper.Success(response.body()?.results))
                             }
                         } else {

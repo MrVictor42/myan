@@ -59,12 +59,12 @@ class BaseGenreDetailFragment : Fragment() {
         toolbar.title = name
         toolbar.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         toolbar.setNavigationOnClickListener {
-            val categoriesListFragment = GenreFragment()
+            val genreListFragment = GenreFragment()
             (view.context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()
                 .remove(this)
-                .replace(R.id.content, categoriesListFragment)
+                .replace(R.id.fragment_layout, genreListFragment)
                 .addToBackStack(null)
                 .commit()
         }
