@@ -28,6 +28,9 @@
     <string name="recommendations">Recommendations</string>
     <string name="lists">Lists</string>
     <string name="settings">Settings</string>
+    <string name="empty_personal_list">Create your first playlist</string>
+    <string name="click_here">Click below to create one!</string>
+    <string name="create_playlist">Create Playlist</string>
     <string name="members">Members</string>
     <string name="licensors">Licensors</string>
     <string name="studios">Studios</string>

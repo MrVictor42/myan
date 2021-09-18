@@ -5,9 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.victor.myan.R
+import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.databinding.FragmentBaseListsBinding
-import com.victor.myan.fragments.GenreFragment
+import com.victor.myan.viewpager.AnimeDetailViewPager
+import com.victor.myan.viewpager.ListFragmentViewPager
 
 class BaseListsFragment : Fragment() {
 
@@ -28,5 +29,22 @@ class BaseListsFragment : Fragment() {
     ): View {
         binding = FragmentBaseListsBinding.inflate(layoutInflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.viewPager2
+        val sizePager = 4
+        val adapter = ListFragmentViewPager(parentFragmentManager, lifecycle, sizePager)
+        viewPager.adapter = adapter
+
+        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+            when(position) {
+                0 -> tab.text = "Personal"
+                1 -> tab.text = "Top"
+                2 -> tab.text = "Day"
+                3 -> tab.text = "Season"
+            }
+        }.attach()
     }
 }

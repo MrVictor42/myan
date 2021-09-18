@@ -11,6 +11,15 @@ class PersonalListFragment : Fragment() {
 
     private lateinit var binding : FragmentPersonalListBinding
 
+    companion object {
+        fun newInstance(): PersonalListFragment {
+            val personalListFragment = PersonalListFragment()
+            val args = Bundle()
+            personalListFragment.arguments = args
+            return personalListFragment
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
