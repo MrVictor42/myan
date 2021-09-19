@@ -14,7 +14,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/create_playlist_not_empty"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/create_playlist_text"
                 android:layout_width="match_parent"
@@ -49,8 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="250dp"
-            android:visibility="gone">
+            android:layout_marginTop="250dp">
             <TextView
                 android:id="@+id/create_playlist_empty_text"
                 android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_register_playlist"
+                android:id="@+id/btn_register_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
