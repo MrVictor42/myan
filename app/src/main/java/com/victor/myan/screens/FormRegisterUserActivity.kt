@@ -52,7 +52,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
         val progressBar = binding.progressBarRegister
 
         progressBar.visibility = View.VISIBLE
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { it ->
             if(it.isSuccessful) {
                 val user = User()
 

@@ -12,12 +12,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/create_playlist_not_empty"
+            android:id="@+id/create_list_not_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
             <TextView
-                android:id="@+id/create_playlist_text"
+                android:id="@+id/create_list_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/btn_add_playlist"
+                android:id="@+id/btn_add_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -39,20 +39,21 @@
             <include
                 android:id="@+id/recycler_view"
                 layout="@layout/recyclerview_vertical"
-                app:layout_constraintTop_toBottomOf="@id/create_playlist_text"
+                app:layout_constraintTop_toBottomOf="@id/create_list_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="gone"
                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <LinearLayout
-            android:id="@+id/create_playlist_empty"
+            android:id="@+id/create_list_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="250dp">
+            android:layout_marginTop="250dp"
+            android:visibility="gone">
             <TextView
-                android:id="@+id/create_playlist_empty_text"
+                android:id="@+id/create_list_empty_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -76,7 +77,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/create_playlist_empty_text"/>
+                app:layout_constraintTop_toBottomOf="@id/create_list_empty_text"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

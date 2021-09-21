@@ -1,5 +1,6 @@
 package com.victor.myan.baseFragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ import com.victor.myan.fragments.GenreFragment
 import com.victor.myan.model.User
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
+import com.victor.myan.screens.FormLoginActivity
 
 class BaseLayout : AppCompatActivity() {
 
@@ -95,7 +97,10 @@ class BaseLayout : AppCompatActivity() {
                 }
 
                 R.id.settings -> {
-                    Toast.makeText(this, "Ainda não foi implementado aguarde", Toast.LENGTH_SHORT).show()
+                    FirebaseAuth.getInstance().signOut()
+                    val intent = Intent(this, FormLoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
             false

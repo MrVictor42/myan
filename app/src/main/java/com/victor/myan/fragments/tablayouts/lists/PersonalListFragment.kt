@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -40,8 +39,16 @@ class PersonalListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val btnRegisterList = binding.btnRegisterList
-
-        FirebaseDatabase.getInstance().getReference("list")
+        val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
+        val listRef =
+            FirebaseDatabase
+                .getInstance()
+                .getReference("list")
+                .orderByChild("userID")
+                .equalTo(currentUser)
+        val btnAddList = binding.btnAddList
+        val createListNotEmpty = binding.createListNotEmpty
+        val createListEmpty = binding.createListEmpty
 
         btnRegisterList.setOnClickListener {
             val createListFragment = CreateListFragment()
@@ -53,5 +60,36 @@ class PersonalListFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        btnAddList.setOnClickListener {
+            val createListFragment = CreateListFragment()
+            (view.context as FragmentActivity)
+                .supportFragmentManager
+                .beginTransaction()
+                .remove(this)
+                .replace(R.id.fragment_layout, createListFragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        listRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.exists()) {
+                    createListNotEmpty.visibility = View.VISIBLE
+                    createListEmpty.visibility = View.GONE
+
+                    for(postSnapshot in snapshot.children) {
+                        Log.e("Snapshot", postSnapshot.value.toString())
+                    }
+                } else {
+                    createListEmpty.visibility = View.VISIBLE
+                    createListNotEmpty.visibility = View.GONE
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
     }
 }

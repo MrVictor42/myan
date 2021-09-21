@@ -1,12 +1,11 @@
 package com.victor.myan.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
-@Parcelize
 data class PersonalList (
+    var ID : String = "",
     var userID : String = "",
     var name: String = "",
     var description: String = "",
-    var url: String = ""
-) : Parcelable
+    var type : String = "",
+    var anime : List<Anime> = arrayListOf(),
+    var manga : List<Manga> = arrayListOf()
+)

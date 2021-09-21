@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentCreateListBinding
@@ -67,30 +68,23 @@ class CreateListFragment : Fragment() {
             selectedURI?.let {
                 reference.putFile(it).addOnSuccessListener {
                     reference.downloadUrl.addOnSuccessListener {
-                        val url = it.toString()
                         val nameList = binding.nameList.text.trim().toString()
                         val descriptionList = binding.descriptionList.text.trim().toString()
                         val personalList = PersonalList()
+                        val listRef = FirebaseDatabase.getInstance().getReference("list")
+                        val listID = listRef.push().key
+                        val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
 
-                        personalList.url = url
+                        personalList.ID = listID!!
                         personalList.name = nameList
                         personalList.description = descriptionList
+                        personalList.userID = currentUser
 
-                        FirebaseDatabase.getInstance().getReference("list")
-                        .child(FirebaseAuth.getInstance().currentUser!!.uid)
-                        .setValue(personalList).addOnCompleteListener {
-                            if(it.isSuccessful) {
-                                Toast.makeText(
-                                    context, "The list ${personalList.name} was created with successful",
-                                    Toast.LENGTH_SHORT)
-                                .show()
-                            } else {
-                                Toast.makeText(
-                                    context, "Something failed when save this list! Try again!",
-                                    Toast.LENGTH_SHORT)
-                                .show()
-                            }
-                        }
+                        listRef.child(personalList.ID).setValue(personalList)
+                        Toast.makeText(
+                            context, "The list ${personalList.name} was created with successful",
+                            Toast.LENGTH_SHORT)
+                        .show()
                     }
                 }
             }
