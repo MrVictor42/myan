@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.lists.PersonalListFragment
+import com.victor.myan.fragments.tablayouts.listsDetail.PersonalListFragment
 
 class ListFragmentViewPager(fragment : FragmentManager, lifecycle : Lifecycle, sizePager : Int)
     : FragmentStateAdapter(fragment, lifecycle) {

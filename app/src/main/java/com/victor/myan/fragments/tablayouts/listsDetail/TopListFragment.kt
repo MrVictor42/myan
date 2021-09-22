@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.lists
+package com.victor.myan.fragments.tablayouts.listsDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

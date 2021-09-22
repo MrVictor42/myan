@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.lists
+package com.victor.myan.fragments.tablayouts.listsDetail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAdapter
 import com.victor.myan.databinding.FragmentPersonalListBinding
-import com.victor.myan.fragments.tablayouts.lists.crud.CreateListFragment
+import com.victor.myan.fragments.tablayouts.listsDetail.personalList.CreateListFragment
 import com.victor.myan.model.PersonalList
 
 class PersonalListFragment : Fragment() {

@@ -6,7 +6,6 @@ data class PersonalList (
     var name : String = "",
     var image : String = "",
     var description: String = "",
-    var type : String = "",
     var anime : List<Anime> = arrayListOf(),
     var manga : List<Manga> = arrayListOf()
 )

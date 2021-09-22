@@ -1,9 +1,10 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.victor.myan.R
 import com.victor.myan.databinding.PersonalListRecyclerviewBinding
+import com.victor.myan.baseFragments.BaseListDetailFragment
 import com.victor.myan.model.PersonalList
 
 class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.PersonalListHolder>(MyDiffUtil) {
@@ -57,7 +60,23 @@ class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.Person
             }).into(image)
 
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, personalList.name, Toast.LENGTH_SHORT).show()
+                val fragment = BaseListDetailFragment()
+                val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
+
+                val bundle = Bundle()
+                bundle.putString("ID", personalList.ID)
+                bundle.putString("description", personalList.description)
+                bundle.putString("image", personalList.image)
+                bundle.putString("name", personalList.name)
+
+                fragment.arguments = bundle
+
+                val transaction =
+                    fragmentManager?.
+                    beginTransaction()?.
+                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
+                transaction?.commit()
+                fragmentManager?.beginTransaction()?.commit()
             }
         }
     }
