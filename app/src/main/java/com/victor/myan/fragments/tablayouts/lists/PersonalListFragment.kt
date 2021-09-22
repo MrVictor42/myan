@@ -1,24 +1,28 @@
 package com.victor.myan.fragments.tablayouts.lists
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
+import com.victor.myan.adapter.PersonalListAdapter
 import com.victor.myan.databinding.FragmentPersonalListBinding
 import com.victor.myan.fragments.tablayouts.lists.crud.CreateListFragment
+import com.victor.myan.model.PersonalList
 
 class PersonalListFragment : Fragment() {
 
     private lateinit var binding : FragmentPersonalListBinding
+    private lateinit var personalListAdapter : PersonalListAdapter
 
     companion object {
         fun newInstance(): PersonalListFragment {
@@ -49,6 +53,10 @@ class PersonalListFragment : Fragment() {
         val btnAddList = binding.btnAddList
         val createListNotEmpty = binding.createListNotEmpty
         val createListEmpty = binding.createListEmpty
+        val personalListRecyclerview = binding.personalListRecyclerview
+
+        createListNotEmpty.visibility = View.GONE
+        createListEmpty.visibility = View.GONE
 
         btnRegisterList.setOnClickListener {
             val createListFragment = CreateListFragment()
@@ -77,10 +85,17 @@ class PersonalListFragment : Fragment() {
                 if(snapshot.exists()) {
                     createListNotEmpty.visibility = View.VISIBLE
                     createListEmpty.visibility = View.GONE
+                    val personalList : MutableList<PersonalList> = arrayListOf()
 
                     for(postSnapshot in snapshot.children) {
-                        Log.e("Snapshot", postSnapshot.value.toString())
+                        personalList.add(postSnapshot.getValue(PersonalList::class.java)!!)
                     }
+
+                    personalListRecyclerview.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                    personalListAdapter = PersonalListAdapter()
+                    personalListAdapter.submitList(personalList)
+                    personalListRecyclerview.adapter = personalListAdapter
+                    personalListRecyclerview.visibility = View.VISIBLE
                 } else {
                     createListEmpty.visibility = View.VISIBLE
                     createListNotEmpty.visibility = View.GONE

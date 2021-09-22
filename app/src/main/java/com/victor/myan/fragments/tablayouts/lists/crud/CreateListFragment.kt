@@ -12,12 +12,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.FragmentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentCreateListBinding
+import com.victor.myan.fragments.tablayouts.lists.PersonalListFragment
 import com.victor.myan.model.PersonalList
 import java.util.UUID
 
@@ -47,6 +48,7 @@ class CreateListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         btnButtonImage = binding.btnSelectImage
         val btnButtonRegister = binding.btnRegister
+        val progressBar = binding.progressBar
 
         btnButtonImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -55,6 +57,7 @@ class CreateListFragment : Fragment() {
         }
 
         btnButtonRegister.setOnClickListener {
+            progressBar.visibility = View.VISIBLE
             if(selectedURI == null) {
                 selectedURI = Uri.parse(
                     ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
@@ -79,12 +82,27 @@ class CreateListFragment : Fragment() {
                         personalList.name = nameList
                         personalList.description = descriptionList
                         personalList.userID = currentUser
+                        personalList.image = FirebaseAuth.getInstance().uid!!
 
-                        listRef.child(personalList.ID).setValue(personalList)
-                        Toast.makeText(
-                            context, "The list ${personalList.name} was created with successful",
-                            Toast.LENGTH_SHORT)
-                        .show()
+                        listRef.child(personalList.ID).setValue(personalList).addOnSuccessListener {
+                            Toast.makeText(
+                                context, "The list ${personalList.name} was created with successful",
+                                Toast.LENGTH_SHORT)
+                            .show()
+                            progressBar.visibility = View.GONE
+
+                            val personalListListFragment = PersonalListFragment()
+                            (view.context as FragmentActivity)
+                                .supportFragmentManager
+                                .beginTransaction()
+                                .remove(this)
+                                .replace(R.id.fragment_layout, personalListListFragment)
+                                .addToBackStack(null)
+                                .commit()
+                        }.addOnFailureListener {
+                            Toast.makeText(context, "Something is wrong... try again later", Toast.LENGTH_SHORT).show()
+                            progressBar.visibility = View.GONE
+                        }
                     }
                 }
             }
