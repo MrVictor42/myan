@@ -1,11 +1,16 @@
 package com.victor.myan.adapter
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.victor.myan.databinding.PersonalListRecyclerviewBinding
 import com.victor.myan.model.PersonalList
 
@@ -31,25 +36,25 @@ class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.Person
             name.text = personalList.name
             description.text = personalList.description
 
-//            Glide.with(itemView.context).load(personalList.image).listener(object :
-//                RequestListener<Drawable> {
-//                override fun onLoadFailed(e: GlideException?, model: Any?,
-//                                          target: com.bumptech.glide.request.target.Target<Drawable>?,
-//                                          isFirstResource: Boolean
-//                ): Boolean {
-//                    return false
-//                }
-//
-//                override fun onResourceReady(
-//                    resource: Drawable?,
-//                    model: Any?,
-//                    target: com.bumptech.glide.request.target.Target<Drawable>?,
-//                    dataSource: DataSource?,
-//                    isFirstResource: Boolean
-//                ): Boolean {
-//                    return false
-//                }
-//            }).into(image)
+            Glide.with(itemView.context).load(personalList.image).listener(object :
+                RequestListener<Drawable> {
+                override fun onLoadFailed(e: GlideException?, model: Any?,
+                                          target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                          isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: com.bumptech.glide.request.target.Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            }).into(image)
 
             itemView.setOnClickListener {
                 Toast.makeText(itemView.context, personalList.name, Toast.LENGTH_SHORT).show()

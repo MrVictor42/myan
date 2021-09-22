@@ -70,7 +70,7 @@ class CreateListFragment : Fragment() {
             val reference = FirebaseStorage.getInstance().getReference("/list/images/${file}")
             selectedURI?.let {
                 reference.putFile(it).addOnSuccessListener {
-                    reference.downloadUrl.addOnSuccessListener {
+                    reference.downloadUrl.addOnSuccessListener { image ->
                         val nameList = binding.nameList.text.trim().toString()
                         val descriptionList = binding.descriptionList.text.trim().toString()
                         val personalList = PersonalList()
@@ -82,7 +82,7 @@ class CreateListFragment : Fragment() {
                         personalList.name = nameList
                         personalList.description = descriptionList
                         personalList.userID = currentUser
-                        personalList.image = FirebaseAuth.getInstance().uid!!
+                        personalList.image = image.toString()
 
                         listRef.child(personalList.ID).setValue(personalList).addOnSuccessListener {
                             Toast.makeText(
