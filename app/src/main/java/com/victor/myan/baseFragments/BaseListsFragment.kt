@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.databinding.FragmentBaseListsBinding
-import com.victor.myan.viewpager.AnimeDetailViewPager
 import com.victor.myan.viewpager.ListFragmentViewPager
 
 class BaseListsFragment : Fragment() {

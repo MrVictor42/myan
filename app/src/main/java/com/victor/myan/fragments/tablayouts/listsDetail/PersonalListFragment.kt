@@ -1,28 +1,31 @@
 package com.victor.myan.fragments.tablayouts.listsDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAdapter
 import com.victor.myan.databinding.FragmentPersonalListBinding
 import com.victor.myan.fragments.tablayouts.listsDetail.personalList.CreateListFragment
+import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.PersonalList
+import com.victor.myan.viewmodel.PersonalListViewModel
 
 class PersonalListFragment : Fragment() {
 
     private lateinit var binding : FragmentPersonalListBinding
     private lateinit var personalListAdapter : PersonalListAdapter
+    private val TAG = PersonalListFragment::class.java.simpleName
+    private val personalListViewModel by lazy {
+        ViewModelProvider(this).get(PersonalListViewModel::class.java)
+    }
 
     companion object {
         fun newInstance(): PersonalListFragment {
@@ -42,14 +45,14 @@ class PersonalListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        personalListViewModel.getPersonalList()
+        personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
+            processPersonalListResponse(personalList)
+        })
+    }
+
+    private fun processPersonalListResponse(personalList: ScreenStateHelper<List<PersonalList>?>?) {
         val btnRegisterList = binding.btnRegisterList
-        val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
-        val listRef =
-            FirebaseDatabase
-                .getInstance()
-                .getReference("list")
-                .orderByChild("userID")
-                .equalTo(currentUser)
         val btnAddList = binding.btnAddList
         val createListNotEmpty = binding.createListNotEmpty
         val createListEmpty = binding.createListEmpty
@@ -60,7 +63,7 @@ class PersonalListFragment : Fragment() {
 
         btnRegisterList.setOnClickListener {
             val createListFragment = CreateListFragment()
-            (view.context as FragmentActivity)
+            (context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()
                 .remove(this)
@@ -71,7 +74,7 @@ class PersonalListFragment : Fragment() {
 
         btnAddList.setOnClickListener {
             val createListFragment = CreateListFragment()
-            (view.context as FragmentActivity)
+            (context as FragmentActivity)
                 .supportFragmentManager
                 .beginTransaction()
                 .remove(this)
@@ -80,31 +83,28 @@ class PersonalListFragment : Fragment() {
                 .commit()
         }
 
-        listRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.exists()) {
-                    createListNotEmpty.visibility = View.VISIBLE
-                    createListEmpty.visibility = View.GONE
-                    val personalList : MutableList<PersonalList> = arrayListOf()
+        when (personalList) {
+            is ScreenStateHelper.Loading -> {
+                Log.i(TAG, "Loading personal list")
+            }
+            is ScreenStateHelper.Success -> {
+                createListNotEmpty.visibility = View.VISIBLE
+                createListEmpty.visibility = View.GONE
 
-                    for(postSnapshot in snapshot.children) {
-                        personalList.add(postSnapshot.getValue(PersonalList::class.java)!!)
-                    }
-
-                    personalListRecyclerview.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                if (personalList.data != null) {
+                    personalListRecyclerview.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     personalListAdapter = PersonalListAdapter()
-                    personalListAdapter.submitList(personalList)
+                    personalListAdapter.submitList(personalList.data)
                     personalListRecyclerview.adapter = personalListAdapter
                     personalListRecyclerview.visibility = View.VISIBLE
-                } else {
-                    createListEmpty.visibility = View.VISIBLE
-                    createListNotEmpty.visibility = View.GONE
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-
+            is ScreenStateHelper.Empty -> {
+                Log.i(TAG, personalList.message.toString())
+                createListEmpty.visibility = View.VISIBLE
+                createListNotEmpty.visibility = View.GONE
             }
-        })
+        }
     }
 }
