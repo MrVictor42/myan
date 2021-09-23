@@ -27,8 +27,6 @@ data class Anime (
     var duration : String = "",
     @SerializedName("popularity")
     var popularity : Int = 0,
-    @SerializedName("members")
-    var members : Int = 0,
     @SerializedName("favorites")
     var favorites : Int = 0,
     @SerializedName("genres")

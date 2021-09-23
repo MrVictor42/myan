@@ -105,6 +105,9 @@ class PersonalListFragment : Fragment() {
                 createListEmpty.visibility = View.VISIBLE
                 createListNotEmpty.visibility = View.GONE
             }
+            else -> {
+
+            }
         }
     }
 }

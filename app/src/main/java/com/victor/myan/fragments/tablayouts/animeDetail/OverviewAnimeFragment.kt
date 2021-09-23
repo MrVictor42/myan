@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,19 +15,26 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentOverviewAnimeBinding
 import com.victor.myan.enums.StatusEnum
+import com.victor.myan.fragments.tablayouts.listsDetail.PersonalListFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
+import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.AnimeViewModel
+import com.victor.myan.viewmodel.PersonalListViewModel
 
 class OverviewAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewAnimeBinding
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
+    private val TAG = OverviewAnimeFragment::class.java.simpleName
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
+    }
+    private val personalListViewModel by lazy {
+        ViewModelProvider(this).get(PersonalListViewModel::class.java)
     }
 
     companion object {
@@ -57,11 +65,12 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     private fun processAnimeResponse(state: ScreenStateHelper<Anime>?) {
+        val btnAddList = binding.btnAddList
+        val btnRemoveList = binding.btnRemoveList
         val progressBar = binding.progressBarOverview
         val animeTitle = binding.animeTitle
         val animeScore = binding.animeScore
         val animeImage = binding.animeImage
-        val animeMembers = binding.animeMembers
         val animePopularity = binding.animePopularity
         val animeFavorites = binding.animeFavorites
         val animeTitleSynonyms = binding.animeTitleSynonyms
@@ -95,12 +104,6 @@ class OverviewAnimeFragment : Fragment() {
                             animeTitleSynonyms.text = "─"
                         } else {
                             animeTitleSynonyms.text = titleSynonyms.toString()
-                        }
-
-                        if(members.toString().isNullOrEmpty() || members.toString() == "null") {
-                            animeMembers.text = "─"
-                        } else {
-                            animeMembers.text = members.toString()
                         }
 
                         if(popularity.toString().isNullOrEmpty() || popularity.toString() == "null") {
@@ -241,6 +244,15 @@ class OverviewAnimeFragment : Fragment() {
                             .replace("[", "").replace("]", "")
                         expandableTextViewEnding.text = endingThemes.toString().replace(",", "\n")
                             .replace("[", "").replace("]", "")
+                    }
+
+                    when(personalListViewModel.existsList()) {
+                        true -> {
+                            btnRemoveList.visibility = View.VISIBLE
+                        }
+                        false -> {
+                            btnAddList.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

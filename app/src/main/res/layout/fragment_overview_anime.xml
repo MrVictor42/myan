@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black_gray"
+    android:background="@color/black"
     tools:context=".fragments.tablayouts.animeDetail.OverviewAnimeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,7 +41,7 @@
             android:textSize="14sp"
             android:textColor="@color/white"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
         />
 
         <TextView
@@ -78,32 +78,10 @@
         />
 
         <TextView
-            android:id="@+id/anime_members_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/anime_popularity"
-            app:layout_constraintStart_toStartOf="@id/anime_score_textView"
-            android:text="@string/members"
-            android:textSize="14sp"
-            android:textColor="@color/white"
-        />
-
-        <TextView
-            android:id="@+id/anime_members"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/anime_members_textview"
-            app:layout_constraintStart_toStartOf="@id/anime_popularity_textview"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-        />
-
-        <TextView
             android:id="@+id/anime_favorites_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/anime_members"
+            app:layout_constraintTop_toBottomOf="@id/anime_popularity"
             app:layout_constraintStart_toStartOf="@id/anime_score_textView"
             android:text="@string/favorites"
             android:textSize="14sp"
@@ -120,6 +98,44 @@
             android:textSize="16sp"
             android:textColor="@color/white"
         />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_list"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/add_list"
+            android:backgroundTint="@color/green_light"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:drawableEnd="@drawable/ic_add"
+            app:layout_constraintStart_toEndOf="@id/cardView"
+            app:layout_constraintTop_toTopOf="@id/anime_favorites"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_remove_list"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/remove_list"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            android:drawableEnd="@drawable/ic_remove"
+            app:layout_constraintStart_toEndOf="@id/cardView"
+            app:layout_constraintTop_toTopOf="@id/anime_favorites"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/anime_title"
@@ -388,11 +404,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateTint="@color/orange"
-            android:layout_marginTop="170dp"
-            android:layout_marginStart="80dp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toEndOf="@id/anime_popularity_textview"
+            app:layout_constraintTop_toTopOf="@id/anime_popularity_textview"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:visibility="gone"
         />
     </androidx.constraintlayout.widget.ConstraintLayout>
