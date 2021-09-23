@@ -1,5 +1,6 @@
 package com.victor.myan.screens
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -58,6 +59,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
 
                 user.name = name
                 user.email = email
+                user.userID = FirebaseAuth.getInstance().currentUser!!.uid
 
                 FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -68,6 +70,8 @@ class FormRegisterUserActivity : AppCompatActivity() {
                             Toast.LENGTH_SHORT)
                         .show()
                         progressBar.visibility = View.GONE
+                        val intent = Intent(this, FormLoginActivity::class.java)
+                        startActivity(intent)
                     } else {
                         Toast.makeText(this,
                             auxServicesHelper.capitalize("failed to register! try again!"),

@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.PersonalList
+import com.victor.myan.model.User
 
 class PersonalListViewModel : ViewModel() {
 
