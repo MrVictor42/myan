@@ -116,13 +116,6 @@ class AuxFunctionsHelper {
         return year
     }
 
-    fun formatYear(year : String) : String {
-        return when (year.length) {
-            25 -> year.substring(0,4)
-            else -> year.substring(4,8)
-        }
-    }
-
     fun formatDurationEpisode(typeAnime : String, duration : String) : String {
         var episodePerMinute = ""
 

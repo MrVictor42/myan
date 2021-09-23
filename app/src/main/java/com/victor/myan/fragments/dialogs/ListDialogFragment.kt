@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.victor.myan.adapter.PersonalListAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.victor.myan.adapter.PersonalListAddRemoveAdapter
 import com.victor.myan.databinding.FragmentListDialogBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.PersonalList
@@ -19,7 +21,7 @@ import com.victor.myan.viewmodel.UserViewModel
 class ListDialogFragment : DialogFragment() {
 
     private lateinit var binding : FragmentListDialogBinding
-    private lateinit var personalListAdapter : PersonalListAdapter
+    private lateinit var personalListAddRemoveAdapter: PersonalListAddRemoveAdapter
     private val TAG = ListDialogFragment::class.java.simpleName
     private val personalListViewModel by lazy {
         ViewModelProvider(this).get(PersonalListViewModel::class.java)
@@ -74,26 +76,26 @@ class ListDialogFragment : DialogFragment() {
 
         val personalListRecyclerview = binding.personalListRecyclerview
 
-//        when (personalList) {
-//            is ScreenStateHelper.Loading -> {
-//                Log.i(TAG, "Loading personal list")
-//            }
-//            is ScreenStateHelper.Success -> {
-//                if (personalList.data != null) {
-//                    personalListRecyclerview.layoutManager =
-//                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-//                    personalListAdapter = PersonalListAdapter()
-//                    personalListAdapter.submitList(personalList.data)
-//                    personalListRecyclerview.adapter = personalListAdapter
-//                    personalListRecyclerview.visibility = View.VISIBLE
-//                }
-//            }
-//            is ScreenStateHelper.Empty -> {
-//                Log.i(TAG, personalList.message.toString())
-//            }
-//            else -> {
-//
-//            }
-//        }
+        when (personalList) {
+            is ScreenStateHelper.Loading -> {
+                Log.i(TAG, "Loading personal list")
+            }
+            is ScreenStateHelper.Success -> {
+                if (personalList.data != null) {
+                    personalListRecyclerview.layoutManager =
+                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                    personalListAddRemoveAdapter = PersonalListAddRemoveAdapter()
+                    personalListAddRemoveAdapter.submitList(personalList.data)
+                    personalListRecyclerview.adapter = personalListAddRemoveAdapter
+                    personalListRecyclerview.visibility = View.VISIBLE
+                }
+            }
+            is ScreenStateHelper.Empty -> {
+                Log.i(TAG, personalList.message.toString())
+            }
+            else -> {
+
+            }
+        }
     }
 }

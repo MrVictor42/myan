@@ -19,7 +19,6 @@ import com.victor.myan.model.PersonalList
 
 class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.PersonalListHolder>(MyDiffUtil) {
 
-
     companion object MyDiffUtil : DiffUtil.ItemCallback<PersonalList>() {
         override fun areItemsTheSame(oldItem: PersonalList, newItem: PersonalList): Boolean {
             return oldItem == newItem
