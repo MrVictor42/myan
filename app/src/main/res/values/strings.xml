@@ -82,4 +82,5 @@
     <string name="movie">Movie</string>
     <string name="add_list">Add</string>
     <string name="remove_list">Remove</string>
+    <string name="empty_list">Empty personal list? Create one here</string>
 </resources>

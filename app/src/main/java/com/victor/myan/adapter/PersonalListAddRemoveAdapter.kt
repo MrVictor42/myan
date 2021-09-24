@@ -1,15 +1,23 @@
 package com.victor.myan.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.databinding.PersonalListAddRemoveBinding
+import com.victor.myan.model.Anime
+import com.victor.myan.model.Manga
 import com.victor.myan.model.PersonalList
+import com.victor.myan.viewmodel.PersonalListViewModel
 
 class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
+
+    private lateinit var animeSelected : Anime
+    private lateinit var mangaSelected : Manga
 
     companion object MyDiffUtil : DiffUtil.ItemCallback<PersonalList>() {
         override fun areItemsTheSame(oldItem: PersonalList, newItem: PersonalList): Boolean {
@@ -24,11 +32,12 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
     inner class PersonalListAddRemoveHolder(binding : PersonalListAddRemoveBinding) : RecyclerView.ViewHolder(binding.root) {
         private val name = binding.namePersonalList
 
-        fun bind(personalList: PersonalList) {
+        fun bind(personalList: PersonalList, animeSelected: Anime?, mangaSelected : Manga?) {
             name.text = personalList.name
 
             itemView.setOnClickListener {
-                Toast.makeText(itemView.context, personalList.name, Toast.LENGTH_SHORT).show()
+                val personalListViewModel = PersonalListViewModel()
+
 //                val fragment = BaseListDetailFragment()
 //                val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 //
@@ -58,6 +67,16 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
 
     override fun onBindViewHolder(holder: PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder, position: Int) {
         val personalList = getItem(position)
-        holder.bind(personalList)
+        holder.bind(personalList, animeSelected, mangaSelected)
+    }
+
+    fun addAnime(anime: Anime) : Anime {
+        animeSelected = anime
+        return animeSelected
+    }
+
+    fun addManga(manga: Manga) : Manga {
+        mangaSelected = manga
+        return mangaSelected
     }
 }
