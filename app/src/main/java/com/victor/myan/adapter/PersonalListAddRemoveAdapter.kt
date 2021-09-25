@@ -1,10 +1,8 @@
 package com.victor.myan.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -32,29 +30,24 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
     inner class PersonalListAddRemoveHolder(binding : PersonalListAddRemoveBinding) : RecyclerView.ViewHolder(binding.root) {
         private val name = binding.namePersonalList
 
-        fun bind(personalList: PersonalList, animeSelected: Anime?, mangaSelected : Manga?) {
+        fun bind(personalList: PersonalList, animeSelected: Anime?) {
             name.text = personalList.name
 
             itemView.setOnClickListener {
                 val personalListViewModel = PersonalListViewModel()
-
-//                val fragment = BaseListDetailFragment()
-//                val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
-//
-//                val bundle = Bundle()
-//                bundle.putString("ID", personalList.ID)
-//                bundle.putString("description", personalList.description)
-//                bundle.putString("image", personalList.image)
-//                bundle.putString("name", personalList.name)
-//
-//                fragment.arguments = bundle
-//
-//                val transaction =
-//                    fragmentManager?.
-//                    beginTransaction()?.
-//                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
-//                transaction?.commit()
-//                fragmentManager?.beginTransaction()?.commit()
+                if(!personalListViewModel.existsInList(animeSelected, personalList.ID)) {
+                    Toast.makeText(
+                        itemView.context,
+                        "Item inserted in list ${personalList.name} with success!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        itemView.context,
+                        "Item doesn't inserted in list ${personalList.name} with success!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
@@ -67,7 +60,7 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
 
     override fun onBindViewHolder(holder: PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder, position: Int) {
         val personalList = getItem(position)
-        holder.bind(personalList, animeSelected, mangaSelected)
+        holder.bind(personalList, animeSelected)
     }
 
     fun addAnime(anime: Anime) : Anime {

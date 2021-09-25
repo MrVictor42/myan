@@ -116,7 +116,6 @@ class ListDialogFragment(val anime: Anime?,val manga: Manga?) : DialogFragment()
                     personalListAddRemoveAdapter.addAnime(anime!!)
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter
                     personalListRecyclerview.visibility = View.VISIBLE
-//                    personalListViewModel.addAnimeManga(anime, manga)
                 }
             }
             is ScreenStateHelper.Empty -> {
