@@ -39,7 +39,11 @@ class WithoutConnectionActivity : AppCompatActivity() {
                     finish()
                 }
             } else {
-                Snackbar.make(binding.withoutConnection, "Connection with internet not found...", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(
+                    binding.withoutConnection,
+                    "Connection with internet not found...",
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }
     }

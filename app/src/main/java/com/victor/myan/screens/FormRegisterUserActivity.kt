@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.widget.ProgressBar
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -19,6 +21,8 @@ import com.victor.myan.model.User
 class FormRegisterUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormRegisterUserBinding
+    private lateinit var textMessageError : AppCompatTextView
+    private lateinit var progressBar : ProgressBar
     private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,17 +34,21 @@ class FormRegisterUserActivity : AppCompatActivity() {
             supportActionBar!!.hide()
         }
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        textMessageError = binding.textMessageError
+        textMessageError.visibility = View.GONE
+        progressBar = binding.progressBar
+        progressBar.visibility = View.GONE
 
         val btnRegister = binding.btnRegister
 
         btnRegister.setOnClickListener {
-            val name = binding.editName.text.toString().trim()
-            val email = binding.editEmail.text.toString().trim()
-            val password = binding.editPassword.text.toString().trim()
+            val name = binding.editTextName.text.toString().trim()
+            val email = binding.editTextEmail.text.toString().trim()
+            val password = binding.editTextPassword.text.toString().trim()
 
-            if(!auxServicesHelper.validateField(name, binding.editName) &&
-                !auxServicesHelper.validateField(email, binding.editEmail) &&
-                !auxServicesHelper.validateField(password, binding.editPassword)) {
+            if(!auxServicesHelper.validateField(name, binding.editTextName) &&
+                !auxServicesHelper.validateField(email, binding.editTextEmail) &&
+                !auxServicesHelper.validateField(password, binding.editTextPassword)) {
                 return@setOnClickListener
             } else {
                 createUser(email, password, name)
@@ -50,7 +58,6 @@ class FormRegisterUserActivity : AppCompatActivity() {
 
     private fun createUser(email : String, password : String, name : String) {
         val mAuth = FirebaseAuth.getInstance()
-        val progressBar = binding.progressBarRegister
 
         progressBar.visibility = View.VISIBLE
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { it ->
@@ -59,24 +66,30 @@ class FormRegisterUserActivity : AppCompatActivity() {
 
                 user.name = name
                 user.email = email
+                user.password = password
                 user.userID = FirebaseAuth.getInstance().currentUser!!.uid
 
                 FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().currentUser!!.uid)
                 .setValue(user).addOnCompleteListener {
                     if(it.isSuccessful) {
-                        Toast.makeText(this,
+                        Snackbar.make(
+                            binding.activityFormRegisterUser,
                             auxServicesHelper.capitalize("the user was successfully registered!"),
-                            Toast.LENGTH_SHORT)
-                        .show()
+                            Snackbar.LENGTH_LONG
+                        ).show()
                         progressBar.visibility = View.GONE
+                        FirebaseAuth.getInstance().signOut()
+
                         val intent = Intent(this, FormLoginActivity::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
-                        Toast.makeText(this,
+                        Snackbar.make(
+                            binding.activityFormRegisterUser,
                             auxServicesHelper.capitalize("failed to register! try again!"),
-                            Toast.LENGTH_SHORT)
-                            .show()
+                            Snackbar.LENGTH_LONG
+                        ).show()
                         progressBar.visibility = View.GONE
                     }
                 }
@@ -84,21 +97,20 @@ class FormRegisterUserActivity : AppCompatActivity() {
                 return@addOnCompleteListener
             }
         }.addOnFailureListener {
-            val messageError = binding.messageError
             when(it) {
                 is FirebaseAuthWeakPasswordException ->
-                    messageError.text =
+                    textMessageError.text =
                         auxServicesHelper.capitalize(
                             "insert a password with 6 no minimum characters!"
                         )
                 is FirebaseAuthUserCollisionException ->
-                    messageError.text =
+                    textMessageError.text =
                         auxServicesHelper.capitalize("this account already exists!")
                 is FirebaseNetworkException ->
-                    messageError.text =
+                    textMessageError.text =
                         auxServicesHelper.capitalize("without connection!")
                 else ->
-                    messageError.text =
+                    textMessageError.text =
                         auxServicesHelper.capitalize("${ it.message }!")
             }
             return@addOnFailureListener

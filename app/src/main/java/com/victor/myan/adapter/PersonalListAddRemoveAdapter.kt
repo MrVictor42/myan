@@ -33,7 +33,7 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
 
             itemView.setOnClickListener {
                 val personalListViewModel = PersonalListViewModel()
-                if(!personalListViewModel.existsInList(animeSelected, personalList.ID)) {
+                if(!personalListViewModel.existsInList(animeSelected)) {
                     Toast.makeText(
                         itemView.context,
                         "Item inserted in list ${personalList.name} with success!",

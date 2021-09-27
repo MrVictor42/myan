@@ -3,9 +3,11 @@ package com.victor.myan.screens
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -17,6 +19,8 @@ import com.victor.myan.helper.AuxFunctionsHelper
 class FormLoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFormLoginBinding
+    private lateinit var textMessageError : AppCompatTextView
+    private lateinit var progressBar : ProgressBar
     private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,29 +34,35 @@ class FormLoginActivity : AppCompatActivity() {
         window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
         val btnLogin = binding.btnLogin
-        val registerUser = binding.registerUser
-        val forgotPassword = binding.forgotPassword
+        val btnRegisterUser = binding.btnRegisterUser
+        val btnForgotPassword = binding.btnForgotPassword
 
-        btnLogin.setOnClickListener {
-            val email = binding.editEmail.text.toString().trim()
-            val password = binding.editPassword.text.toString().trim()
+        textMessageError = binding.textMessageError
+        progressBar = binding.progressBar
 
-            if(!auxServicesHelper.validateField(email, binding.editEmail) ||
-                !auxServicesHelper.validateField(password, binding.editPassword)) {
-                return@setOnClickListener
-            } else {
-                authenticateUser(email, password)
-            }
-        }
+        textMessageError.visibility = View.GONE
+        progressBar.visibility = View.GONE
 
-        registerUser.setOnClickListener {
+        btnRegisterUser.setOnClickListener {
             val intent = Intent(this, FormRegisterUserActivity::class.java)
             startActivity(intent)
         }
 
-        forgotPassword.setOnClickListener {
+        btnForgotPassword.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
+        }
+
+        btnLogin.setOnClickListener {
+            val email = binding.editTextEmail.text.toString().trim()
+            val password = binding.editTextPassword.text.toString().trim()
+
+            if(!auxServicesHelper.validateField(email, binding.editTextEmail) ||
+                !auxServicesHelper.validateField(password, binding.editTextPassword)) {
+                return@setOnClickListener
+            } else {
+                authenticateUser(email, password)
+            }
         }
     }
 
@@ -68,14 +78,14 @@ class FormLoginActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
                 finish()
             } else {
-                Toast.makeText(
-                    this,
+                Snackbar.make(
+                    binding.activityFormLogin,
                     auxServicesHelper.capitalize("failed to login! please check your credentials"),
-                    Toast.LENGTH_SHORT)
-                    .show()
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         }.addOnFailureListener {
-            val messageError = binding.messageError
+            val messageError = binding.textMessageError
             when(it) {
                 is FirebaseAuthInvalidCredentialsException ->
                     messageError.text =

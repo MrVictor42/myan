@@ -3,8 +3,7 @@ package com.victor.myan.helper
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.widget.EditText
-import android.widget.TextView
+import androidx.appcompat.widget.AppCompatEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.victor.myan.enums.AnimeTypeEnum
 import com.victor.myan.enums.DaysEnum
@@ -17,7 +16,7 @@ import java.util.Date
 
 class AuxFunctionsHelper {
 
-    fun validateField(field : String, editText: EditText): Boolean {
+    fun validateField(field : String, editText: AppCompatEditText): Boolean {
         return when {
             field.isEmpty() -> {
                 editText.error = capitalize("fill the field ${editText.hint}")
