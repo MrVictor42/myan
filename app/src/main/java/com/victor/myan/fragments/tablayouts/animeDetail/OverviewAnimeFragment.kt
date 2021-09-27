@@ -251,10 +251,18 @@ class OverviewAnimeFragment : Fragment() {
                             btnRemoveList.visibility = View.VISIBLE
                         }
                         false -> {
-                            btnAddList.visibility = View.VISIBLE
+                            with(state.data) {
+                                val personalListAnime = Anime()
 
-                            btnAddList.setOnClickListener {
-                                ListDialogFragment(state.data, null).show(childFragmentManager, TAG)
+                                btnAddList.visibility = View.VISIBLE
+                                personalListAnime.malID = malID
+                                personalListAnime.imageUrl = imageUrl
+                                personalListAnime.title = title
+                                personalListAnime.status = status
+
+                                btnAddList.setOnClickListener {
+                                    ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
+                                }
                             }
                         }
                     }

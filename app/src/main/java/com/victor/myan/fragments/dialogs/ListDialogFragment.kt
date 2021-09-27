@@ -23,7 +23,7 @@ import com.victor.myan.model.User
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.viewmodel.UserViewModel
 
-class ListDialogFragment(val anime: Anime?,val manga: Manga?) : DialogFragment() {
+class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment() {
 
     private lateinit var binding : FragmentListDialogBinding
     private lateinit var personalListAddRemoveAdapter: PersonalListAddRemoveAdapter
@@ -113,7 +113,7 @@ class ListDialogFragment(val anime: Anime?,val manga: Manga?) : DialogFragment()
                         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     personalListAddRemoveAdapter = PersonalListAddRemoveAdapter()
                     personalListAddRemoveAdapter.submitList(personalList.data)
-                    personalListAddRemoveAdapter.addAnime(anime!!)
+                    personalListAddRemoveAdapter.addAnime(anime)
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter
                     personalListRecyclerview.visibility = View.VISIBLE
                 }

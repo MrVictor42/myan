@@ -8,14 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.databinding.PersonalListAddRemoveBinding
 import com.victor.myan.model.Anime
-import com.victor.myan.model.Manga
 import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel
 
 class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
 
     private lateinit var animeSelected : Anime
-    private lateinit var mangaSelected : Manga
 
     companion object MyDiffUtil : DiffUtil.ItemCallback<PersonalList>() {
         override fun areItemsTheSame(oldItem: PersonalList, newItem: PersonalList): Boolean {
@@ -66,10 +64,5 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
     fun addAnime(anime: Anime) : Anime {
         animeSelected = anime
         return animeSelected
-    }
-
-    fun addManga(manga: Manga) : Manga {
-        mangaSelected = manga
-        return mangaSelected
     }
 }

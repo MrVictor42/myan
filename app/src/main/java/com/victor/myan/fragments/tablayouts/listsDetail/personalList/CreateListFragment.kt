@@ -74,7 +74,7 @@ class CreateListFragment : Fragment() {
                         val nameList = binding.nameList.text.trim().toString()
                         val descriptionList = binding.descriptionList.text.trim().toString()
                         val personalList = PersonalList()
-                        val listRef = FirebaseDatabase.getInstance().getReference("list")
+                        val listRef = FirebaseDatabase.getInstance().getReference("users/list")
                         val listID = listRef.push().key
                         val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
 

@@ -88,16 +88,19 @@ class PersonalListFragment : Fragment() {
                 Log.i(TAG, "Loading personal list")
             }
             is ScreenStateHelper.Success -> {
-                createListNotEmpty.visibility = View.VISIBLE
-                createListEmpty.visibility = View.GONE
-
                 if (personalList.data != null) {
+                    createListNotEmpty.visibility = View.VISIBLE
+                    createListEmpty.visibility = View.GONE
+
                     personalListRecyclerview.layoutManager =
                         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     personalListAdapter = PersonalListAdapter()
                     personalListAdapter.submitList(personalList.data)
                     personalListRecyclerview.adapter = personalListAdapter
                     personalListRecyclerview.visibility = View.VISIBLE
+                } else {
+                    createListNotEmpty.visibility = View.GONE
+                    createListEmpty.visibility = View.VISIBLE
                 }
             }
             is ScreenStateHelper.Empty -> {

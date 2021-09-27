@@ -3,7 +3,6 @@ package com.victor.myan.model
 import com.google.gson.annotations.SerializedName
 
 data class Anime (
-    var animeID : String = "",
     @SerializedName("mal_id")
     var malID : Int = 0,
     @SerializedName("title")

@@ -19,15 +19,7 @@ class PersonalListViewModel : ViewModel() {
     private val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
     private val listRef =
         FirebaseDatabase
-        .getInstance().getReference("list")
-        .orderByChild("userID").equalTo(currentUser)
-    private val animeList =
-        FirebaseDatabase
-            .getInstance()
-            .getReference("list")
-            .child("anime")
-            .orderByChild("userID").equalTo(currentUser)
-
+        .getInstance().getReference("users/list").orderByChild("userID").equalTo(currentUser)
     private val TAG = PersonalListViewModel::class.java.simpleName
 
     fun getPersonalList() {
@@ -66,58 +58,21 @@ class PersonalListViewModel : ViewModel() {
         return valid
     }
 
-    fun existsInList(anime: Anime?, idList: String) : Boolean{
+    fun existsInList(anime: Anime?) : Boolean{
         var valid = false
+
         if(anime != null) {
-            val animeListResult : MutableList<PersonalList> = arrayListOf()
-            animeList.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    for (postSnapshot in snapshot.children) {
-                        animeListResult.add(postSnapshot.getValue(PersonalList::class.java)!!)
-                    }
-                    if(animeListResult.size == 0) {
-                        val currentList = listRef.ref.orderByChild("id").equalTo(idList)
-                        anime.animeID = currentList.ref.push().key!!
-                        currentList.addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                animeListResult.clear()
-                                for (postSnapshot in snapshot.children) {
-                                    animeListResult.add(postSnapshot.getValue(PersonalList::class.java)!!)
-                                }
-                                for(animeAux in 0 until animeListResult.size) {
-                                    val personalList = PersonalList()
-                                    val animeList : MutableList<Anime> = arrayListOf()
+            val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
+            val listRef = userRef.ref.child(currentUser).child("list")
+            val animeRef = listRef.ref.child("anime").child(listRef.push().key!!)
 
-                                    animeList.add(anime)
-
-                                    personalList.name = animeListResult[animeAux].name
-                                    personalList.description = animeListResult[animeAux].description
-                                    personalList.image = animeListResult[animeAux].image
-                                    personalList.userID = animeListResult[animeAux].userID
-                                    personalList.ID = animeListResult[animeAux].ID
-                                    personalList.anime = animeList
-
-                                    currentList.ref.setValue(personalList).addOnSuccessListener {
-                                        Log.i(TAG, "Anime inserted with success!!")
-                                        valid = true
-                                    }.addOnFailureListener {
-                                        Log.e(TAG, "Anime doesn't inserted with success!!")
-                                        valid = false
-                                    }
-                                }
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                Log.e(TAG, "Problem with database firebase")
-                            }
-                        })
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, "Problem with database firebase")
-                }
-            })
+            animeRef.setValue(anime).addOnSuccessListener {
+                Log.i(TAG, "Anime inserted with success!!")
+                valid = true
+            }.addOnFailureListener {
+                Log.e(TAG, "Anime doesn't inserted with success!!")
+                valid = false
+            }
         }
         return valid
     }
