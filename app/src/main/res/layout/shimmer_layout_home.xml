@@ -36,7 +36,7 @@
         <ImageView
             android:id="@+id/recycler_view"
             android:layout_width="150dp"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:scaleType="fitXY"
             android:background="@color/placeholder"
             android:contentDescription="@string/anime"

@@ -13,17 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:ignore="UselessParent">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="10dp">
             <include
-                layout="@layout/toolbar_logo"/>
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/shimmer_layout_today"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
                 <LinearLayout
@@ -37,6 +44,9 @@
                 android:id="@+id/shimmer_layout_anime_airing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_today"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
                 <LinearLayout
@@ -50,6 +60,9 @@
                 android:id="@+id/shimmer_layout_manga_airing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_airing"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
                 <LinearLayout
@@ -63,6 +76,9 @@
                 android:id="@+id/shimmer_layout_season"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_manga_airing"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
                 <LinearLayout
@@ -76,6 +92,9 @@
                 android:id="@+id/shimmer_layout_anime_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_season"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
                 <LinearLayout
@@ -89,6 +108,9 @@
                 android:id="@+id/shimmer_layout_manga_top"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_top"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:shimmer_repeat_mode="restart"
                 app:shimmer_shape="radial">
                 <LinearLayout
@@ -102,29 +124,62 @@
                 android:id="@+id/today_anime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
                 layout="@layout/recyclerview_horizontal"
-            />
+                />
             <include
                 android:id="@+id/anime_airing"
                 layout="@layout/recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/today_anime"
                 />
             <include
                 android:id="@+id/manga_airing"
                 layout="@layout/recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/anime_airing"
                 />
             <include
                 android:id="@+id/season_anime"
                 layout="@layout/recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/manga_airing"
                 />
             <include
                 android:id="@+id/top_anime"
                 layout="@layout/recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/season_anime"
                 />
             <include
                 android:id="@+id/top_manga"
                 layout="@layout/recyclerview_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/top_anime"
                 />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </FrameLayout>

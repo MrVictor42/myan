@@ -64,10 +64,11 @@ class HomeFragment : Fragment() {
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
                         todayAnimeRecyclerView.adapter = animeAdapter
-                        todayAnimeText.text = animeViewModel.currentDayFormatted
                         shimmerLayoutToday.stopShimmer()
                         shimmerLayoutToday.visibility = View.GONE
+                        todayAnimeText.text = animeViewModel.currentDayFormatted
                         todayAnimeText.visibility = View.VISIBLE
+                        todayAnimeRecyclerView.visibility = View.VISIBLE
                         Log.i(TAG, "Success Anime List Today")
 
                         processAnimeListAiringResponse()
@@ -104,10 +105,11 @@ class HomeFragment : Fragment() {
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
                         airingAnimeRecyclerView.adapter = animeAdapter
-                        airingAnimeText.text = getString(R.string.anime_airing)
-                        airingAnimeText.visibility = View.VISIBLE
                         shimmerLayoutAnimeAiring.stopShimmer()
                         shimmerLayoutAnimeAiring.visibility = View.GONE
+                        airingAnimeText.text = getString(R.string.anime_airing)
+                        airingAnimeText.visibility = View.VISIBLE
+                        airingAnimeRecyclerView.visibility = View.VISIBLE
                         Log.i(TAG, "Success Anime List Airing")
 
                         processMangaListAiringResponse()
@@ -143,11 +145,11 @@ class HomeFragment : Fragment() {
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(mangaList)
                     mangaListAiringRecyclerView.adapter = mangaAdapter
+                    shimmerLayoutMangaAiring.stopShimmer()
+                    shimmerLayoutMangaAiring.visibility = View.GONE
                     mangaListAiringText.text = getString(R.string.manga_airing)
                     mangaListAiringText.visibility = View.VISIBLE
                     mangaListAiringRecyclerView.visibility = View.VISIBLE
-                    shimmerLayoutMangaAiring.stopShimmer()
-                    shimmerLayoutMangaAiring.visibility = View.GONE
                     Log.i(TAG, "Success Manga List Airing")
 
                     processAnimeListSeasonResponse()
@@ -182,11 +184,11 @@ class HomeFragment : Fragment() {
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(mangaList)
                     topMangaRecyclerView.adapter = mangaAdapter
+                    shimmerLayoutMangaTop.stopShimmer()
+                    shimmerLayoutMangaTop.visibility = View.GONE
                     topMangaText.text = getString(R.string.top_manga)
                     topMangaText.visibility = View.VISIBLE
                     topMangaRecyclerView.visibility = View.VISIBLE
-                    shimmerLayoutMangaTop.stopShimmer()
-                    shimmerLayoutMangaTop.visibility = View.GONE
                     Log.i(TAG, "Success Manga Top List")
                 }
                 is ScreenStateHelper.Error -> {
@@ -219,11 +221,11 @@ class HomeFragment : Fragment() {
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
                     topAnimeRecyclerView.adapter = animeAdapter
+                    shimmerLayoutAnimeTop.stopShimmer()
+                    shimmerLayoutAnimeTop.visibility = View.GONE
                     topAnimeText.text = getString(R.string.top_anime)
                     topAnimeText.visibility = View.VISIBLE
                     topAnimeRecyclerView.visibility = View.VISIBLE
-                    shimmerLayoutAnimeTop.stopShimmer()
-                    shimmerLayoutAnimeTop.visibility = View.GONE
                     Log.i(TAG, "Success Anime Top List")
 
                     processMangaListTopResponse()
@@ -259,11 +261,11 @@ class HomeFragment : Fragment() {
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
                         seasonAnimeRecyclerView.adapter = animeAdapter
+                        shimmerLayoutSeason.stopShimmer()
+                        shimmerLayoutSeason.visibility = View.GONE
                         seasonAnimeText.text = animeViewModel.currentSeasonFormatted
                         seasonAnimeText.visibility = View.VISIBLE
                         seasonAnimeRecyclerView.visibility = View.VISIBLE
-                        shimmerLayoutSeason.stopShimmer()
-                        shimmerLayoutSeason.visibility = View.GONE
                         Log.i(TAG, "Success Anime List Season")
 
                         processAnimeListTopResponse()
