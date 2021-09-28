@@ -3,21 +3,14 @@ package com.victor.myan.baseFragments
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.GenreFragment
-import com.victor.myan.model.User
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
 import com.victor.myan.screens.FormLoginActivity
@@ -46,26 +39,7 @@ class BaseLayout : AppCompatActivity() {
         }
 
         val navigationView = binding.bottomMenu
-        val baseFragment = HomeFragment.newInstance()
-        val user = FirebaseAuth.getInstance().currentUser
-        val reference = FirebaseDatabase.getInstance().getReference("users")
-        val userID = user!!.uid
-
-        reference.child(userID).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val currentUser = dataSnapshot.getValue(User::class.java)
-
-                if (currentUser != null) {
-                    Log.e("userprofile", currentUser.name)
-                    Log.e("email", currentUser.email)
-                }
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@BaseLayout, "Something Wrong Happened!", Toast.LENGTH_SHORT)
-                    .show()
-            }
-        })
+        val baseFragment = HomeFragment()
 
         addFragment(baseFragment)
         navigationView.setOnNavigationItemSelectedListener {
@@ -76,7 +50,7 @@ class BaseLayout : AppCompatActivity() {
                         navigationView.menu.findItem(navigationView.selectedItemId).toString() == "Home") {
                         // Same fragment, nothing to do
                     } else {
-                        addFragment(HomeFragment.newInstance())
+                        addFragment(HomeFragment())
                         return@setOnNavigationItemSelectedListener true
                     }
                 }

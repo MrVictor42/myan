@@ -20,6 +20,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_without_connection.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_category.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder.xml" value="0.17798913043478262" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder_vertical.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/carousel_view.xml" value="0.10052083333333334" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/create_playlist_empty.xml" value="0.15" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/create_playlist_recyclerview.xml" value="0.209375" />
@@ -53,11 +54,13 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/lists_popup.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_add_remove.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_recyclerview.xml" value="0.12590579710144928" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_horizontal.xml" value="0.11322463768115942" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_horizontal.xml" value="0.21" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_vertical.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/round_corner.xml" value="0.45723684210526316" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_item.xml" value="0.11322463768115942" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout.xml" value="0.11322463768115942" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout.xml" value="0.33" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_home.xml" value="0.11322463768115942" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_recyclerview.xml" value="0.11956521739130435" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/toolbar_main.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/top_page.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/menu/bottom_menu.xml" value="0.18888888888888888" />

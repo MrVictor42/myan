@@ -44,7 +44,7 @@ class MangaDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val homeFragment = HomeFragment.newInstance()
+                val homeFragment = HomeFragment()
                 (view.context as FragmentActivity)
                     .supportFragmentManager
                     .beginTransaction()

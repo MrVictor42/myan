@@ -57,7 +57,7 @@ class BaseCharacterDetailFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val homeFragment = HomeFragment.newInstance()
+                val homeFragment = HomeFragment()
                 val fragmentManager = activity?.supportFragmentManager
                 fragmentManager?.popBackStack()
                 fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, homeFragment)
