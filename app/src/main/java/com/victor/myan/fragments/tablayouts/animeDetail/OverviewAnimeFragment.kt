@@ -247,28 +247,43 @@ class OverviewAnimeFragment : Fragment() {
                         }
 
                         expandableTextViewSynopsis.text = synopsis
-                    }
 
-                    when(personalListViewModel.existsList()) {
-                        true -> {
-                            btnRemoveList.visibility = View.VISIBLE
-                        }
-                        false -> {
-                            with(state.data) {
-                                val personalListAnime = Anime()
+                        val personalListAnime = Anime()
 
-                                btnAddList.visibility = View.VISIBLE
-                                personalListAnime.malID = malID
-                                personalListAnime.imageUrl = imageUrl
-                                personalListAnime.title = title
-                                personalListAnime.status = status
+                        btnAddList.visibility = View.VISIBLE
+                        btnRemoveList.visibility = View.GONE
+                        personalListAnime.malID = malID
+                        personalListAnime.imageUrl = imageUrl
+                        personalListAnime.title = title
+                        personalListAnime.status = status
 
-                                btnAddList.setOnClickListener {
-                                    ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
-                                }
-                            }
+                        btnAddList.setOnClickListener {
+                            ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
                         }
                     }
+
+
+
+//                    when(personalListViewModel.existsList()) {
+//                        true -> {
+//                            btnRemoveList.visibility = View.VISIBLE
+//                        }
+//                        false -> {
+//                            with(state.data) {
+//                                val personalListAnime = Anime()
+//
+//                                btnAddList.visibility = View.VISIBLE
+//                                personalListAnime.malID = malID
+//                                personalListAnime.imageUrl = imageUrl
+//                                personalListAnime.title = title
+//                                personalListAnime.status = status
+//
+//                                btnAddList.setOnClickListener {
+//                                    ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
+//                                }
+//                            }
+//                        }
+//                    }
                     shimmerLayoutOverViewAnime.stopShimmer()
                     shimmerLayoutOverViewAnime.visibility = View.GONE
                     overviewAnime.visibility = View.VISIBLE

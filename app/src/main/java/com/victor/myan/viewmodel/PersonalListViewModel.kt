@@ -17,9 +17,8 @@ class PersonalListViewModel : ViewModel() {
     val personalList : MutableLiveData<ScreenStateHelper<List<PersonalList>?>> = MutableLiveData()
 
     private val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
-    private val listRef =
-        FirebaseDatabase
-        .getInstance().getReference("users/list").orderByChild("userID").equalTo(currentUser)
+    private val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
+    private val listRef = userRef.ref.child(currentUser).child("list")
     private val TAG = PersonalListViewModel::class.java.simpleName
 
     fun getPersonalList() {
@@ -48,11 +47,14 @@ class PersonalListViewModel : ViewModel() {
         var valid = false
         listRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                for (postSnapshot in snapshot.children) {
+                    Log.i(TAG, postSnapshot.getValue(PersonalList::class.java)!!.toString())
+                }
                 valid = snapshot.exists()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, "Not found the list")
+                Log.e(TAG, "Not found the list for this user")
             }
         })
         return valid

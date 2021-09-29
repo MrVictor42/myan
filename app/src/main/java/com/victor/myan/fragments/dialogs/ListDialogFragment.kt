@@ -48,7 +48,12 @@ class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment()
         val btnAddList = binding.btnAddList
         val emptyList = binding.emptyListTextView
 
-        when(!personalListViewModel.existsList()) {
+        userViewModel.getCurrentUser()
+        userViewModel.currentUser.observe(viewLifecycleOwner, { user ->
+            processCurrentUserResponse(user)
+        })
+
+        when(personalListViewModel.existsList()) {
             true -> {
                 personalListViewModel.getPersonalList()
                 personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
@@ -64,18 +69,13 @@ class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment()
                     (context as FragmentActivity)
                         .supportFragmentManager
                         .beginTransaction()
-                        .remove(this)
                         .replace(R.id.fragment_layout, createListFragment)
                         .addToBackStack(null)
                         .commit()
+                    dismiss()
                 }
             }
         }
-
-        userViewModel.getCurrentUser()
-        userViewModel.currentUser.observe(viewLifecycleOwner, { user ->
-            processCurrentUserResponse(user)
-        })
     }
 
     @SuppressLint("SetTextI18n")
