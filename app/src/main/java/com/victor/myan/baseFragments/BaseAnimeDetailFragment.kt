@@ -2,6 +2,7 @@ package com.victor.myan.baseFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ import com.victor.myan.viewmodel.PictureViewModel
 class BaseAnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentBaseAnimeDetailBinding
+    private val TAG = BaseAnimeDetailFragment::class.java.simpleName
     private val pictureViewModel by lazy {
         ViewModelProvider(this).get(PictureViewModel::class.java)
     }
@@ -70,11 +72,12 @@ class BaseAnimeDetailFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
         val carouselView = binding.carouselView.carouselViewCarousel
-        val progressBar = binding.carouselView.progressBarCarousel
+        val shimmerLayoutCarousel = binding.shimmerLayoutCarousel
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                progressBar.visibility = View.VISIBLE
+                shimmerLayoutCarousel.visibility = View.VISIBLE
+                Log.i(TAG, "Carousel Loading...")
             }
             is ScreenStateHelper.Success -> {
                 if (state.data != null) {
@@ -92,11 +95,14 @@ class BaseAnimeDetailFragment : Fragment() {
                         }
                     }
                     carouselView.pageCount = state.data.size
+                    carouselView.visibility = View.VISIBLE
+                    shimmerLayoutCarousel.stopShimmer()
+                    shimmerLayoutCarousel.visibility = View.INVISIBLE
+                    Log.i(TAG, "Carousel Loaded With Success!")
                 }
-                progressBar.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-
+                Log.e(TAG, "Error Carousel in BaseAnimeDetailFragment With Code: ${state.message}")
             }
             else -> {
                 // Nothing to do

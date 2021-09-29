@@ -22,9 +22,8 @@
     <string name="top_manga">Top Manga</string>
     <string name="episodes">Episodes: </string>
     <string name="episodes_">Episodes</string>
-    <string name="score">Score </string>
     <string name="year">Year: </string>
-    <string name="popularity">Popularity </string>
+
     <string name="status">Status</string>
     <string name="opening_themes">Opening Themes</string>
     <string name="ending_themes">Ending Themes</string>
@@ -38,7 +37,6 @@
     <string name="members">Members</string>
     <string name="licensors">Licensors</string>
     <string name="studios">Studios</string>
-    <string name="favorites">Favorites</string>
     <string name="more_informations">More Information? Click Here!</string>
     <string name="genres">Genres </string>
     <string name="anime">Anime</string>
@@ -85,4 +83,9 @@
     <string name="empty_list">Empty personal list? Create one here</string>
     <string name="message_error">Message Error</string>
     <string name="title_recycler_view">Title Recyclerview</string>
+    <string name="score">Score </string>
+    <string name="rating">0.0</string>
+    <string name="popularity">Popularity </string>
+    <string name="favorites">Favorites</string>
+    <string name="none">None</string>
 </resources>

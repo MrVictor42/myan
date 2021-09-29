@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/black_gray"
     tools:context=".baseFragments.BaseAnimeDetailFragment"
 >
@@ -16,8 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
         >
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_layout_carousel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <include
+                    layout="@layout/shimmer_layout_carousel"
+                />
+            </com.facebook.shimmer.ShimmerFrameLayout>
             <include
-                android:id="@+id/carouselView"
+                android:id="@+id/carousel_view"
                 layout="@layout/carousel_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,9 +44,8 @@
                 android:background="@color/transparent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/carouselView"
+                app:layout_constraintBottom_toBottomOf="@id/shimmer_layout_carousel"
                 />
-
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager2"
                 android:layout_width="match_parent"

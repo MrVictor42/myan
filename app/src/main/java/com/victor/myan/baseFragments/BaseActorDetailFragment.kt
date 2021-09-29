@@ -70,11 +70,10 @@ class BaseActorDetailFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
         val carouselView = binding.carouselView.carouselViewCarousel
-        val progressBar = binding.carouselView.progressBarCarousel
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                progressBar.visibility = View.VISIBLE
+
             }
             is ScreenStateHelper.Success -> {
                 if (state.data != null) {
@@ -93,7 +92,6 @@ class BaseActorDetailFragment : Fragment() {
                     }
                     carouselView.pageCount = state.data.size
                 }
-                progressBar.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
 

@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black_gray"
-    tools:showIn="@layout/fragment_home"
+    android:background="@color/black"
+    tools:showIn="@layout/fragment_base_anime_detail"
     >
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carousel_view_carousel"
@@ -21,17 +21,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:strokeWidth="1dp"/>
-
-    <ProgressBar
-        android:id="@+id/progress_bar_carousel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/orange"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:visibility="gone"
-        />
+        app:strokeWidth="1dp"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
