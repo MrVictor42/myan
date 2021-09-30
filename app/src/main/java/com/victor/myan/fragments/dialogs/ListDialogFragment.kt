@@ -11,6 +11,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAddRemoveAdapter
 import com.victor.myan.databinding.FragmentListDialogBinding
@@ -46,36 +49,53 @@ class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val btnAddList = binding.btnAddList
-        val emptyList = binding.emptyListTextView
+        val emptyList = binding.emptyList
 
         userViewModel.getCurrentUser()
         userViewModel.currentUser.observe(viewLifecycleOwner, { user ->
             processCurrentUserResponse(user)
         })
 
-        when(personalListViewModel.existsList()) {
-            true -> {
-                personalListViewModel.getPersonalList()
-                personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
-                    processPersonalListResponse(personalList)
-                })
-            }
-            false -> {
-                btnAddList.visibility = View.VISIBLE
-                emptyList.visibility = View.VISIBLE
-
-                btnAddList.setOnClickListener {
-                    val createListFragment = CreateListFragment()
-                    (context as FragmentActivity)
-                        .supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_layout, createListFragment)
-                        .addToBackStack(null)
-                        .commit()
-                    dismiss()
+        personalListViewModel.listRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.childrenCount > 0) {
+                    val personalListRecyclerview = binding.personalListRecyclerview
+                    personalListRecyclerview.visibility = View.GONE
+                    emptyList.visibility = View.VISIBLE
+                    btnAddList.setOnClickListener {
+                        val createListFragment = CreateListFragment()
+                        (context as FragmentActivity)
+                            .supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_layout, createListFragment)
+                            .addToBackStack(null)
+                            .commit()
+                        dismiss()
+                    }
+//                    emptyList.visibility = View.GONE
+//                    personalListViewModel.getPersonalList()
+//                    personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
+//                        processPersonalListResponse(personalList)
+//                    })
+                } else {
+                    emptyList.visibility = View.VISIBLE
+                    btnAddList.setOnClickListener {
+                        val createListFragment = CreateListFragment()
+                        (context as FragmentActivity)
+                            .supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_layout, createListFragment)
+                            .addToBackStack(null)
+                            .commit()
+                        dismiss()
+                    }
                 }
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "Not found the list for this user")
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -89,6 +109,7 @@ class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment()
             is ScreenStateHelper.Success -> {
                 if(user.data != null) {
                     userName.text = "Lists of ${user.data.name}"
+                    Log.i(TAG, "User loaded!")
                 }
             }
             is ScreenStateHelper.Empty -> {

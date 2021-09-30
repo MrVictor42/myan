@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
+import com.victor.myan.model.Manga
 import com.victor.myan.model.PersonalList
 
 class PersonalListViewModel : ViewModel() {
@@ -18,16 +19,15 @@ class PersonalListViewModel : ViewModel() {
 
     private val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
     private val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
-    private val listRef = userRef.ref.child(currentUser).child("list")
+    val listRef = userRef.ref.child(currentUser).child("list").orderByChild("userID").equalTo(currentUser)
     private val TAG = PersonalListViewModel::class.java.simpleName
 
     fun getPersonalList() {
-        val personalListFinal : MutableList<PersonalList> = arrayListOf()
-
         personalList.postValue(ScreenStateHelper.Loading(null))
         listRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()) {
+                    val personalListFinal : MutableList<PersonalList> = arrayListOf()
                     for (postSnapshot in snapshot.children) {
                         personalListFinal.add(postSnapshot.getValue(PersonalList::class.java)!!)
                     }
@@ -43,39 +43,57 @@ class PersonalListViewModel : ViewModel() {
         })
     }
 
-    fun existsList() : Boolean {
-        var valid = false
-        listRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (postSnapshot in snapshot.children) {
-                    Log.i(TAG, postSnapshot.getValue(PersonalList::class.java)!!.toString())
-                }
-                valid = snapshot.exists()
-            }
+    fun saveAnime(anime: Anime?, idList: String) : String {
+        var result = ""
+        val currentList = listRef.ref.orderByChild("id").equalTo(idList)
+        val animeRef = currentList.ref.child(idList).child("anime").child(listRef.ref.push().key!!)
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, "Not found the list for this user")
-            }
-        })
-        return valid
+        animeRef.setValue(anime).addOnSuccessListener {
+            Log.i(TAG, "Anime inserted with success!!")
+            result = "Anime inserted with success!!"
+        }.addOnFailureListener {
+            Log.e(TAG, "Anime doesn't inserted with success!!")
+            result = "Anime doesn't inserted with success!!"
+        }
+        return result
     }
 
-    fun existsInList(anime: Anime?) : Boolean{
-        var valid = false
+    fun check(anime: Anime?, idList: String) : String {
+        val mangaList : MutableList<Manga> = arrayListOf()
+        val currentList = listRef.ref.orderByChild("id").equalTo(idList)
+        var result = ""
 
         if(anime != null) {
-            val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
-            val listRef = userRef.ref.child(currentUser).child("list")
-            val animeRef = listRef.ref.child("anime").child(listRef.push().key!!)
+            val animeList : MutableList<Anime> = arrayListOf()
+            val animeRef = currentList.ref.child(idList).child("anime")
 
-            animeRef.setValue(anime).addOnSuccessListener {
-                Log.i(TAG, "Anime inserted with success!!")
-                valid = true
-            }.addOnFailureListener {
-                Log.e(TAG, "Anime doesn't inserted with success!!")
-                valid = false
-            }
+            animeRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()) {
+                        Log.i(TAG, "Anime List already exists!")
+                        for (postSnapshot in snapshot.children) {
+                            animeList.add(postSnapshot.getValue(Anime::class.java)!!)
+                        }
+                        for(aux in 0 until animeList.size) {
+                            if(anime.malID == animeList[aux].malID) {
+                                result = "This anime already registered in this list"
+                                Log.e(TAG, "This anime already registered in this list!")
+                            } else {
+                                result = saveAnime(anime, idList)
+                            }
+                        }
+                    } else {
+                        Log.i(TAG, "Anime List was created")
+                        result = saveAnime(anime, idList)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Error in Firebase")
+                }
+            })
         }
-        return valid
+
+        return result
     }
 }

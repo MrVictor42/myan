@@ -22,7 +22,6 @@ import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
-import com.victor.myan.viewmodel.PersonalListViewModel
 
 class OverviewAnimeFragment : Fragment() {
 
@@ -32,9 +31,6 @@ class OverviewAnimeFragment : Fragment() {
     private val TAG = OverviewAnimeFragment::class.java.simpleName
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
-    }
-    private val personalListViewModel by lazy {
-        ViewModelProvider(this).get(PersonalListViewModel::class.java)
     }
 
     companion object {
@@ -261,29 +257,6 @@ class OverviewAnimeFragment : Fragment() {
                             ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
                         }
                     }
-
-
-
-//                    when(personalListViewModel.existsList()) {
-//                        true -> {
-//                            btnRemoveList.visibility = View.VISIBLE
-//                        }
-//                        false -> {
-//                            with(state.data) {
-//                                val personalListAnime = Anime()
-//
-//                                btnAddList.visibility = View.VISIBLE
-//                                personalListAnime.malID = malID
-//                                personalListAnime.imageUrl = imageUrl
-//                                personalListAnime.title = title
-//                                personalListAnime.status = status
-//
-//                                btnAddList.setOnClickListener {
-//                                    ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
-//                                }
-//                            }
-//                        }
-//                    }
                     shimmerLayoutOverViewAnime.stopShimmer()
                     shimmerLayoutOverViewAnime.visibility = View.GONE
                     overviewAnime.visibility = View.VISIBLE
