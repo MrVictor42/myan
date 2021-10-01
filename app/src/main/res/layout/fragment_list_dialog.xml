@@ -53,7 +53,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:visibility="gone">
             <TextView
                 android:id="@+id/empty_list_text_view"
                 android:layout_width="match_parent"

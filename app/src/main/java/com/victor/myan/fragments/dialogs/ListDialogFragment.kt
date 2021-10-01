@@ -26,7 +26,7 @@ import com.victor.myan.model.User
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.viewmodel.UserViewModel
 
-class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment() {
+class ListDialogFragment(val anime: Anime, val manga: Manga) : DialogFragment() {
 
     private lateinit var binding : FragmentListDialogBinding
     private lateinit var personalListAddRemoveAdapter: PersonalListAddRemoveAdapter
@@ -48,48 +48,19 @@ class ListDialogFragment(val anime: Anime, val manga: Manga?) : DialogFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val btnAddList = binding.btnAddList
-        val emptyList = binding.emptyList
-
         userViewModel.getCurrentUser()
         userViewModel.currentUser.observe(viewLifecycleOwner, { user ->
             processCurrentUserResponse(user)
         })
 
+        personalListViewModel.getPersonalList()
+        personalListViewModel.personalList.observe(this@ListDialogFragment, { personalList ->
+            processPersonalListResponse(personalList)
+        })
+
         personalListViewModel.listRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.childrenCount > 0) {
-                    val personalListRecyclerview = binding.personalListRecyclerview
-                    personalListRecyclerview.visibility = View.GONE
-                    emptyList.visibility = View.VISIBLE
-                    btnAddList.setOnClickListener {
-                        val createListFragment = CreateListFragment()
-                        (context as FragmentActivity)
-                            .supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.fragment_layout, createListFragment)
-                            .addToBackStack(null)
-                            .commit()
-                        dismiss()
-                    }
-//                    emptyList.visibility = View.GONE
-//                    personalListViewModel.getPersonalList()
-//                    personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
-//                        processPersonalListResponse(personalList)
-//                    })
-                } else {
-                    emptyList.visibility = View.VISIBLE
-                    btnAddList.setOnClickListener {
-                        val createListFragment = CreateListFragment()
-                        (context as FragmentActivity)
-                            .supportFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.fragment_layout, createListFragment)
-                            .addToBackStack(null)
-                            .commit()
-                        dismiss()
-                    }
-                }
+
             }
 
             override fun onCancelled(error: DatabaseError) {

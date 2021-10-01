@@ -16,21 +16,26 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentOverviewAnimeBinding
 import com.victor.myan.enums.StatusEnum
-import com.victor.myan.fragments.dialogs.ListDialogFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
+import com.victor.myan.viewmodel.PersonalListViewModel
+import android.widget.LinearLayout
 
 class OverviewAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewAnimeBinding
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
+    private val layoutToAdd: LinearLayout? = null
     private val TAG = OverviewAnimeFragment::class.java.simpleName
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
+    }
+    private val personalListViewModel by lazy {
+        ViewModelProvider(this).get(PersonalListViewModel::class.java)
     }
 
     companion object {
@@ -246,16 +251,82 @@ class OverviewAnimeFragment : Fragment() {
 
                         val personalListAnime = Anime()
 
-                        btnAddList.visibility = View.VISIBLE
-                        btnRemoveList.visibility = View.GONE
                         personalListAnime.malID = malID
                         personalListAnime.imageUrl = imageUrl
                         personalListAnime.title = title
                         personalListAnime.status = status
 
+                        btnAddList.visibility = View.VISIBLE
                         btnAddList.setOnClickListener {
-                            ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
+
+//                            val inflater = LayoutInflater
+//                                .from(requireContext().applicationContext)
+//                            val view: View = inflater.inflate(R.layout.fragment_list_dialog, null)
+//                            layoutToAdd?.addView(view)
                         }
+
+//                        personalListViewModel.listRef.addValueEventListener(object : ValueEventListener{
+//                            override fun onDataChange(snapshot: DataSnapshot) {
+//                                if(snapshot.childrenCount > 0) {
+//
+//                                } else {
+//                                    btnAddList.visibility = View.VISIBLE
+//                                    btnRemoveList.visibility = View.GONE
+//
+//                                    btnAddList.setOnClickListener {
+//                                        val createListFragment = CreateListFragment()
+//                                        (context as FragmentActivity)
+//                                            .supportFragmentManager
+//                                            .beginTransaction()
+//                                            .replace(R.id.fragment_layout, createListFragment)
+//                                            .addToBackStack(null)
+//                                            .commit()
+//                                    }
+//                                }
+//                            }
+//
+//                            override fun onCancelled(error: DatabaseError) {
+//
+//                            }
+//                        })
+                        /*
+                        personalListViewModel.listRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.childrenCount > 0) {
+                    emptyList.visibility = View.GONE
+                    personalListViewModel.getPersonalList()
+                    personalListViewModel.personalList.observe(this@ListDialogFragment, { personalList ->
+                        processPersonalListResponse(personalList)
+                    })
+                } else {
+                    emptyList.visibility = View.VISIBLE
+                    btnAddList.setOnClickListener {
+                        val createListFragment = CreateListFragment()
+                        (context as FragmentActivity)
+                            .supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_layout, createListFragment)
+                            .addToBackStack(null)
+                            .commit()
+                        dismiss()
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e(TAG, "Not found the list for this user")
+            }
+        })
+                         */
+
+//
+//                        btnAddList.visibility = View.VISIBLE
+//                        btnRemoveList.visibility = View.GONE
+
+//
+//                        btnAddList.setOnClickListener {
+//                            ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
+//                        }
                     }
                     shimmerLayoutOverViewAnime.stopShimmer()
                     shimmerLayoutOverViewAnime.visibility = View.GONE
