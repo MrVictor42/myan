@@ -57,43 +57,4 @@ class PersonalListViewModel : ViewModel() {
         }
         return result
     }
-
-    fun check(anime: Anime?, idList: String) : String {
-        val mangaList : MutableList<Manga> = arrayListOf()
-        val currentList = listRef.ref.orderByChild("id").equalTo(idList)
-        var result = ""
-
-        if(anime != null) {
-            val animeList : MutableList<Anime> = arrayListOf()
-            val animeRef = currentList.ref.child(idList).child("anime")
-
-            animeRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if(snapshot.exists()) {
-                        Log.i(TAG, "Anime List already exists!")
-                        for (postSnapshot in snapshot.children) {
-                            animeList.add(postSnapshot.getValue(Anime::class.java)!!)
-                        }
-                        for(aux in 0 until animeList.size) {
-                            if(anime.malID == animeList[aux].malID) {
-                                result = "This anime already registered in this list"
-                                Log.e(TAG, "This anime already registered in this list!")
-                            } else {
-                                result = saveAnime(anime, idList)
-                            }
-                        }
-                    } else {
-                        Log.i(TAG, "Anime List was created")
-                        result = saveAnime(anime, idList)
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, "Error in Firebase")
-                }
-            })
-        }
-
-        return result
-    }
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -26,10 +27,12 @@ import com.victor.myan.model.User
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.viewmodel.UserViewModel
 
-class ListDialogFragment(val anime: Anime, val manga: Manga) : DialogFragment() {
+class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment() {
 
     private lateinit var binding : FragmentListDialogBinding
     private lateinit var personalListAddRemoveAdapter: PersonalListAddRemoveAdapter
+    private lateinit var linearEmptyList : LinearLayoutCompat
+    private lateinit var linearUserName : LinearLayoutCompat
     private val TAG = ListDialogFragment::class.java.simpleName
     private val personalListViewModel by lazy {
         ViewModelProvider(this).get(PersonalListViewModel::class.java)
@@ -48,23 +51,41 @@ class ListDialogFragment(val anime: Anime, val manga: Manga) : DialogFragment() 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        linearUserName = binding.linearUserName
+        linearUserName.visibility = View.GONE
+        linearEmptyList = binding.emptyList
+        linearEmptyList.visibility = View.GONE
+
         userViewModel.getCurrentUser()
         userViewModel.currentUser.observe(viewLifecycleOwner, { user ->
             processCurrentUserResponse(user)
         })
 
-        personalListViewModel.getPersonalList()
-        personalListViewModel.personalList.observe(this@ListDialogFragment, { personalList ->
-            processPersonalListResponse(personalList)
-        })
-
-        personalListViewModel.listRef.addValueEventListener(object : ValueEventListener {
+        personalListViewModel.listRef.addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-
+                if(snapshot.childrenCount > 0) {
+                    personalListViewModel.getPersonalList()
+                    personalListViewModel.personalList.observe(this@ListDialogFragment, { personalList ->
+                        processPersonalListResponse(personalList)
+                    })
+                } else {
+                    linearEmptyList.visibility = View.VISIBLE
+                    val btnAddList = binding.btnAddList
+                    btnAddList.setOnClickListener {
+                        val createListFragment = CreateListFragment()
+                        (context as FragmentActivity)
+                            .supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_layout, createListFragment)
+                            .addToBackStack(null)
+                            .commit()
+                        dismiss()
+                    }
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e(TAG, "Not found the list for this user")
+
             }
         })
     }
@@ -80,6 +101,7 @@ class ListDialogFragment(val anime: Anime, val manga: Manga) : DialogFragment() 
             is ScreenStateHelper.Success -> {
                 if(user.data != null) {
                     userName.text = "Lists of ${user.data.name}"
+                    linearUserName.visibility = View.VISIBLE
                     Log.i(TAG, "User loaded!")
                 }
             }
@@ -94,6 +116,7 @@ class ListDialogFragment(val anime: Anime, val manga: Manga) : DialogFragment() 
 
     private fun processPersonalListResponse(personalList: ScreenStateHelper<List<PersonalList>?>?) {
         val personalListRecyclerview = binding.personalListRecyclerview
+        personalListRecyclerview.visibility = View.GONE
 
         when (personalList) {
             is ScreenStateHelper.Loading -> {
@@ -105,7 +128,7 @@ class ListDialogFragment(val anime: Anime, val manga: Manga) : DialogFragment() 
                         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     personalListAddRemoveAdapter = PersonalListAddRemoveAdapter()
                     personalListAddRemoveAdapter.submitList(personalList.data)
-                    personalListAddRemoveAdapter.addAnime(anime)
+                    personalListAddRemoveAdapter.addAnime(anime!!)
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter
                     personalListRecyclerview.visibility = View.VISIBLE
                 }

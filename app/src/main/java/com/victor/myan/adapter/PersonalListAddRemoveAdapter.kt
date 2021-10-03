@@ -1,11 +1,14 @@
 package com.victor.myan.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.victor.myan.databinding.PersonalListAddRemoveBinding
 import com.victor.myan.model.Anime
 import com.victor.myan.model.PersonalList
@@ -14,6 +17,7 @@ import com.victor.myan.viewmodel.PersonalListViewModel
 class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
 
     private lateinit var animeSelected : Anime
+    private val TAG = PersonalListAddRemoveAdapter::class.java.simpleName
 
     companion object MyDiffUtil : DiffUtil.ItemCallback<PersonalList>() {
         override fun areItemsTheSame(oldItem: PersonalList, newItem: PersonalList): Boolean {
@@ -32,22 +36,70 @@ class PersonalListAddRemoveAdapter : ListAdapter<PersonalList, PersonalListAddRe
             name.text = personalList.name
 
             itemView.setOnClickListener {
-                val personalListViewModel = PersonalListViewModel()
-                Toast.makeText(itemView.context, personalList.name, Toast.LENGTH_SHORT).show()
-                personalListViewModel.check(animeSelected, personalList.ID)
-//                if(!personalListViewModel.existsInList(animeSelected)) {
-//                    Toast.makeText(
-//                        itemView.context,
-//                        "Item inserted in list ${personalList.name} with success!",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                } else {
-//                    Toast.makeText(
-//                        itemView.context,
-//                        "Item doesn't inserted in list ${personalList.name} with success!",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }
+                if(animeSelected != null) {
+                    val personalListViewModel = PersonalListViewModel()
+                    val currentList = personalListViewModel.listRef.ref.orderByChild("id").equalTo(personalList.ID)
+                    val animeList : MutableList<Anime> = arrayListOf()
+                    val animeRef = currentList.ref.child(personalList.ID).child("anime")
+
+                    animeRef.addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            if(snapshot.exists()) {
+                                for (postSnapshot in snapshot.children) {
+                                    animeList.add(postSnapshot.getValue(Anime::class.java)!!)
+                                }
+                                for(aux in 0 until animeList.size) {
+                                    if(animeSelected.malID == animeList[aux].malID) {
+//                                        result = "This anime already registered in this list"
+                                        Log.e(TAG, "This anime already registered in this list!")
+                                    } else {
+//                                        result = saveAnime(anime, idList)
+                                    }
+                                }
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            TODO("Not yet implemented")
+                        }
+                    })
+                }
+
+
+
+                /*
+
+
+            animeRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if(snapshot.exists()) {
+                        Log.i(TAG, "Anime List already exists!")
+                        for (postSnapshot in snapshot.children) {
+                            animeList.add(postSnapshot.getValue(Anime::class.java)!!)
+                        }
+                        for(aux in 0 until animeList.size) {
+                            if(anime.malID == animeList[aux].malID) {
+                                result = "This anime already registered in this list"
+                                Log.e(TAG, "This anime already registered in this list!")
+                            } else {
+                                result = saveAnime(anime, idList)
+                            }
+                        }
+                    } else {
+                        Log.i(TAG, "Anime List was created")
+                        result = saveAnime(anime, idList)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Error in Firebase")
+                }
+            })
+        }
+
+        return result
+    }
+                 */
             }
         }
     }

@@ -128,26 +128,6 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="20dp"
-                android:visibility="gone"
-                />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_remove_list"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:text="@string/remove_list"
-                android:backgroundTint="@color/red"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textAllCaps="false"
-                android:drawableEnd="@drawable/ic_remove"
-                app:layout_constraintStart_toEndOf="@id/cardView"
-                app:layout_constraintTop_toTopOf="@id/anime_favorites"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="20dp"
-                android:visibility="gone"
                 />
 
             <TextView
