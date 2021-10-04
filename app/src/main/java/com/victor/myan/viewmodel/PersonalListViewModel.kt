@@ -9,8 +9,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Anime
-import com.victor.myan.model.Manga
 import com.victor.myan.model.PersonalList
 
 class PersonalListViewModel : ViewModel() {
@@ -41,20 +39,5 @@ class PersonalListViewModel : ViewModel() {
                 Log.e(TAG, "Not found the list")
             }
         })
-    }
-
-    fun saveAnime(anime: Anime?, idList: String) : String {
-        var result = ""
-        val currentList = listRef.ref.orderByChild("id").equalTo(idList)
-        val animeRef = currentList.ref.child(idList).child("anime").child(listRef.ref.push().key!!)
-
-        animeRef.setValue(anime).addOnSuccessListener {
-            Log.i(TAG, "Anime inserted with success!!")
-            result = "Anime inserted with success!!"
-        }.addOnFailureListener {
-            Log.e(TAG, "Anime doesn't inserted with success!!")
-            result = "Anime doesn't inserted with success!!"
-        }
-        return result
     }
 }

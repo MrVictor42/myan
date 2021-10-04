@@ -85,7 +85,7 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Log.e(TAG, "Error Firebase")
             }
         })
     }
@@ -126,7 +126,7 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                 if (personalList.data != null) {
                     personalListRecyclerview.layoutManager =
                         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    personalListAddRemoveAdapter = PersonalListAddRemoveAdapter()
+                    personalListAddRemoveAdapter = PersonalListAddRemoveAdapter(this)
                     personalListAddRemoveAdapter.submitList(personalList.data)
                     personalListAddRemoveAdapter.addAnime(anime!!)
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter

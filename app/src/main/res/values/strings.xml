@@ -89,4 +89,8 @@
     <string name="favorites">Favorites</string>
     <string name="none">None</string>
     <string name="name_user">Name User</string>
+    <string name="positive_dialog_message">Positive Message</string>
+    <string name="negative_dialog_message">Negative message</string>
+    <string name="image">Image</string>
+    <string name="close">Close</string>
 </resources>
