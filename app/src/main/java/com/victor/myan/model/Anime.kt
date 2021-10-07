@@ -60,3 +60,7 @@ data class AnimeListRecommendationResponse (
 data class AnimeListResultResponse (
     val results: List<Anime>
 )
+
+data class AnimeResponse (
+    var animes : List<Anime>? = null
+)

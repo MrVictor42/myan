@@ -10,16 +10,13 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.DatabaseReference
 import com.victor.myan.R
 import com.victor.myan.databinding.PersonalListAddRemoveBinding
 import com.victor.myan.model.Anime
 import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.fragments.dialogs.ListDialogFragment
-
 
 class PersonalListAddRemoveAdapter(private val dialogFragment : ListDialogFragment) : ListAdapter<PersonalList, PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
     private lateinit var animeSelected : Anime
@@ -48,33 +45,44 @@ class PersonalListAddRemoveAdapter(private val dialogFragment : ListDialogFragme
                     val animeList : MutableList<Anime> = arrayListOf()
                     val animeRef = currentList.ref.child(personalList.ID).child("anime")
 
-                    animeRef.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            if(snapshot.exists()) {
-                                for (postSnapshot in snapshot.children) {
-                                    animeList.add(postSnapshot.getValue(Anime::class.java)!!)
-                                }
-                                for(aux in 0 until animeList.size) {
-                                    if(animeSelected.malID == animeList[aux].malID) {
-
-                                    } else {
-
+                    animeRef.get().addOnCompleteListener { task ->
+                        if(task.isSuccessful) {
+                            val result = task.result
+                            if (result != null) {
+                                if(result.exists()) {
+                                    result.let {
+                                        var exists = false
+                                        result.children.map { snapshot ->
+                                            animeList.add(snapshot.getValue(Anime::class.java)!!)
+                                        }
+                                        animeList.forEach { anime ->
+                                            if(anime.malID == animeSelected.malID) {
+                                                showDialog(
+                                                    itemView.context,
+                                                    R.layout.custom_warming_dialog,
+                                                    "The anime ${animeSelected.title} already on this list"
+                                                )
+                                                exists = true
+                                            } else {
+                                                Log.i(TAG, "The anime is not on the list yet")
+                                            }
+                                        }
+                                        if(exists) {
+                                            Log.i(TAG, "The anime already on this list")
+                                        } else {
+                                            saveAnime(animeSelected, animeRef, itemView.context, personalList.name)
+                                        }
                                     }
+                                } else {
+                                    saveAnime(animeSelected, animeRef, itemView.context, personalList.name)
                                 }
-                            } else {
-                                showDialog(
-                                    itemView.context,
-                                    R.layout.custom_positive_dialog,
-                                    "The anime ${animeSelected.title}, was inserted in List " +
-                                            "${personalList.name} with success!!"
-                                )
                             }
+                        } else {
+                            Log.e(TAG, "Error on Firebase")
                         }
-
-                        override fun onCancelled(error: DatabaseError) {
-                            Log.e(TAG, "Error in Firebase")
-                        }
-                    })
+                    }.addOnFailureListener {
+                        Log.e(TAG, "Error on Firebase")
+                    }
                 }
             }
         }
@@ -110,22 +118,22 @@ class PersonalListAddRemoveAdapter(private val dialogFragment : ListDialogFragme
         }
     }
 
-    private fun saveAnime(anime: Anime?, idList: String) : String {
-        val personalListViewModel = PersonalListViewModel()
-        val currentList = personalListViewModel.listRef.ref
-
-        return ""
-//        var result = ""
-//        val currentList = listRef.ref.orderByChild("id").equalTo(idList)
-//        val animeRef = currentList.ref.child(idList).child("anime").child(listRef.ref.push().key!!)
-//
-//        animeRef.setValue(anime).addOnSuccessListener {
-//            Log.i(TAG, "Anime inserted with success!!")
-//            result = "Anime inserted with success!!"
-//        }.addOnFailureListener {
-//            Log.e(TAG, "Anime doesn't inserted with success!!")
-//            result = "Anime doesn't inserted with success!!"
-//        }
-//        return result
+    private fun saveAnime(anime: Anime, animeRef: DatabaseReference, context: Context, nameList: String)  {
+        animeRef.child(anime.malID.toString()).setValue(anime).addOnSuccessListener {
+            showDialog(
+                context,
+                R.layout.custom_positive_dialog,
+                "The anime ${anime.title}, was inserted in List " +
+                        "$nameList with success!!"
+            )
+            Log.i(TAG, "Anime inserted with success!!")
+        }.addOnFailureListener {
+            showDialog(
+                context,
+                R.layout.custom_negative_dialog,
+                "Something was wrong... try later!"
+            )
+            Log.e(TAG, "Anime doesn't inserted with success!!")
+        }
     }
 }
