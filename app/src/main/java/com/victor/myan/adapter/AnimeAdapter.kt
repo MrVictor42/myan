@@ -1,5 +1,6 @@
 package com.victor.myan.adapter
 
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,9 +17,10 @@ import com.victor.myan.R
 import com.victor.myan.model.Anime
 import com.victor.myan.baseFragments.BaseAnimeDetailFragment
 import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
-import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 
 class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
+
+    private lateinit var context : Context
 
     companion object MyDiffUtil : DiffUtil.ItemCallback<Anime>() {
         override fun areItemsTheSame(oldItem: Anime, newItem: Anime): Boolean {
@@ -35,6 +37,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
         private val image = binding.image
 
         fun bind(anime: Anime) {
+            context = itemView.context
             Glide.with(itemView.context).load(anime.imageUrl).listener(object :
                 RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?,
@@ -56,20 +59,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
             }).into(image)
 
             itemView.setOnClickListener {
-                val fragment = BaseAnimeDetailFragment()
-                val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                val bundle = Bundle()
-                bundle.putInt("mal_id", anime.malID)
-
-                fragment.arguments = bundle
-
-                val transaction =
-                    fragmentManager?.
-                    beginTransaction()?.
-                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
-                transaction?.commit()
-                fragmentManager?.beginTransaction()?.commit()
+                render(anime.malID)
             }
         }
     }
@@ -83,5 +73,22 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
     override fun onBindViewHolder(holder: AnimeHolder, position: Int) {
         val anime = getItem(position)
         holder.bind(anime)
+    }
+
+    private fun render(malID: Int) {
+        val fragment = BaseAnimeDetailFragment()
+        val fragmentManager = (context as FragmentActivity?)?.supportFragmentManager
+
+        val bundle = Bundle()
+        bundle.putInt("mal_id", malID)
+
+        fragment.arguments = bundle
+
+        val transaction =
+            fragmentManager?.
+            beginTransaction()?.
+            replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
+        transaction?.commit()
+        fragmentManager?.beginTransaction()?.commit()
     }
 }

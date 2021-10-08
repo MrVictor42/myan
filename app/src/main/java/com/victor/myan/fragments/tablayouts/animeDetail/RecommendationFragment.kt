@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class RecommendationFragment : Fragment() {
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
     }
+    private val TAG = RecommendationFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): RecommendationFragment {
@@ -49,12 +51,13 @@ class RecommendationFragment : Fragment() {
     }
 
     private fun processAnimeRecommendationResponse(state: ScreenStateHelper<List<Anime>?>?) {
-        val malID = arguments?.getInt("mal_id")!!
         val recommendationRecyclerView = binding.recyclerView.recyclerViewVertical
+        val shimmerLayoutRecommendation = binding.shimmerLayoutRecommendation
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                shimmerLayoutRecommendation.startShimmer()
+                Log.i(TAG, "Loading Recommendation List Airing")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -65,10 +68,14 @@ class RecommendationFragment : Fragment() {
                     animeAdapter.submitList(animeRecommendation)
                     recommendationRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     recommendationRecyclerView.adapter = animeAdapter
+                    shimmerLayoutRecommendation.stopShimmer()
+                    shimmerLayoutRecommendation.visibility = View.GONE
+                    recommendationRecyclerView.visibility = View.VISIBLE
+                    Log.i(TAG, "Success Recommendation List")
                 }
             }
             is ScreenStateHelper.Error -> {
-                animeViewModel.getAnimeRecommendationApi(malID)
+                Log.e(TAG, "Error Recommendation List in Recommendation Fragment With Code: ${state.message}")
             }
             else -> {
                 // Nothing to do
