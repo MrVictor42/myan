@@ -1,185 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="false"
     android:overScrollMode="never"
     android:background="@color/black"
-    tools:context=".fragments.HomeFragment">
-    <ScrollView
-        android:id="@+id/scrollview"
+    tools:context=".fragments.HomeFragment"
+    tools:ignore="UselessParent">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="UselessParent">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="10dp">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout_today"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp">
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar_logo"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout_today"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/shimmer_layout_home"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout_anime_airing"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_layout_home"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout_anime_airing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_today"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_today"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/shimmer_layout_home"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout_manga_airing"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_layout_home"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout_manga_airing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_airing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_airing"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/shimmer_layout_home"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout_season"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_layout_home"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout_season"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_manga_airing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_manga_airing"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/shimmer_layout_home"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout_anime_top"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_layout_home"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout_anime_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_season"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_season"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/shimmer_layout_home"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_layout_manga_top"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_layout_home"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout_manga_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shimmer_repeat_mode="restart"
+            app:shimmer_shape="radial">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_top"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:shimmer_repeat_mode="restart"
-                app:shimmer_shape="radial">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <include layout="@layout/shimmer_layout_home"/>
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-            <include
-                android:id="@+id/today_anime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
-                layout="@layout/recyclerview_horizontal"
-                />
-            <include
-                android:id="@+id/anime_airing"
-                layout="@layout/recyclerview_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/today_anime"
-                />
-            <include
-                android:id="@+id/manga_airing"
-                layout="@layout/recyclerview_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/anime_airing"
-                />
-            <include
-                android:id="@+id/season_anime"
-                layout="@layout/recyclerview_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/manga_airing"
-                />
-            <include
-                android:id="@+id/top_anime"
-                layout="@layout/recyclerview_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/season_anime"
-                />
-            <include
-                android:id="@+id/top_manga"
-                layout="@layout/recyclerview_horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/top_anime"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-</FrameLayout>
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_layout_home"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <include
+            android:id="@+id/today_anime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            layout="@layout/recyclerview_horizontal"
+            />
+        <include
+            android:id="@+id/anime_airing"
+            layout="@layout/recyclerview_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_anime"
+            />
+        <include
+            android:id="@+id/manga_airing"
+            layout="@layout/recyclerview_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anime_airing"
+            />
+        <include
+            android:id="@+id/season_anime"
+            layout="@layout/recyclerview_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manga_airing"
+            />
+        <include
+            android:id="@+id/top_anime"
+            layout="@layout/recyclerview_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/season_anime"
+            />
+        <include
+            android:id="@+id/top_manga"
+            layout="@layout/recyclerview_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_anime"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

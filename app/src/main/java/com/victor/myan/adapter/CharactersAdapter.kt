@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.model.Character
 import com.victor.myan.baseFragments.BaseCharacterDetailFragment
+import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 
 class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHolder>(MyDiffUtil) {
@@ -32,6 +33,7 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
     inner class CharacterHolder(binding: CardviewPlaceholderVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
+        private val title = binding.title
 
         fun bind(character: Character) {
             Glide.with(itemView.context).load(character.imageUrl).listener(object :
@@ -53,6 +55,7 @@ class CharactersAdapter : ListAdapter<Character, CharactersAdapter.CharacterHold
                     return false
                 }
             }).into(image)
+            title.text = character.name
 
             itemView.setOnClickListener {
                 val fragment = BaseCharacterDetailFragment()

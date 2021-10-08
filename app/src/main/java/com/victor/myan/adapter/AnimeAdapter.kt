@@ -15,6 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.model.Anime
 import com.victor.myan.baseFragments.BaseAnimeDetailFragment
+import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 
 class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
@@ -29,7 +30,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
         }
     }
 
-    inner class AnimeHolder(binding: CardviewPlaceholderVerticalBinding) :
+    inner class AnimeHolder(binding: CardviewPlaceholderHorizontalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
 
@@ -75,7 +76,7 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeHolder {
         return AnimeHolder(
-            CardviewPlaceholderVerticalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            CardviewPlaceholderHorizontalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 

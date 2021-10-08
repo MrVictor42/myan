@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.animeDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class CharacterFragment : Fragment() {
     private val characterViewModel by lazy {
         ViewModelProvider(this).get(CharacterViewModel::class.java)
     }
+    private val TAG = CharacterFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): CharacterFragment {
@@ -49,12 +51,13 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
-        val malID = arguments?.getInt("mal_id")!!
         val characterRecyclerView = binding.recyclerView.recyclerViewVertical
+        val shimmerLayoutCharacter = binding.shimmerLayoutCharacter
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                shimmerLayoutCharacter.startShimmer()
+                Log.i(TAG, "Loading Character List Airing")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -65,10 +68,14 @@ class CharacterFragment : Fragment() {
                     characterAdapter.submitList(characterList)
                     characterRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     characterRecyclerView.adapter = characterAdapter
+                    shimmerLayoutCharacter.stopShimmer()
+                    shimmerLayoutCharacter.visibility = View.GONE
+                    characterRecyclerView.visibility = View.VISIBLE
+                    Log.i(TAG, "Success Character List")
                 }
             }
             is ScreenStateHelper.Error -> {
-                characterViewModel.getCharacterListApi(malID)
+                Log.e(TAG, "Error Character List in Character Fragment With Code: ${state.message}")
             }
             else -> {
                 // Nothing to do

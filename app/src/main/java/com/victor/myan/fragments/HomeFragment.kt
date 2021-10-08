@@ -63,6 +63,8 @@ class HomeFragment : Fragment() {
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
+                        todayAnimeRecyclerView.setHasFixedSize(true)
+                        todayAnimeRecyclerView.setItemViewCacheSize(6)
                         todayAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutToday.stopShimmer()
                         shimmerLayoutToday.visibility = View.GONE
@@ -104,6 +106,8 @@ class HomeFragment : Fragment() {
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
+                        airingAnimeRecyclerView.setHasFixedSize(true)
+                        airingAnimeRecyclerView.setItemViewCacheSize(6)
                         airingAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutAnimeAiring.stopShimmer()
                         shimmerLayoutAnimeAiring.visibility = View.GONE
@@ -144,6 +148,8 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(mangaList)
+                    mangaListAiringRecyclerView.setHasFixedSize(true)
+                    mangaListAiringRecyclerView.setItemViewCacheSize(6)
                     mangaListAiringRecyclerView.adapter = mangaAdapter
                     shimmerLayoutMangaAiring.stopShimmer()
                     shimmerLayoutMangaAiring.visibility = View.GONE
@@ -152,7 +158,7 @@ class HomeFragment : Fragment() {
                     mangaListAiringRecyclerView.visibility = View.VISIBLE
                     Log.i(TAG, "Success Manga List Airing")
 
-                    processAnimeListSeasonResponse()
+//                    processAnimeListSeasonResponse()
                 }
                 is ScreenStateHelper.Error -> {
                     Log.e(TAG, "Error Manga List Airing in Home Fragment With Code: ${state.message}")
@@ -183,6 +189,8 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(mangaList)
+                    topMangaRecyclerView.setHasFixedSize(true)
+                    topMangaRecyclerView.setItemViewCacheSize(6)
                     topMangaRecyclerView.adapter = mangaAdapter
                     shimmerLayoutMangaTop.stopShimmer()
                     shimmerLayoutMangaTop.visibility = View.GONE
@@ -220,6 +228,8 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
+                    topAnimeRecyclerView.setHasFixedSize(true)
+                    topAnimeRecyclerView.setItemViewCacheSize(6)
                     topAnimeRecyclerView.adapter = animeAdapter
                     shimmerLayoutAnimeTop.stopShimmer()
                     shimmerLayoutAnimeTop.visibility = View.GONE
@@ -260,6 +270,8 @@ class HomeFragment : Fragment() {
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
+                        seasonAnimeRecyclerView.setHasFixedSize(true)
+                        seasonAnimeRecyclerView.setItemViewCacheSize(6)
                         seasonAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutSeason.stopShimmer()
                         shimmerLayoutSeason.visibility = View.GONE

@@ -13,6 +13,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
+import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 import com.victor.myan.model.Manga
 import com.victor.myan.screens.MangaDetailFragment
@@ -29,7 +30,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
         }
     }
 
-    inner class MangaHolder(binding: CardviewPlaceholderVerticalBinding) :
+    inner class MangaHolder(binding: CardviewPlaceholderHorizontalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
 
@@ -72,7 +73,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MangaHolder {
         return MangaHolder(
-            CardviewPlaceholderVerticalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            CardviewPlaceholderHorizontalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 
