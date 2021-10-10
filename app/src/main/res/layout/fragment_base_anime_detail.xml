@@ -12,14 +12,14 @@
         android:layout_height="wrap_content"
     >
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_layout_carousel"
+            android:id="@+id/shimmer_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <include
-                layout="@layout/shimmer_layout_carousel"
+                layout="@layout/shimmer_layout_tab_layout"
             />
         </com.facebook.shimmer.ShimmerFrameLayout>
         <include
@@ -39,7 +39,7 @@
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/shimmer_layout_carousel"
+            app:layout_constraintBottom_toBottomOf="@id/shimmer_layout"
             />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager2"

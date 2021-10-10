@@ -23,7 +23,6 @@
     <string name="episodes">Episodes: </string>
     <string name="episodes_">Episodes</string>
     <string name="year">Year: </string>
-
     <string name="status">Status</string>
     <string name="opening_themes">Opening Themes</string>
     <string name="ending_themes">Ending Themes</string>
@@ -95,4 +94,33 @@
     <string name="close">Close</string>
     <string name="warning_dialog_message">Warning Message</string>
     <string name="name_character">Name Character</string>
+    <string name="text_about_music">
+        Seu sorriso é tão resplandescente &lt;br /&gt;
+        Que deixou meu coração alegre &lt;br /&gt;
+        Me dê a mão &lt;br /&gt;
+        Pra fugir desta terrível escuridão &lt;br /&gt;
+        &lt;br /&gt;
+        Desde o dia em que eu te reencontrei &lt;br /&gt;
+        Me lembrei daquele lindo lugar &lt;br /&gt;
+        Que na minha infância era &lt;br /&gt;
+        Especial para mim &lt;br /&gt;
+        &lt;br /&gt;
+        Quero saber &lt;br /&gt;
+        Se comigo você quer vir dançar &lt;br /&gt;
+        Se me der a mão eu te levarei &lt;br /&gt;
+        Por um caminho, cheio de sombras e de luz &lt;br /&gt;
+        &lt;br /&gt;
+        Você pode até não perceber &lt;br /&gt;
+        Mas o meu coração se amarrou em você &lt;br /&gt;
+        Que precisa de alguém &lt;br /&gt;
+        Pra te mostrar o amor, que o mundo te dá &lt;br /&gt;
+        &lt;br /&gt;
+        Meu alegre coração palpita &lt;br /&gt;
+        Por um universo de esperança &lt;br /&gt;
+        Me dê a mão, a magia nos espera &lt;br /&gt;
+        &lt;br /&gt;
+        Vou te amar por toda a minha vida &lt;br /&gt;
+        Vem comigo por este caminho &lt;br /&gt;
+        Me de a mão pra fugir desta terrível escuridão &lt;br /&gt;
+    </string>
 </resources>

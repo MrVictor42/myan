@@ -32,6 +32,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
     inner class ActorHolder(binding: CardviewPlaceholderVerticalBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
+        private val name = binding.name
 
         fun bind(actor : Actor) {
             Glide.with(itemView.context).load(actor.imageUrl).listener(object :
@@ -53,6 +54,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
                     return false
                 }
             }).into(image)
+            name.text = actor.name
 
             itemView.setOnClickListener {
                 val fragment = BaseActorDetailFragment()

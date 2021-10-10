@@ -5,9 +5,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.victor.myan.fragments.tablayouts.characterDetail.CharacterAnimeFragment
-import com.victor.myan.fragments.tablayouts.characterDetail.MangaCharacterFragment
+import com.victor.myan.fragments.tablayouts.characterDetail.CharacterMangaFragment
 import com.victor.myan.fragments.tablayouts.characterDetail.OverviewCharacterFragment
-import com.victor.myan.fragments.tablayouts.characterDetail.VoiceCharacterFragment
+import com.victor.myan.fragments.tablayouts.characterDetail.CharacterVoiceFragment
 
 class CharacterDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
@@ -22,8 +22,8 @@ class CharacterDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle
         return when (position) {
             0 -> OverviewCharacterFragment.newInstance(malID)
             1 -> CharacterAnimeFragment.newInstance(malID)
-            2 -> MangaCharacterFragment.newInstance(malID)
-            3 -> VoiceCharacterFragment.newInstance(malID)
+            2 -> CharacterMangaFragment.newInstance(malID)
+            3 -> CharacterVoiceFragment.newInstance(malID)
             else -> Fragment()
         }
     }

@@ -20,6 +20,7 @@ class OverviewCharacterFragment : Fragment() {
     private val characterViewModel by lazy {
         ViewModelProvider(this).get(CharacterViewModel::class.java)
     }
+    private val TAG = OverviewCharacterFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): OverviewCharacterFragment {
@@ -39,7 +40,6 @@ class OverviewCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getInt("mal_id")!!
-        Log.e("MAL ID CHARACTER", malID.toString())
 
         characterViewModel.getCharacterApi(malID)
         characterViewModel.character.observe(viewLifecycleOwner, { state ->
@@ -53,10 +53,13 @@ class OverviewCharacterFragment : Fragment() {
         val characterImage = binding.characterImage
         val characterNickname = binding.characterNickname
         val characterAbout = binding.expandableTextViewAbout.expandableTextView
+        val shimmerLayout = binding.shimmerLayout
+        val overviewCharacter = binding.overviewCharacter
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                shimmerLayout.startShimmer()
+                Log.i(TAG, "OverviewCharacterFragment Loading...")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -69,36 +72,37 @@ class OverviewCharacterFragment : Fragment() {
                             .fitCenter()
                             .into(characterImage)
 
-                        if(name.isNullOrEmpty()) {
+                        if(name.isNullOrEmpty() || name == "null") {
                             // Nothing to do
                         } else {
-                            characterName.visibility = View.VISIBLE
                             characterName.text = name
                         }
 
-                        if(nameKanji.isNullOrEmpty()) {
+                        if(nameKanji.isNullOrEmpty() || nameKanji == "null") {
                             // Nothing to do
                         } else {
-                            characterNameKanji.visibility = View.VISIBLE
                             characterNameKanji.text = nameKanji
                         }
 
-                        if(nicknames.isNullOrEmpty()) {
+                        if(nicknames.isNullOrEmpty() || nicknames.isEmpty()) {
                             // Nothing to do
                         } else {
-                            characterNickname.visibility = View.VISIBLE
                             characterNickname.text = nicknames.toString()
                         }
 
                         characterAbout.text = about
+                        shimmerLayout.stopShimmer()
+                        shimmerLayout.visibility = View.GONE
+                        overviewCharacter.visibility = View.VISIBLE
+                        Log.i(TAG, "Success in loading overview character")
                     }
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                Log.e(TAG, "Error OverviewCharacter in OverviewCharacterFragment with code ${state.message}")
             }
             else -> {
-
+                //"Nothing to do"
             }
         }
     }

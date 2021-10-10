@@ -44,7 +44,7 @@
                     />
             </androidx.cardview.widget.CardView>
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_score_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="15dp"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
                 android:textColor="@color/white"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_popularity_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
                 android:textColor="@color/white"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_popularity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -90,7 +90,7 @@
                 android:textColor="@color/white"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_favorites_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                 android:textColor="@color/white"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_favorites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                 android:layout_marginEnd="20dp"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -147,7 +147,7 @@
                 android:text="@string/title"
                 />
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_title_synonyms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center_horizontal"
                 >
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/type_year"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
                     android:layout_marginEnd="20dp"
                     />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/anime_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -197,7 +197,7 @@
                     android:layout_marginEnd="20dp"
                     />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/episode_duration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center_horizontal"
                 >
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/anime_genres"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -273,7 +273,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="20dp"
                 >
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/licensors_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -283,7 +283,7 @@
                     android:layout_marginTop="20dp"
                     />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/anime_licensors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -311,7 +311,7 @@
                 app:layout_constraintStart_toStartOf="@id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 >
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/studios_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -322,7 +322,7 @@
                     android:textSize="14sp"
                     />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/anime_studios"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

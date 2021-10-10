@@ -72,11 +72,11 @@ class BaseAnimeDetailFragment : Fragment() {
     @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
         val carouselView = binding.carouselView.carouselViewCarousel
-        val shimmerLayoutCarousel = binding.shimmerLayoutCarousel
+        val shimmerLayout = binding.shimmerLayout
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-                shimmerLayoutCarousel.visibility = View.VISIBLE
+                shimmerLayout.visibility = View.VISIBLE
                 Log.i(TAG, "Carousel Loading...")
             }
             is ScreenStateHelper.Success -> {
@@ -96,8 +96,8 @@ class BaseAnimeDetailFragment : Fragment() {
                     }
                     carouselView.pageCount = state.data.size
                     carouselView.visibility = View.VISIBLE
-                    shimmerLayoutCarousel.stopShimmer()
-                    shimmerLayoutCarousel.visibility = View.INVISIBLE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.INVISIBLE
                     Log.i(TAG, "Carousel Loaded With Success!")
                 }
             }

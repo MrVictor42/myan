@@ -21,17 +21,13 @@ import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
-import android.widget.LinearLayout
-import com.victor.myan.adapter.PersonalListAddRemoveAdapter
 import com.victor.myan.fragments.dialogs.ListDialogFragment
 
 class OverviewAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewAnimeBinding
-    private lateinit var personalListAddRemoveAdapter: PersonalListAddRemoveAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val youtubeHelper = YoutubeHelper()
-    private val layoutToAdd: LinearLayout? = null
     private val TAG = OverviewAnimeFragment::class.java.simpleName
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
@@ -56,9 +52,9 @@ class OverviewAnimeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getInt("mal_id")
+        val malID = arguments?.getInt("mal_id")!!
 
-        animeViewModel.getAnimeApi(malID!!)
+        animeViewModel.getAnimeApi(malID)
         animeViewModel.anime.observe(viewLifecycleOwner, { state ->
             processAnimeResponse(state)
         })
@@ -264,7 +260,7 @@ class OverviewAnimeFragment : Fragment() {
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                Log.e(TAG, "Error OverviewAnime in OverviewAnimeFragment with code ${state.message}")
             }
             else -> {
                 //"Nothing to do"

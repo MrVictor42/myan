@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.characterDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class CharacterAnimeFragment : Fragment() {
     private val characterViewModel by lazy {
         ViewModelProvider(this).get(CharacterViewModel::class.java)
     }
+    private val TAG = CharacterAnimeFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): CharacterAnimeFragment {
@@ -49,13 +51,14 @@ class CharacterAnimeFragment : Fragment() {
     }
 
     private fun processCharacterAnimeResponse(state: ScreenStateHelper<List<Anime>?>) {
-        val malID = arguments?.getInt("mal_id")!!
         val emptyText = binding.emptyListTextView
         val characterAnimeRecyclerView = binding.recyclerView.recyclerViewVertical
+        val shimmerLayout = binding.shimmerLayout
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                shimmerLayout.startShimmer()
+                Log.i(TAG, "CharacterAnimeFragment Loading...")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -66,7 +69,12 @@ class CharacterAnimeFragment : Fragment() {
                     animeAdapter.submitList(characterAnime)
                     characterAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     characterAnimeRecyclerView.adapter = animeAdapter
+
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
                     characterAnimeRecyclerView.visibility = View.VISIBLE
+
+                    Log.i(TAG, "Success in loading character anime")
                 }
             }
             is ScreenStateHelper.Empty -> {
@@ -75,7 +83,7 @@ class CharacterAnimeFragment : Fragment() {
                 characterAnimeRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                characterViewModel.getCharacterAnimeApi(malID)
+                Log.e(TAG, "Error CharacterAnimeFragment in CharacterAnimeFragment with code ${state.message}")
             }
         }
     }

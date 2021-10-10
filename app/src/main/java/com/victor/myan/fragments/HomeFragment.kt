@@ -63,8 +63,11 @@ class HomeFragment : Fragment() {
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
+                        animeAdapter.setHasStableIds(true)
                         todayAnimeRecyclerView.setHasFixedSize(true)
                         todayAnimeRecyclerView.setItemViewCacheSize(6)
+                        todayAnimeRecyclerView.isDrawingCacheEnabled = true
+                        todayAnimeRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
                         todayAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutToday.stopShimmer()
                         shimmerLayoutToday.visibility = View.GONE
@@ -106,8 +109,11 @@ class HomeFragment : Fragment() {
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
+                        animeAdapter.setHasStableIds(true)
                         airingAnimeRecyclerView.setHasFixedSize(true)
                         airingAnimeRecyclerView.setItemViewCacheSize(6)
+                        airingAnimeRecyclerView.isDrawingCacheEnabled = true
+                        airingAnimeRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
                         airingAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutAnimeAiring.stopShimmer()
                         shimmerLayoutAnimeAiring.visibility = View.GONE
@@ -148,8 +154,11 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(mangaList)
+                    mangaAdapter.setHasStableIds(true)
                     mangaListAiringRecyclerView.setHasFixedSize(true)
                     mangaListAiringRecyclerView.setItemViewCacheSize(6)
+                    mangaListAiringRecyclerView.isDrawingCacheEnabled = true
+                    mangaListAiringRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
                     mangaListAiringRecyclerView.adapter = mangaAdapter
                     shimmerLayoutMangaAiring.stopShimmer()
                     shimmerLayoutMangaAiring.visibility = View.GONE
@@ -158,7 +167,7 @@ class HomeFragment : Fragment() {
                     mangaListAiringRecyclerView.visibility = View.VISIBLE
                     Log.i(TAG, "Success Manga List Airing")
 
-//                    processAnimeListSeasonResponse()
+                    processAnimeListSeasonResponse()
                 }
                 is ScreenStateHelper.Error -> {
                     Log.e(TAG, "Error Manga List Airing in Home Fragment With Code: ${state.message}")
@@ -189,8 +198,11 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     mangaAdapter = MangaAdapter()
                     mangaAdapter.submitList(mangaList)
+                    mangaAdapter.setHasStableIds(true)
                     topMangaRecyclerView.setHasFixedSize(true)
                     topMangaRecyclerView.setItemViewCacheSize(6)
+                    topMangaRecyclerView.isDrawingCacheEnabled = true
+                    topMangaRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
                     topMangaRecyclerView.adapter = mangaAdapter
                     shimmerLayoutMangaTop.stopShimmer()
                     shimmerLayoutMangaTop.visibility = View.GONE
@@ -228,8 +240,11 @@ class HomeFragment : Fragment() {
                         LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(animeList)
+                    animeAdapter.setHasStableIds(true)
                     topAnimeRecyclerView.setHasFixedSize(true)
                     topAnimeRecyclerView.setItemViewCacheSize(6)
+                    topAnimeRecyclerView.isDrawingCacheEnabled = true
+                    topAnimeRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
                     topAnimeRecyclerView.adapter = animeAdapter
                     shimmerLayoutAnimeTop.stopShimmer()
                     shimmerLayoutAnimeTop.visibility = View.GONE
@@ -270,8 +285,11 @@ class HomeFragment : Fragment() {
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
                         animeAdapter = AnimeAdapter()
                         animeAdapter.submitList(animeList)
+                        animeAdapter.setHasStableIds(true)
                         seasonAnimeRecyclerView.setHasFixedSize(true)
                         seasonAnimeRecyclerView.setItemViewCacheSize(6)
+                        seasonAnimeRecyclerView.isDrawingCacheEnabled = true
+                        seasonAnimeRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
                         seasonAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutSeason.stopShimmer()
                         shimmerLayoutSeason.visibility = View.GONE
