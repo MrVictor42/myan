@@ -65,9 +65,9 @@
     <string name="character_name_kanji">Character Name Kanji</string>
     <string name="person_name">Person Name</string>
     <string name="character_nickname">Nickname</string>
-    <string name="given_name">Given Name</string>
-    <string name="family_name">Family Name</string>
-    <string name="person_birthday">Birthday</string>
+    <string name="given_name">Given Name: </string>
+    <string name="family_name">Family Name: </string>
+    <string name="person_birthday">Birthday: </string>
     <string name="alternatives_names">Alternatives Names</string>
     <string name="retry">Retry</string>
     <string name="anime_airing">Anime Airing</string>
@@ -123,4 +123,6 @@
         Vem comigo por este caminho &lt;br /&gt;
         Me de a mão pra fugir desta terrível escuridão &lt;br /&gt;
     </string>
+    <string name="birthday">Birthday: </string>
+    <string name="age">Age: </string>
 </resources>

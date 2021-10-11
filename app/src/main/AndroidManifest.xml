@@ -14,10 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
         <activity
-            android:name="com.victor.myan.fragments.tablayouts.animeDetail.BaseAnimeDetailActivity"
+            android:name=".fragments.tablayouts.actorDetail.TesteJson"
             android:exported="true" />
         <activity
-            android:name="com.victor.myan.fragments.tablayouts.animeDetail.TabLayout"
+            android:name=".fragments.tablayouts.animeDetail.BaseAnimeDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".fragments.tablayouts.animeDetail.TabLayout"
             android:exported="true" />
         <activity android:name=".screens.ForgotPasswordActivity" />
         <activity android:name=".screens.SearchActivity" />

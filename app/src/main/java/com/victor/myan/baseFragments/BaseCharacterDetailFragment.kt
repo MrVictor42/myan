@@ -32,8 +32,8 @@ class BaseCharacterDetailFragment : Fragment() {
         val toolbar = binding.toolbar.toolbar
         val sizePager = 4
         val adapter = CharacterDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
-        viewPager.adapter = adapter
 
+        viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager){tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"

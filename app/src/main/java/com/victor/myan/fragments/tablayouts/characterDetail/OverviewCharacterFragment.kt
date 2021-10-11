@@ -75,7 +75,7 @@ class OverviewCharacterFragment : Fragment() {
                             .into(characterImage)
 
                         if(name.isNullOrEmpty() || name == "null") {
-                            // Nothing to do
+                            characterName.visibility = View.GONE
                         } else {
                             characterName.text = name
                         }
@@ -86,7 +86,7 @@ class OverviewCharacterFragment : Fragment() {
                             characterNameKanji.text = nameKanji
                         }
 
-                        if(nicknames.isNullOrEmpty()) {
+                        if(nicknames.isNullOrEmpty() || nicknames.equals("null")) {
                             characterNickname.visibility = View.GONE
                         } else {
                             characterNickname.text = nicknames.toString()

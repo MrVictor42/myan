@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/cardView"
         android:text="@string/character_name"
-        android:textSize="14sp"
+        android:textSize="18sp"
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
@@ -52,12 +52,54 @@
         />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/given_name_shimmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/name_kanji"
+        app:layout_constraintStart_toEndOf="@id/cardView"
+        android:text="@string/character_name_kanji"
+        android:textSize="14sp"
+        android:background="@color/placeholder"
+        android:textColor="@color/placeholder"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/given_name_shimmer"
+        app:layout_constraintStart_toEndOf="@id/cardView"
+        android:text="@string/birthday"
+        android:textSize="14sp"
+        android:background="@color/placeholder"
+        android:textColor="@color/placeholder"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+    />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/birthday"
+        app:layout_constraintStart_toEndOf="@id/cardView"
+        android:text="@string/age"
+        android:textSize="14sp"
+        android:background="@color/placeholder"
+        android:textColor="@color/placeholder"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+    />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/cardView"
         app:layout_constraintStart_toStartOf="@id/cardView"
-        android:text="@string/character_nickname"
+        android:text="@string/alternatives_names"
         android:textSize="14sp"
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"

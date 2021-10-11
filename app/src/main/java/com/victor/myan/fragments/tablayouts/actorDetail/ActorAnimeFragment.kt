@@ -59,7 +59,7 @@ class ActorAnimeFragment : Fragment() {
                 if(state.data != null) {
                     val actorAnime = state.data
                     actorAnimeRecyclerView.setHasFixedSize(true)
-                    actorAnimeRecyclerView.setItemViewCacheSize(10)
+                    actorAnimeRecyclerView.setItemViewCacheSize(8)
                     animeAdapter = AnimeAdapter()
                     animeAdapter.submitList(actorAnime)
                     actorAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
