@@ -31,6 +31,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_anime.xml" value="0.18" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_manga.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_staff.xml" value="0.12590579710144928" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_voice.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_create_list.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_home.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_list_dialog.xml" value="0.25" />
@@ -38,7 +39,8 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_manga_detail.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_anime.xml" value="0.209375" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_character.xml" value="0.18" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_character.xml" value="0.25" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_character2.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_person.xml" value="0.12092391304347826" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_personal_list.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_recommendation.xml" value="0.11322463768115942" />

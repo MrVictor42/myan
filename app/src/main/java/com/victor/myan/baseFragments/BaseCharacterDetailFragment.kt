@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
 import com.victor.myan.viewpager.CharacterDetailViewPager
@@ -28,6 +29,7 @@ class BaseCharacterDetailFragment : Fragment() {
         val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
+        val toolbar = binding.toolbar.toolbar
         val sizePager = 4
         val adapter = CharacterDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
@@ -51,5 +53,16 @@ class BaseCharacterDetailFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(callback)
+
+        toolbar.setOnClickListener {
+            val homeFragment = HomeFragment()
+            (view.context as FragmentActivity)
+                .supportFragmentManager
+                .beginTransaction()
+                .remove(this)
+                .replace(R.id.fragment_layout, homeFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }

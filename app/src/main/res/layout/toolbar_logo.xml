@@ -12,6 +12,7 @@
     android:translationZ="0.1dp"
     >
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/logo_icon"

@@ -32,9 +32,11 @@ class OverviewCharacterFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        binding = FragmentOverviewCharacterBinding.inflate(layoutInflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentOverviewCharacterBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -59,7 +61,7 @@ class OverviewCharacterFragment : Fragment() {
         when(state) {
             is ScreenStateHelper.Loading -> {
                 shimmerLayout.startShimmer()
-                Log.i(TAG, "OverviewCharacterFragment Loading...")
+                Log.i(TAG, "Starting OverviewCharacterFragment")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -79,30 +81,32 @@ class OverviewCharacterFragment : Fragment() {
                         }
 
                         if(nameKanji.isNullOrEmpty() || nameKanji == "null") {
-                            // Nothing to do
+                            characterNameKanji.visibility = View.GONE
                         } else {
                             characterNameKanji.text = nameKanji
                         }
 
-                        if(nicknames.isNullOrEmpty() || nicknames.isEmpty()) {
-                            // Nothing to do
+                        if(nicknames.isNullOrEmpty()) {
+                            characterNickname.visibility = View.GONE
                         } else {
                             characterNickname.text = nicknames.toString()
                         }
 
                         characterAbout.text = about
+                        Log.e(TAG, characterNickname.text.toString())
                         shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
                         overviewCharacter.visibility = View.VISIBLE
-                        Log.i(TAG, "Success in loading overview character")
+
+                        Log.i(TAG, "OverviewCharacterFragment with Success")
                     }
                 }
             }
             is ScreenStateHelper.Error -> {
-                Log.e(TAG, "Error OverviewCharacter in OverviewCharacterFragment with code ${state.message}")
+                Log.e(TAG, "Error OverviewCharacterFragment with code ${state.message}")
             }
             else -> {
-                //"Nothing to do"
+
             }
         }
     }
