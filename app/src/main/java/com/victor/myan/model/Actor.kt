@@ -24,11 +24,3 @@ data class Actor (
 data class ActorsListCharacterResponse (
     val voice_actors : List<Actor>
 )
-
-data class VoiceActingRolesAnimeResponse (
-    val voice_acting_roles : List<String>
-)
-
-data class VoiceActingRolesCharacterResponse (
-    val voice_acting_roles : List<Character>
-)

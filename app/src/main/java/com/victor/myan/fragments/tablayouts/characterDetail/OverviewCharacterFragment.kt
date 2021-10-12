@@ -93,7 +93,6 @@ class OverviewCharacterFragment : Fragment() {
                         }
 
                         characterAbout.text = about
-                        Log.e(TAG, characterNickname.text.toString())
                         shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
                         overviewCharacter.visibility = View.VISIBLE

@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName
 
 data class Character(
     @SerializedName("mal_id")
-    val malID : Int,
+    var malID : Int = 0,
     @SerializedName("image_url")
-    val imageUrl : String,
+    var imageUrl : String = "",
     @SerializedName("name")
-    val name : String,
+    var name : String = "",
     @SerializedName("name_kanji")
-    val nameKanji : String,
+    var nameKanji : String = "",
     @SerializedName("nicknames")
-    val nicknames : List<String> = arrayListOf(),
+    var nicknames : List<String> = arrayListOf(),
     @SerializedName("about")
-    val about : String
+    var about : String = ""
 )
 
 data class AnimeCharacterResponse (

@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.actorDetail
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ class ActorAnimeFragment : Fragment() {
     private val actorViewModel by lazy {
         ViewModelProvider(this).get(ActorViewModel::class.java)
     }
+    private val TAG = ActorAnimeFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): ActorAnimeFragment {
@@ -50,10 +52,12 @@ class ActorAnimeFragment : Fragment() {
 
     private fun processActorAnimeResponse(state: ScreenStateHelper<List<Anime>?>?) {
         val actorAnimeRecyclerView = binding.recyclerView.recyclerViewVertical
+        val shimmerLayout = binding.shimmerLayout
 
         when(state) {
             is ScreenStateHelper.Loading -> {
-
+                shimmerLayout.startShimmer()
+                Log.i(TAG, "Loading ActorAnimeFragment")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -65,10 +69,15 @@ class ActorAnimeFragment : Fragment() {
                     actorAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     actorAnimeRecyclerView.adapter = animeAdapter
                     actorAnimeRecyclerView.visibility = View.VISIBLE
+
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
+                    actorAnimeRecyclerView.visibility = View.VISIBLE
+                    Log.i(TAG, "Success Actor Anime List")
                 }
             }
             is ScreenStateHelper.Error -> {
-
+                Log.e(TAG, "Error ActorAnime with code: ${state.message}")
             }
             else -> {
 

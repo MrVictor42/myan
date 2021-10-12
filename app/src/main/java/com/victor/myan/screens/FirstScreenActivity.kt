@@ -8,7 +8,6 @@ import android.os.Looper
 import androidx.core.content.ContextCompat
 import com.victor.myan.R
 import com.victor.myan.baseFragments.BaseLayout
-import com.victor.myan.fragments.tablayouts.actorDetail.TesteJson
 import com.victor.myan.helper.AuxFunctionsHelper
 
 class FirstScreenActivity : AppCompatActivity() {
@@ -27,7 +26,7 @@ class FirstScreenActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             if(auxFunctionsHelper.userHasConnection(this)) {
                 if(auxFunctionsHelper.userIsAuthenticated()) {
-                    val intent = Intent(this, TesteJson::class.java)
+                    val intent = Intent(this, BaseLayout::class.java)
                     startActivity(intent)
                     finish()
                 } else {

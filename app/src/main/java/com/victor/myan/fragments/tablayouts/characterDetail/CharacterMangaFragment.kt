@@ -58,7 +58,7 @@ class CharacterMangaFragment : Fragment() {
         when(state) {
             is ScreenStateHelper.Loading -> {
                 shimmerLayout.startShimmer()
-                Log.i(TAG, "CharacterAnimeFragment Loading...")
+                Log.i(TAG, "CharacterMangaFragment Loading...")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {

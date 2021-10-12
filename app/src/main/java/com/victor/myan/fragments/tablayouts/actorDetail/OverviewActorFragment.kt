@@ -54,9 +54,13 @@ class OverviewActorFragment : Fragment() {
 
         val personImage = binding.personImage
         val personName = binding.personName
+        val givenNameTv = binding.givenName
         val givenNameText = binding.givenNameText
+        val familyNameTv = binding.familyName
         val familyNameText = binding.familyNameText
+        val birthdayTv = binding.personBirthday
         val personBirthday = binding.personBirthdayText
+        val ageTv = binding.personAge
         val personAge = binding.personAgeText
         val alternativeNames = binding.alternativesNames
         val expandableAbout = binding.expandableTextViewAbout.expandableTextView
@@ -87,12 +91,14 @@ class OverviewActorFragment : Fragment() {
 
                         if(givenName.isNullOrEmpty() || givenName == "null") {
                             givenNameText.visibility = View.GONE
+                            givenNameTv.visibility = View.GONE
                         } else {
                             givenNameText.text = givenName
                         }
 
                         if(familyName.isNullOrEmpty() || familyName == "null") {
                             familyNameText.visibility = View.GONE
+                            familyNameTv.visibility = View.GONE
                         } else {
                             familyNameText.text = familyName
                         }
@@ -100,6 +106,8 @@ class OverviewActorFragment : Fragment() {
                         if(birthday.isNullOrEmpty() || birthday == "null") {
                             personBirthday.visibility = View.GONE
                             personAge.visibility = View.GONE
+                            birthdayTv.visibility = View.GONE
+                            ageTv.visibility = View.GONE
                         } else {
                             val birthday = birthday.substring(0,10)
                             val currentYear = Calendar.getInstance().get(Calendar.YEAR)
