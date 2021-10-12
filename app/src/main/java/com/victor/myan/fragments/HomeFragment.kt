@@ -23,7 +23,6 @@ class HomeFragment : Fragment() {
     private lateinit var animeAdapter: AnimeAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val TAG = HomeFragment::class.java.simpleName
-
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
     }

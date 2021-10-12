@@ -1,79 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
-    tools:context=".fragments.dialogs.ListDialogFragment">
+    tools:context=".fragments.dialogs.ListDialogFragment"
+    android:orientation="vertical">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_repeat_mode="restart"
+        app:shimmer_shape="radial">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/shimmer_layout_list_dialog"/>
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linear_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="24sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="10dp"
-                    android:text="@string/name_user" />
-                    <Button
-                        android:id="@+id/icon_add_list"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:backgroundTint="@color/black"
-                        android:drawableEnd="@drawable/ic_filter_list"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/name_user" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/icon_add_list"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/personal_list_recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/personal_list_add_remove"
-                />
-        </androidx.core.widget.NestedScrollView>
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/empty_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
-            <TextView
-                android:id="@+id/empty_list_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/white"
-                android:text="@string/empty_list"
-                android:textSize="16sp"
-                android:layout_marginStart="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btn_add_list"/>
-            <Button
-                android:id="@+id/btn_add_list"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:layout_marginEnd="20dp"
-                android:drawableEnd="@drawable/ic_add"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/black"
+            android:drawableEnd="@drawable/ic_filter_list"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
-</FrameLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/personal_list_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/personal_list_add_remove"
+            android:visibility="gone"
+            />
+    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/empty_list_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="@string/empty_list"
+            android:textSize="16sp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_add_list"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_list"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/black"
+            android:layout_marginEnd="20dp"
+            android:drawableEnd="@drawable/ic_add"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

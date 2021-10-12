@@ -116,11 +116,13 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
 
     private fun processPersonalListResponse(personalList: ScreenStateHelper<List<PersonalList>?>?) {
         val personalListRecyclerview = binding.personalListRecyclerview
-        personalListRecyclerview.visibility = View.GONE
+        val shimmerLayout = binding.shimmerLayout
 
+        personalListRecyclerview.visibility = View.GONE
         when (personalList) {
             is ScreenStateHelper.Loading -> {
                 Log.i(TAG, "Loading personal list")
+                shimmerLayout.startShimmer()
             }
             is ScreenStateHelper.Success -> {
                 if (personalList.data != null) {
@@ -130,6 +132,8 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                     personalListAddRemoveAdapter.submitList(personalList.data)
                     personalListAddRemoveAdapter.addAnime(anime!!)
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
                     personalListRecyclerview.visibility = View.VISIBLE
                 }
             }
