@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.victor.myan.R
+import com.victor.myan.baseFragments.BaseListsFragment
 import com.victor.myan.databinding.FragmentCreateListBinding
 import com.victor.myan.fragments.tablayouts.listsDetail.PersonalListFragment
 import com.victor.myan.model.PersonalList
@@ -92,12 +93,12 @@ class CreateListFragment : Fragment() {
                             .show()
                             progressBar.visibility = View.GONE
 
-                            val personalListListFragment = PersonalListFragment()
+                            val baseListFragment = BaseListsFragment()
                             (view.context as FragmentActivity)
                                 .supportFragmentManager
                                 .beginTransaction()
                                 .remove(this)
-                                .replace(R.id.fragment_layout, personalListListFragment)
+                                .replace(R.id.fragment_layout, baseListFragment)
                                 .addToBackStack(null)
                                 .commit()
                         }.addOnFailureListener {

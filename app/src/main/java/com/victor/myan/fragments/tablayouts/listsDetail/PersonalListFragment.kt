@@ -57,9 +57,11 @@ class PersonalListFragment : Fragment() {
         val createListNotEmpty = binding.createListNotEmpty
         val createListEmpty = binding.createListEmpty
         val personalListRecyclerview = binding.personalListRecyclerview
+        val shimmerLayout = binding.shimmerLayout
 
         createListNotEmpty.visibility = View.GONE
         createListEmpty.visibility = View.GONE
+        shimmerLayout.visibility = View.GONE
 
         btnRegisterList.setOnClickListener {
             val createListFragment = CreateListFragment()
@@ -86,6 +88,8 @@ class PersonalListFragment : Fragment() {
         when (personalList) {
             is ScreenStateHelper.Loading -> {
                 Log.i(TAG, "Loading personal list")
+                shimmerLayout.visibility = View.VISIBLE
+                shimmerLayout.startShimmer()
             }
             is ScreenStateHelper.Success -> {
                 if (personalList.data != null) {
@@ -98,6 +102,8 @@ class PersonalListFragment : Fragment() {
                     personalListAdapter.submitList(personalList.data)
                     personalListRecyclerview.adapter = personalListAdapter
                     personalListRecyclerview.visibility = View.VISIBLE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
                 } else {
                     createListNotEmpty.visibility = View.GONE
                     createListEmpty.visibility = View.VISIBLE

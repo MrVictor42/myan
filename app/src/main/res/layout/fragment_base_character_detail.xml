@@ -5,9 +5,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".baseFragments.BaseCharacterDetailFragment"
     android:background="@color/black"
-    tools:ignore="UselessParent">
+    tools:context=".baseFragments.BaseCharacterDetailFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

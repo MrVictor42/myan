@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.tabs.TabLayoutMediator
+import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseListsBinding
+import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewpager.ListFragmentViewPager
 
 class BaseListsFragment : Fragment() {
@@ -33,6 +36,7 @@ class BaseListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
+        val toolbar = binding.toolbar.toolbar
         val sizePager = 4
         val adapter = ListFragmentViewPager(parentFragmentManager, lifecycle, sizePager)
         viewPager.adapter = adapter
@@ -45,5 +49,16 @@ class BaseListsFragment : Fragment() {
                 3 -> tab.text = "Season"
             }
         }.attach()
+
+        toolbar.setOnClickListener {
+            val homeFragment = HomeFragment()
+            (view.context as FragmentActivity)
+                .supportFragmentManager
+                .beginTransaction()
+                .remove(this)
+                .replace(R.id.fragment_layout, homeFragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }
