@@ -61,6 +61,12 @@
                 <include
                     layout="@layout/shimmer_layout_personal_list"
                     />
+                <include
+                    layout="@layout/shimmer_layout_personal_list"
+                    />
+                <include
+                    layout="@layout/shimmer_layout_personal_list"
+                    />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.facebook.shimmer.ShimmerFrameLayout>
         <ScrollView

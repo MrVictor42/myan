@@ -17,9 +17,11 @@ import com.victor.myan.model.Anime
 import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.fragments.dialogs.ListDialogFragment
+import com.victor.myan.model.Manga
 
 class PersonalListAddRemoveAdapter(private val dialogFragment : ListDialogFragment) : ListAdapter<PersonalList, PersonalListAddRemoveAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
     private lateinit var animeSelected : Anime
+    private lateinit var mangaSelected : Manga
     private val TAG : String = PersonalListAddRemoveAdapter::class.java.simpleName
 
     companion object MyDiffUtil : DiffUtil.ItemCallback<PersonalList>() {
@@ -102,6 +104,11 @@ class PersonalListAddRemoveAdapter(private val dialogFragment : ListDialogFragme
     fun addAnime(anime: Anime) : Anime {
         animeSelected = anime
         return animeSelected
+    }
+
+    fun addManga(manga: Manga) : Manga {
+        mangaSelected = manga
+        return mangaSelected
     }
 
     private fun showDialog(context : Context, layout : Int, message : String) {

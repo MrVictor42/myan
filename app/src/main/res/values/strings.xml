@@ -125,4 +125,5 @@
     </string>
     <string name="birthday">Birthday: </string>
     <string name="age">Age: </string>
+    <string name="empty_anime">Don\'t have anime from this list yet</string>
 </resources>

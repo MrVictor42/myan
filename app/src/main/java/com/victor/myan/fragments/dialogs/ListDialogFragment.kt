@@ -130,7 +130,13 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
                     personalListAddRemoveAdapter = PersonalListAddRemoveAdapter(this)
                     personalListAddRemoveAdapter.submitList(personalList.data)
-                    personalListAddRemoveAdapter.addAnime(anime!!)
+
+                    if(anime != null) {
+                        personalListAddRemoveAdapter.addAnime(anime)
+                    } else if(manga != null) {
+                        personalListAddRemoveAdapter.addManga(manga)
+                    }
+
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
