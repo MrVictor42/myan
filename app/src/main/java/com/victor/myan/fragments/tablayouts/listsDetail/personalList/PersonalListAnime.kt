@@ -1,20 +1,13 @@
 package com.victor.myan.fragments.tablayouts.listsDetail.personalList
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.PersonalListAnimeAdapter
 import com.victor.myan.databinding.FragmentPersonalListAnimeBinding
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.PersonalListViewModel
@@ -22,7 +15,7 @@ import com.victor.myan.viewmodel.PersonalListViewModel
 class PersonalListAnime : Fragment() {
 
     private lateinit var binding : FragmentPersonalListAnimeBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var personalListAnimeAdapter : PersonalListAnimeAdapter
     private val personalListViewModel by lazy {
         ViewModelProvider(this).get(PersonalListViewModel::class.java)
     }
@@ -66,10 +59,10 @@ class PersonalListAnime : Fragment() {
                         }
                         recyclerView.setHasFixedSize(true)
                         recyclerView.setItemViewCacheSize(6)
-                        animeAdapter = AnimeAdapter()
-                        animeAdapter.submitList(animeList)
+                        personalListAnimeAdapter = PersonalListAnimeAdapter()
+                        personalListAnimeAdapter.submitList(animeList)
                         recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                        recyclerView.adapter = animeAdapter
+                        recyclerView.adapter = personalListAnimeAdapter
                         shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
                         recyclerView.visibility = View.VISIBLE

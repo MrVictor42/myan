@@ -59,7 +59,20 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
             }).into(image)
 
             itemView.setOnClickListener {
-                render(anime.malID)
+                val fragment = BaseAnimeDetailFragment()
+                val fragmentManager = (context as FragmentActivity?)?.supportFragmentManager
+
+                val bundle = Bundle()
+                bundle.putInt("mal_id", anime.malID)
+
+                fragment.arguments = bundle
+
+                val transaction =
+                    fragmentManager?.
+                    beginTransaction()?.
+                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
+                transaction?.commit()
+                fragmentManager?.beginTransaction()?.commit()
             }
         }
     }
@@ -73,22 +86,5 @@ class AnimeAdapter : ListAdapter<Anime, AnimeAdapter.AnimeHolder>(MyDiffUtil) {
     override fun onBindViewHolder(holder: AnimeHolder, position: Int) {
         val anime = getItem(position)
         holder.bind(anime)
-    }
-
-    private fun render(malID: Int) {
-        val fragment = BaseAnimeDetailFragment()
-        val fragmentManager = (context as FragmentActivity?)?.supportFragmentManager
-
-        val bundle = Bundle()
-        bundle.putInt("mal_id", malID)
-
-        fragment.arguments = bundle
-
-        val transaction =
-            fragmentManager?.
-            beginTransaction()?.
-            replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
-        transaction?.commit()
-        fragmentManager?.beginTransaction()?.commit()
     }
 }
