@@ -13,6 +13,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_form_register_user.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_teste_json.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_category.xml" value="0.10182370820668693" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_personal_list.xml" value="0.2" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder_vertical.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/carousel_view.xml" value="0.10052083333333334" />
@@ -26,9 +27,6 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_actor_detail.xml" value="0.19925857275254866" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.15" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_character_detail.xml" value="0.17798913043478262" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_genre_detail.xml" value="0.13451086956521738" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_list_detail.xml" value="0.13451086956521738" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_lists.xml" value="0.13451086956521738" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_person_detail.xml" value="0.12092391304347826" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_blank.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_carousel.xml" value="0.10182370820668693" />
@@ -50,15 +48,13 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_character2.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_person.xml" value="0.12092391304347826" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_personal_list.xml" value="0.209375" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_personal_list_anime.xml" value="0.2" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_recommendation.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_voice_character.xml" value="0.18" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/item_shimmer.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/list_image_adapter.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/lists_popup.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_add_remove.xml" value="0.12590579710144928" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_recyclerview.xml" value="0.2" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/picture_base.xml" value="0.12001811594202899" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_recyclerview.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_horizontal.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_vertical.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/round_corner.xml" value="0.45723684210526316" />
@@ -67,9 +63,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_carousel.xml" value="0.1" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_character_actor.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_home.xml" value="0.10182370820668693" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_list_dialog.xml" value="0.18" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_overview_anime.xml" value="0.10182370820668693" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_personal_list.xml" value="0.15" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_vertical.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/toolbar_main.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/top_page.xml" value="0.12590579710144928" />
