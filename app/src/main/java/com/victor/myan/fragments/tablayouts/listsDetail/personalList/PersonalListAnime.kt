@@ -1,10 +1,13 @@
 package com.victor.myan.fragments.tablayouts.listsDetail.personalList
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.PersonalListAnimeAdapter
@@ -38,6 +41,7 @@ class PersonalListAnime : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val idList = arguments?.getString("ID")!!
         val listRef = personalListViewModel.listRef.ref.child(idList)
@@ -45,6 +49,7 @@ class PersonalListAnime : Fragment() {
         val animeList : MutableList<Anime> = arrayListOf()
         val shimmerLayout = binding.shimmerLayout
         val recyclerView = binding.recyclerView.recyclerViewVertical
+        val btnRemove = binding.btnRemove
 
         shimmerLayout.startShimmer()
         animeRef.get().addOnCompleteListener { task ->
@@ -59,7 +64,17 @@ class PersonalListAnime : Fragment() {
                         }
                         recyclerView.setHasFixedSize(true)
                         recyclerView.setItemViewCacheSize(6)
-                        personalListAnimeAdapter = PersonalListAnimeAdapter()
+                        personalListAnimeAdapter = PersonalListAnimeAdapter(btnRemove) { anime ->
+//                            if(personalListAnimeAdapter.selectedList.size >= 0) {
+//                                btnRemove.visibility = View.VISIBLE
+//                                btnRemove.text = "Remove ${personalListAnimeAdapter.selectedList.size + 1} Items From List"
+//                            } else if(anime.checked) {
+//                                btnRemove.visibility = View.VISIBLE
+//                                btnRemove.text = "Remove ${personalListAnimeAdapter.selectedList.size} Items From List"
+//                            } else {
+//                                btnRemove.visibility = View.INVISIBLE
+//                            }
+                        }
                         personalListAnimeAdapter.submitList(animeList)
                         recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                         recyclerView.adapter = personalListAnimeAdapter

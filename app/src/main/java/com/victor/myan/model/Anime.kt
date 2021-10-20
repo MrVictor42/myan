@@ -42,8 +42,10 @@ data class Anime (
     @SerializedName("ending_themes")
     var endingThemes : List<String> = arrayListOf(),
     @SerializedName("pictures")
-    var pictureList : List<Picture> = arrayListOf()
-)
+    var pictureList : List<Picture> = arrayListOf(),
+    var checked: Boolean = false
+) {
+}
 
 data class AnimeListAiringResponse (
     val results : List<Anime>

@@ -126,4 +126,5 @@
     <string name="birthday">Birthday: </string>
     <string name="age">Age: </string>
     <string name="empty_anime">Don\'t have anime from this list yet</string>
+    <string name="remove_from_list">Remove X Items From List</string>
 </resources>
