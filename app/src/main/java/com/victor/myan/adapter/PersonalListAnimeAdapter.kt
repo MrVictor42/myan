@@ -1,10 +1,11 @@
 package com.victor.myan.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -13,13 +14,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.google.firebase.database.DatabaseReference
 import com.victor.myan.databinding.CardviewPersonalListBinding
 import com.victor.myan.model.Anime
 
-class PersonalListAnimeAdapter(private val btnRemove :  AppCompatButton) : ListAdapter<Anime, PersonalListAnimeAdapter.AnimeHolder>(MyDiffUtil) {
+class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private val listRef: DatabaseReference) : ListAdapter<Anime, PersonalListAnimeAdapter.AnimeHolder>(MyDiffUtil) {
 
     val selectedList : MutableList<Int> = arrayListOf()
-    var countSelectList : Int = 0
 
     companion object MyDiffUtil : DiffUtil.ItemCallback<Anime>() {
         override fun areItemsTheSame(oldItem: Anime, newItem: Anime): Boolean {
@@ -33,8 +34,9 @@ class PersonalListAnimeAdapter(private val btnRemove :  AppCompatButton) : ListA
 
     inner class AnimeHolder(binding: CardviewPersonalListBinding) : RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
-        val btnRemove = binding.btnRemove
+        private val iconRemove = binding.btnRemove
 
+        @SuppressLint("SetTextI18n")
         fun bind(anime: Anime) {
             Glide.with(itemView.context).load(anime.imageUrl).listener(object :
             RequestListener<Drawable> {
@@ -56,36 +58,24 @@ class PersonalListAnimeAdapter(private val btnRemove :  AppCompatButton) : ListA
                 }
             }).into(image)
 
-//            image.setOnClickListener {
-//                Toast.makeText(itemView.context, anime.title, Toast.LENGTH_SHORT).show()
-////                if(anime.checked) {
-////                    var count = 0
-////                    for (aux in 0 until selectedList.size) {
-////                        if (anime.malID == selectedList[aux]) {
-////                            count = aux
-////                        }
-////                    }
-////                    btnRemove.visibility = View.INVISIBLE
-////                    selectedList.removeAt(count)
-////                }
-//            }
+            image.setOnClickListener {
+                if(anime.checked) {
+                    var count = 0
+                    for (aux in 0 until selectedList.size) {
+                        if(anime.malID == selectedList[aux]) {
+                            count = aux
+                        }
+                    }
+                    iconRemove.visibility = View.INVISIBLE
+                    selectedList.removeAt(count)
+                    anime.checked = false
 
-//            image.setOnLongClickListener {
-//                markSelectedAnime(anime.malID, btnRemove)
-//            }
-//
-//            image.setOnClickListener {
-//                if (btnRemove.isVisible) {
-//                    var count = 0
-//                    for (aux in 0 until selectedList.size) {
-//                        if (anime.malID == selectedList[aux]) {
-//                            count = aux
-//                        }
-//                    }
-//                    btnRemove.visibility = View.INVISIBLE
-//                    selectedList.removeAt(count)
-//                    Log.e("Selectedlist", selectedList.toString())
-//                } else {
+                    if(selectedList.size == 0) {
+                        btnRemove.visibility = View.INVISIBLE
+                    } else {
+                        btnRemove.text = "Remove ${ selectedList.size } Items From List"
+                    }
+                } else {
 //                    val fragment = BaseAnimeDetailFragment()
 //                    val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 //
@@ -101,8 +91,57 @@ class PersonalListAnimeAdapter(private val btnRemove :  AppCompatButton) : ListA
 //                        addToBackStack(null)
 //                    transaction?.commit()
 //                    fragmentManager?.beginTransaction()?.commit()
-//                }
-//            }
+                }
+            }
+
+            image.setOnLongClickListener {
+                if(!selectedList.contains(anime.malID)) {
+                    selectedList.add(anime.malID)
+                    anime.checked = true
+                    iconRemove.visibility = View.VISIBLE
+                    btnRemove.text = "Remove ${ selectedList.size } Items From List"
+                    btnRemove.visibility = View.VISIBLE
+                }
+                true
+            }
+
+            iconRemove.setOnClickListener {
+                var count = 0
+                for (aux in 0 until selectedList.size) {
+                    if(anime.malID == selectedList[aux]) {
+                        count = aux
+                    }
+                }
+                iconRemove.visibility = View.INVISIBLE
+                selectedList.removeAt(count)
+                anime.checked = false
+
+                if(selectedList.size == 0) {
+                    btnRemove.visibility = View.INVISIBLE
+                } else {
+                    btnRemove.text = "Remove ${ selectedList.size } Items From List"
+                }
+            }
+
+            btnRemove.setOnClickListener {
+                Toast.makeText(itemView.context, "Agora é fazer excluir", Toast.LENGTH_SHORT).show()
+                /*
+                val animeRef2 = animeRef.orderByKey().equalTo("21")
+
+        animeRef2.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (postSnapshot in snapshot.children) {
+                    Log.e("anime", snapshot.value.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+                 */
+            }
         }
     }
 
@@ -114,35 +153,6 @@ class PersonalListAnimeAdapter(private val btnRemove :  AppCompatButton) : ListA
 
     override fun onBindViewHolder(holder: PersonalListAnimeAdapter.AnimeHolder, position: Int) {
         val anime = getItem(position)
-//        val btnRemove = holder.btnRemove
-
         holder.bind(anime)
-        holder.itemView.setOnLongClickListener {
-            btnRemove.visibility = View.VISIBLE
-//            if(!selectedList.contains(anime.malID)){
-//                selectedList.add(anime.malID)
-//                btnRemove.visibility = View.VISIBLE
-//                anime.checked = true
-//                Log.e("Acrescentando: ", selectedList.size.toString())
-//                Log.e("SelectList", selectedList.toString())
-//            }
-            true
-        }
-//        holder.itemView.setOnClickListener {
-//            listener(anime)
-//            if(anime.checked) {
-//                var count = 0
-//                for (aux in 0 until selectedList.size) {
-//                    if (anime.malID == selectedList[aux]) {
-//                        count = aux
-//                    }
-//                }
-//                btnRemove.visibility = View.INVISIBLE
-//                selectedList.removeAt(count)
-//                anime.checked = false
-//                Log.e("Retirando: ", selectedList.size.toString())
-//                Log.e("SelectList", selectedList.toString())
-//            }
-//        }
     }
 }

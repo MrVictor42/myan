@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.victor.myan.adapter.PersonalListAnimeAdapter
 import com.victor.myan.databinding.FragmentPersonalListAnimeBinding
 import com.victor.myan.model.Anime
@@ -64,17 +66,7 @@ class PersonalListAnime : Fragment() {
                         }
                         recyclerView.setHasFixedSize(true)
                         recyclerView.setItemViewCacheSize(6)
-                        personalListAnimeAdapter = PersonalListAnimeAdapter(btnRemove) { anime ->
-//                            if(personalListAnimeAdapter.selectedList.size >= 0) {
-//                                btnRemove.visibility = View.VISIBLE
-//                                btnRemove.text = "Remove ${personalListAnimeAdapter.selectedList.size + 1} Items From List"
-//                            } else if(anime.checked) {
-//                                btnRemove.visibility = View.VISIBLE
-//                                btnRemove.text = "Remove ${personalListAnimeAdapter.selectedList.size} Items From List"
-//                            } else {
-//                                btnRemove.visibility = View.INVISIBLE
-//                            }
-                        }
+                        personalListAnimeAdapter = PersonalListAnimeAdapter(btnRemove, animeRef)
                         personalListAnimeAdapter.submitList(animeList)
                         recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                         recyclerView.adapter = personalListAnimeAdapter
