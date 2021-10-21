@@ -5,10 +5,8 @@ import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -18,26 +16,20 @@ import com.google.firebase.database.DatabaseReference
 import com.victor.myan.databinding.CardviewPersonalListBinding
 import com.victor.myan.model.Anime
 
-class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private val listRef: DatabaseReference) : ListAdapter<Anime, PersonalListAnimeAdapter.AnimeHolder>(MyDiffUtil) {
+class PersonalListAnimeAdapter(
+    private val animeList : MutableList<Anime>,
+    private val btnRemove: AppCompatButton,
+    private val listRef: DatabaseReference
+) : RecyclerView.Adapter<PersonalListAnimeAdapter.AnimeHolder>() {
 
-    val selectedList : MutableList<Int> = arrayListOf()
-
-    companion object MyDiffUtil : DiffUtil.ItemCallback<Anime>() {
-        override fun areItemsTheSame(oldItem: Anime, newItem: Anime): Boolean {
-            return oldItem == newItem
-        }
-
-        override fun areContentsTheSame(oldItem: Anime, newItem: Anime): Boolean {
-            return oldItem.malID == newItem.malID
-        }
-    }
+    private val selectedList : MutableList<Int> = arrayListOf()
 
     inner class AnimeHolder(binding: CardviewPersonalListBinding) : RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
         private val iconRemove = binding.btnRemove
 
-        @SuppressLint("SetTextI18n")
-        fun bind(anime: Anime) {
+        @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
+        fun bind(anime: Anime, position: Int) {
             Glide.with(itemView.context).load(anime.imageUrl).listener(object :
             RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?,
@@ -58,6 +50,11 @@ class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private v
                 }
             }).into(image)
 
+            if(!anime.checked) {
+                iconRemove.visibility = View.INVISIBLE
+                btnRemove.visibility = View.INVISIBLE
+            }
+
             image.setOnClickListener {
                 if(anime.checked) {
                     var count = 0
@@ -73,7 +70,7 @@ class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private v
                     if(selectedList.size == 0) {
                         btnRemove.visibility = View.INVISIBLE
                     } else {
-                        btnRemove.text = "Remove ${ selectedList.size } Items From List"
+                        btnRemove.text = "Remove ${ selectedList.size } Item From List"
                     }
                 } else {
 //                    val fragment = BaseAnimeDetailFragment()
@@ -99,7 +96,7 @@ class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private v
                     selectedList.add(anime.malID)
                     anime.checked = true
                     iconRemove.visibility = View.VISIBLE
-                    btnRemove.text = "Remove ${ selectedList.size } Items From List"
+                    btnRemove.text = "Remove ${ selectedList.size } Item From List"
                     btnRemove.visibility = View.VISIBLE
                 }
                 true
@@ -119,13 +116,16 @@ class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private v
                 if(selectedList.size == 0) {
                     btnRemove.visibility = View.INVISIBLE
                 } else {
-                    btnRemove.text = "Remove ${ selectedList.size } Items From List"
+                    btnRemove.text = "Remove ${ selectedList.size } Item From List"
                 }
             }
 
             btnRemove.setOnClickListener {
-                Toast.makeText(itemView.context, "Agora é fazer excluir", Toast.LENGTH_SHORT).show()
-                /*
+                val alertBuilder = AlertDialog.Builder(itemView.context)
+                alertBuilder.setTitle("Delete")
+                alertBuilder.setMessage("Do you want to delete this item ?")
+                alertBuilder.setPositiveButton("Delete"){_,_ ->
+                    /*
                 val animeRef2 = animeRef.orderByKey().equalTo("21")
 
         animeRef2.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -141,6 +141,21 @@ class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private v
 
         })
                  */
+                    animeList.removeAll { anime ->
+                        anime.checked
+                    }
+                    selectedList.clear()
+                    notifyDataSetChanged()
+                }
+
+                alertBuilder.setNegativeButton("No"){_,_ ->
+
+                }
+
+                alertBuilder.setNeutralButton("Cancel"){_,_ ->
+
+                }
+                alertBuilder.show()
             }
         }
     }
@@ -152,7 +167,10 @@ class PersonalListAnimeAdapter(private val btnRemove: AppCompatButton, private v
     }
 
     override fun onBindViewHolder(holder: PersonalListAnimeAdapter.AnimeHolder, position: Int) {
-        val anime = getItem(position)
-        holder.bind(anime)
+        holder.bind(animeList[position], position)
+    }
+
+    override fun getItemCount(): Int {
+        return animeList.size
     }
 }
