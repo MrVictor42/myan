@@ -2,17 +2,26 @@ package com.victor.myan.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.victor.myan.R
+import com.victor.myan.baseFragments.BaseAnimeDetailFragment
 import com.victor.myan.databinding.CardviewPersonalListBinding
 import com.victor.myan.model.Anime
 
@@ -29,7 +38,7 @@ class PersonalListAnimeAdapter(
         private val iconRemove = binding.btnRemove
 
         @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
-        fun bind(anime: Anime, position: Int) {
+        fun bind(anime: Anime) {
             Glide.with(itemView.context).load(anime.imageUrl).listener(object :
             RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?,
@@ -73,21 +82,21 @@ class PersonalListAnimeAdapter(
                         btnRemove.text = "Remove ${ selectedList.size } Item From List"
                     }
                 } else {
-//                    val fragment = BaseAnimeDetailFragment()
-//                    val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
-//
-//                    val bundle = Bundle()
-//                    bundle.putInt("mal_id", anime.malID)
-//
-//                    fragment.arguments = bundle
-//
-//                    val transaction =
-//                        fragmentManager?.
-//                        beginTransaction()?.
-//                        replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)?.
-//                        addToBackStack(null)
-//                    transaction?.commit()
-//                    fragmentManager?.beginTransaction()?.commit()
+                    val fragment = BaseAnimeDetailFragment()
+                    val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
+
+                    val bundle = Bundle()
+                    bundle.putInt("mal_id", anime.malID)
+
+                    fragment.arguments = bundle
+
+                    val transaction =
+                        fragmentManager?.
+                        beginTransaction()?.
+                        replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)?.
+                        addToBackStack(null)
+                    transaction?.commit()
+                    fragmentManager?.beginTransaction()?.commit()
                 }
             }
 
@@ -125,26 +134,24 @@ class PersonalListAnimeAdapter(
                 alertBuilder.setTitle("Delete")
                 alertBuilder.setMessage("Do you want to delete this item ?")
                 alertBuilder.setPositiveButton("Delete"){_,_ ->
-                    /*
-                val animeRef2 = animeRef.orderByKey().equalTo("21")
+                    selectedList.forEach { malID ->
+                        listRef.orderByKey().equalTo(malID.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for (postSnapshot in snapshot.children) {
+                                    postSnapshot.ref.removeValue()
+                                }
+                            }
 
-        animeRef2.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                for (postSnapshot in snapshot.children) {
-                    Log.e("anime", snapshot.value.toString())
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-        })
-                 */
+                            override fun onCancelled(error: DatabaseError) {
+                                Log.e("Error Firebase", "onCancelled", error.toException())
+                            }
+                        })
+                    }
                     animeList.removeAll { anime ->
                         anime.checked
                     }
                     selectedList.clear()
+                    Toast.makeText(itemView.context, "Anime deleted", Toast.LENGTH_SHORT).show()
                     notifyDataSetChanged()
                 }
 
@@ -167,7 +174,7 @@ class PersonalListAnimeAdapter(
     }
 
     override fun onBindViewHolder(holder: PersonalListAnimeAdapter.AnimeHolder, position: Int) {
-        holder.bind(animeList[position], position)
+        holder.bind(animeList[position])
     }
 
     override fun getItemCount(): Int {
