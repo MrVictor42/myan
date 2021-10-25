@@ -8,18 +8,6 @@
     android:background="@color/white"
     tools:context=".screens.FirstScreenActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/teste"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/red_light"
-        android:text="CLICA"
-        android:textColor="@color/white"
-    />
-
     <ImageView
         android:id="@+id/logo_myan"
         android:layout_width="match_parent"
