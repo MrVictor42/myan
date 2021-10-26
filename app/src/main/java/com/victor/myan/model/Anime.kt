@@ -23,6 +23,8 @@ data class Anime (
     var score : Double = 0.0,
     @SerializedName("type")
     var type : String = "",
+    @SerializedName("broadcast")
+    var broadcast : String = "",
     @SerializedName("duration")
     var duration : String = "",
     @SerializedName("popularity")

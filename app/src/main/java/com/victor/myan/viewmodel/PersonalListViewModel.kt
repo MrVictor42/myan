@@ -15,8 +15,8 @@ class PersonalListViewModel : ViewModel() {
 
     val personalList : MutableLiveData<ScreenStateHelper<List<PersonalList>?>> = MutableLiveData()
 
-    private val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
     private val TAG = PersonalListViewModel::class.java.simpleName
+    private val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
     private val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
     val listRef = userRef.ref.child(currentUser).child("list").orderByChild("userID").equalTo(currentUser)
 

@@ -249,6 +249,7 @@ class OverviewAnimeFragment : Fragment() {
                         personalListAnime.imageUrl = imageUrl
                         personalListAnime.title = title
                         personalListAnime.status = status
+                        personalListAnime.broadcast = broadcast
 
                         btnAddList.setOnClickListener {
                             ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
