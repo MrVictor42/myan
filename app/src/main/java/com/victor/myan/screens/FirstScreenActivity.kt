@@ -33,7 +33,6 @@ class FirstScreenActivity : AppCompatActivity(), LifecycleObserver {
         ViewModelProvider(this).get(PersonalListViewModel::class.java)
     }
     private val channelID = "myAn_01"
-    private val notificationID = 42
     private val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
     private val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
     private val listRef = userRef.ref.child(currentUser).child("list").orderByChild("userID").equalTo(currentUser)
@@ -118,8 +117,10 @@ class FirstScreenActivity : AppCompatActivity(), LifecycleObserver {
                         for(aux in animeResult.indices) {
                             if(animeResult[aux].status == "Currently Airing") {
                                 val regexBroadcast = animeResult[aux].broadcast.split("\\s".toRegex())[0]
-                                if(regexBroadcast == "Sundays") {
+                                if(regexBroadcast == auxFunctionsHelper.getCurrentDays()) {
                                     Log.e("anime", animeResult[aux].title)
+                                    createNotification(animeResult[aux])
+                                    sendNotification(animeResult[aux], aux)
                                 }
                             }
                         }
@@ -132,10 +133,10 @@ class FirstScreenActivity : AppCompatActivity(), LifecycleObserver {
         })
     }
 
-    private fun createNotification() {
+    private fun createNotification(anime: Anime) {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "Notification name"
-            val descriptionText = "Notification Description"
+            val name = "Today is day of ${ anime.title }!"
+            val descriptionText = "Click here and see!"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(channelID, name, importance).apply {
                 description = descriptionText
@@ -145,24 +146,23 @@ class FirstScreenActivity : AppCompatActivity(), LifecycleObserver {
         }
     }
 
-    private fun sendNotification() {
+    private fun sendNotification(anime: Anime, aux: Int) {
         val intent = Intent(this, BaseLayout::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo)
         val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo)
 
         val builder = NotificationCompat.Builder(this, channelID)
             .setSmallIcon(R.drawable.chapeu)
-            .setContentTitle("Example title")
-            .setContentText("Example description")
+            .setContentTitle("Today is day of ${ anime.title }!")
+            .setContentText("Click here and see!")
             .setLargeIcon(bitmapLargeIcon)
-            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setGroup(channelID)
         with(NotificationManagerCompat.from(this)) {
-            notify(notificationID, builder.build())
+            notify(aux, builder.build())
         }
     }
 }

@@ -48,7 +48,7 @@ class AuxFunctionsHelper {
         return output
     }
 
-    fun getCurrentDay(): String {
+    fun getCurrentDay() : String {
         return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
             1 -> DaysEnum.Sunday.name
             2 -> DaysEnum.Monday.name
@@ -57,6 +57,18 @@ class AuxFunctionsHelper {
             5 -> DaysEnum.Thursday.name
             6 -> DaysEnum.Friday.name
             else -> DaysEnum.Saturday.name
+        }
+    }
+
+    fun getCurrentDays() : String {
+        return when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
+            1 -> DaysEnum.Sundays.name
+            2 -> DaysEnum.Mondays.name
+            3 -> DaysEnum.Tuesdays.name
+            4 -> DaysEnum.Wednesdays.name
+            5 -> DaysEnum.Thursdays.name
+            6 -> DaysEnum.Fridays.name
+            else -> DaysEnum.Saturdays.name
         }
     }
 
