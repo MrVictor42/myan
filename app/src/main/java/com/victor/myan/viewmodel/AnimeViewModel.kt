@@ -1,5 +1,6 @@
 package com.victor.myan.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonArray
@@ -52,7 +53,7 @@ class AnimeViewModel : ViewModel() {
         })
     }
 
-    fun getAnimeListTodayApi() {
+    fun getAnimeListTodayApi(currentDay : String) {
         val animeApi = JikanApiInstance.animeApi.getTodayAnime(currentDay)
         val animeList : MutableList<Anime> = arrayListOf()
 

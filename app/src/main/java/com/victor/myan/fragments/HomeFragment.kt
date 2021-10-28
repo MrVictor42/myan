@@ -13,9 +13,11 @@ import com.victor.myan.R
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
+import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -29,6 +31,8 @@ class HomeFragment : Fragment() {
     private val mangaViewModel by lazy {
         ViewModelProvider(this).get(MangaViewModel::class.java)
     }
+    private val auxFunctionsHelper = AuxFunctionsHelper()
+    private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +54,7 @@ class HomeFragment : Fragment() {
         val todayAnimeRecyclerView = binding.todayRecyclerView
         val shimmerLayoutToday = binding.shimmerLayoutToday
 
-        animeViewModel.getAnimeListTodayApi()
+        animeViewModel.getAnimeListTodayApi(currentDay)
         animeViewModel.animeListToday.observe(viewLifecycleOwner, { state ->
             when(state) {
                 is ScreenStateHelper.Loading -> {

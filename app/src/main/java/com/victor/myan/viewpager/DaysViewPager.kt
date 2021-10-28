@@ -14,13 +14,13 @@ class DaysViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private v
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> DayFragment.newInstance("Sunday")
-            1 -> DayFragment.newInstance("Monday")
-            2 -> DayFragment.newInstance("Tuesday")
-            3 -> DayFragment.newInstance("Wednesday")
-            4 -> DayFragment.newInstance("Thursday")
-            5 -> DayFragment.newInstance("Friday")
-            6 -> DayFragment.newInstance("Saturday")
+            0 -> DayFragment.newInstance("sunday")
+            1 -> DayFragment.newInstance("monday")
+            2 -> DayFragment.newInstance("tuesday")
+            3 -> DayFragment.newInstance("wednesday")
+            4 -> DayFragment.newInstance("thursday")
+            5 -> DayFragment.newInstance("friday")
+            6 -> DayFragment.newInstance("saturday")
             else -> Fragment()
         }
     }
