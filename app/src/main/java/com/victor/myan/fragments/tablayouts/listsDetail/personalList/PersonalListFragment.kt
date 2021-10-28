@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.listsDetail
+package com.victor.myan.fragments.tablayouts.listsDetail.personalList
 
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAdapter
 import com.victor.myan.databinding.FragmentPersonalListBinding
-import com.victor.myan.fragments.tablayouts.listsDetail.personalList.CreateListFragment
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel

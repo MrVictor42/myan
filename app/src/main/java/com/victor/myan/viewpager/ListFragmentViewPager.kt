@@ -4,8 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.victor.myan.baseFragments.BaseDaysListFragment
 import com.victor.myan.baseFragments.BaseTopListFragment
-import com.victor.myan.fragments.tablayouts.listsDetail.PersonalListFragment
+import com.victor.myan.fragments.tablayouts.listsDetail.personalList.PersonalListFragment
 
 class ListFragmentViewPager(fragment : FragmentManager, lifecycle : Lifecycle, sizePager : Int)
     : FragmentStateAdapter(fragment, lifecycle) {
@@ -20,6 +21,7 @@ class ListFragmentViewPager(fragment : FragmentManager, lifecycle : Lifecycle, s
         return when(position) {
             0 -> PersonalListFragment.newInstance()
             1 -> BaseTopListFragment.newInstance()
+            2 -> BaseDaysListFragment.newInstance()
             else -> Fragment()
         }
     }

@@ -19,7 +19,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.victor.myan.R
 import com.victor.myan.baseFragments.BaseListsFragment
 import com.victor.myan.databinding.FragmentCreateListBinding
-import com.victor.myan.fragments.tablayouts.listsDetail.PersonalListFragment
 import com.victor.myan.model.PersonalList
 import java.util.UUID
 

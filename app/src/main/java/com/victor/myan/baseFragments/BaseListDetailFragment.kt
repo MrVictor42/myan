@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseListDetailBinding
-import com.victor.myan.fragments.tablayouts.listsDetail.PersonalListFragment
+import com.victor.myan.fragments.tablayouts.listsDetail.personalList.PersonalListFragment
 import com.victor.myan.viewpager.PersonalListViewPager
 
 class BaseListDetailFragment : Fragment() {
