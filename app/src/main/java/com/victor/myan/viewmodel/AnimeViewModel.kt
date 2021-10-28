@@ -30,7 +30,7 @@ class AnimeViewModel : ViewModel() {
     private val currentSeason = auxFunctionsHelper.getSeason()
 
     val currentDayFormatted = auxFunctionsHelper.capitalize("today anime : $currentDay")
-    val currentSeasonFormatted = auxFunctionsHelper.capitalize("season $currentSeason")
+    val currentSeasonFormatted = auxFunctionsHelper.capitalize("current season : $currentSeason")
 
     fun getAnimeListAiringApi() {
         val animeApi = JikanApiInstance.animeApi.animeListAiring("airing", "score")

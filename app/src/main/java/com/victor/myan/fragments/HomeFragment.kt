@@ -40,14 +40,16 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         processAnimeListTodayResponse()
+        processAnimeListAiringResponse()
+        processMangaListAiringResponse()
+        processAnimeListSeasonResponse()
     }
 
     private fun processAnimeListTodayResponse() {
-        val todayAnimeText = binding.todayAnime.textTitleRecyclerView
-        val todayAnimeRecyclerView = binding.todayAnime.recyclerView
+        val todayAnimeText = binding.todayAnimeText
+        val todayAnimeRecyclerView = binding.todayRecyclerView
         val shimmerLayoutToday = binding.shimmerLayoutToday
 
-        todayAnimeText.visibility = View.GONE
         animeViewModel.getAnimeListTodayApi()
         animeViewModel.animeListToday.observe(viewLifecycleOwner, { state ->
             when(state) {
@@ -74,8 +76,6 @@ class HomeFragment : Fragment() {
                         todayAnimeText.visibility = View.VISIBLE
                         todayAnimeRecyclerView.visibility = View.VISIBLE
                         Log.i(TAG, "Success Anime List Today")
-
-                        processAnimeListAiringResponse()
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -89,11 +89,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun processAnimeListAiringResponse() {
-        val airingAnimeText = binding.animeAiring.textTitleRecyclerView
-        val airingAnimeRecyclerView = binding.animeAiring.recyclerView
+        val airingAnimeText = binding.animeAiringText
+        val airingAnimeRecyclerView = binding.animeAiringRecyclerView
         val shimmerLayoutAnimeAiring = binding.shimmerLayoutAnimeAiring
 
-        airingAnimeText.visibility = View.GONE
         animeViewModel.getAnimeListAiringApi()
         animeViewModel.animeListAiring.observe(viewLifecycleOwner, { state ->
             when(state) {
@@ -120,8 +119,6 @@ class HomeFragment : Fragment() {
                         airingAnimeText.visibility = View.VISIBLE
                         airingAnimeRecyclerView.visibility = View.VISIBLE
                         Log.i(TAG, "Success Anime List Airing")
-
-                        processMangaListAiringResponse()
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -135,8 +132,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun processMangaListAiringResponse() {
-        val mangaListAiringText = binding.mangaAiring.textTitleRecyclerView
-        val mangaListAiringRecyclerView = binding.mangaAiring.recyclerView
+        val mangaListAiringText = binding.mangaAiringText
+        val mangaListAiringRecyclerView = binding.mangaAiringRecyclerView
         val shimmerLayoutMangaAiring = binding.shimmerLayoutMangaAiring
 
         mangaListAiringText.visibility = View.GONE
@@ -165,8 +162,6 @@ class HomeFragment : Fragment() {
                     mangaListAiringText.visibility = View.VISIBLE
                     mangaListAiringRecyclerView.visibility = View.VISIBLE
                     Log.i(TAG, "Success Manga List Airing")
-
-                    processAnimeListSeasonResponse()
                 }
                 is ScreenStateHelper.Error -> {
                     Log.e(TAG, "Error Manga List Airing in Home Fragment With Code: ${state.message}")
@@ -178,95 +173,9 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun processMangaListTopResponse() {
-        val topMangaText = binding.topManga.textTitleRecyclerView
-        val topMangaRecyclerView = binding.topManga.recyclerView
-        val shimmerLayoutMangaTop = binding.shimmerLayoutMangaTop
-
-        topMangaText.visibility = View.GONE
-        mangaViewModel.getMangaListTopApi()
-        mangaViewModel.mangaTopList.observe(viewLifecycleOwner, { state ->
-            when(state) {
-                is ScreenStateHelper.Loading -> {
-                    shimmerLayoutMangaTop.startShimmer()
-                    Log.i(TAG, "Loading Manga Top List")
-                }
-                is ScreenStateHelper.Success -> {
-                    val mangaList = state.data
-                    topMangaRecyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    mangaAdapter = MangaAdapter()
-                    mangaAdapter.submitList(mangaList)
-                    mangaAdapter.setHasStableIds(true)
-                    topMangaRecyclerView.setHasFixedSize(true)
-                    topMangaRecyclerView.setItemViewCacheSize(6)
-                    topMangaRecyclerView.isDrawingCacheEnabled = true
-                    topMangaRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                    topMangaRecyclerView.adapter = mangaAdapter
-                    shimmerLayoutMangaTop.stopShimmer()
-                    shimmerLayoutMangaTop.visibility = View.GONE
-                    topMangaText.text = getString(R.string.top_manga)
-                    topMangaText.visibility = View.VISIBLE
-                    topMangaRecyclerView.visibility = View.VISIBLE
-                    Log.i(TAG, "Success Manga Top List")
-                }
-                is ScreenStateHelper.Error -> {
-                    Log.e(TAG, "Error Manga Top List in Home Fragment With Code: ${state.message}")
-                }
-                else -> {
-
-                }
-            }
-        })
-    }
-
-    private fun processAnimeListTopResponse() {
-        val topAnimeText = binding.topAnime.textTitleRecyclerView
-        val topAnimeRecyclerView = binding.topAnime.recyclerView
-        val shimmerLayoutAnimeTop = binding.shimmerLayoutAnimeTop
-
-        topAnimeText.visibility = View.GONE
-        animeViewModel.getAnimeListTopApi()
-        animeViewModel.animeListTop.observe(viewLifecycleOwner, { state ->
-            when(state) {
-                is ScreenStateHelper.Loading -> {
-                    shimmerLayoutAnimeTop.startShimmer()
-                    Log.i(TAG, "Loading Anime Top List")
-                }
-                is ScreenStateHelper.Success -> {
-                    val animeList = state.data
-                    topAnimeRecyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeList)
-                    animeAdapter.setHasStableIds(true)
-                    topAnimeRecyclerView.setHasFixedSize(true)
-                    topAnimeRecyclerView.setItemViewCacheSize(6)
-                    topAnimeRecyclerView.isDrawingCacheEnabled = true
-                    topAnimeRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                    topAnimeRecyclerView.adapter = animeAdapter
-                    shimmerLayoutAnimeTop.stopShimmer()
-                    shimmerLayoutAnimeTop.visibility = View.GONE
-                    topAnimeText.text = getString(R.string.top_anime)
-                    topAnimeText.visibility = View.VISIBLE
-                    topAnimeRecyclerView.visibility = View.VISIBLE
-                    Log.i(TAG, "Success Anime Top List")
-
-                    processMangaListTopResponse()
-                }
-                is ScreenStateHelper.Error -> {
-                    Log.e(TAG, "Error Anime Top List in Home Fragment With Code: ${state.message}")
-                }
-                else -> {
-
-                }
-            }
-        })
-    }
-
     private fun processAnimeListSeasonResponse() {
-        val seasonAnimeText = binding.seasonAnime.textTitleRecyclerView
-        val seasonAnimeRecyclerView = binding.seasonAnime.recyclerView
+        val seasonAnimeText = binding.seasonText
+        val seasonAnimeRecyclerView = binding.seasonRecyclerView
         val shimmerLayoutSeason = binding.shimmerLayoutSeason
 
         seasonAnimeText.visibility = View.GONE
@@ -296,8 +205,6 @@ class HomeFragment : Fragment() {
                         seasonAnimeText.visibility = View.VISIBLE
                         seasonAnimeRecyclerView.visibility = View.VISIBLE
                         Log.i(TAG, "Success Anime List Season")
-
-                        processAnimeListTopResponse()
                     }
                 }
                 is ScreenStateHelper.Error -> {

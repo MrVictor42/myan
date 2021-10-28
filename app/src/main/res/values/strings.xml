@@ -81,7 +81,6 @@
     <string name="remove_list">Remove</string>
     <string name="empty_list">Empty personal list? Create one here</string>
     <string name="message_error">Message Error</string>
-    <string name="title_recycler_view">Title Recyclerview</string>
     <string name="score">Score </string>
     <string name="rating">0.0</string>
     <string name="popularity">Popularity </string>

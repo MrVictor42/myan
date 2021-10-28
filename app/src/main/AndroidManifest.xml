@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
         <activity
+            android:name=".fragments.tablayouts.listsDetail.top.AnimeTop"
+            android:exported="false" />
+        <activity
             android:name=".fragments.tablayouts.actorDetail.TesteJson"
             android:exported="true" />
         <activity

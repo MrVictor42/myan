@@ -29,13 +29,9 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:shimmer_repeat_mode="restart"
+            android:layout_marginTop="10dp"
             app:shimmer_shape="radial">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/shimmer_layout_home"/>
-            </LinearLayout>
+            <include layout="@layout/shimmer_layout_home"/>
         </com.facebook.shimmer.ShimmerFrameLayout>
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout_anime_airing"
@@ -44,138 +40,150 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shimmer_layout_today"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
             app:shimmer_repeat_mode="restart"
             app:shimmer_shape="radial">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/shimmer_layout_home"/>
-            </LinearLayout>
+            <include layout="@layout/shimmer_layout_home"/>
         </com.facebook.shimmer.ShimmerFrameLayout>
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout_manga_airing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_airing"
             app:layout_constraintEnd_toEndOf="parent"
             app:shimmer_repeat_mode="restart"
             app:shimmer_shape="radial">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/shimmer_layout_home"/>
-            </LinearLayout>
+            <include layout="@layout/shimmer_layout_home"/>
         </com.facebook.shimmer.ShimmerFrameLayout>
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_layout_season"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shimmer_layout_manga_airing"
             app:layout_constraintEnd_toEndOf="parent"
             app:shimmer_repeat_mode="restart"
             app:shimmer_shape="radial">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/shimmer_layout_home"/>
-            </LinearLayout>
+            <include layout="@layout/shimmer_layout_home"/>
         </com.facebook.shimmer.ShimmerFrameLayout>
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_layout_anime_top"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/today_anime_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_season"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:shimmer_repeat_mode="restart"
-            app:shimmer_shape="radial">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/shimmer_layout_home"/>
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmer_layout_manga_top"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shimmer_layout_anime_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:shimmer_repeat_mode="restart"
-            app:shimmer_shape="radial">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <include layout="@layout/shimmer_layout_home"/>
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
-        <include
-            android:id="@+id/today_anime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/today_anime"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            layout="@layout/recyclerview_horizontal"
+            android:visibility="gone"
             />
-        <include
-            android:id="@+id/anime_airing"
-            layout="@layout/recyclerview_horizontal"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/today_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            tools:listitem="@layout/cardview_placeholder_vertical"
+            android:orientation="horizontal"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/today_anime_text"
+            android:visibility="gone"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/anime_airing_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/anime_airing"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/today_anime"
+            app:layout_constraintTop_toBottomOf="@id/today_recycler_view"
+            android:visibility="gone"
             />
-        <include
-            android:id="@+id/manga_airing"
-            layout="@layout/recyclerview_horizontal"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/anime_airing_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/cardview_placeholder_vertical"
+            android:orientation="horizontal"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/anime_airing_text"
+            android:visibility="gone"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/manga_airing_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/manga_airing"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/anime_airing"
+            app:layout_constraintTop_toBottomOf="@id/anime_airing_recycler_view"
+            android:visibility="gone"
             />
-        <include
-            android:id="@+id/season_anime"
-            layout="@layout/recyclerview_horizontal"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/manga_airing_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/cardview_placeholder_vertical"
+            android:orientation="horizontal"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/manga_airing_text"
+            android:visibility="gone"
+            />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/season_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@string/season_anime"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/manga_airing"
+            app:layout_constraintTop_toBottomOf="@id/manga_airing_recycler_view"
+            android:visibility="gone"
             />
-        <include
-            android:id="@+id/top_anime"
-            layout="@layout/recyclerview_horizontal"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/season_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_height="180dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            tools:listitem="@layout/cardview_placeholder_vertical"
+            android:orientation="horizontal"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/season_anime"
-            />
-        <include
-            android:id="@+id/top_manga"
-            layout="@layout/recyclerview_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_anime"
+            app:layout_constraintTop_toBottomOf="@id/season_text"
+            android:visibility="gone"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
