@@ -1,6 +1,5 @@
 package com.victor.myan.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonArray
@@ -29,7 +28,6 @@ class AnimeViewModel : ViewModel() {
     private val auxFunctionsHelper = AuxFunctionsHelper()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
     private val currentSeason = auxFunctionsHelper.getSeason()
-
     val currentDayFormatted = auxFunctionsHelper.capitalize("today anime : $currentDay")
     val currentSeasonFormatted = auxFunctionsHelper.capitalize("current season : $currentSeason")
 
@@ -89,10 +87,8 @@ class AnimeViewModel : ViewModel() {
         })
     }
 
-    fun getAnimeListSeasonApi() {
-        val currentYear = auxFunctionsHelper.getCurrentYear()
-        val animeApi =
-            JikanApiInstance.animeApi.getSeason(currentYear, currentSeason.lowercase(Locale.getDefault()))
+    fun getAnimeListSeasonApi(currentYear: Int, currentSeason : String) {
+        val animeApi = JikanApiInstance.animeApi.getSeason(currentYear, currentSeason)
         val animeList : MutableList<Anime> = arrayListOf()
 
         animeListSeason.postValue(ScreenStateHelper.Loading(null))
@@ -117,7 +113,7 @@ class AnimeViewModel : ViewModel() {
                     }
                 } else {
                     animeListSeason.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getAnimeListSeasonApi()
+                    getAnimeListSeasonApi(currentYear, currentSeason)
                 }
             }
 

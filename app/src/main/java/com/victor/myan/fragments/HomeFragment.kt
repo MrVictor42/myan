@@ -26,13 +26,15 @@ class HomeFragment : Fragment() {
     private lateinit var mangaAdapter: MangaAdapter
     private val TAG = HomeFragment::class.java.simpleName
     private val animeViewModel by lazy {
-        ViewModelProvider(this).get(AnimeViewModel::class.java)
+        ViewModelProvider(this)[AnimeViewModel::class.java]
     }
     private val mangaViewModel by lazy {
-        ViewModelProvider(this).get(MangaViewModel::class.java)
+        ViewModelProvider(this)[MangaViewModel::class.java]
     }
     private val auxFunctionsHelper = AuxFunctionsHelper()
+    private val currentYear = auxFunctionsHelper.getCurrentYear()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
+    private val currentSeason = auxFunctionsHelper.getSeason().lowercase(Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -183,7 +185,7 @@ class HomeFragment : Fragment() {
         val shimmerLayoutSeason = binding.shimmerLayoutSeason
 
         seasonAnimeText.visibility = View.GONE
-        animeViewModel.getAnimeListSeasonApi()
+        animeViewModel.getAnimeListSeasonApi(currentYear, currentSeason)
         animeViewModel.animeListSeason.observe(viewLifecycleOwner, { state ->
             when(state) {
                 is ScreenStateHelper.Loading -> {

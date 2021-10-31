@@ -19,7 +19,7 @@ class DayFragment : Fragment() {
     private lateinit var animeAdapter: AnimeAdapter
     private val TAG = DayFragment::class.java.simpleName
     private val animeViewModel by lazy {
-        ViewModelProvider(this).get(AnimeViewModel::class.java)
+        ViewModelProvider(this)[AnimeViewModel::class.java]
     }
     
     companion object {
