@@ -11,4 +11,8 @@
         <item name="android:textColorHint">@color/gray</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">#FF4081</item>  // you can change the color of the yearPiker dialog
+        <item name="android:textColorPrimary">#FF4081</item> // you can change the color of the yearPiker dialog
+    </style>
 </resources>
