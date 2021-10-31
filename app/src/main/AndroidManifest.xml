@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.victor.myan">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -7,27 +9,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
-        android:allowBackup="true"
+        tools:replace="android:icon,android:theme"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAn">
-        <activity
-            android:name=".fragments.tablayouts.listsDetail.top.AnimeTop"
-            android:exported="false" />
-        <activity
-            android:name=".fragments.tablayouts.actorDetail.TesteJson"
-            android:exported="true" />
-        <activity
-            android:name=".fragments.tablayouts.animeDetail.BaseAnimeDetailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".fragments.tablayouts.animeDetail.TabLayout"
-            android:exported="true" />
         <activity android:name=".screens.ForgotPasswordActivity" />
-        <activity android:name=".screens.SearchActivity" />
-        <activity android:name=".screens.HomeActivity" />
         <activity android:name=".screens.WithoutConnectionActivity" />
         <activity android:name=".baseFragments.BaseLayout" />
         <activity android:name=".screens.FormRegisterUserActivity" />
@@ -35,13 +23,12 @@
         <activity
             android:name=".screens.PresentationActivity"
             android:theme="@style/Theme.Intro" />
-        <activity android:name=".screens.FirstScreenActivity">
+        <activity android:name=".screens.FirstScreenActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

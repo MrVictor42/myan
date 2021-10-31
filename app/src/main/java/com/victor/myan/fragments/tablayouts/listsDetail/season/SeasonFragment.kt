@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.victor.myan.R
 import com.victor.myan.databinding.FragmentSeasonBinding
-import com.victor.myan.fragments.tablayouts.listsDetail.day.DayFragment
+import com.whiteelephant.monthpicker.MonthPickerDialog
+import java.util.Calendar
 
 class SeasonFragment : Fragment() {
 
@@ -34,6 +33,23 @@ class SeasonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val season = arguments?.getString("season")
-        Toast.makeText(context, season, Toast.LENGTH_SHORT).show()
+        val btnYear = binding.btnYear
+        var currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        btnYear.text = currentYear.toString()
+
+        btnYear.setOnClickListener {
+            val builder : MonthPickerDialog.Builder = MonthPickerDialog.Builder(context, { _, selectedYear ->
+                    btnYear.text = selectedYear.toString()
+                    currentYear = selectedYear
+                }, Calendar.getInstance().get(Calendar.YEAR), 0
+            )
+            builder
+                .setMinYear(1957)
+                .setMaxYear(Calendar.getInstance().get(Calendar.YEAR))
+                .setTitle("Select Year")
+                .setActivatedYear(currentYear)
+                .showYearOnly()
+                .build().show()
+        }
     }
 }
