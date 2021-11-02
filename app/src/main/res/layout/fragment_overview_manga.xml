@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cardView"
                 android:text="@string/rank"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/white"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toBottomOf="@id/manga_rank_textView"
                 app:layout_constraintStart_toStartOf="@id/manga_rank_textView"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 />
 
@@ -68,7 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@id/manga_rank"
                 app:layout_constraintStart_toStartOf="@id/manga_rank_textView"
                 android:text="@string/score"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textColor="@color/white"
                 />
 
@@ -79,8 +79,29 @@
                 app:layout_constraintTop_toBottomOf="@id/manga_score_textview"
                 app:layout_constraintStart_toStartOf="@id/manga_score_textview"
                 android:textStyle="bold"
-                android:textSize="18sp"
-                android:text="@string/score"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/manga_author_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/manga_score"
+                app:layout_constraintStart_toStartOf="@id/manga_rank_textView"
+                android:text="@string/author"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/manga_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/manga_author_textview"
+                app:layout_constraintStart_toStartOf="@id/manga_score_textview"
+                android:textStyle="bold"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 />
 
@@ -95,15 +116,15 @@
                 android:textAllCaps="false"
                 android:drawableEnd="@drawable/ic_add"
                 app:layout_constraintStart_toEndOf="@id/cardView"
-                app:layout_constraintTop_toBottomOf="@id/manga_score"
+                app:layout_constraintTop_toBottomOf="@id/manga_author"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="20dp"
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/anime_title"
+                android:id="@+id/manga_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -120,7 +141,7 @@
                 />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/anime_title_synonyms"
+                android:id="@+id/manga_title_synonyms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -128,7 +149,7 @@
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/anime_title"
+                app:layout_constraintTop_toBottomOf="@id/manga_title"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
@@ -136,12 +157,12 @@
                 />
 
             <LinearLayout
-                android:id="@+id/anime_information"
+                android:id="@+id/manga_information"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/anime_title_synonyms"
+                app:layout_constraintTop_toBottomOf="@id/manga_title_synonyms"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
@@ -159,7 +180,7 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/anime_status"
+                    android:id="@+id/manga_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/status"
@@ -170,11 +191,11 @@
                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/episode_duration"
+                    android:id="@+id/volumes_chapters"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
-                    android:text="@string/ep_duration"
+                    android:text="@string/volumes_chapters"
                     android:textStyle="bold"
                     android:textSize="14sp"
                     />
@@ -185,7 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/anime_information"
+                app:layout_constraintTop_toBottomOf="@id/manga_information"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="20dp"
@@ -193,11 +214,9 @@
                 android:gravity="center_horizontal"
                 >
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/anime_genres"
+                    android:id="@+id/manga_genres"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginBottom="10dp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
@@ -220,90 +239,26 @@
                     />
             </LinearLayout>
 
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/youtube_player_view"
+            <LinearLayout
+                android:id="@+id/linear_expandable_text_background"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:showFullScreenButton="false"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/linear_expandable_text_synopsis"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:text="@string/background"
+                    android:layout_marginStart="20dp"
+                    android:textStyle="bold"
                 />
-
-            <LinearLayout
-                android:id="@+id/linear_licensors"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/guideline"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="20dp"
-                >
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/licensors_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/licensors"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:layout_marginTop="20dp"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/anime_licensors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    app:layout_constraintTop_toBottomOf="@id/licensors_text_view"
-                    app:layout_constraintStart_toStartOf="@id/licensors_text_view"
-                    />
-            </LinearLayout>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="@id/linear_licensors"
-                app:layout_constraintStart_toStartOf="@id/guideline"
-                app:layout_constraintEnd_toEndOf="parent"
-                >
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/studios_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/linear_licensors"
-                    app:layout_constraintStart_toStartOf="@id/guideline"
-                    android:text="@string/studios"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/anime_studios"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    app:layout_constraintTop_toBottomOf="@id/studios_text_view"
-                    app:layout_constraintStart_toStartOf="@id/guideline"
+                <include
+                    android:id="@+id/expandable_text_view_background"
+                    layout="@layout/expandable_text_view"
                     />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

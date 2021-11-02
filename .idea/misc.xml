@@ -111,7 +111,7 @@
         <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_overview_anime.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_overview_character.xml" value="0.17" />
-        <entry key="app/src/main/res/layout/fragment_overview_manga.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_overview_manga.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_personal_list.xml" value="0.17" />
         <entry key="app/src/main/res/layout/fragment_personal_list_anime.xml" value="0.15729166666666666" />
         <entry key="app/src/main/res/layout/fragment_score.xml" value="0.1" />

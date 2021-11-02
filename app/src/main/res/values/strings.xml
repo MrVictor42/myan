@@ -45,7 +45,7 @@
     <string name="volumes">Volumes: </string>
     <string name="chapters">Chapters: </string>
     <string name="adaptations">Adaptations: </string>
-    <string name="authors">Authors: </string>
+    <string name="author">Author: </string>
     <string name="spin_off">Spin-Off: </string>
     <string name="image_placeholder">Image Placeholder</string>
     <string name="highest_scores">Highest Scores </string>
@@ -127,4 +127,6 @@
     <string name="empty_anime">Don\'t have anime from this list yet</string>
     <string name="remove_from_list">Remove X Items From List</string>
     <string name="rank">Rank</string>
+    <string name="volumes_chapters">Volumes/Chapters</string>
+    <string name="background">Background</string>
 </resources>
