@@ -13,10 +13,9 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
+import com.victor.myan.baseFragments.BaseMangaDetailFragment
 import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
-import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
 import com.victor.myan.model.Manga
-import com.victor.myan.screens.MangaDetailFragment
 
 class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) {
 
@@ -56,7 +55,7 @@ class MangaAdapter : ListAdapter<Manga, MangaAdapter.MangaHolder>(MangaAdapter) 
             }).into(image)
 
             itemView.setOnClickListener {
-                val fragment = MangaDetailFragment()
+                val fragment = BaseMangaDetailFragment()
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()

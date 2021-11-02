@@ -13,17 +13,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.viewpager.AnimeDetailViewPager
-import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
+import com.victor.myan.databinding.FragmentBaseMangaDetailBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
 import com.victor.myan.viewmodel.PictureViewModel
+import com.victor.myan.viewpager.MangaDetailViewPager
 
-class BaseAnimeDetailFragment : Fragment() {
+class BaseMangaDetailFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseAnimeDetailBinding
-    private val TAG = BaseAnimeDetailFragment::class.java.simpleName
+    private lateinit var binding : FragmentBaseMangaDetailBinding
+    private val TAG = BaseMangaDetailFragment::class.java.simpleName
     private val pictureViewModel by lazy {
         ViewModelProvider(this)[PictureViewModel::class.java]
     }
@@ -32,7 +32,7 @@ class BaseAnimeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseAnimeDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseMangaDetailBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -41,7 +41,7 @@ class BaseAnimeDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
-        val adapter = AnimeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = MangaDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
         TabLayoutMediator(tabLayout, viewPager, true, false) {tab, position ->
@@ -52,7 +52,7 @@ class BaseAnimeDetailFragment : Fragment() {
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("anime", malID)
+        pictureViewModel.getPicturesApi("manga", malID)
         pictureViewModel.pictureList.observe(viewLifecycleOwner, { state ->
             processPictureResponse(state)
         })
