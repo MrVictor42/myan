@@ -26,7 +26,11 @@ data class Manga (
     @SerializedName("genres")
     var genres : List<Genre> = arrayListOf(),
     @SerializedName("authors")
-    var authors : List<Author> = arrayListOf()
+    var authors : List<Author> = arrayListOf(),
+    @SerializedName("title_synonyms")
+    var titleSynonyms : List<String> = arrayListOf(),
+    @SerializedName("rank")
+    var rank : Int = 0
 )
 
 data class MangaListTopResponse (

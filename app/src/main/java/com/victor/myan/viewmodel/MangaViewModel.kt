@@ -13,8 +13,28 @@ import retrofit2.Response
 
 class MangaViewModel : ViewModel() {
 
+    val manga : MutableLiveData<ScreenStateHelper<Manga>?> = MutableLiveData()
     val mangaListAiring : MutableLiveData<ScreenStateHelper<List<Manga>?>> = MutableLiveData()
     val mangaTopList : MutableLiveData<ScreenStateHelper<List<Manga>?>> = MutableLiveData()
+
+    fun getManga(malID : Int) {
+        val mangaApi = JikanApiInstance.mangaApi.getManga(malID)
+
+        manga.postValue(ScreenStateHelper.Loading(null))
+        mangaApi.enqueue(object : Callback<Manga> {
+            override fun onResponse(call: Call<Manga>, response: Response<Manga>) {
+                if(response.isSuccessful) {
+                    manga.postValue(ScreenStateHelper.Success(response.body()))
+                } else {
+                    manga.postValue(ScreenStateHelper.Error(response.code().toString(),null))
+                }
+            }
+
+            override fun onFailure(call: Call<Manga>, t: Throwable) {
+                manga.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+            }
+        })
+    }
 
     fun getMangaListTopApi() {
         val mangaApi = JikanApiInstance.mangaApi.getTopManga()
