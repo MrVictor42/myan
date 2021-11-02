@@ -30,7 +30,7 @@ class OverviewAnimeFragment : Fragment() {
     private val youtubeHelper = YoutubeHelper()
     private val TAG = OverviewAnimeFragment::class.java.simpleName
     private val animeViewModel by lazy {
-        ViewModelProvider(this).get(AnimeViewModel::class.java)
+        ViewModelProvider(this)[AnimeViewModel::class.java]
     }
 
     companion object {
