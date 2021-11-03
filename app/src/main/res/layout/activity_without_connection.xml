@@ -8,8 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     tools:context=".screens.WithoutConnectionActivity">
-
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,37 +19,32 @@
         app:layout_constraintBottom_toTopOf="@id/text_try_again"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-    />
-
-    <TextView
+        android:contentDescription="@string/refresh_button" />
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_try_again"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/title_not_connection"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
         android:text="@string/try_again"
-        android:gravity="center"
-    />
-
-    <TextView
+        android:gravity="center" />
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_without_connection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
-        android:textSize="14sp"
+        android:textSize="@dimen/description"
         app:layout_constraintTop_toBottomOf="@id/text_try_again"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
         android:text="@string/without_connection"
-        android:gravity="center"
-    />
-
+        android:gravity="center" />
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_refresh"
         android:layout_width="wrap_content"
@@ -59,10 +53,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_without_connection"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/margin"
+        android:textSize="@dimen/button"
         android:text="@string/retry"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:background="@drawable/circle_btn"
-    />
+        android:background="@drawable/circle_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

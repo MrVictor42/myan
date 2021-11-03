@@ -25,26 +25,35 @@ class WithoutConnectionActivity : AppCompatActivity() {
         }
         window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
 
+        val imgRefresh = binding.imgRefresh
         val btnRefresh = binding.btnRefresh
 
+        imgRefresh.setOnClickListener {
+            tryConnection()
+        }
+
         btnRefresh.setOnClickListener {
-            if(auxFunctionsHelper.userHasConnection(this)) {
-                if(auxFunctionsHelper.userIsAuthenticated()) {
-                    val intent = Intent(this, BaseLayout::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    val intent = Intent(this, PresentationActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
+            tryConnection()
+        }
+    }
+
+    private fun tryConnection() {
+        if(auxFunctionsHelper.userHasConnection(this)) {
+            if(auxFunctionsHelper.userIsAuthenticated()) {
+                val intent = Intent(this, BaseLayout::class.java)
+                startActivity(intent)
+                finish()
             } else {
-                Snackbar.make(
-                    binding.withoutConnection,
-                    "Connection with internet not found...",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                val intent = Intent(this, PresentationActivity::class.java)
+                startActivity(intent)
+                finish()
             }
+        } else {
+            Snackbar.make(
+                binding.withoutConnection,
+                "Connection with internet not found...",
+                Snackbar.LENGTH_LONG
+            ).show()
         }
     }
 }

@@ -5,11 +5,8 @@ import android.os.Bundle
 import com.heinrichreimersoftware.materialintro.app.IntroActivity
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide
 import com.victor.myan.R
-import com.victor.myan.helper.AuxFunctionsHelper
 
 class PresentationActivity : IntroActivity() {
-
-    private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,10 +19,9 @@ class PresentationActivity : IntroActivity() {
                 .background(R.color.yellow)
                 .image(R.drawable.gohan)
                 .backgroundDark(R.color.yellow_light)
-                .title(auxServicesHelper.capitalize("everything in same place!"))
-                .description(auxServicesHelper.capitalize(
-                    "know the top anime and manga, search for them and much more, " +
-                            "all in one place!!!"))
+                .title("Everything in same place!")
+                .description("Discover various anime, manga, search for them and much more, " +
+                        "all in one place!")
                 .build()
         )
 
@@ -34,10 +30,9 @@ class PresentationActivity : IntroActivity() {
                 .background(R.color.red)
                 .image(R.drawable.luffy)
                 .backgroundDark(R.color.red_light)
-                .title(auxServicesHelper.capitalize("every day, one new story!"))
+                .title("Every day, one new story!")
                 .canGoBackward(true)
-                .description(auxServicesHelper.capitalize(
-                    "follow the weekly anime, discover new stories and paths!!!"))
+                .description("Follow the weekly anime, discover new stories and paths!!!")
                 .build()
         )
     }

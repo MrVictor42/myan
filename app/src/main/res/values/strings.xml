@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">MyAn</string>
+    <string name="refresh_button">Refresh Button</string>
+    <string name="try_again">Let\'s try that again</string>
+    <string name="without_connection">
+        You don\'t have internet connection right now, please connect to internet and try again.
+    </string>
+
+
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -56,11 +63,6 @@
     <string name="result_null">(No Result For This Category)</string>
     <string name="type_year">Type, Year</string>
     <string name="ep_duration">Episode/Minute</string>
-    <string name="try_again">Let\'s try that again</string>
-    <string name="without_connection">
-        You don\'t have connection with internet now,
-        please connect with the internet and try again.
-    </string>
     <string name="character_name">Character Name</string>
     <string name="character_name_kanji">Character Name Kanji</string>
     <string name="person_name">Person Name</string>
