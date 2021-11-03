@@ -224,12 +224,69 @@
                     />
             </LinearLayout>
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/manga_adaptations_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/linear_genres"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/adaptations"
+                android:layout_marginStart="20dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/manga_adaptations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/manga_title"
+                app:layout_constraintTop_toBottomOf="@id/manga_adaptations_text"
+                app:layout_constraintEnd_toEndOf="@id/manga_title"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/manga_spinoff_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/manga_adaptations"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/spin_off"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/manga_spinoff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/manga_title"
+                app:layout_constraintTop_toBottomOf="@id/manga_spinoff_text"
+                app:layout_constraintEnd_toEndOf="@id/manga_title"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                />
+
             <LinearLayout
                 android:id="@+id/linear_expandable_text_synopsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/linear_genres"
+                app:layout_constraintTop_toBottomOf="@id/manga_spinoff"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 >
@@ -254,6 +311,7 @@
                     android:textSize="14sp"
                     android:text="@string/background"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:textStyle="bold"
                 />
                 <include

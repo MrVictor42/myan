@@ -30,7 +30,15 @@ data class Manga (
     @SerializedName("title_synonyms")
     var titleSynonyms : List<String> = arrayListOf(),
     @SerializedName("rank")
-    var rank : Int = 0
+    var rank : Int = 0,
+    @SerializedName("type")
+    var type : String = "",
+    @SerializedName("published")
+    var published : Publish,
+    @SerializedName("background")
+    var background : String = "",
+    @SerializedName("related")
+    var related : Related
 )
 
 data class MangaListTopResponse (
