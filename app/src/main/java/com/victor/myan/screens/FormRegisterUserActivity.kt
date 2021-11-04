@@ -1,5 +1,6 @@
 package com.victor.myan.screens
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +24,6 @@ class FormRegisterUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityFormRegisterUserBinding
     private lateinit var textMessageError : AppCompatTextView
     private lateinit var progressBar : ProgressBar
-    private val auxServicesHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +40,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
 
         val btnRegister = binding.btnRegister
+        val auxServicesHelper = AuxFunctionsHelper()
 
         btnRegister.setOnClickListener {
             val name = binding.editTextName.text.toString().trim()
@@ -56,6 +57,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun createUser(email : String, password : String, name : String) {
         val mAuth = FirebaseAuth.getInstance()
 
@@ -74,8 +76,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
                 .setValue(user).addOnCompleteListener {
                     if(it.isSuccessful) {
                         Snackbar.make(
-                            binding.activityFormRegisterUser,
-                            auxServicesHelper.capitalize("the user was successfully registered!"),
+                            binding.activityFormRegisterUser, "The user was successfully registered!",
                             Snackbar.LENGTH_LONG
                         ).show()
                         progressBar.visibility = View.GONE
@@ -86,8 +87,7 @@ class FormRegisterUserActivity : AppCompatActivity() {
                         finish()
                     } else {
                         Snackbar.make(
-                            binding.activityFormRegisterUser,
-                            auxServicesHelper.capitalize("failed to register! try again!"),
+                            binding.activityFormRegisterUser, "Failed to register! try again!",
                             Snackbar.LENGTH_LONG
                         ).show()
                         progressBar.visibility = View.GONE
@@ -99,19 +99,13 @@ class FormRegisterUserActivity : AppCompatActivity() {
         }.addOnFailureListener {
             when(it) {
                 is FirebaseAuthWeakPasswordException ->
-                    textMessageError.text =
-                        auxServicesHelper.capitalize(
-                            "insert a password with 6 no minimum characters!"
-                        )
+                    textMessageError.text = "Insert a password with 6 no minimum characters!"
                 is FirebaseAuthUserCollisionException ->
-                    textMessageError.text =
-                        auxServicesHelper.capitalize("this account already exists!")
+                    textMessageError.text = "This account already exists!"
                 is FirebaseNetworkException ->
-                    textMessageError.text =
-                        auxServicesHelper.capitalize("without connection!")
+                    textMessageError.text = "Without connection!"
                 else ->
-                    textMessageError.text =
-                        auxServicesHelper.capitalize("${ it.message }!")
+                    textMessageError.text = "${ it.message }!"
             }
             return@addOnFailureListener
         }

@@ -5,4 +5,5 @@
     <dimen name="button">14sp</dimen>
 
     <dimen name="margin">20dp</dimen>
+    <dimen name="padding">20dp</dimen>
 </resources>

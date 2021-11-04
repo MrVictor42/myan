@@ -16,7 +16,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityForgotPasswordBinding
     private lateinit var progressBar : ProgressBar
-    private val auxFunctionsHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +30,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
 
         val btnResetPassword = binding.btnResetPassword
+        val auxFunctionsHelper = AuxFunctionsHelper()
 
         btnResetPassword.setOnClickListener {
             val email = binding.editTextEmail.text.toString().trim()
@@ -44,8 +44,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 mAuth.sendPasswordResetEmail(email).addOnCompleteListener {
                     if(it.isSuccessful) {
                         Snackbar.make(
-                            binding.activityForgotPassword,
-                            auxFunctionsHelper.capitalize("check your email to reset your password!"),
+                            binding.activityForgotPassword, "Check your email to reset your password!",
                             Snackbar.LENGTH_LONG
                         ).show()
                         val intent = Intent(this, FormLoginActivity::class.java)
@@ -53,9 +52,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                         finish()
                     } else {
                         Snackbar.make(
-                            binding.activityForgotPassword,
-                            auxFunctionsHelper.capitalize(
-                                "try again! something wrong happened!"),
+                            binding.activityForgotPassword, "Try again! something wrong happened!",
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
