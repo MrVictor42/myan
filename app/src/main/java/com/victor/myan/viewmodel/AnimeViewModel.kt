@@ -20,7 +20,7 @@ class AnimeViewModel : ViewModel() {
 
     val anime : MutableLiveData<ScreenStateHelper<Anime>?> = MutableLiveData()
     val animeListAiring : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
-    val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
+    val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>?> = MutableLiveData()
     val animeListSeason : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListTop : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeRecommendationList : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
@@ -67,17 +67,18 @@ class AnimeViewModel : ViewModel() {
                                 val animeObject : JsonObject? = dayAnime.get(aux) as JsonObject?
                                 if(animeObject != null) {
                                     val anime = Anime()
-                                    anime.malID = animeObject.get("mal_id").asInt
-                                    anime.imageUrl = animeObject.get("image_url").asString
+                                    anime.malID = animeObject["mal_id"].asInt
+                                    anime.imageUrl = animeObject["image_url"].asString
+                                    anime.title = animeObject["title"].asString
                                     animeList.add(anime)
                                 }
                             }
                         }
+                        animeListToday.postValue(ScreenStateHelper.Success(animeList))
                     }
-                    animeListToday.postValue(ScreenStateHelper.Success(animeList))
                 } else {
+                    animeListToday.postValue(null)
                     animeListToday.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getAnimeListTopApi()
                 }
             }
 

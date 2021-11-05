@@ -45,6 +45,9 @@ data class Anime (
     var pictureList : List<Picture> = arrayListOf(),
     var checked: Boolean = false
 ) {
+    override fun toString(): String {
+        return "Title : $title MalID : $malID"
+    }
 }
 
 data class AnimeListAiringResponse (
@@ -61,8 +64,4 @@ data class AnimeListRecommendationResponse (
 
 data class AnimeListResultResponse (
     val results: List<Anime>
-)
-
-data class AnimeResponse (
-    var animes : List<Anime>? = null
 )
