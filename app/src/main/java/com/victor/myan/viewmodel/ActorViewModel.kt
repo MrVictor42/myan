@@ -57,7 +57,7 @@ class ActorViewModel : ViewModel() {
                                 if(anime != null) {
                                     val animeActor = Anime()
                                     animeActor.malID = anime["mal_id"].asInt
-                                    animeActor.imageUrl = anime["image_url"].asString
+                                    animeActor.imageURL = anime["image_url"].asString
                                     animeList.add(animeActor)
                                 }
                             }

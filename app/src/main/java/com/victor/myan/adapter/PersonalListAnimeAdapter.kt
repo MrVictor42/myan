@@ -39,7 +39,7 @@ class PersonalListAnimeAdapter(
 
         @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
         fun bind(anime: Anime) {
-            Glide.with(itemView.context).load(anime.imageUrl).listener(object :
+            Glide.with(itemView.context).load(anime.imageURL).listener(object :
             RequestListener<Drawable> {
                 override fun onLoadFailed(e: GlideException?, model: Any?,
                                           target: com.bumptech.glide.request.target.Target<Drawable>?,

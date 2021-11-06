@@ -53,8 +53,7 @@ class MangaTopFragment : Fragment() {
                     val mangaTopList = mangaTop.data
                     mangaTopRecyclerView.layoutManager =
                         GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    mangaAdapter = MangaAdapter()
-                    mangaAdapter.submitList(mangaTopList)
+                    mangaAdapter.setData(mangaTopList!!)
                     mangaAdapter.setHasStableIds(true)
                     mangaTopRecyclerView.setHasFixedSize(true)
                     mangaTopRecyclerView.setItemViewCacheSize(6)

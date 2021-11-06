@@ -67,7 +67,7 @@ class AnimeViewModel : ViewModel() {
                                 if(animeObject != null) {
                                     val anime = Anime()
                                     anime.malID = animeObject.get("mal_id").asInt
-                                    anime.imageUrl = animeObject.get("image_url").asString
+                                    anime.imageURL = animeObject.get("image_url").asString
                                     animeList.add(anime)
                                 }
                             }
@@ -102,7 +102,7 @@ class AnimeViewModel : ViewModel() {
                                 if(animeObject != null) {
                                     val anime = Anime()
                                     anime.malID = animeObject["mal_id"].asInt
-                                    anime.imageUrl = animeObject["image_url"].asString
+                                    anime.imageURL = animeObject["image_url"].asString
                                     anime.title = animeObject["title"].asString
                                     animeList.add(anime)
                                 }

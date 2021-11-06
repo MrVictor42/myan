@@ -16,7 +16,7 @@ import com.victor.myan.R
 import com.victor.myan.model.Anime
 import com.victor.myan.baseFragments.BaseAnimeDetailFragment
 import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
-import com.victor.myan.helper.DiffUtilAnimeHelper
+import com.victor.myan.helper.DiffUtilHelper
 
 class AnimeAdapter : RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder>() {
 
@@ -31,7 +31,7 @@ class AnimeAdapter : RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder>() {
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
         val image = holder.binding.image
 
-        Glide.with(holder.itemView.context).load(animeList[position].imageUrl).listener(object : RequestListener<Drawable> {
+        Glide.with(holder.itemView.context).load(animeList[position].imageURL).listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                 return false
             }
@@ -64,7 +64,7 @@ class AnimeAdapter : RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder>() {
     }
 
     fun setData(newAnimeList : List<Anime>) {
-        val diffUtil = DiffUtilAnimeHelper(animeList, newAnimeList)
+        val diffUtil = DiffUtilHelper(animeList, newAnimeList)
         val diffResults = DiffUtil.calculateDiff(diffUtil)
         animeList = newAnimeList
         diffResults.dispatchUpdatesTo(this)

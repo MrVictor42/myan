@@ -76,8 +76,7 @@ class AiringFragment : Fragment() {
                     val mangaList = state.data
                     airingRecyclerView.setHasFixedSize(true)
                     airingRecyclerView.setItemViewCacheSize(10)
-                    mangaAdapter = MangaAdapter()
-                    mangaAdapter.submitList(mangaList)
+                    mangaAdapter.setData(mangaList)
                     airingRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     airingRecyclerView.adapter = mangaAdapter
                     airingRecyclerView.visibility = View.VISIBLE

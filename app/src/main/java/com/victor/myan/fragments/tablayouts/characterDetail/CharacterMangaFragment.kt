@@ -65,8 +65,7 @@ class CharacterMangaFragment : Fragment() {
                     val characterManga = state.data
                     characterMangaRecyclerView.setHasFixedSize(true)
                     characterMangaRecyclerView.setItemViewCacheSize(10)
-                    mangaAdapter = MangaAdapter()
-                    mangaAdapter.submitList(characterManga)
+                    mangaAdapter.setData(characterManga)
                     characterMangaRecyclerView.layoutManager = GridLayoutManager(context, 2 , GridLayoutManager.VERTICAL, false)
                     characterMangaRecyclerView.adapter = mangaAdapter
 

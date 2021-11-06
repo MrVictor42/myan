@@ -2,8 +2,9 @@ package com.victor.myan.helper
 
 import androidx.recyclerview.widget.DiffUtil
 import com.victor.myan.model.Anime
+import com.victor.myan.model.Jikan
 
-class DiffUtilAnimeHelper(private val oldList : List<Anime>, private val newList : List<Anime>) : DiffUtil.Callback() {
+class DiffUtilHelper(private val oldList : List<Jikan>, private val newList : List<Jikan>) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size
     }

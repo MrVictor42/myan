@@ -2,44 +2,55 @@ package com.victor.myan.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Manga (
+data class Manga(
     @SerializedName("mal_id")
-    var malID : Int = 0,
+    override var malID: Int = 0,
     @SerializedName("title")
-    var title : String = "",
-    @SerializedName("volumes")
-    var volumes : Int = 0,
-    @SerializedName("start_date")
-    var startDate : String = "",
-    @SerializedName("end_date")
-    var endDate : String = "",
-    @SerializedName("score")
-    var score : Double = 0.0,
-    @SerializedName("image_url")
-    var imageUrl : String = "",
-    @SerializedName("status")
-    var status : String = "",
-    @SerializedName("chapters")
-    var chapters : Int = 0,
+    override var title: String = "",
     @SerializedName("synopsis")
-    var synopsis : String = "",
-    @SerializedName("genres")
-    var genres : List<Genre> = arrayListOf(),
-    @SerializedName("authors")
-    var authors : List<Author> = arrayListOf(),
+    override var synopsis: String = "",
+    @SerializedName("status")
+    override var status: String = "",
+    @SerializedName("image_url")
+    override var imageURL: String = "",
+    @SerializedName("score")
+    override var score: Double = 0.0,
     @SerializedName("title_synonyms")
-    var titleSynonyms : List<String> = arrayListOf(),
+    override var titleSynonyms: List<String> = arrayListOf(),
     @SerializedName("rank")
-    var rank : Int = 0,
+    override var rank: Int,
     @SerializedName("type")
-    var type : String = "",
+    override var type: String = "",
+
+    @SerializedName("volumes")
+    var volumes: Int = 0,
+    @SerializedName("start_date")
+    var startDate: String = "",
+    @SerializedName("end_date")
+    var endDate: String = "",
+    @SerializedName("chapters")
+    var chapters: Int = 0,
+    @SerializedName("genres")
+    var genres: List<Genre> = arrayListOf(),
+    @SerializedName("authors")
+    var authors: List<Author> = arrayListOf(),
     @SerializedName("published")
-    var published : Publish,
+    var published: Publish?,
     @SerializedName("background")
-    var background : String = "",
+    var background: String = "",
     @SerializedName("related")
-    var related : Related
-)
+    var related: Related?
+) : Jikan() {
+    constructor() : this (
+        0, "", "", "", "", 0.0, emptyList(), 0, "",
+        0, "", "", 0, emptyList(), emptyList(), null,
+        "", null
+    )
+
+    override fun toString(): String {
+        return "Title : $title MalID : $malID"
+    }
+}
 
 data class MangaListTopResponse (
     val top : List<Manga>

@@ -93,7 +93,7 @@ class OverviewAnimeFragment : Fragment() {
                 if(state.data != null) {
                     with(state.data) {
                         animeTitle.text = title
-                        Glide.with(view?.context!!).load(imageUrl).into(animeImage)
+                        Glide.with(view?.context!!).load(imageURL).into(animeImage)
 
                         if(titleSynonyms.isNullOrEmpty() || titleSynonyms.equals("null")) {
                             animeTitleSynonyms.text = "─"
@@ -246,7 +246,7 @@ class OverviewAnimeFragment : Fragment() {
                         val personalListAnime = Anime()
 
                         personalListAnime.malID = malID
-                        personalListAnime.imageUrl = imageUrl
+                        personalListAnime.imageURL = imageURL
                         personalListAnime.title = title
                         personalListAnime.status = status
 

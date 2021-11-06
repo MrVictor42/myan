@@ -157,8 +157,7 @@ class SearchFragment : Fragment() {
                     val mangaList = state.data
                     recyclerViewSearch.setHasFixedSize(true)
                     recyclerViewSearch.setItemViewCacheSize(10)
-                    mangaAdapter = MangaAdapter()
-                    mangaAdapter.submitList(mangaList)
+                    mangaAdapter.setData(mangaList)
                     recyclerViewSearch.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     recyclerViewSearch.adapter = mangaAdapter
                     recyclerViewSearch.visibility = View.VISIBLE

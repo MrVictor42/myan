@@ -4,39 +4,42 @@ import com.google.gson.annotations.SerializedName
 
 data class Anime (
     @SerializedName("mal_id")
-    var malID : Int = 0,
+    override var malID : Int = 0,
     @SerializedName("title")
-    var title : String = "",
+    override var title : String = "",
     @SerializedName("synopsis")
-    var synopsis : String = "",
+    override var synopsis : String = "",
+    @SerializedName("status")
+    override var status : String = "",
     @SerializedName("image_url")
-    var imageUrl : String = "",
+    override var imageURL : String = "",
+    @SerializedName("score")
+    override var score : Double = 0.0,
+    @SerializedName("title_synonyms")
+    override var titleSynonyms : List<String> = arrayListOf(),
+    @SerializedName("rank")
+    override var rank: Int,
+    @SerializedName("type")
+    override var type : String = "",
+
+    @SerializedName("genres")
+    var genreList : List<Genre> = arrayListOf(),
     @SerializedName("trailer_url")
     var trailerUrl : String = "",
-    @SerializedName("status")
-    var status : String = "",
     @SerializedName("premiered")
     var premiered : String = "",
     @SerializedName("episodes")
     var episodes : Int = 0,
-    @SerializedName("score")
-    var score : Double = 0.0,
-    @SerializedName("type")
-    var type : String = "",
     @SerializedName("duration")
     var duration : String = "",
     @SerializedName("popularity")
     var popularity : Int = 0,
     @SerializedName("favorites")
     var favorites : Int = 0,
-    @SerializedName("genres")
-    var genreList : List<Genre> = arrayListOf(),
     @SerializedName("licensors")
     var licensorList : List<Licensor> = arrayListOf(),
     @SerializedName("studios")
     var studioList : List<Studio> = arrayListOf(),
-    @SerializedName("title_synonyms")
-    var titleSynonyms : List<String> = arrayListOf(),
     @SerializedName("opening_themes")
     var openingThemes : List<String> = arrayListOf(),
     @SerializedName("ending_themes")
@@ -44,7 +47,11 @@ data class Anime (
     @SerializedName("pictures")
     var pictureList : List<Picture> = arrayListOf(),
     var checked: Boolean = false
-) {
+) : Jikan() {
+    constructor() : this (
+        0, "", "", "", "", 0.0, emptyList(), 0, ""
+    )
+
     override fun toString(): String {
         return "Title : $title MalID : $malID"
     }

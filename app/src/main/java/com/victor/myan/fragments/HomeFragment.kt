@@ -1,7 +1,8 @@
 package com.victor.myan.fragments
 
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +18,13 @@ import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
-import java.util.*
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val animeAdapter by lazy { AnimeAdapter() }
-    private lateinit var mangaAdapter: MangaAdapter
+    private lateinit var animeAdapter : AnimeAdapter
+    private lateinit var mangaAdapter : MangaAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -46,8 +47,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         processAnimeListTodayResponse()
         processAnimeListAiringResponse()
-        processMangaListAiringResponse()
-        processAnimeListSeasonResponse()
+        Handler(Looper.getMainLooper()).postDelayed({
+            processMangaListAiringResponse()
+            processAnimeListSeasonResponse()
+        }, 3000)
     }
 
     private fun processAnimeListTodayResponse() {
@@ -66,6 +69,7 @@ class HomeFragment : Fragment() {
                         val animeList = animeToday.data
                         todayAnimeRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        animeAdapter = AnimeAdapter()
                         animeAdapter.setData(animeList)
                         todayAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutToday.stopShimmer()
@@ -91,16 +95,17 @@ class HomeFragment : Fragment() {
         val shimmerLayoutAnimeAiring = binding.shimmerLayoutAnimeAiring
 
         animeViewModel.getAnimeListAiringApi()
-        animeViewModel.animeListAiring.observe(viewLifecycleOwner, { state ->
-            when(state) {
+        animeViewModel.animeListAiring.observe(viewLifecycleOwner, { airingAnime ->
+            when(airingAnime) {
                 is ScreenStateHelper.Loading -> {
                     shimmerLayoutAnimeAiring.startShimmer()
                 }
                 is ScreenStateHelper.Success -> {
-                    if(state.data != null) {
-                        val animeList = state.data
+                    if(airingAnime.data != null) {
+                        val animeList = airingAnime.data
                         airingAnimeRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        animeAdapter = AnimeAdapter()
                         animeAdapter.setData(animeList)
                         airingAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutAnimeAiring.stopShimmer()
@@ -127,23 +132,25 @@ class HomeFragment : Fragment() {
 
         mangaListAiringText.visibility = View.GONE
         mangaViewModel.getMangaListAiringApi()
-        mangaViewModel.mangaListAiring.observe(viewLifecycleOwner, { state ->
-            when(state) {
+        mangaViewModel.mangaListAiring.observe(viewLifecycleOwner, { mangaAiring ->
+            when(mangaAiring) {
                 is ScreenStateHelper.Loading -> {
                     shimmerLayoutMangaAiring.startShimmer()
                 }
                 is ScreenStateHelper.Success -> {
-                    val mangaList = state.data
-                    mangaListAiringRecyclerView.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    mangaAdapter = MangaAdapter()
-                    mangaAdapter.submitList(mangaList)
-                    mangaListAiringRecyclerView.adapter = mangaAdapter
-                    shimmerLayoutMangaAiring.stopShimmer()
-                    shimmerLayoutMangaAiring.visibility = View.GONE
-                    mangaListAiringText.text = getString(R.string.manga_airing)
-                    mangaListAiringText.visibility = View.VISIBLE
-                    mangaListAiringRecyclerView.visibility = View.VISIBLE
+                    if(mangaAiring.data != null) {
+                        val mangaList = mangaAiring.data
+                        mangaListAiringRecyclerView.layoutManager =
+                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        mangaAdapter = MangaAdapter()
+                        mangaAdapter.setData(mangaList)
+                        mangaListAiringRecyclerView.adapter = mangaAdapter
+                        shimmerLayoutMangaAiring.stopShimmer()
+                        shimmerLayoutMangaAiring.visibility = View.GONE
+                        mangaListAiringText.text = getString(R.string.manga_airing)
+                        mangaListAiringText.visibility = View.VISIBLE
+                        mangaListAiringRecyclerView.visibility = View.VISIBLE
+                    }
                 }
                 is ScreenStateHelper.Error -> {
                     processMangaListAiringResponse()
@@ -162,16 +169,17 @@ class HomeFragment : Fragment() {
 
         seasonAnimeText.visibility = View.GONE
         animeViewModel.getAnimeListSeasonApi(currentYear, currentSeason)
-        animeViewModel.animeListSeason.observe(viewLifecycleOwner, { state ->
-            when(state) {
+        animeViewModel.animeListSeason.observe(viewLifecycleOwner, { seasonAnime ->
+            when(seasonAnime) {
                 is ScreenStateHelper.Loading -> {
                     shimmerLayoutSeason.startShimmer()
                 }
                 is ScreenStateHelper.Success -> {
-                    if(state.data != null) {
-                        val animeList = state.data
+                    if(seasonAnime.data != null) {
+                        val animeList = seasonAnime.data
                         seasonAnimeRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                        animeAdapter = AnimeAdapter()
                         animeAdapter.setData(animeList)
                         seasonAnimeRecyclerView.adapter = animeAdapter
                         shimmerLayoutSeason.stopShimmer()

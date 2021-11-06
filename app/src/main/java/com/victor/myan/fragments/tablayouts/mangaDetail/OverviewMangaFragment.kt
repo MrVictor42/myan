@@ -77,7 +77,7 @@ class OverviewMangaFragment : Fragment() {
                     if(manga.data != null) {
                         with(manga.data) {
                             mangaTitle.text = title
-                            Glide.with(view.context!!).load(imageUrl).into(mangaImage)
+                            Glide.with(view.context!!).load(imageURL).into(mangaImage)
 
                             if(titleSynonyms.isNullOrEmpty() || titleSynonyms.equals("null")) {
                                 mangaTitleSynonyms.text = "─"
@@ -163,10 +163,10 @@ class OverviewMangaFragment : Fragment() {
                                 type
                             }
 
-                            val year = if(published.year.isNullOrEmpty() || published.year == "") {
+                            val year = if(published!!.year.isNullOrEmpty() || published!!.year == "") {
                                 "─"
                             } else {
-                                published.year.substring(0,4)
+                                published!!.year.substring(0,4)
                             }
 
                             typeYear.text = "$mangaType, $year"
@@ -197,13 +197,13 @@ class OverviewMangaFragment : Fragment() {
                             if(related.toString().isEmpty() || related.toString() == "null") {
                                 // Da uns gone pra spin off e adaptations
                             } else {
-                                for(aux in related.adaptations.indices) {
-                                    listAdaptations.add(related.adaptations[aux].name)
+                                for(aux in related!!.adaptations.indices) {
+                                    listAdaptations.add(related!!.adaptations[aux].name)
                                 }
                                 mangaAdaptations.text = listAdaptations.toString()
                                 listAdaptations.clear()
-                                for(aux in related.spinOff.indices) {
-                                    listSpinOff.add(related.spinOff[aux].name)
+                                for(aux in related!!.spinOff.indices) {
+                                    listSpinOff.add(related!!.spinOff[aux].name)
                                 }
                                 mangaSpinOff.text = listSpinOff.toString()
                                 listSpinOff.clear()
