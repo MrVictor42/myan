@@ -46,7 +46,6 @@ class MangaViewModel : ViewModel() {
                     mangaTopList.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
                     mangaTopList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getMangaListTopApi()
                 }
             }
 
@@ -66,7 +65,6 @@ class MangaViewModel : ViewModel() {
                     mangaListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
                     mangaListAiring.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getMangaListAiringApi()
                 }
             }
 

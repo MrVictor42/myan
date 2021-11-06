@@ -86,7 +86,7 @@ class SeasonFragment : Fragment() {
                         seasonRecyclerView.layoutManager =
                             GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                         animeAdapter = AnimeAdapter()
-                        animeAdapter.submitList(animeList)
+//                        animeAdapter.submitList(animeList)
                         animeAdapter.setHasStableIds(true)
                         seasonRecyclerView.setHasFixedSize(true)
                         seasonRecyclerView.setItemViewCacheSize(6)

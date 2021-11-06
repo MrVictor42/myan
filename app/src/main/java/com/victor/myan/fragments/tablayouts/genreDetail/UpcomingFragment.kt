@@ -108,7 +108,7 @@ class UpcomingFragment : Fragment() {
                     airingRecyclerView.setHasFixedSize(true)
                     airingRecyclerView.setItemViewCacheSize(10)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeList)
+//                    animeAdapter.submitList(animeList)
                     airingRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     airingRecyclerView.adapter = animeAdapter
                     airingRecyclerView.visibility = View.VISIBLE

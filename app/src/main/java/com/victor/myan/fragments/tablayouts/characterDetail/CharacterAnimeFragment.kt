@@ -66,7 +66,7 @@ class CharacterAnimeFragment : Fragment() {
                     characterAnimeRecyclerView.setHasFixedSize(true)
                     characterAnimeRecyclerView.setItemViewCacheSize(10)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(characterAnime)
+//                    animeAdapter.submitList(characterAnime)
                     characterAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     characterAnimeRecyclerView.adapter = animeAdapter
 

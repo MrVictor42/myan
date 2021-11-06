@@ -57,7 +57,7 @@ class DayFragment : Fragment() {
                     dayRecyclerView.layoutManager =
                         GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeTodayList)
+//                    animeAdapter.submitList(animeTodayList)
                     animeAdapter.setHasStableIds(true)
                     dayRecyclerView.setHasFixedSize(true)
                     dayRecyclerView.setItemViewCacheSize(6)

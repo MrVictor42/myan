@@ -54,7 +54,7 @@ class AnimeTopFragment : Fragment() {
                     animeTopRecyclerView.layoutManager =
                         GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeTopList)
+//                    animeAdapter.submitList(animeTopList)
                     animeAdapter.setHasStableIds(true)
                     animeTopRecyclerView.setHasFixedSize(true)
                     animeTopRecyclerView.setItemViewCacheSize(6)

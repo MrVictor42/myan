@@ -124,7 +124,7 @@ class SearchFragment : Fragment() {
                     recyclerViewSearch.setHasFixedSize(true)
                     recyclerViewSearch.setItemViewCacheSize(10)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeMovieList)
+//                    animeAdapter.submitList(animeMovieList)
                     recyclerViewSearch.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     recyclerViewSearch.adapter = animeAdapter
                     recyclerViewSearch.visibility = View.VISIBLE

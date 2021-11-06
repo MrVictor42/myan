@@ -20,7 +20,7 @@ class AnimeViewModel : ViewModel() {
 
     val anime : MutableLiveData<ScreenStateHelper<Anime>?> = MutableLiveData()
     val animeListAiring : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
-    val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>?> = MutableLiveData()
+    val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListSeason : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListTop : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeRecommendationList : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
@@ -40,50 +40,12 @@ class AnimeViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     animeListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
-                    getAnimeListAiringApi()
                     animeListAiring.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
 
             override fun onFailure(call: Call<AnimeListAiringResponse>, t: Throwable) {
                 animeListAiring.postValue(ScreenStateHelper.Error(t.message.toString(), null))
-            }
-        })
-    }
-
-    fun getAnimeListTodayApi(currentDay : String) {
-        val animeApi = JikanApiInstance.animeApi.getTodayAnime(currentDay)
-        val animeList : MutableList<Anime> = arrayListOf()
-
-        animeListToday.postValue(ScreenStateHelper.Loading(null))
-        animeApi.enqueue(object : Callback<JsonObject> {
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                if(response.isSuccessful) {
-                    val animeResponse = response.body()
-                    if(animeResponse != null) {
-                        val dayAnime : JsonArray? = animeResponse.getAsJsonArray(currentDay)
-                        if(dayAnime != null) {
-                            for(aux in 0 until dayAnime.size()) {
-                                val animeObject : JsonObject? = dayAnime.get(aux) as JsonObject?
-                                if(animeObject != null) {
-                                    val anime = Anime()
-                                    anime.malID = animeObject["mal_id"].asInt
-                                    anime.imageUrl = animeObject["image_url"].asString
-                                    anime.title = animeObject["title"].asString
-                                    animeList.add(anime)
-                                }
-                            }
-                        }
-                        animeListToday.postValue(ScreenStateHelper.Success(animeList))
-                    }
-                } else {
-                    animeListToday.postValue(null)
-                    animeListToday.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                }
-            }
-
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                animeListToday.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }
@@ -114,12 +76,47 @@ class AnimeViewModel : ViewModel() {
                     }
                 } else {
                     animeListSeason.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getAnimeListSeasonApi(currentYear, currentSeason)
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 animeListSeason.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+            }
+        })
+    }
+
+    fun getAnimeListTodayApi(currentDay : String) {
+        val animeApi = JikanApiInstance.animeApi.getTodayAnime(currentDay)
+        val animeList : MutableList<Anime> = arrayListOf()
+
+        animeListToday.postValue(ScreenStateHelper.Loading(null))
+        animeApi.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                if(response.isSuccessful) {
+                    val animeResponse = response.body()
+                    if(animeResponse != null) {
+                        val dayAnime : JsonArray? = animeResponse.getAsJsonArray(currentDay)
+                        if(dayAnime != null) {
+                            for(aux in 0 until dayAnime.size()) {
+                                val animeObject : JsonObject? = dayAnime.get(aux) as JsonObject?
+                                if(animeObject != null) {
+                                    val anime = Anime()
+                                    anime.malID = animeObject["mal_id"].asInt
+                                    anime.imageUrl = animeObject["image_url"].asString
+                                    anime.title = animeObject["title"].asString
+                                    animeList.add(anime)
+                                }
+                            }
+                        }
+                        animeListToday.postValue(ScreenStateHelper.Success(animeList))
+                    }
+                } else {
+                    animeListToday.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                }
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                animeListToday.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }
@@ -134,7 +131,6 @@ class AnimeViewModel : ViewModel() {
                     animeListTop.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
                     animeListTop.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getAnimeListTopApi()
                 }
             }
 
@@ -154,7 +150,6 @@ class AnimeViewModel : ViewModel() {
                     anime.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
                     anime.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getAnimeApi(malID)
                 }
             }
 
@@ -175,7 +170,6 @@ class AnimeViewModel : ViewModel() {
                     animeRecommendationList.postValue(ScreenStateHelper.Success(response.body()?.recommendations))
                 } else {
                     animeRecommendationList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    getAnimeRecommendationApi(malID)
                 }
             }
 

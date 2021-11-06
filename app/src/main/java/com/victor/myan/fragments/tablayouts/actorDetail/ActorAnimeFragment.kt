@@ -65,7 +65,7 @@ class ActorAnimeFragment : Fragment() {
                     actorAnimeRecyclerView.setHasFixedSize(true)
                     actorAnimeRecyclerView.setItemViewCacheSize(8)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(actorAnime)
+//                    animeAdapter.submitList(actorAnime)
                     actorAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     actorAnimeRecyclerView.adapter = animeAdapter
                     actorAnimeRecyclerView.visibility = View.VISIBLE

@@ -67,7 +67,7 @@ class MangaRecommendationFragment : Fragment() {
                     recommendationRecyclerView.setHasFixedSize(true)
                     recommendationRecyclerView.setItemViewCacheSize(10)
                     animeAdapter = AnimeAdapter()
-                    animeAdapter.submitList(animeRecommendation)
+//                    animeAdapter.submitList(animeRecommendation)
                     recommendationRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     recommendationRecyclerView.adapter = animeAdapter
                     shimmerLayoutRecommendation.stopShimmer()
