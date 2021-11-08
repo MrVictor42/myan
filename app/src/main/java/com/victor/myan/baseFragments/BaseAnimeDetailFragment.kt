@@ -2,7 +2,6 @@ package com.victor.myan.baseFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.viewpager.AnimeDetailViewPager
+import com.victor.myan.viewpager.AnimeViewPager
 import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.helper.ScreenStateHelper
@@ -23,7 +22,6 @@ import com.victor.myan.viewmodel.PictureViewModel
 class BaseAnimeDetailFragment : Fragment() {
 
     private lateinit var binding : FragmentBaseAnimeDetailBinding
-    private val TAG = BaseAnimeDetailFragment::class.java.simpleName
     private val pictureViewModel by lazy {
         ViewModelProvider(this)[PictureViewModel::class.java]
     }
@@ -41,10 +39,10 @@ class BaseAnimeDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 3
-        val adapter = AnimeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = AnimeViewPager(parentFragmentManager, lifecycle, malID, sizePager)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager, true, false) {tab, position ->
+        TabLayoutMediator(tabLayout, viewPager, true, false) { tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
                 1 -> tab.text = "Characters"
@@ -77,7 +75,6 @@ class BaseAnimeDetailFragment : Fragment() {
         when(state) {
             is ScreenStateHelper.Loading -> {
                 shimmerLayout.visibility = View.VISIBLE
-                Log.i(TAG, "Carousel Loading...")
             }
             is ScreenStateHelper.Success -> {
                 if (state.data != null) {
@@ -98,11 +95,10 @@ class BaseAnimeDetailFragment : Fragment() {
                     carouselView.visibility = View.VISIBLE
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.INVISIBLE
-                    Log.i(TAG, "Carousel Loaded With Success!")
                 }
             }
             is ScreenStateHelper.Error -> {
-                Log.e(TAG, "Error Carousel in BaseAnimeDetailFragment With Code: ${state.message}")
+
             }
             else -> {
                 // Nothing to do

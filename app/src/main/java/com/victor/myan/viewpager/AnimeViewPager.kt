@@ -4,11 +4,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.animeDetail.CharacterFragment
-import com.victor.myan.fragments.tablayouts.animeDetail.OverviewAnimeFragment
-import com.victor.myan.fragments.tablayouts.animeDetail.RecommendationFragment
+import com.victor.myan.fragments.tablayouts.anime.CharacterFragment
+import com.victor.myan.fragments.tablayouts.anime.OverviewAnimeFragment
+import com.victor.myan.fragments.tablayouts.anime.RecommendationFragment
 
-class AnimeDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val malID : Int, private val size : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class AnimeViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val malID : Int, private val size : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     override fun getItemCount(): Int {
         return size

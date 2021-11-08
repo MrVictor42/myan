@@ -1,8 +1,6 @@
-package com.victor.myan.fragments.tablayouts.animeDetail
+package com.victor.myan.fragments.tablayouts.anime
 
-import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,9 +24,6 @@ import com.victor.myan.fragments.dialogs.ListDialogFragment
 class OverviewAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewAnimeBinding
-    private val auxServicesHelper = AuxFunctionsHelper()
-    private val youtubeHelper = YoutubeHelper()
-    private val TAG = OverviewAnimeFragment::class.java.simpleName
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -53,21 +48,14 @@ class OverviewAnimeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getInt("mal_id")!!
+        val auxServicesHelper = AuxFunctionsHelper()
+        val youtubeHelper = YoutubeHelper()
 
-        animeViewModel.getAnimeApi(malID)
-        animeViewModel.anime.observe(viewLifecycleOwner, { state ->
-            processAnimeResponse(state)
-        })
-    }
-
-    @SuppressLint("InflateParams")
-    private fun processAnimeResponse(state: ScreenStateHelper<Anime>?) {
+        val animeImage = binding.animeImage
+        val animeRank = binding.animeRank
+        val animeScore = binding.animeScore
         val btnAddList = binding.btnAddList
         val animeTitle = binding.animeTitle
-        val animeScore = binding.animeScore
-        val animeImage = binding.animeImage
-        val animePopularity = binding.animePopularity
-        val animeFavorites = binding.animeFavorites
         val animeTitleSynonyms = binding.animeTitleSynonyms
         val animeStatus = binding.animeStatus
         val episodeDuration = binding.episodeDuration
@@ -81,101 +69,98 @@ class OverviewAnimeFragment : Fragment() {
         val animeLicensors = binding.animeLicensors
         val animeStudios = binding.animeStudios
         val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
+        val expandableTextViewOpening = binding.expandableTextViewOpening.expandableTextView
+        val expandableTextViewEnding = binding.expandableTextViewEnding.expandableTextView
         val overviewAnime = binding.overviewAnime
-        val shimmerLayoutOverViewAnime = binding.shimmerLayoutOverviewAnime
+        val shimmerLayout = binding.shimmerLayout
 
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-                shimmerLayoutOverViewAnime.startShimmer()
-                Log.i(TAG, "OverviewAnimeFragment Loading...")
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    with(state.data) {
-                        animeTitle.text = title
-                        Glide.with(view?.context!!).load(imageURL).into(animeImage)
+        animeViewModel.getAnimeApi(malID)
+        animeViewModel.anime.observe(viewLifecycleOwner, { anime ->
+            when(anime) {
+                is ScreenStateHelper.Loading -> {
+                    shimmerLayout.startShimmer()
+                }
+                is ScreenStateHelper.Success -> {
+                    if(anime.data != null) {
+                        with(anime.data) {
+                            animeTitle.text = title
+                            Glide.with(view.context!!).load(imageURL).into(animeImage)
 
-                        if(titleSynonyms.isNullOrEmpty() || titleSynonyms.equals("null")) {
-                            animeTitleSynonyms.text = "─"
-                        } else {
-                            animeTitleSynonyms.text = titleSynonyms.toString()
-                        }
+                            if(rank.toString().isNullOrEmpty() || rank.toString() == "null") {
+                                animeRank.text = "─"
+                            } else {
+                                animeRank.text = rank.toString()
+                            }
 
-                        if(popularity.toString().isNullOrEmpty() || popularity.toString() == "null") {
-                            animePopularity.text = "─"
-                        } else {
-                            animePopularity.text = popularity.toString()
-                        }
+                            if(score.toString().isNullOrEmpty() || score.toString() == "null") {
+                                animeScore.text = "─"
+                            } else {
+                                animeScore.text = score.toString()
+                            }
 
-                        if(favorites.toString().isNullOrEmpty() || favorites.toString() == "null") {
-                            animeFavorites.text = "─"
-                        } else {
-                            animeFavorites.text = favorites.toString()
-                        }
+                            if(titleSynonyms.isNullOrEmpty() || titleSynonyms.equals("null")) {
+                                animeTitleSynonyms.text = "─"
+                            } else {
+                                animeTitleSynonyms.text = titleSynonyms.toString()
+                            }
 
-                        val animeType = if(type.isNullOrEmpty() || type == "null") {
-                            "─"
-                        } else {
-                            type
-                        }
+                            val animeType = if(type.isNullOrEmpty() || type == "null") {
+                                "─"
+                            } else {
+                                type
+                            }
 
-                        val year = if(premiered.isNullOrEmpty() || premiered == "null") {
-                            "─"
-                        } else {
-                            auxServicesHelper.formatPremiered(premiered)
-                        }
+                            val year = if(premiered.isNullOrEmpty() || premiered == "null") {
+                                "─"
+                            } else {
+                                auxServicesHelper.formatPremiered(premiered)
+                            }
 
-                        val typeYearConcat = "$animeType, $year"
-                        typeYear.text = typeYearConcat
+                            val typeYearConcat = "$animeType, $year"
+                            typeYear.text = typeYearConcat
 
-                        if(score.toString().isNullOrEmpty() || score.toString() == "null") {
-                            animeScore.text = "─"
-                        } else {
-                            animeScore.text = score.toString()
-                        }
 
-                        if(status.isNullOrEmpty() || status == "null") {
-                            animeStatus.text = "─"
-                        } else {
-                            when(status) {
-                                StatusEnum.CurrentlyAiring.status -> {
-                                    animeStatus.text = StatusEnum.CurrentlyAiring.status
-                                    animeStatus.setTextColor(
-                                        ContextCompat.getColor(requireContext(), R.color.green_light)
-                                    )
-                                }
+                            if(status.isNullOrEmpty() || status == "null") {
+                                animeStatus.text = "─"
+                            } else {
+                                when(status) {
+                                    StatusEnum.CurrentlyAiring.status -> {
+                                        animeStatus.text = StatusEnum.CurrentlyAiring.status
+                                        animeStatus.setTextColor(
+                                            ContextCompat.getColor(requireContext(), R.color.green_light)
+                                        )
+                                    }
 
-                                StatusEnum.NotYetAired.status -> {
-                                    animeStatus.text = StatusEnum.NotYetAired.status
-                                    animeStatus.setTextColor(
-                                        ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                                    )
-                                }
+                                    StatusEnum.NotYetAired.status -> {
+                                        animeStatus.text = StatusEnum.NotYetAired.status
+                                        animeStatus.setTextColor(
+                                            ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                                        )
+                                    }
 
-                                StatusEnum.FinishedAiring.status -> {
-                                    animeStatus.text = StatusEnum.FinishedAiring.status
-                                    animeStatus.setTextColor(
-                                        ContextCompat.getColor(requireContext(), R.color.red)
-                                    )
+                                    StatusEnum.FinishedAiring.status -> {
+                                        animeStatus.text = StatusEnum.FinishedAiring.status
+                                        animeStatus.setTextColor(
+                                            ContextCompat.getColor(requireContext(), R.color.red)
+                                        )
+                                    }
                                 }
                             }
-                        }
 
-                        val episode =
-                            if(
-                                episodes.toString().isNullOrEmpty()  ||
-                                episodes.toString() == "0" ||
-                                episodes.toString() == "null") {
-                            "─"
-                        } else {
-                            episodes
-                        }
+                            val episode =
+                                if(episodes.toString().isNullOrEmpty()  ||
+                                    episodes.toString() == "0" ||
+                                    episodes.toString() == "null") {
+                                    "─"
+                                } else {
+                                    episodes
+                                }
 
-                        val duration = if(
-                            duration.isNullOrEmpty() ||
-                            duration == "0" ||
-                            duration == "null") {
-                            "─"
+                        val duration =
+                            if(duration.isNullOrEmpty() ||
+                                duration == "0" ||
+                                duration == "null") {
+                                "─"
                         } else {
                             auxServicesHelper.formatDurationEpisode(animeType, duration)
                         }
@@ -242,29 +227,31 @@ class OverviewAnimeFragment : Fragment() {
                         }
 
                         expandableTextViewSynopsis.text = synopsis
-
-                        val personalListAnime = Anime()
-
-                        personalListAnime.malID = malID
-                        personalListAnime.imageURL = imageURL
-                        personalListAnime.title = title
-                        personalListAnime.status = status
+                        expandableTextViewOpening.text =
+                            openingList.toString().replace(",", "\n")
+                                .replace("[", "").replace("]", "")
+                        expandableTextViewEnding.text =
+                            endingList.toString().replace(",", "\n")
+                                .replace("[", "").replace("]", "")
 
                         btnAddList.setOnClickListener {
-                            ListDialogFragment(personalListAnime, null).show(childFragmentManager, TAG)
+                            val anime = Anime()
+
+                            anime.malID = malID
+                            anime.imageURL = imageURL
+                            anime.title = title
+                            anime.status = status
+
+                            ListDialogFragment(anime, null).show(childFragmentManager, "OverViewAnimeFragment")
+                        }
+
+                            shimmerLayout.stopShimmer()
+                            shimmerLayout.visibility = View.GONE
+                            overviewAnime.visibility = View.VISIBLE
                         }
                     }
-                    shimmerLayoutOverViewAnime.stopShimmer()
-                    shimmerLayoutOverViewAnime.visibility = View.GONE
-                    overviewAnime.visibility = View.VISIBLE
                 }
             }
-            is ScreenStateHelper.Error -> {
-                Log.e(TAG, "Error OverviewAnime in OverviewAnimeFragment with code ${state.message}")
-            }
-            else -> {
-                //"Nothing to do"
-            }
-        }
+        })
     }
 }

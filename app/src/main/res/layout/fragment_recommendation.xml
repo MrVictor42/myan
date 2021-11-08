@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.animeDetail.RecommendationFragment">
+    tools:context=".fragments.tablayouts.anime.RecommendationFragment">
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout_recommendation"
         android:layout_width="match_parent"

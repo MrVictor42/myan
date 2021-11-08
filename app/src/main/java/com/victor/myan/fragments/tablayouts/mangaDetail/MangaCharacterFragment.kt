@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.R
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentMangaCharacterBinding
-import com.victor.myan.fragments.tablayouts.animeDetail.CharacterFragment
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Character
 import com.victor.myan.viewmodel.CharacterViewModel

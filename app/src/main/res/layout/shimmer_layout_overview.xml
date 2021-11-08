@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,85 +22,80 @@
             android:contentDescription="@string/anime" />
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/view_text_anime_score"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_rank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/cardView"
         android:background="@color/placeholder"
-        android:text="@string/score"
+        android:text="@string/rank"
         android:textSize="14sp"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_marginTop="15dp" />
 
-    <TextView
-        android:id="@+id/view_text_anime_score_rating"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_rank_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_score"
-        app:layout_constraintStart_toStartOf="@id/view_text_anime_score"
+        app:layout_constraintTop_toBottomOf="@id/view_text_rank"
+        app:layout_constraintStart_toStartOf="@id/view_text_rank"
         android:textStyle="bold"
         android:textSize="16sp"
         android:text="@string/rating"
         android:background="@color/placeholder"
-        android:textColor="@color/placeholder"
-        />
+        android:textColor="@color/placeholder" />
 
-    <TextView
-        android:id="@+id/view_text_anime_popularity"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_score_rating"
-        app:layout_constraintStart_toStartOf="@id/view_text_anime_score_rating"
-        android:text="@string/popularity"
+        app:layout_constraintTop_toBottomOf="@id/view_text_rank_rating"
+        app:layout_constraintStart_toStartOf="@id/view_text_rank_rating"
+        android:text="@string/score"
         android:background="@color/placeholder"
         android:textSize="14sp"
-        android:textColor="@color/placeholder"
-    />
+        android:textColor="@color/placeholder" />
 
-    <TextView
-        android:id="@+id/view_text_anime_popularity_rating"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_score_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_popularity"
-        app:layout_constraintStart_toStartOf="@id/view_text_anime_popularity"
+        app:layout_constraintTop_toBottomOf="@id/view_text_score_rating"
+        app:layout_constraintStart_toStartOf="@id/view_text_score_rating"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/placeholder"
         android:background="@color/placeholder"
-        android:text="@string/rating"
-    />
+        android:text="@string/rating" />
 
-    <TextView
-        android:id="@+id/view_text_anime_favorites"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_authors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_popularity_rating"
-        app:layout_constraintStart_toStartOf="@id/view_text_anime_score"
-        android:text="@string/favorites"
-        android:background="@color/placeholder"
-        android:textSize="14sp"
-        android:textColor="@color/placeholder"
-        />
-
-    <TextView
-        android:id="@+id/view_text_anime_favorites_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_favorites"
-        app:layout_constraintStart_toStartOf="@id/view_text_anime_popularity"
+        app:layout_constraintStart_toStartOf="@id/view_text_score"
+        app:layout_constraintTop_toBottomOf="@id/view_text_score"
         android:textStyle="bold"
         android:textSize="16sp"
         android:textColor="@color/placeholder"
-        android:text="@string/rating"
         android:background="@color/placeholder"
-        />
+        android:text="@string/author" />
 
-    <TextView
-        android:id="@+id/view_text_anime_title"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_authors_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/view_text_authors"
+        app:layout_constraintStart_toStartOf="@id/view_text_authors"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@color/placeholder"
+        android:background="@color/placeholder"
+        android:text="@string/creator_app" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/placeholder"
@@ -115,11 +109,10 @@
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/title"
-        android:background="@color/placeholder"
-        />
+        android:background="@color/placeholder" />
 
-    <TextView
-        android:id="@+id/view_text_anime_title_synonyms"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/view_text_title_synonyms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/placeholder"
@@ -128,21 +121,21 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_title"
+        app:layout_constraintTop_toBottomOf="@id/view_text_title"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:gravity="center"
         android:text="@string/title_synonyms"
         />
 
-    <LinearLayout
-        android:id="@+id/linear_anime_information_genres"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear_genres"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:orientation="horizontal"
         android:background="@color/placeholder"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_text_anime_title_synonyms"
+        app:layout_constraintTop_toBottomOf="@id/view_text_title_synonyms"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
@@ -153,16 +146,15 @@
         android:id="@+id/view_youtube"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        app:layout_constraintTop_toBottomOf="@id/linear_anime_information_genres"
+        app:layout_constraintTop_toBottomOf="@id/linear_genres"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="@color/placeholder"
-    />
+        android:background="@color/placeholder" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linear_licensors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -171,9 +163,8 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"
-        >
-        <TextView
+        android:layout_marginEnd="20dp">
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/licensors_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -181,9 +172,8 @@
             android:textColor="@color/placeholder"
             android:textSize="14sp"
             android:layout_marginTop="20dp"
-            android:background="@color/placeholder"
-            />
-    </LinearLayout>
+            android:background="@color/placeholder" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -192,16 +182,15 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="@id/linear_licensors"
-        app:layout_constraintStart_toStartOf="@id/guideline"
-        >
+        app:layout_constraintStart_toStartOf="@id/guideline">
         <TextView
-            android:id="@+id/studios_text_view"
+            android:id="@+id/view_text_studios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/linear_licensors"
@@ -209,7 +198,6 @@
             android:text="@string/studios"
             android:textColor="@color/placeholder"
             android:background="@color/placeholder"
-            android:textSize="14sp"
-            />
-    </LinearLayout>
+            android:textSize="14sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

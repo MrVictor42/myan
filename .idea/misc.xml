@@ -109,6 +109,7 @@
         <entry key="app/src/main/res/layout/fragment_genre.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15" />
         <entry key="app/src/main/res/layout/fragment_list_detail.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/layout/fragment_manga_recommendation.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_overview_anime.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_overview_character.xml" value="0.17" />
@@ -131,6 +132,7 @@
         <entry key="app/src/main/res/layout/recyclerview.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/recyclerview_horizontal.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recyclerview_vertical.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/shimmer_layout_overview_anime.xml" value="0.33" />
         <entry key="app/src/main/res/layout/toolbar_back.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>

@@ -24,6 +24,10 @@ data class Anime (
 
     @SerializedName("genres")
     var genreList : List<Genre> = arrayListOf(),
+    @SerializedName("opening_themes")
+    var openingList : List<String> = arrayListOf(),
+    @SerializedName("ending_themes")
+    var endingList : List<String> = arrayListOf(),
     @SerializedName("trailer_url")
     var trailerUrl : String = "",
     @SerializedName("premiered")
@@ -40,10 +44,6 @@ data class Anime (
     var licensorList : List<Licensor> = arrayListOf(),
     @SerializedName("studios")
     var studioList : List<Studio> = arrayListOf(),
-    @SerializedName("opening_themes")
-    var openingThemes : List<String> = arrayListOf(),
-    @SerializedName("ending_themes")
-    var endingThemes : List<String> = arrayListOf(),
     @SerializedName("pictures")
     var pictureList : List<Picture> = arrayListOf(),
     var checked: Boolean = false

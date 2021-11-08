@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.animeDetail
+package com.victor.myan.fragments.tablayouts.anime
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.CharactersAdapter
@@ -51,6 +52,7 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
+        Toast.makeText(context, "CHARACTER", Toast.LENGTH_SHORT).show()
         val characterRecyclerView = binding.recyclerView.recyclerViewVertical
         val shimmerLayoutCharacter = binding.shimmerLayoutCharacter
 

@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.animeDetail
+package com.victor.myan.fragments.tablayouts.anime
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.AnimeAdapter
@@ -42,6 +43,7 @@ class RecommendationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Toast.makeText(context, "Recommendation", Toast.LENGTH_SHORT).show()
         val malID = arguments?.getInt("mal_id")!!
 
         animeViewModel.getAnimeRecommendationApi(malID)
