@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.anime
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
+import com.victor.myan.adapter.GenreItemAdapter
 import com.victor.myan.databinding.FragmentOverviewAnimeBinding
 import com.victor.myan.enums.StatusEnum
 import com.victor.myan.helper.AuxFunctionsHelper
@@ -20,10 +23,12 @@ import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.fragments.dialogs.ListDialogFragment
+import com.victor.myan.model.Genre
 
 class OverviewAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewAnimeBinding
+    private lateinit var genreItemAdapter: GenreItemAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -60,12 +65,12 @@ class OverviewAnimeFragment : Fragment() {
         val animeStatus = binding.animeStatus
         val episodeDuration = binding.episodeDuration
         val typeYear = binding.typeYear
-        var listGenres = ""
+        val listGenres : MutableList<Genre> = arrayListOf()
         var listLicensors = ""
         var listStudios = ""
         val animeVideo = binding.youtubePlayerView
         lifecycle.addObserver(animeVideo)
-        val animeGenres = binding.animeGenres
+        val animeGenres = binding.recyclerViewGenres
         val animeLicensors = binding.animeLicensors
         val animeStudios = binding.animeStudios
         val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
@@ -171,14 +176,16 @@ class OverviewAnimeFragment : Fragment() {
                         if (genreList.isEmpty()) {
                             // Nothing to do
                         } else {
-                            for (genre in genreList.indices) {
+                            for(aux in genreList.indices) {
+                                val genre = Genre()
 
-                                listGenres += genreList[genre].name
-                                if (genre < genreList.size - 1) {
-                                    listGenres += " • "
-                                }
+                                genre.name = genreList[aux].name
+                                genre.malID = genreList[aux].malID
+                                listGenres.add(genre)
                             }
-                            animeGenres.text = listGenres
+                            genreItemAdapter = GenreItemAdapter(listGenres)
+                            animeGenres.layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
+                            animeGenres.adapter = genreItemAdapter
                         }
 
                         if (licensorList.isEmpty()) {
