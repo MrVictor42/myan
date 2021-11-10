@@ -46,8 +46,7 @@ class BaseAnimeFragment : Fragment() {
             when(position) {
                 0 -> tab.text = "Overview"
                 1 -> tab.text = "Characters"
-                2 -> tab.text = "Episodes"
-                3 -> tab.text = "Recommendation"
+                2 -> tab.text = "Recommendation"
             }
         }.attach()
 
