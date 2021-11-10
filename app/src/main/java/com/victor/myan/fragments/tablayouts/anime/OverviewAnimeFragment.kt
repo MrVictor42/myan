@@ -257,6 +257,9 @@ class OverviewAnimeFragment : Fragment() {
                         }
                     }
                 }
+                else -> {
+
+                }
             }
         })
     }

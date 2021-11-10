@@ -6,7 +6,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.victor.myan.fragments.CharacterFragment
 import com.victor.myan.fragments.tablayouts.anime.OverviewAnimeFragment
-import com.victor.myan.fragments.tablayouts.anime.RecommendationFragment
+import com.victor.myan.fragments.RecommendationFragment
 
 class AnimeViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val malID : Int, private val size : Int) : FragmentStateAdapter(fragment, lifecycle) {
 

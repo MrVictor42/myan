@@ -94,7 +94,7 @@ class ActorViewModel : ViewModel() {
                                     val characterActor = Character()
 
                                     characterActor.malID = character["mal_id"].asInt
-                                    characterActor.imageUrl = character["image_url"].asString
+                                    characterActor.imageURL = character["image_url"].asString
                                     characterActor.name = character["name"].asString
                                     characterList.add(characterActor)
                                 }

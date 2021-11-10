@@ -65,7 +65,7 @@ class MangaCharacterFragment : Fragment() {
                     characterRecyclerView.setHasFixedSize(true)
                     characterRecyclerView.setItemViewCacheSize(10)
                     characterAdapter = CharactersAdapter()
-                    characterAdapter.submitList(characterList)
+//                    characterAdapter.submitList(characterList)
                     characterRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                     characterRecyclerView.adapter = characterAdapter
                     shimmerLayoutCharacter.stopShimmer()

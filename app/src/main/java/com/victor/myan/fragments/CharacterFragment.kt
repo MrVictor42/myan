@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.CharactersAdapter
 import com.victor.myan.databinding.FragmentCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Character
 import com.victor.myan.viewmodel.CharacterViewModel
 
 class CharacterFragment : Fragment() {
@@ -41,41 +40,66 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getInt("mal_id")!!
+        val characterRecyclerView = binding.recyclerView
+        val shimmerLayout = binding.shimmerLayout
 
         characterViewModel.getCharacterListApi(malID)
-        characterViewModel.characterList.observe(viewLifecycleOwner, { state ->
-            processCharacterListResponse(state)
+        characterViewModel.characterList.observe(viewLifecycleOwner, { characters ->
+            when(characters) {
+                is ScreenStateHelper.Loading -> {
+                    shimmerLayout.startShimmer()
+                }
+                is ScreenStateHelper.Success -> {
+                    if(characters.data != null) {
+                        val characterList = characters.data
+                        characterRecyclerView.layoutManager =
+                            GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                        characterAdapter = CharactersAdapter()
+                        characterAdapter.setData(characterList)
+                        characterRecyclerView.adapter = characterAdapter
+                        shimmerLayout.stopShimmer()
+                        shimmerLayout.visibility = View.GONE
+                        characterRecyclerView.visibility = View.VISIBLE
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+
+                }
+                else -> {
+
+                }
+            }
         })
     }
 
-    private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
-        val characterRecyclerView = binding.recyclerView
-        val shimmerLayoutCharacter = binding.shimmerLayoutCharacter
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-                shimmerLayoutCharacter.startShimmer()
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    val characterList = state.data
-                    characterRecyclerView.setHasFixedSize(true)
-                    characterRecyclerView.setItemViewCacheSize(10)
-                    characterAdapter = CharactersAdapter()
-                    characterAdapter.submitList(characterList)
-                    characterRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    characterRecyclerView.adapter = characterAdapter
-                    shimmerLayoutCharacter.stopShimmer()
-                    shimmerLayoutCharacter.visibility = View.GONE
-                    characterRecyclerView.visibility = View.VISIBLE
-                }
-            }
-            is ScreenStateHelper.Error -> {
-
-            }
-            else -> {
-                // Nothing to do
-            }
-        }
-    }
+//    private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
+//        val characterRecyclerView = binding.recyclerView
+//        val shimmerLayoutCharacter = binding.shimmerLayoutCharacter
+//
+//        when(state) {
+//            is ScreenStateHelper.Loading -> {
+//                shimmerLayoutCharacter.startShimmer()
+//            }
+//            is ScreenStateHelper.Success -> {
+//                if(state.data != null) {
+//                    val characterList = state.data
+//                    characterRecyclerView.setHasFixedSize(true)
+//                    characterRecyclerView.setItemViewCacheSize(10)
+//                    characterAdapter = CharactersAdapter()
+//                    characterAdapter.submitList(characterList)
+//                    characterRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+//                    characterRecyclerView.adapter = characterAdapter
+//                    shimmerLayoutCharacter.stopShimmer()
+//                    shimmerLayoutCharacter.visibility = View.GONE
+//                    characterRecyclerView.visibility = View.VISIBLE
+//                }
+//            }
+//            is ScreenStateHelper.Error -> {
+//
+//            }
+//            else -> {
+//                // Nothing to do
+//            }
+//        }
+//    }
 }

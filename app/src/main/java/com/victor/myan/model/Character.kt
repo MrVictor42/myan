@@ -2,11 +2,11 @@ package com.victor.myan.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Character(
+data class Character (
     @SerializedName("mal_id")
-    var malID : Int = 0,
+    override var malID : Int = 0,
     @SerializedName("image_url")
-    var imageUrl : String = "",
+    override var imageURL: String = "",
     @SerializedName("name")
     var name : String = "",
     @SerializedName("name_kanji")
@@ -14,8 +14,21 @@ data class Character(
     @SerializedName("nicknames")
     var nicknames : List<String> = arrayListOf(),
     @SerializedName("about")
-    var about : String = ""
-)
+    var about : String = "",
+
+    override var title: String,
+    override var status: String,
+    override var synopsis: String,
+    override var rank: Int,
+    override var score: Double,
+    override var titleSynonyms: List<String>,
+    override var type: String
+) : Jikan() {
+    constructor() : this(
+        0, "", "", "", emptyList(), "", "",
+        "", "", 0, 0.0, emptyList(), ""
+    )
+}
 
 data class AnimeCharacterResponse (
     val characters : List<Character>

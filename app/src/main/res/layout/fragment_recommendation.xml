@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.anime.RecommendationFragment">
+    tools:context=".fragments.RecommendationFragment">
     <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmer_layout_recommendation"
+        android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +27,16 @@
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-    <include
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        layout="@layout/recyclerview_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/cardview_placeholder"
+        app:spanCount="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
