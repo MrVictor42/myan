@@ -1,7 +1,6 @@
 package com.victor.myan.fragments.tablayouts.anime
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -184,7 +183,7 @@ class OverviewAnimeFragment : Fragment() {
                                 listGenres.add(genre)
                             }
                             genreItemAdapter = GenreItemAdapter(listGenres)
-                            animeGenres.layoutManager = GridLayoutManager(context, 4, GridLayoutManager.VERTICAL, false)
+                            animeGenres.layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
                             animeGenres.adapter = genreItemAdapter
                         }
 
