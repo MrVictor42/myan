@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -79,7 +80,6 @@ class BaseLayout : AppCompatActivity() {
             }
             false
         }
-
         navigationView.setOnApplyWindowInsetsListener(null)
     }
 
@@ -88,5 +88,36 @@ class BaseLayout : AppCompatActivity() {
             .replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
             .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        val count = supportFragmentManager.backStackEntryCount
+        if (count == 0) {
+            val fragment = supportFragmentManager.findFragmentById(R.id.fragment_layout)
+            if(fragment?.tag.toString() == "HomeFragment") {
+                val alertBuilder = AlertDialog.Builder(this)
+
+                alertBuilder.setTitle("Close App")
+                alertBuilder.setMessage("Do you want to close app ?")
+                alertBuilder.setPositiveButton("Yes"){ _,_ ->
+                    super.onBackPressed()
+                }
+                alertBuilder.setNegativeButton("No"){_,_ ->
+
+                }
+
+                alertBuilder.setNeutralButton("Cancel"){_,_ ->
+
+                }
+                alertBuilder.show()
+            } else {
+                val intent = Intent(this, BaseLayout::class.java)
+                startActivity(intent)
+                finish()
+                supportFragmentManager.popBackStack()
+            }
+        } else {
+            supportFragmentManager.popBackStack()
+        }
     }
 }
