@@ -49,9 +49,9 @@ class HomeFragment : Fragment() {
         processAnimeListAiringResponse()
         Handler(Looper.getMainLooper()).postDelayed({
             processMangaListAiringResponse()
-            Handler(Looper.getMainLooper()).postDelayed({
-                processAnimeListSeasonResponse()
-            },2000)
+//            Handler(Looper.getMainLooper()).postDelayed({
+//                processAnimeListSeasonResponse()
+//            },2000)
         }, 3000)
     }
 

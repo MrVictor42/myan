@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.anime.CharacterFragment
+import com.victor.myan.fragments.CharacterFragment
 import com.victor.myan.fragments.tablayouts.anime.OverviewAnimeFragment
 import com.victor.myan.fragments.tablayouts.anime.RecommendationFragment
 

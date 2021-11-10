@@ -20,10 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/shimmer_layout_vertical"/>
-            <include layout="@layout/shimmer_layout_vertical"/>
-            <include layout="@layout/shimmer_layout_vertical"/>
-            <include layout="@layout/shimmer_layout_vertical"/>
+            <include layout="@layout/shimmer_layout"/>
+            <include layout="@layout/shimmer_layout"/>
+            <include layout="@layout/shimmer_layout"/>
+            <include layout="@layout/shimmer_layout"/>
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
     <include

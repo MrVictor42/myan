@@ -13,7 +13,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
-import com.victor.myan.databinding.CardviewPlaceholderVerticalBinding
+import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Actor
 import com.victor.myan.baseFragments.BaseActorDetailFragment
 
@@ -29,7 +29,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
         }
     }
 
-    inner class ActorHolder(binding: CardviewPlaceholderVerticalBinding) :
+    inner class ActorHolder(binding: CardviewPlaceholderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private val image = binding.image
         private val name = binding.name
@@ -74,7 +74,7 @@ class ActorAdapter : ListAdapter<Actor, ActorAdapter.ActorHolder>(ActorAdapter) 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorAdapter.ActorHolder {
         return ActorHolder(
-            CardviewPlaceholderVerticalBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+            CardviewPlaceholderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         )
     }
 

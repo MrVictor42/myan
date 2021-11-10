@@ -1,12 +1,10 @@
-package com.victor.myan.fragments.tablayouts.anime
+package com.victor.myan.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.CharactersAdapter
@@ -20,9 +18,8 @@ class CharacterFragment : Fragment() {
     private lateinit var binding : FragmentCharacterBinding
     private lateinit var characterAdapter : CharactersAdapter
     private val characterViewModel by lazy {
-        ViewModelProvider(this).get(CharacterViewModel::class.java)
+        ViewModelProvider(this)[CharacterViewModel::class.java]
     }
-    private val TAG = CharacterFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): CharacterFragment {
@@ -52,14 +49,12 @@ class CharacterFragment : Fragment() {
     }
 
     private fun processCharacterListResponse(state : ScreenStateHelper<List<Character>?>) {
-        Toast.makeText(context, "CHARACTER", Toast.LENGTH_SHORT).show()
-        val characterRecyclerView = binding.recyclerView.recyclerViewVertical
+        val characterRecyclerView = binding.recyclerView
         val shimmerLayoutCharacter = binding.shimmerLayoutCharacter
 
         when(state) {
             is ScreenStateHelper.Loading -> {
                 shimmerLayoutCharacter.startShimmer()
-                Log.i(TAG, "Loading Character List Airing")
             }
             is ScreenStateHelper.Success -> {
                 if(state.data != null) {
@@ -73,11 +68,10 @@ class CharacterFragment : Fragment() {
                     shimmerLayoutCharacter.stopShimmer()
                     shimmerLayoutCharacter.visibility = View.GONE
                     characterRecyclerView.visibility = View.VISIBLE
-                    Log.i(TAG, "Success Character List")
                 }
             }
             is ScreenStateHelper.Error -> {
-                Log.e(TAG, "Error Character List in Character Fragment With Code: ${state.message}")
+
             }
             else -> {
                 // Nothing to do
