@@ -12,16 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
+import com.victor.myan.databinding.FragmentBaseAnimeBinding
 import com.victor.myan.viewpager.AnimeViewPager
-import com.victor.myan.databinding.FragmentBaseAnimeDetailBinding
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Picture
 import com.victor.myan.viewmodel.PictureViewModel
 
-class BaseAnimeDetailFragment : Fragment() {
+class BaseAnimeFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseAnimeDetailBinding
+    private lateinit var binding : FragmentBaseAnimeBinding
     private val pictureViewModel by lazy {
         ViewModelProvider(this)[PictureViewModel::class.java]
     }
@@ -30,7 +30,7 @@ class BaseAnimeDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseAnimeDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseAnimeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -46,7 +46,8 @@ class BaseAnimeDetailFragment : Fragment() {
             when(position) {
                 0 -> tab.text = "Overview"
                 1 -> tab.text = "Characters"
-                2 -> tab.text = "Recommendation"
+                2 -> tab.text = "Episodes"
+                3 -> tab.text = "Recommendation"
             }
         }.attach()
 

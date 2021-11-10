@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.victor.myan.R
 import com.victor.myan.model.Anime
-import com.victor.myan.baseFragments.BaseAnimeDetailFragment
+import com.victor.myan.baseFragments.BaseAnimeFragment
 import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.helper.DiffUtilHelper
 
@@ -42,7 +42,7 @@ class AnimeHorizontalAdapter : RecyclerView.Adapter<AnimeHorizontalAdapter.Anime
         }).into(image)
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseAnimeDetailFragment()
+            val fragment = BaseAnimeFragment()
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
 
             val bundle = Bundle()

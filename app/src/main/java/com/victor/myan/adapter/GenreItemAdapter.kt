@@ -3,25 +3,31 @@ package com.victor.myan.adapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.R
 import com.victor.myan.baseFragments.BaseGenreDetailFragment
-import com.victor.myan.databinding.CardviewCircleBinding
+import com.victor.myan.databinding.CardviewRectangleBinding
 import com.victor.myan.model.Genre
 
 class GenreItemAdapter(private val genreList : List<Genre>) : RecyclerView.Adapter<GenreItemAdapter.GenreItemViewHolder>() {
 
-    inner class GenreItemViewHolder(val binding : CardviewCircleBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class GenreItemViewHolder(val binding : CardviewRectangleBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreItemViewHolder {
-        return GenreItemViewHolder(CardviewCircleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return GenreItemViewHolder(CardviewRectangleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: GenreItemViewHolder, position: Int) {
         val genreType = holder.binding.itemNameText
 
         genreType.text = genreList[position].name
+
+        if(genreList[position].name == "Action") {
+            genreType.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.red))
+        }
+
         holder.itemView.setOnClickListener {
             val fragment = BaseGenreDetailFragment()
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager

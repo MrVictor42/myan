@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:showIn="@layout/fragment_base_anime_detail"
+    tools:showIn="@layout/fragment_base_anime"
     >
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carousel_view_carousel"

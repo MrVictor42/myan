@@ -7,7 +7,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black"
     tools:ignore="UselessParent"
-    tools:context=".baseFragments.BaseAnimeDetailFragment">
+    tools:context=".baseFragments.BaseAnimeFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -36,6 +36,8 @@
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/orange"
             app:tabTextColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            app:tabMode="scrollable"
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

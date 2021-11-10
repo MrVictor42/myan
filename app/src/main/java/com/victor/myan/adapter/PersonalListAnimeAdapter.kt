@@ -21,7 +21,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
-import com.victor.myan.baseFragments.BaseAnimeDetailFragment
+import com.victor.myan.baseFragments.BaseAnimeFragment
 import com.victor.myan.databinding.CardviewPersonalListBinding
 import com.victor.myan.model.Anime
 
@@ -82,7 +82,7 @@ class PersonalListAnimeAdapter(
                         btnRemove.text = "Remove ${ selectedList.size } Item From List"
                     }
                 } else {
-                    val fragment = BaseAnimeDetailFragment()
+                    val fragment = BaseAnimeFragment()
                     val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                     val bundle = Bundle()
