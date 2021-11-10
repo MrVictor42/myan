@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.databinding.FragmentMangaRecommendationBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
@@ -17,7 +17,7 @@ import com.victor.myan.viewmodel.AnimeViewModel
 class MangaRecommendationFragment : Fragment() {
 
     private lateinit var binding : FragmentMangaRecommendationBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -64,10 +64,10 @@ class MangaRecommendationFragment : Fragment() {
                     val animeRecommendation = state.data
                     recommendationRecyclerView.setHasFixedSize(true)
                     recommendationRecyclerView.setItemViewCacheSize(10)
-                    animeAdapter = AnimeAdapter()
+                    animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                    animeAdapter.submitList(animeRecommendation)
                     recommendationRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    recommendationRecyclerView.adapter = animeAdapter
+                    recommendationRecyclerView.adapter = animeHorizontalAdapter
                     shimmerLayoutRecommendation.stopShimmer()
                     shimmerLayoutRecommendation.visibility = View.GONE
                     recommendationRecyclerView.visibility = View.VISIBLE

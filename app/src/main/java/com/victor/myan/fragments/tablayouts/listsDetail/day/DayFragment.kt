@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.databinding.FragmentDayBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
@@ -16,7 +16,7 @@ import com.victor.myan.viewmodel.AnimeViewModel
 class DayFragment : Fragment() {
 
     private lateinit var binding : FragmentDayBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private val TAG = DayFragment::class.java.simpleName
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
@@ -56,14 +56,14 @@ class DayFragment : Fragment() {
                     val animeTodayList = animeToday.data
                     dayRecyclerView.layoutManager =
                         GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    animeAdapter = AnimeAdapter()
+                    animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                    animeAdapter.submitList(animeTodayList)
-                    animeAdapter.setHasStableIds(true)
+                    animeHorizontalAdapter.setHasStableIds(true)
                     dayRecyclerView.setHasFixedSize(true)
                     dayRecyclerView.setItemViewCacheSize(6)
                     dayRecyclerView.isDrawingCacheEnabled = true
                     dayRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                    dayRecyclerView.adapter = animeAdapter
+                    dayRecyclerView.adapter = animeHorizontalAdapter
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
                     dayRecyclerView.visibility = View.VISIBLE

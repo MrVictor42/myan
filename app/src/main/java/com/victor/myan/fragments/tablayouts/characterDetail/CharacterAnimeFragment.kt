@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.databinding.FragmentCharacterAnimeBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
@@ -17,7 +17,7 @@ import com.victor.myan.viewmodel.CharacterViewModel
 class CharacterAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentCharacterAnimeBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private val characterViewModel by lazy {
         ViewModelProvider(this).get(CharacterViewModel::class.java)
     }
@@ -65,10 +65,10 @@ class CharacterAnimeFragment : Fragment() {
                     val characterAnime = state.data
                     characterAnimeRecyclerView.setHasFixedSize(true)
                     characterAnimeRecyclerView.setItemViewCacheSize(10)
-                    animeAdapter = AnimeAdapter()
+                    animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                    animeAdapter.submitList(characterAnime)
                     characterAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    characterAnimeRecyclerView.adapter = animeAdapter
+                    characterAnimeRecyclerView.adapter = animeHorizontalAdapter
 
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE

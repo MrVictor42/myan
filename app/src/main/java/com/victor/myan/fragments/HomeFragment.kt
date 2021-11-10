@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.R
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.AuxFunctionsHelper
@@ -23,7 +23,7 @@ import java.util.Locale
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var animeAdapter : AnimeAdapter
+    private lateinit var animeHorizontalAdapter : AnimeHorizontalAdapter
     private lateinit var mangaAdapter : MangaAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
@@ -71,9 +71,9 @@ class HomeFragment : Fragment() {
                         val animeList = animeToday.data
                         todayAnimeRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        animeAdapter = AnimeAdapter()
-                        animeAdapter.setData(animeList)
-                        todayAnimeRecyclerView.adapter = animeAdapter
+                        animeHorizontalAdapter = AnimeHorizontalAdapter()
+                        animeHorizontalAdapter.setData(animeList)
+                        todayAnimeRecyclerView.adapter = animeHorizontalAdapter
                         shimmerLayoutToday.stopShimmer()
                         shimmerLayoutToday.visibility = View.GONE
                         todayAnimeText.text = animeViewModel.currentDayFormatted
@@ -107,9 +107,9 @@ class HomeFragment : Fragment() {
                         val animeList = airingAnime.data
                         airingAnimeRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        animeAdapter = AnimeAdapter()
-                        animeAdapter.setData(animeList)
-                        airingAnimeRecyclerView.adapter = animeAdapter
+                        animeHorizontalAdapter = AnimeHorizontalAdapter()
+                        animeHorizontalAdapter.setData(animeList)
+                        airingAnimeRecyclerView.adapter = animeHorizontalAdapter
                         shimmerLayoutAnimeAiring.stopShimmer()
                         shimmerLayoutAnimeAiring.visibility = View.GONE
                         airingAnimeText.text = getString(R.string.anime_airing)
@@ -181,9 +181,9 @@ class HomeFragment : Fragment() {
                         val animeList = seasonAnime.data
                         seasonAnimeRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        animeAdapter = AnimeAdapter()
-                        animeAdapter.setData(animeList)
-                        seasonAnimeRecyclerView.adapter = animeAdapter
+                        animeHorizontalAdapter = AnimeHorizontalAdapter()
+                        animeHorizontalAdapter.setData(animeList)
+                        seasonAnimeRecyclerView.adapter = animeHorizontalAdapter
                         shimmerLayoutSeason.stopShimmer()
                         shimmerLayoutSeason.visibility = View.GONE
                         seasonAnimeText.text = animeViewModel.currentSeasonFormatted

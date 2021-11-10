@@ -8,9 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.databinding.FragmentSeasonBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
@@ -21,7 +19,7 @@ class SeasonFragment : Fragment() {
 
     private lateinit var binding : FragmentSeasonBinding
     private val TAG = SeasonFragment::class.java.simpleName
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -85,14 +83,14 @@ class SeasonFragment : Fragment() {
                         val animeList = state.data
                         seasonRecyclerView.layoutManager =
                             GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                        animeAdapter = AnimeAdapter()
+                        animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                        animeAdapter.submitList(animeList)
-                        animeAdapter.setHasStableIds(true)
+                        animeHorizontalAdapter.setHasStableIds(true)
                         seasonRecyclerView.setHasFixedSize(true)
                         seasonRecyclerView.setItemViewCacheSize(6)
                         seasonRecyclerView.isDrawingCacheEnabled = true
                         seasonRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                        seasonRecyclerView.adapter = animeAdapter
+                        seasonRecyclerView.adapter = animeHorizontalAdapter
                         shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
                         seasonRecyclerView.visibility = View.VISIBLE

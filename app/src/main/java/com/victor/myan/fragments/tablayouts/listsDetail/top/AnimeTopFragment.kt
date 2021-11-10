@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.databinding.FragmentAnimeTopBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
@@ -16,7 +16,7 @@ import com.victor.myan.viewmodel.AnimeViewModel
 class AnimeTopFragment : Fragment() {
 
     private lateinit var binding : FragmentAnimeTopBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this).get(AnimeViewModel::class.java)
     }
@@ -53,14 +53,14 @@ class AnimeTopFragment : Fragment() {
                     val animeTopList = animeTop.data
                     animeTopRecyclerView.layoutManager =
                         GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    animeAdapter = AnimeAdapter()
+                    animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                    animeAdapter.submitList(animeTopList)
-                    animeAdapter.setHasStableIds(true)
+                    animeHorizontalAdapter.setHasStableIds(true)
                     animeTopRecyclerView.setHasFixedSize(true)
                     animeTopRecyclerView.setItemViewCacheSize(6)
                     animeTopRecyclerView.isDrawingCacheEnabled = true
                     animeTopRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                    animeTopRecyclerView.adapter = animeAdapter
+                    animeTopRecyclerView.adapter = animeHorizontalAdapter
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
                     animeTopRecyclerView.visibility = View.VISIBLE

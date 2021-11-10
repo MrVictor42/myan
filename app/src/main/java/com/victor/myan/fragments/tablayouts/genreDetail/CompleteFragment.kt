@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentCompleteBinding
 import com.victor.myan.helper.ScreenStateHelper
@@ -18,7 +18,7 @@ import com.victor.myan.viewmodel.GenreViewModel
 class CompleteFragment : Fragment() {
 
     private lateinit var binding : FragmentCompleteBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val genreViewModel by lazy {
         ViewModelProvider(this).get(GenreViewModel::class.java)
@@ -106,10 +106,10 @@ class CompleteFragment : Fragment() {
                     val animeList = state.data
                     airingRecyclerView.setHasFixedSize(true)
                     airingRecyclerView.setItemViewCacheSize(10)
-                    animeAdapter = AnimeAdapter()
+                    animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                    animeAdapter.submitList(animeList)
                     airingRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    airingRecyclerView.adapter = animeAdapter
+                    airingRecyclerView.adapter = animeHorizontalAdapter
                     airingRecyclerView.visibility = View.VISIBLE
                 }
             }

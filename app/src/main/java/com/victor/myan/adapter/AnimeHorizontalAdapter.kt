@@ -3,7 +3,6 @@ package com.victor.myan.adapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -16,22 +15,21 @@ import com.bumptech.glide.request.target.Target
 import com.victor.myan.R
 import com.victor.myan.model.Anime
 import com.victor.myan.baseFragments.BaseAnimeDetailFragment
-import com.victor.myan.databinding.CardviewPlaceholderBinding
+import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.helper.DiffUtilHelper
 
-class AnimeAdapter : RecyclerView.Adapter<AnimeAdapter.AnimeViewHolder>() {
+class AnimeHorizontalAdapter : RecyclerView.Adapter<AnimeHorizontalAdapter.AnimeViewHolder>() {
 
     private var animeList = emptyList<Anime>()
 
-    inner class AnimeViewHolder(val binding : CardviewPlaceholderBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class AnimeViewHolder(val binding : CardviewPlaceholderHorizontalBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder {
-        return AnimeViewHolder(CardviewPlaceholderBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return AnimeViewHolder(CardviewPlaceholderHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
         val image = holder.binding.image
-        holder.binding.name.visibility = View.GONE
 
         Glide.with(holder.itemView.context).load(animeList[position].imageURL).listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {

@@ -13,7 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeAdapter
+import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentSearchBinding
 import com.victor.myan.model.Anime
@@ -25,7 +25,7 @@ import com.victor.myan.viewmodel.SearchViewModel
 class SearchFragment : Fragment() {
 
     private lateinit var binding : FragmentSearchBinding
-    private lateinit var animeAdapter: AnimeAdapter
+    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val auxServicesHelper = AuxFunctionsHelper()
     private val limit = 16
@@ -123,10 +123,10 @@ class SearchFragment : Fragment() {
                     val animeMovieList = state.data
                     recyclerViewSearch.setHasFixedSize(true)
                     recyclerViewSearch.setItemViewCacheSize(10)
-                    animeAdapter = AnimeAdapter()
+                    animeHorizontalAdapter = AnimeHorizontalAdapter()
 //                    animeAdapter.submitList(animeMovieList)
                     recyclerViewSearch.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    recyclerViewSearch.adapter = animeAdapter
+                    recyclerViewSearch.adapter = animeHorizontalAdapter
                     recyclerViewSearch.visibility = View.VISIBLE
                     messageSearch.visibility = View.GONE
                     progressBar.visibility = View.GONE
