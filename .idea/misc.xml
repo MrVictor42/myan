@@ -111,6 +111,8 @@
         <entry key="app/src/main/res/layout/fragment_categories_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character.xml" value="0.12" />
         <entry key="app/src/main/res/layout/fragment_character_anime.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_character_manga.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/layout/fragment_character_voice.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_complete.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_create_list.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_day.xml" value="0.17239583333333333" />

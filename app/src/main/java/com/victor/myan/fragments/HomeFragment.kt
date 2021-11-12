@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.R
 import com.victor.myan.adapter.AnimeHorizontalAdapter
-import com.victor.myan.adapter.MangaAdapter
+import com.victor.myan.adapter.MangaHorizontalAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var animeHorizontalAdapter : AnimeHorizontalAdapter
-    private lateinit var mangaAdapter : MangaAdapter
+    private lateinit var mangaHorizontalAdapter: MangaHorizontalAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -144,9 +144,9 @@ class HomeFragment : Fragment() {
                         val mangaList = mangaAiring.data
                         mangaListAiringRecyclerView.layoutManager =
                             LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        mangaAdapter = MangaAdapter()
-                        mangaAdapter.setData(mangaList)
-                        mangaListAiringRecyclerView.adapter = mangaAdapter
+                        mangaHorizontalAdapter = MangaHorizontalAdapter()
+                        mangaHorizontalAdapter.setData(mangaList)
+                        mangaListAiringRecyclerView.adapter = mangaHorizontalAdapter
                         shimmerLayoutMangaAiring.stopShimmer()
                         shimmerLayoutMangaAiring.visibility = View.GONE
                         mangaListAiringText.text = getString(R.string.manga_airing)

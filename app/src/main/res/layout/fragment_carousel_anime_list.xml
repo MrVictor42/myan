@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/black_gray"
     >
-    <ImageView
-        android:id="@+id/anime_image_carousel"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_carousel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
@@ -15,9 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:contentDescription="@string/anime" />
+        android:contentDescription="@string/carousel" />
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -25,10 +25,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/black"
-        android:alpha="0.5"
-        />
+        android:alpha="0.5" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/anime_title_carousel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +41,5 @@
         android:textSize="18sp"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:gravity="center"
-        />
+        android:gravity="center" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.characterDetail
+package com.victor.myan.fragments.tablayouts.character
 
 import android.os.Bundle
 import android.util.Log

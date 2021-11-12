@@ -76,7 +76,7 @@ class OverviewActorFragment : Fragment() {
                 if(state.data != null) {
                     with(state.data) {
                         Glide.with(view?.context!!)
-                            .load(imageUrl)
+                            .load(imageURL)
                             .placeholder(R.drawable.ic_launcher_foreground)
                             .error(R.drawable.ic_launcher_foreground)
                             .fallback(R.drawable.ic_launcher_foreground)

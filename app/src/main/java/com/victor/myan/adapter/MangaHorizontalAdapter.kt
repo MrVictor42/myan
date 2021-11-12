@@ -3,7 +3,6 @@ package com.victor.myan.adapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
@@ -15,23 +14,22 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.victor.myan.R
 import com.victor.myan.baseFragments.BaseMangaDetailFragment
-import com.victor.myan.databinding.CardviewPlaceholderBinding
+import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.helper.DiffUtilHelper
 import com.victor.myan.model.Manga
 
-class MangaAdapter : RecyclerView.Adapter<MangaAdapter.MangaViewHolder>() {
+class MangaHorizontalAdapter : RecyclerView.Adapter<MangaHorizontalAdapter.MangaViewHolder>() {
 
     private var mangaList = emptyList<Manga>()
 
-    inner class MangaViewHolder(val binding : CardviewPlaceholderBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MangaViewHolder(val binding : CardviewPlaceholderHorizontalBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MangaAdapter.MangaViewHolder {
-        return MangaViewHolder(CardviewPlaceholderBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MangaHorizontalAdapter.MangaViewHolder {
+        return MangaViewHolder(CardviewPlaceholderHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: MangaViewHolder, position: Int) {
         val image = holder.binding.image
-        holder.binding.name.visibility = View.GONE
 
         Glide.with(holder.itemView.context).load(mangaList[position].imageURL).listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {

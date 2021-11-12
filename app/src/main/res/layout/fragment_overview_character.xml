@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.characterDetail.OverviewCharacterFragment">
+    tools:context=".fragments.tablayouts.character.OverviewCharacterFragment">
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"

@@ -131,4 +131,5 @@
     <string name="volumes_chapters">Volumes/Chapters</string>
     <string name="background">Background</string>
     <string name="item">Item</string>
+    <string name="carousel">Carousel Image</string>
 </resources>

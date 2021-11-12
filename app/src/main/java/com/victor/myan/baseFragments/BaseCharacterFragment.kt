@@ -67,7 +67,7 @@ class BaseCharacterFragment : Fragment() {
                                 )
 
                                 val animeImage =
-                                    viewListener.findViewById<ImageView>(R.id.anime_image_carousel)
+                                    viewListener.findViewById<ImageView>(R.id.image_carousel)
                                 Glide.with(view.context!!).load(picturesList.data[position].imageURL).into(animeImage)
                                 viewListener
                             }
