@@ -55,6 +55,7 @@ class ActorViewModel : ViewModel() {
                                 val anime: JsonObject? = animeObject.get("anime") as JsonObject?
                                 if(anime != null) {
                                     val animeActor = Anime()
+
                                     animeActor.malID = anime["mal_id"].asInt
                                     animeActor.imageURL = anime["image_url"].asString
                                     animeList.add(animeActor)
@@ -81,11 +82,11 @@ class ActorViewModel : ViewModel() {
         actorApi.enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 val characterResponse = response.body()
-                if (characterResponse != null) {
-                    val characterArray: JsonArray? = characterResponse.getAsJsonArray("voice_acting_roles")
-                    if (characterArray != null) {
-                        for (aux in 0 until characterArray.size()) {
-                            val characterObject: JsonObject? = characterArray.get(aux) as JsonObject?
+                if(characterResponse != null) {
+                    val characterArray : JsonArray? = characterResponse.getAsJsonArray("voice_acting_roles")
+                    if(characterArray != null) {
+                        for(aux in 0 until characterArray.size()) {
+                            val characterObject : JsonObject? = characterArray.get(aux) as JsonObject?
                             if(characterObject != null) {
                                 val character : JsonObject? = characterObject.get("character") as JsonObject?
                                 if(character != null) {
@@ -94,16 +95,16 @@ class ActorViewModel : ViewModel() {
                                     characterActor.malID = character["mal_id"].asInt
                                     characterActor.imageURL = character["image_url"].asString
                                     characterActor.name = character["name"].asString
+
                                     characterList.add(characterActor)
                                 }
                             }
                         }
                     }
                     actorCharacterList.postValue(ScreenStateHelper.Success(characterList))
-                } else {
-                    actorCharacterList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
+
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 actorAnimeList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
