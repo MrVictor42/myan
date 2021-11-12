@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.databinding.FragmentBaseAnimeBinding
-import com.victor.myan.viewpager.AnimeViewPager
+import com.victor.myan.databinding.FragmentBaseCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.PictureViewModel
+import com.victor.myan.viewpager.CharacterDetailViewPager
 
-class BaseAnimeFragment : Fragment() {
+class BaseCharacterFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseAnimeBinding
+    private lateinit var binding : FragmentBaseCharacterBinding
     private val pictureViewModel by lazy {
         ViewModelProvider(this)[PictureViewModel::class.java]
     }
@@ -27,7 +27,7 @@ class BaseAnimeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseAnimeBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseCharacterBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -36,21 +36,22 @@ class BaseAnimeFragment : Fragment() {
         val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
-        val sizePager = 3
+        val sizePager = 4
         val carouselView = binding.carouselView
         val shimmerLayout = binding.shimmerLayout
-        val adapter = AnimeViewPager(parentFragmentManager, lifecycle, malID, sizePager)
-        viewPager.adapter = adapter
+        val adapter = CharacterDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
 
+        viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager, true, false) { tab, position ->
-            when(position) {
+            when (position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Characters"
-                2 -> tab.text = "Recommendation"
+                1 -> tab.text = "Anime"
+                2 -> tab.text = "Manga"
+                3 -> tab.text = "Voices"
             }
         }.attach()
 
-        pictureViewModel.getPicturesApi("anime", malID)
+        pictureViewModel.getPicturesApi("character", malID)
         pictureViewModel.pictureList.observe(viewLifecycleOwner, { picturesList ->
             when(picturesList) {
                 is ScreenStateHelper.Loading -> {
@@ -67,7 +68,7 @@ class BaseAnimeFragment : Fragment() {
 
                                 val animeImage =
                                     viewListener.findViewById<ImageView>(R.id.anime_image_carousel)
-                                Glide.with(view.context!!).load(picturesList.data[position].large).into(animeImage)
+                                Glide.with(view.context!!).load(picturesList.data[position].imageURL).into(animeImage)
                                 viewListener
                             }
                         }

@@ -32,7 +32,11 @@ class PictureViewModel : ViewModel() {
                                 if(pictureObject != null) {
                                     val picture = Picture()
 
-                                    picture.large = pictureObject.get("large").asString
+                                    if(type == "anime" || type == "manga") {
+                                        picture.large = pictureObject["large"].asString
+                                    } else {
+                                        picture.imageURL = pictureObject["image_url"].asString
+                                    }
                                     pictures.add(picture)
                                 }
                             }

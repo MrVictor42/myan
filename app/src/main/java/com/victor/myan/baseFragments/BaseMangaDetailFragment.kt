@@ -71,7 +71,7 @@ class BaseMangaDetailFragment : Fragment() {
 
     @SuppressLint("InflateParams")
     private fun processPictureResponse(state: ScreenStateHelper<List<Picture>?>?) {
-        val carouselView = binding.carouselView.carouselViewCarousel
+        val carouselView = binding.carouselView
         val shimmerLayout = binding.shimmerLayout
 
         when(state) {

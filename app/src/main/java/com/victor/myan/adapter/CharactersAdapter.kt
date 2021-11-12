@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.model.Character
-import com.victor.myan.baseFragments.BaseCharacterDetailFragment
+import com.victor.myan.baseFragments.BaseCharacterFragment
 import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.helper.DiffUtilHelper
 
@@ -53,7 +53,7 @@ class CharactersAdapter : RecyclerView.Adapter<CharactersAdapter.CharacterViewHo
         name.text = characterList[position].name
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseCharacterDetailFragment()
+            val fragment = BaseCharacterFragment()
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
 
             val bundle = Bundle()

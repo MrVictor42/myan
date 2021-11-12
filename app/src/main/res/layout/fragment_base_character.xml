@@ -6,26 +6,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black"
-    tools:context=".baseFragments.BaseCharacterDetailFragment">
+    tools:context=".baseFragments.BaseCharacterFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_logo"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+            <include
+                layout="@layout/shimmer_layout_tab_layout"
+                />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+        <com.synnapps.carouselview.CarouselView
+            android:id="@+id/carousel_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:fillColor="#FFFFFFFF"
+            app:pageColor="#00000000"
+            app:indicatorVisibility="invisible"
+            app:radius="6dp"
+            app:slideInterval="4000"
+            app:strokeColor="#FF777777"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="1dp"
+            android:visibility="gone"/>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/orange"
             app:tabTextColor="@color/white"
+            android:layout_gravity="center_horizontal"
+            app:tabMode="scrollable"
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toBottomOf="@id/shimmer_layout"
             />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager2"
