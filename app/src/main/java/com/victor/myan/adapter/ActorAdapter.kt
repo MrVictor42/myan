@@ -14,7 +14,7 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.databinding.CardviewPlaceholderBinding
 import com.victor.myan.model.Actor
-import com.victor.myan.baseFragments.BaseActorDetailFragment
+import com.victor.myan.baseFragments.BaseActorFragment
 import com.victor.myan.helper.DiffUtilHelper
 
 class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
@@ -62,7 +62,7 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
         name.text = actorList[position].name
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseActorDetailFragment()
+            val fragment = BaseActorFragment()
             val fragmentManager =
                 (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
 

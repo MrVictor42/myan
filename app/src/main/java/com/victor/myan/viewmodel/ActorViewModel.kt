@@ -28,7 +28,6 @@ class ActorViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     actor.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
-                    getActorApi(malID)
                     actor.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -65,7 +64,6 @@ class ActorViewModel : ViewModel() {
                     }
                     actorAnimeList.postValue(ScreenStateHelper.Success(animeList))
                 } else {
-                    getActorAnimeApi(malID)
                     actorAnimeList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }
@@ -103,7 +101,6 @@ class ActorViewModel : ViewModel() {
                     }
                     actorCharacterList.postValue(ScreenStateHelper.Success(characterList))
                 } else {
-                    getActorAnimeApi(malID)
                     actorCharacterList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }

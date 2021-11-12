@@ -67,6 +67,8 @@ class CharacterVoiceFragment : Fragment() {
                     emptyText.text = voice.message
                     emptyText.visibility = View.VISIBLE
                     characterVoiceRecyclerView.visibility = View.GONE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
                 }
                 is ScreenStateHelper.Error -> {
 

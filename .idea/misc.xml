@@ -24,7 +24,9 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_actor.xml" value="0.10643115942028986" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_person.xml" value="0.1322463768115942" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_actor.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_actor_detail.xml" value="0.19925857275254866" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.15" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_character_detail.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_genre_detail.xml" value="0.10182370820668693" />
@@ -95,24 +97,19 @@
         <entry key="app/src/main/res/layout/fragment_anime_bottom_sheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_detail.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_anime_episodes.xml" value="0.1490036231884058" />
-        <entry key="app/src/main/res/layout/fragment_base_anime.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.12" />
         <entry key="app/src/main/res/layout/fragment_base_anime_genre_detail.xml" value="0.17239583333333333" />
-        <entry key="app/src/main/res/layout/fragment_base_character.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_base_character_detail.xml" value="0.11141304347826086" />
         <entry key="app/src/main/res/layout/fragment_base_days_list.xml" value="0.13903985507246377" />
         <entry key="app/src/main/res/layout/fragment_base_genre_detail.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_base_manga_detail.xml" value="0.11322463768115942" />
         <entry key="app/src/main/res/layout/fragment_base_manga_genre_detail.xml" value="0.17239583333333333" />
-        <entry key="app/src/main/res/layout/fragment_base_person_detail.xml" value="0.5685483870967742" />
         <entry key="app/src/main/res/layout/fragment_carousel.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_carousel_anime_list.xml" value="0.12273550724637682" />
         <entry key="app/src/main/res/layout/fragment_carousel_custom.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_categories_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_character.xml" value="0.12" />
         <entry key="app/src/main/res/layout/fragment_character_anime.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_character_manga.xml" value="0.17239583333333333" />
-        <entry key="app/src/main/res/layout/fragment_character_voice.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_complete.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_create_list.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/fragment_day.xml" value="0.17239583333333333" />

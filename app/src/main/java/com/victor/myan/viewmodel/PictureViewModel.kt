@@ -44,7 +44,6 @@ class PictureViewModel : ViewModel() {
                     }
                     pictureList.postValue(ScreenStateHelper.Success(pictures))
                 } else {
-                    getPicturesApi(type, malID)
                     pictureList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
                 }
             }

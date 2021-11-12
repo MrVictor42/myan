@@ -1,6 +1,7 @@
 package com.victor.myan.fragments.tablayouts.character
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +41,7 @@ class CharacterMangaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getInt("mal_id")!!
+        Log.e("character", malID.toString())
         val characterMangaRecyclerView = binding.recyclerView
         val emptyText = binding.emptyListTextView
         val shimmerLayout = binding.shimmerLayout
@@ -67,6 +69,8 @@ class CharacterMangaFragment : Fragment() {
                     emptyText.text = manga.message
                     emptyText.visibility = View.VISIBLE
                     characterMangaRecyclerView.visibility = View.GONE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
                 }
                 is ScreenStateHelper.Error -> {
 

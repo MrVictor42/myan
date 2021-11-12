@@ -6,17 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.actorDetail.ActorCharacterFragment">
+    tools:context=".fragments.tablayouts.actor.ActorCharacterFragment">
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shimmer_repeat_mode="restart"
         app:shimmer_shape="radial">
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -24,16 +25,19 @@
             <include layout="@layout/shimmer_layout"/>
             <include layout="@layout/shimmer_layout"/>
             <include layout="@layout/shimmer_layout"/>
-        </LinearLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </com.facebook.shimmer.ShimmerFrameLayout>
-    <include
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        layout="@layout/recyclerview_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/cardview_placeholder"
+        app:spanCount="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
