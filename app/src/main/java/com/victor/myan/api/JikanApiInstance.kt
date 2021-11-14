@@ -7,13 +7,6 @@ object JikanApiInstance {
 
     private const val BaseURL = "https://api.jikan.moe/v3/"
 
-    fun getJikanApiInstance(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BaseURL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
     private val retrofit : Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(BaseURL)
@@ -47,5 +40,9 @@ object JikanApiInstance {
 
     val genreApi : GenreApi by lazy {
         retrofit.create(GenreApi::class.java)
+    }
+
+    val recommendationApi : RecommendationApi by lazy {
+        retrofit.create(RecommendationApi::class.java)
     }
 }

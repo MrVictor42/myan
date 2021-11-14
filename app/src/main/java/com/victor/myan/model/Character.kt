@@ -34,10 +34,10 @@ data class CharacterListResponse (
     val characters : List<Character>
 )
 
-data class AnimeListCharacterAnimeResponse (
+data class AnimeListCharacterResponse (
     val animeography : List<Anime>
 )
 
-data class MangaListCharacterMangaResponse (
+data class MangaListCharacterResponse (
     val mangaography : List<Manga>
 )

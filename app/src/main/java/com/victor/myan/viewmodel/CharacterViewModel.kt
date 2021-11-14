@@ -36,8 +36,8 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterListApi(type : String, malID: Int) {
-        val characterApi = JikanApiInstance.characterApi.characterList(type, malID)
+    fun getCharacterListApi(malID: Int) {
+        val characterApi = JikanApiInstance.characterApi.characterList(malID)
 
         characterList.postValue(ScreenStateHelper.Loading(null))
         characterApi.enqueue(object : Callback<CharacterListResponse> {
@@ -66,8 +66,8 @@ class CharacterViewModel : ViewModel() {
         val characterApi = JikanApiInstance.characterApi.getCharacterAnime(malID)
 
         characterAnimeList.postValue(ScreenStateHelper.Loading(null))
-        characterApi.enqueue(object : Callback<AnimeListCharacterAnimeResponse> {
-            override fun onResponse(call: Call<AnimeListCharacterAnimeResponse>, response: Response<AnimeListCharacterAnimeResponse>) {
+        characterApi.enqueue(object : Callback<AnimeListCharacterResponse> {
+            override fun onResponse(call: Call<AnimeListCharacterResponse>, response: Response<AnimeListCharacterResponse>) {
                 when {
                     response.isSuccessful -> {
                         if(response.body()?.animeography?.size == 0) {
@@ -82,7 +82,7 @@ class CharacterViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AnimeListCharacterAnimeResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AnimeListCharacterResponse>, t: Throwable) {
                 characterAnimeList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
@@ -92,8 +92,8 @@ class CharacterViewModel : ViewModel() {
         val characterApi = JikanApiInstance.characterApi.getCharacterManga(malID)
 
         characterMangaList.postValue(ScreenStateHelper.Loading(null))
-        characterApi.enqueue(object : Callback<MangaListCharacterMangaResponse> {
-            override fun onResponse(call: Call<MangaListCharacterMangaResponse>, response: Response<MangaListCharacterMangaResponse>) {
+        characterApi.enqueue(object : Callback<MangaListCharacterResponse> {
+            override fun onResponse(call: Call<MangaListCharacterResponse>, response: Response<MangaListCharacterResponse>) {
                 when {
                     response.isSuccessful -> {
                         if(response.body()?.mangaography?.size == 0) {
@@ -108,7 +108,7 @@ class CharacterViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<MangaListCharacterMangaResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MangaListCharacterResponse>, t: Throwable) {
                 characterMangaList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })

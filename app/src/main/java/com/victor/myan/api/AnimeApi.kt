@@ -22,9 +22,6 @@ interface AnimeApi {
     @GET("top/anime")
     fun getTopAnime() : Call<AnimeListTopResponse>
 
-    @GET("anime/{mal_id}/recommendations")
-    fun getRecommendations(@Path("mal_id") mal_id : Int) : Call<AnimeListRecommendationResponse>
-
     @GET("search/anime")
     fun animeListAiring(
         @Query("status") status : String,

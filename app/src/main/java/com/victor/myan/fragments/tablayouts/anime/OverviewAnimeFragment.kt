@@ -212,12 +212,7 @@ class OverviewAnimeFragment : Fragment() {
                         }
 
                         if (trailerUrl.isNullOrEmpty() || trailerUrl == "null") {
-                            Toast.makeText(
-                                context,
-                                auxServicesHelper.capitalize(
-                                    "this anime doesn't have a preview yet"
-                                ), Toast.LENGTH_LONG
-                            ).show()
+                            // Nothing to do
                         } else {
                             animeVideo.visibility = View.VISIBLE
                             animeVideo.addYouTubePlayerListener(object :

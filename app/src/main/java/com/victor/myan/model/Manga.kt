@@ -59,3 +59,7 @@ data class MangaListTopResponse (
 data class MangaListResultResponse (
     val results : List<Manga>
 )
+
+data class MangaListRecommendation (
+    val recommendations : List<Manga>
+)

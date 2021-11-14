@@ -1,4 +1,4 @@
-package com.victor.myan.fragments
+package com.victor.myan.fragments.tablayouts.anime
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -21,11 +21,10 @@ class CharacterFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(type: String, mal_id: Int): CharacterFragment {
+        fun newInstance(mal_id: Int): CharacterFragment {
             val characterFragment = CharacterFragment()
             val args = Bundle()
             args.putInt("mal_id", mal_id)
-            args.putString("type", type)
             characterFragment.arguments = args
             return characterFragment
         }
@@ -41,11 +40,10 @@ class CharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getInt("mal_id")!!
-        val type = arguments?.getString("type")!!
         val characterRecyclerView = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
 
-        characterViewModel.getCharacterListApi(type, malID)
+        characterViewModel.getCharacterListApi(malID)
         characterViewModel.characterList.observe(viewLifecycleOwner, { characters ->
             when (characters) {
                 is ScreenStateHelper.Loading -> {

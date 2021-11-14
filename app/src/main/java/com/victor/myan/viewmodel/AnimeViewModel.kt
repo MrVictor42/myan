@@ -9,7 +9,6 @@ import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.model.AnimeListAiringResponse
-import com.victor.myan.model.AnimeListRecommendationResponse
 import com.victor.myan.model.AnimeListTopResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -155,26 +154,6 @@ class AnimeViewModel : ViewModel() {
 
             override fun onFailure(call: Call<Anime>, t: Throwable) {
                 anime.postValue(ScreenStateHelper.Error(t.message.toString(), null))
-            }
-        })
-    }
-
-    fun getAnimeRecommendationApi(malID: Int) {
-        val animeApi = JikanApiInstance.animeApi.getRecommendations(malID)
-
-        animeRecommendationList.postValue(ScreenStateHelper.Loading(null))
-        animeApi.enqueue(object : Callback<AnimeListRecommendationResponse> {
-            override fun onResponse(call: Call<AnimeListRecommendationResponse>,
-                                    response: Response<AnimeListRecommendationResponse>) {
-                if(response.isSuccessful) {
-                    animeRecommendationList.postValue(ScreenStateHelper.Success(response.body()?.recommendations))
-                } else {
-                    animeRecommendationList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                }
-            }
-
-            override fun onFailure(call: Call<AnimeListRecommendationResponse>, t: Throwable) {
-                animeRecommendationList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
     }

@@ -65,7 +65,7 @@ data class AnimeListTopResponse (
     val top : List<Anime>
 )
 
-data class AnimeListRecommendationResponse (
+data class AnimeListRecommendation (
     val recommendations : List<Anime>
 )
 

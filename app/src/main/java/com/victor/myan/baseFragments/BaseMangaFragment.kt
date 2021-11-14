@@ -36,7 +36,7 @@ class BaseMangaFragment : Fragment() {
         val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
-        val sizePager = 3
+        val sizePager = 2
         val carouselView = binding.carouselView
         val shimmerLayout = binding.shimmerLayout
         val adapter = MangaViewPager(parentFragmentManager, lifecycle, malID, sizePager)
@@ -45,8 +45,7 @@ class BaseMangaFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager, true, false) {tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Character"
-                2 -> tab.text = "Recommendation"
+                1 -> tab.text = "Recommendation"
             }
         }.attach()
 
