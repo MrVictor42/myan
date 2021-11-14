@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseActorBinding
-import com.victor.myan.viewpager.ActorDetailViewPager
+import com.victor.myan.viewpager.ActorViewPager
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.PictureViewModel
 
@@ -39,7 +39,7 @@ class BaseActorFragment : Fragment() {
         val sizePager = 3
         val carouselView = binding.carouselView
         val shimmerLayout = binding.shimmerLayout
-        val adapter = ActorDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = ActorViewPager(parentFragmentManager, lifecycle, malID, sizePager)
 
         viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager, true, false){ tab, position ->

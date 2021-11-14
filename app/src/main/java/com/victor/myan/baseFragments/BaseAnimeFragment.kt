@@ -45,7 +45,7 @@ class BaseAnimeFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager, true, false) { tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
-                1 -> tab.text = "Characters"
+                1 -> tab.text = "Character"
                 2 -> tab.text = "Recommendation"
             }
         }.attach()

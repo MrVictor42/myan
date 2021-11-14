@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.mangaDetail
+package com.victor.myan.fragments.tablayouts.manga
 
 import android.annotation.SuppressLint
 import android.os.Bundle

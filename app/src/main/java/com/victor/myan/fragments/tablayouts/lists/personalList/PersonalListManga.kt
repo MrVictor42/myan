@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.listsDetail.personalList
+package com.victor.myan.fragments.tablayouts.lists.personalList
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

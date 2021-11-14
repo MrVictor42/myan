@@ -68,39 +68,4 @@ class ActorAnimeFragment : Fragment() {
             }
         })
     }
-
-//    private fun processActorAnimeResponse(state: ScreenStateHelper<List<Anime>?>?) {
-//        val actorAnimeRecyclerView = binding.recyclerView.recyclerViewVertical
-//        val shimmerLayout = binding.shimmerLayout
-//
-//        when(state) {
-//            is ScreenStateHelper.Loading -> {
-//                shimmerLayout.startShimmer()
-//                Log.i(TAG, "Loading ActorAnimeFragment")
-//            }
-//            is ScreenStateHelper.Success -> {
-//                if(state.data != null) {
-//                    val actorAnime = state.data
-//                    actorAnimeRecyclerView.setHasFixedSize(true)
-//                    actorAnimeRecyclerView.setItemViewCacheSize(8)
-//                    animeHorizontalAdapter = AnimeHorizontalAdapter()
-////                    animeAdapter.submitList(actorAnime)
-//                    actorAnimeRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-//                    actorAnimeRecyclerView.adapter = animeHorizontalAdapter
-//                    actorAnimeRecyclerView.visibility = View.VISIBLE
-//
-//                    shimmerLayout.stopShimmer()
-//                    shimmerLayout.visibility = View.GONE
-//                    actorAnimeRecyclerView.visibility = View.VISIBLE
-//                    Log.i(TAG, "Success Actor Anime List")
-//                }
-//            }
-//            is ScreenStateHelper.Error -> {
-//                Log.e(TAG, "Error ActorAnime with code: ${state.message}")
-//            }
-//            else -> {
-//
-//            }
-//        }
-//    }
 }

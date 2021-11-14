@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.listsDetail.day.DayFragment
+import com.victor.myan.fragments.tablayouts.lists.day.DayFragment
 
 class DaysViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val size : Int) : FragmentStateAdapter(fragment, lifecycle) {
 

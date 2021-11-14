@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.mangaDetail.OverviewMangaFragment">
+    tools:context=".fragments.tablayouts.manga.OverviewMangaFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

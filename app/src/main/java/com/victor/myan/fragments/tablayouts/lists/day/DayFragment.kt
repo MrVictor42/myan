@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.listsDetail.day
+package com.victor.myan.fragments.tablayouts.lists.day
 
 import android.os.Bundle
 import android.util.Log

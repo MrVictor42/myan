@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.listsDetail.season
+package com.victor.myan.fragments.tablayouts.lists.season
 
 import android.os.Bundle
 import android.util.Log

@@ -36,12 +36,12 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterListApi(malID: Int) {
-        val characterApi = JikanApiInstance.characterApi.animeCharacters(malID)
+    fun getCharacterListApi(type : String, malID: Int) {
+        val characterApi = JikanApiInstance.characterApi.characterList(type, malID)
 
         characterList.postValue(ScreenStateHelper.Loading(null))
-        characterApi.enqueue(object : Callback<AnimeCharacterResponse> {
-            override fun onResponse(call: Call<AnimeCharacterResponse>, response: Response<AnimeCharacterResponse>) {
+        characterApi.enqueue(object : Callback<CharacterListResponse> {
+            override fun onResponse(call: Call<CharacterListResponse>, response: Response<CharacterListResponse>) {
                 when {
                     response.isSuccessful -> {
                         if(response.body()?.characters?.size == 0) {
@@ -56,7 +56,7 @@ class CharacterViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AnimeCharacterResponse>, t: Throwable) {
+            override fun onFailure(call: Call<CharacterListResponse>, t: Throwable) {
                 characterList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })

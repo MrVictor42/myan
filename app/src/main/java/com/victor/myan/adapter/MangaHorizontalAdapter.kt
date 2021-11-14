@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.victor.myan.R
-import com.victor.myan.baseFragments.BaseMangaDetailFragment
+import com.victor.myan.baseFragments.BaseMangaFragment
 import com.victor.myan.databinding.CardviewPlaceholderHorizontalBinding
 import com.victor.myan.helper.DiffUtilHelper
 import com.victor.myan.model.Manga
@@ -42,7 +42,7 @@ class MangaHorizontalAdapter : RecyclerView.Adapter<MangaHorizontalAdapter.Manga
         }).into(image)
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseMangaDetailFragment()
+            val fragment = BaseMangaFragment()
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
 
             val bundle = Bundle()

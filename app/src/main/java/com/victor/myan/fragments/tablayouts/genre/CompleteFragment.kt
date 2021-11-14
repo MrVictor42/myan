@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.genreDetail
+package com.victor.myan.fragments.tablayouts.genre
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,15 +9,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.adapter.MangaAdapter
-import com.victor.myan.databinding.FragmentAiringBinding
+import com.victor.myan.databinding.FragmentCompleteBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.model.Manga
 import com.victor.myan.viewmodel.GenreViewModel
 
-class AiringFragment : Fragment() {
+class CompleteFragment : Fragment() {
 
-    private lateinit var binding : FragmentAiringBinding
+    private lateinit var binding : FragmentCompleteBinding
     private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val genreViewModel by lazy {
@@ -25,13 +25,13 @@ class AiringFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(mal_id : Int, type : String): AiringFragment {
-            val airingFragment = AiringFragment()
+        fun newInstance(mal_id : Int, type : String): CompleteFragment {
+            val completeFragment = CompleteFragment()
             val args = Bundle()
             args.putInt("mal_id", mal_id)
             args.putString("type", type)
-            airingFragment.arguments = args
-            return airingFragment
+            completeFragment.arguments = args
+            return completeFragment
         }
     }
 
@@ -39,7 +39,7 @@ class AiringFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAiringBinding.inflate(layoutInflater, container, false)
+        binding = FragmentCompleteBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -49,13 +49,13 @@ class AiringFragment : Fragment() {
 
         when(selected) {
             "anime" -> {
-                genreViewModel.resultAiringApi("anime", genreID, "airing")
+                genreViewModel.resultAiringApi("anime", genreID, "complete")
                 genreViewModel.resultAnimeList.observe(viewLifecycleOwner, { state ->
                     processAnimeResponse(state, genreID)
                 })
             }
             "manga" -> {
-                genreViewModel.resultAiringApi("manga", genreID, "publishing")
+                genreViewModel.resultAiringApi("manga", genreID, "complete")
                 genreViewModel.resultMangaList.observe(viewLifecycleOwner, { state ->
                     processMangaResponse(state, genreID)
                 })
@@ -88,7 +88,7 @@ class AiringFragment : Fragment() {
                 airingRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                genreViewModel.resultAiringApi("manga", genreID, "publishing")
+                genreViewModel.resultAiringApi("manga", genreID, "complete")
             }
         }
     }
@@ -119,7 +119,7 @@ class AiringFragment : Fragment() {
                 airingRecyclerView.visibility = View.GONE
             }
             is ScreenStateHelper.Error -> {
-                genreViewModel.resultAiringApi("anime", genreID, "airing")
+                genreViewModel.resultAiringApi("anime", genreID, "complete")
             }
         }
     }

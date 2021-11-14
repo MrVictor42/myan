@@ -8,7 +8,7 @@ import com.victor.myan.fragments.tablayouts.actor.ActorAnimeFragment
 import com.victor.myan.fragments.tablayouts.actor.ActorCharacterFragment
 import com.victor.myan.fragments.tablayouts.actor.OverviewActorFragment
 
-class ActorDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
+class ActorViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
     private val size = sizePager

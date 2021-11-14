@@ -13,7 +13,7 @@ import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseGenreDetailBinding
 import com.victor.myan.fragments.GenreFragment
 import com.victor.myan.fragments.HomeFragment
-import com.victor.myan.viewpager.GenreDetailViewPager
+import com.victor.myan.viewpager.GenreViewPager
 
 class BaseGenreDetailFragment : Fragment() {
 
@@ -34,7 +34,7 @@ class BaseGenreDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
         val sizePager = 2
-        val adapter = GenreDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager)
+        val adapter = GenreViewPager(parentFragmentManager, lifecycle, malID, sizePager)
 
         viewPager.adapter = adapter
         viewPager.adapter = adapter

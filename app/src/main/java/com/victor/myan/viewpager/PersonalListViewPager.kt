@@ -4,8 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.listsDetail.personalList.PersonalListAnime
-import com.victor.myan.fragments.tablayouts.listsDetail.personalList.PersonalListManga
+import com.victor.myan.fragments.tablayouts.lists.personalList.PersonalListAnime
+import com.victor.myan.fragments.tablayouts.lists.personalList.PersonalListManga
 
 class PersonalListViewPager(fragment : FragmentManager, lifecycle : Lifecycle, id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 

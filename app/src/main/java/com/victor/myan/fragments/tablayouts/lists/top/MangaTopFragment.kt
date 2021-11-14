@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.listsDetail.top
+package com.victor.myan.fragments.tablayouts.lists.top
 
 import android.os.Bundle
 import android.util.Log

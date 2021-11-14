@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.databinding.PersonalListRecyclerviewBinding
-import com.victor.myan.baseFragments.BaseListDetailFragment
+import com.victor.myan.baseFragments.BaseListFragment
 import com.victor.myan.model.PersonalList
 
 class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.PersonalListHolder>(MyDiffUtil) {
@@ -59,7 +59,7 @@ class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.Person
             }).into(image)
 
             itemView.setOnClickListener {
-                val fragment = BaseListDetailFragment()
+                val fragment = BaseListFragment()
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()

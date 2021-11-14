@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.listsDetail.top.MangaTopFragment">
+    tools:context=".fragments.tablayouts.lists.top.MangaTopFragment">
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"
         android:layout_width="match_parent"

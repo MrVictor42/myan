@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.databinding.FragmentBaseAnimeGenreDetailBinding
-import com.victor.myan.viewpager.GenreTypeDetailViewPager
+import com.victor.myan.viewpager.GenreTypeViewPager
 
-class BaseAnimeGenreDetailFragment : Fragment() {
+class BaseAnimeGenreFragment : Fragment() {
 
     private lateinit var binding : FragmentBaseAnimeGenreDetailBinding
 
     companion object {
-        fun newInstance(mal_id : Int): BaseAnimeGenreDetailFragment {
-            val baseAnimeGenreDetailFragment = BaseAnimeGenreDetailFragment()
+        fun newInstance(mal_id : Int): BaseAnimeGenreFragment {
+            val baseAnimeGenreDetailFragment = BaseAnimeGenreFragment()
             val args = Bundle()
             args.putInt("mal_id", mal_id)
             baseAnimeGenreDetailFragment.arguments = args
@@ -36,7 +36,7 @@ class BaseAnimeGenreDetailFragment : Fragment() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
         val sizePager = 3
-        val adapter = GenreTypeDetailViewPager(parentFragmentManager, lifecycle, malID, sizePager, "anime")
+        val adapter = GenreTypeViewPager(parentFragmentManager, lifecycle, malID, sizePager, "anime")
 
         viewPager.adapter = adapter
         TabLayoutMediator(tabLayout, viewPager){tab, position ->

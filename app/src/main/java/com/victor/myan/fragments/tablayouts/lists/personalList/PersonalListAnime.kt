@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.tablayouts.listsDetail.personalList
+package com.victor.myan.fragments.tablayouts.lists.personalList
 
 import android.annotation.SuppressLint
 import android.os.Bundle

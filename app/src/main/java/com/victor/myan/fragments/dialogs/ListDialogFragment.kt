@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAddRemoveAdapter
 import com.victor.myan.databinding.FragmentListDialogBinding
-import com.victor.myan.fragments.tablayouts.listsDetail.personalList.CreateListFragment
+import com.victor.myan.fragments.tablayouts.lists.personalList.CreateListFragment
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.model.Manga

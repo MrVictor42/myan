@@ -30,7 +30,7 @@ data class Character (
     )
 }
 
-data class AnimeCharacterResponse (
+data class CharacterListResponse (
     val characters : List<Character>
 )
 

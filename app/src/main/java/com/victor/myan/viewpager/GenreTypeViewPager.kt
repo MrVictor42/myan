@@ -4,11 +4,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.genreDetail.AiringFragment
-import com.victor.myan.fragments.tablayouts.genreDetail.CompleteFragment
-import com.victor.myan.fragments.tablayouts.genreDetail.UpcomingFragment
+import com.victor.myan.fragments.tablayouts.genre.AiringFragment
+import com.victor.myan.fragments.tablayouts.genre.CompleteFragment
+import com.victor.myan.fragments.tablayouts.genre.UpcomingFragment
 
-class GenreTypeDetailViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int, type : String) :
+class GenreTypeViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int, type : String) :
     FragmentStateAdapter(fragment, lifecycle) {
 
     private val malID = mal_id
