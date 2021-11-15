@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.victor.myan.R
+import com.victor.myan.adapter.AdaptationItemAdapter
 import com.victor.myan.adapter.GenreItemAdapter
 import com.victor.myan.databinding.FragmentOverviewAnimeBinding
 import com.victor.myan.enums.StatusEnum
@@ -22,12 +22,14 @@ import com.victor.myan.helper.YoutubeHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.fragments.dialogs.ListDialogFragment
+import com.victor.myan.model.Adaptation
 import com.victor.myan.model.Genre
 
 class OverviewAnimeFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewAnimeBinding
     private lateinit var genreItemAdapter: GenreItemAdapter
+    private lateinit var adaptationItemAdapter: AdaptationItemAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -72,9 +74,14 @@ class OverviewAnimeFragment : Fragment() {
         val animeGenres = binding.recyclerViewGenres
         val animeLicensors = binding.animeLicensors
         val animeStudios = binding.animeStudios
+        val openingThemeText = binding.openingThemeTextView
+        val endingThemeText = binding.endingThemeTextView
         val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
         val expandableTextViewOpening = binding.expandableTextViewOpening.expandableTextView
         val expandableTextViewEnding = binding.expandableTextViewEnding.expandableTextView
+        val adaptationsText = binding.animeAdaptationText
+        val animeAdaptations = binding.recyclerViewAdaptations
+        val listAdaptations: MutableList<Adaptation> = mutableListOf()
         val overviewAnime = binding.overviewAnime
         val shimmerLayout = binding.shimmerLayout
 
@@ -187,6 +194,26 @@ class OverviewAnimeFragment : Fragment() {
                             animeGenres.adapter = genreItemAdapter
                         }
 
+                            if(related.toString().isEmpty() || related.toString() == "null") {
+                                // Nothing to do
+                            } else {
+                                if(related!!.adaptations.isEmpty()) {
+                                    adaptationsText.visibility = View.GONE
+                                } else {
+                                    for(aux in related!!.adaptations.indices) {
+                                        val adaptation = Adaptation()
+
+                                        adaptation.name = related!!.adaptations[aux].name
+                                        adaptation.type = related!!.adaptations[aux].type
+                                        adaptation.malID = related!!.adaptations[aux].malID
+                                        listAdaptations.add(adaptation)
+                                    }
+                                    adaptationItemAdapter = AdaptationItemAdapter(listAdaptations)
+                                    animeAdaptations.layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+                                    animeAdaptations.adapter = adaptationItemAdapter
+                                }
+                            }
+
                         if (licensorList.isEmpty()) {
                             animeLicensors.text = getString(R.string.unknown)
                         } else {
@@ -228,12 +255,22 @@ class OverviewAnimeFragment : Fragment() {
                         }
 
                         expandableTextViewSynopsis.text = synopsis
-                        expandableTextViewOpening.text =
-                            openingList.toString().replace(",", "\n")
-                                .replace("[", "").replace("]", "")
-                        expandableTextViewEnding.text =
-                            endingList.toString().replace(",", "\n")
-                                .replace("[", "").replace("]", "")
+
+                        if(openingList.toString().isNullOrEmpty() || openingList.toString() == "null" || openingList.isEmpty()) {
+                            openingThemeText.visibility = View.GONE
+                        } else {
+                            expandableTextViewOpening.text =
+                                openingList.toString().replace(",", "\n")
+                                    .replace("[", "").replace("]", "")
+                        }
+
+                        if(endingList.toString().isNullOrEmpty() || endingList.toString() == "null" || endingList.isEmpty()) {
+                            endingThemeText.visibility = View.GONE
+                        } else {
+                            expandableTextViewEnding.text =
+                                endingList.toString().replace(",", "\n")
+                                    .replace("[", "").replace("]", "")
+                        }
 
                         btnAddList.setOnClickListener {
                             val anime = Anime()

@@ -78,7 +78,11 @@ class BaseAnimeFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
-
+                    if(picturesList.message == "timeout") {
+                        carouselView.visibility = View.GONE
+                        shimmerLayout.stopShimmer()
+                        shimmerLayout.visibility = View.INVISIBLE
+                    }
                 }
                 else -> {
                     // Nothing to do

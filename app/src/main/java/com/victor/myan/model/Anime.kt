@@ -22,6 +22,8 @@ data class Anime (
     @SerializedName("type")
     override var type : String = "",
 
+    @SerializedName("related")
+    var related: Related?,
     @SerializedName("genres")
     var genreList : List<Genre> = arrayListOf(),
     @SerializedName("opening_themes")
@@ -49,7 +51,7 @@ data class Anime (
     var checked: Boolean = false
 ) : Jikan() {
     constructor() : this (
-        0, "", "", "", "", 0.0, emptyList(), 0, ""
+        0, "", "", "", "", 0.0, emptyList(), 0, "", null
     )
 
     override fun toString(): String {
