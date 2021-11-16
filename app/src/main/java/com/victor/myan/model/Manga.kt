@@ -21,6 +21,10 @@ data class Manga(
     override var rank: Int,
     @SerializedName("type")
     override var type: String = "",
+    @SerializedName("related")
+    override var related: Related?,
+    @SerializedName("genres")
+    override var genreList: List<Genre> = arrayListOf(),
 
     @SerializedName("volumes")
     var volumes: Int = 0,
@@ -30,21 +34,14 @@ data class Manga(
     var endDate: String = "",
     @SerializedName("chapters")
     var chapters: Int = 0,
-    @SerializedName("genres")
-    var genres: List<Genre> = arrayListOf(),
     @SerializedName("authors")
     var authors: List<Author> = arrayListOf(),
     @SerializedName("published")
-    var published: Publish?,
-    @SerializedName("background")
-    var background: String = "",
-    @SerializedName("related")
-    var related: Related?
+    var published: Publish?
 ) : Jikan() {
     constructor() : this (
         0, "", "", "", "", 0.0, emptyList(), 0, "",
-        0, "", "", 0, emptyList(), emptyList(), null,
-        "", null
+        null, emptyList(), 0, "", "", 0, emptyList(), null
     )
 
     override fun toString(): String {

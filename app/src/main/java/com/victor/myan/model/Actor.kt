@@ -4,10 +4,28 @@ import com.google.gson.annotations.SerializedName
 
 data class Actor (
     @SerializedName("mal_id")
-    override var malID : Int = 0,
+    override var malID: Int = 0,
+    @SerializedName("title")
+    override var title: String = "",
+    @SerializedName("synopsis")
+    override var synopsis: String = "",
+    @SerializedName("status")
+    override var status: String = "",
     @SerializedName("image_url")
-    override var imageURL : String = "",
-    @SerializedName("name")
+    override var imageURL: String = "",
+    @SerializedName("score")
+    override var score: Double = 0.0,
+    @SerializedName("title_synonyms")
+    override var titleSynonyms: List<String> = arrayListOf(),
+    @SerializedName("rank")
+    override var rank: Int,
+    @SerializedName("type")
+    override var type: String = "",
+    @SerializedName("related")
+    override var related: Related?,
+    @SerializedName("genres")
+    override var genreList: List<Genre> = arrayListOf(),
+
     var name : String = "",
     @SerializedName("given_name")
     var givenName : String = "",
@@ -18,20 +36,8 @@ data class Actor (
     @SerializedName("birthday")
     var birthday : String = "",
     @SerializedName("about")
-    var about : String = "",
-
-    override var title: String,
-    override var status: String,
-    override var synopsis: String,
-    override var rank: Int,
-    override var score: Double,
-    override var titleSynonyms: List<String>,
-    override var type: String
+    var about : String = ""
 ) : Jikan() {
-    constructor() : this (
-        0, "", "", "", "", emptyList(), "", "",
-        "", "", "", 0, 0.0, emptyList(), ""
-    )
 
     override fun toString(): String {
         return "Title : $title MalID : $malID"

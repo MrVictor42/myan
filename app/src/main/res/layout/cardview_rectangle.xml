@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/item_name_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/rectangle_recyclerview"
@@ -21,5 +20,5 @@
         android:paddingBottom="10dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:layout_margin="8dp"/>
+        android:layout_margin="10dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

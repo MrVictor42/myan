@@ -8,18 +8,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.victor.myan.R
+import com.victor.myan.adapter.AdaptationItemAdapter
+import com.victor.myan.adapter.GenreItemAdapter
 import com.victor.myan.databinding.FragmentOverviewMangaBinding
 import com.victor.myan.enums.MangaStatusEnum
 import com.victor.myan.enums.StatusEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
+import com.victor.myan.model.Adaptation
+import com.victor.myan.model.Genre
 import com.victor.myan.viewmodel.MangaViewModel
 
 class OverviewMangaFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewMangaBinding
+    private lateinit var genreItemAdapter: GenreItemAdapter
+    private lateinit var adaptationItemAdapter: AdaptationItemAdapter
     private val mangaViewModel by lazy {
         ViewModelProvider(this)[MangaViewModel::class.java]
     }
@@ -53,17 +60,15 @@ class OverviewMangaFragment : Fragment() {
         val mangaTitle = binding.mangaTitle
         val mangaTitleSynonyms = binding.mangaTitleSynonyms
         val mangaStatus = binding.mangaStatus
-        val mangaGenres = binding.mangaGenres
         val volumesChapter = binding.volumesChapters
-        val mangaAdaptations = binding.mangaAdaptations
-        val mangaSpinOff = binding.mangaSpinoff
+        val adaptationsText = binding.mangaAdaptationText
+        val mangaAdaptations = binding.recyclerViewAdaptations
         val typeYear = binding.typeYear
+        val mangaGenres = binding.recyclerViewGenres
         val expandableTextViewSynopsis = binding.expandableTextViewSynopsis.expandableTextView
-        val expandableTextViewBackground = binding.expandableTextViewBackground.expandableTextView
-        val listGenres: MutableList<String> = mutableListOf()
         val listAuthors: MutableList<String> = mutableListOf()
-        val listAdaptations: MutableList<String> = mutableListOf()
-        val listSpinOff: MutableList<String> = mutableListOf()
+        val listAdaptations: MutableList<Adaptation> = mutableListOf()
+        val listGenres : MutableList<Genre> = arrayListOf()
         val shimmerLayout = binding.shimmerLayout
         val overviewManga = binding.overviewManga
 
@@ -181,33 +186,43 @@ class OverviewMangaFragment : Fragment() {
                                 listAuthors.clear()
                             }
 
-                            if(genres.toString().isEmpty() || genres.toString() == "null") {
-                                mangaGenres.text = auxServicesHelper.capitalize("not found the genres")
+                            if (genreList.isEmpty()) {
+                                // Nothing to do
                             } else {
-                                for(aux in genres.indices) {
-                                    listGenres.add(genres[aux].name)
+                                for(aux in genreList.indices) {
+                                    val genre = Genre()
+
+                                    genre.name = genreList[aux].name
+                                    genre.malID = genreList[aux].malID
+                                    listGenres.add(genre)
                                 }
-                                mangaGenres.text = listGenres.toString()
-                                listGenres.clear()
+                                genreItemAdapter = GenreItemAdapter(listGenres)
+                                mangaGenres.layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
+                                mangaGenres.adapter = genreItemAdapter
                             }
 
                             expandableTextViewSynopsis.text = synopsis
-                            expandableTextViewBackground.text = background
 
                             if(related.toString().isEmpty() || related.toString() == "null") {
-                                // Da uns gone pra spin off e adaptations
+                                // Nothing to do
                             } else {
-                                for(aux in related!!.adaptations.indices) {
-                                    listAdaptations.add(related!!.adaptations[aux].name)
+                                if(related!!.adaptations.isEmpty()) {
+                                    adaptationsText.visibility = View.GONE
+                                } else {
+                                    for(aux in related!!.adaptations.indices) {
+                                        val adaptation = Adaptation()
+
+                                        adaptation.name = related!!.adaptations[aux].name
+                                        adaptation.type = related!!.adaptations[aux].type
+                                        adaptation.malID = related!!.adaptations[aux].malID
+                                        listAdaptations.add(adaptation)
+                                    }
+                                    adaptationItemAdapter = AdaptationItemAdapter(listAdaptations)
+                                    mangaAdaptations.layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
+                                    mangaAdaptations.adapter = adaptationItemAdapter
                                 }
-                                mangaAdaptations.text = listAdaptations.toString()
-                                listAdaptations.clear()
-                                for(aux in related!!.spinOff.indices) {
-                                    listSpinOff.add(related!!.spinOff[aux].name)
-                                }
-                                mangaSpinOff.text = listSpinOff.toString()
-                                listSpinOff.clear()
                             }
+
                             shimmerLayout.stopShimmer()
                             shimmerLayout.visibility = View.GONE
                             overviewManga.visibility = View.VISIBLE

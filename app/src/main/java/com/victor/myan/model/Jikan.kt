@@ -10,4 +10,6 @@ abstract class Jikan {
     abstract var score : Double
     abstract var titleSynonyms : List<String>
     abstract var type : String
+    abstract var related : Related?
+    abstract var genreList: List<Genre>
 }

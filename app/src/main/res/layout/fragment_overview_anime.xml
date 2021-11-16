@@ -223,8 +223,8 @@
                 app:layout_constraintTop_toBottomOf="@id/youtube_player_view"
                 android:layout_marginStart="20dp"
                 android:text="@string/adaptations"
-                android:textColor="@color/white"
-                />
+                android:textStyle="bold"
+                android:textColor="@color/white" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_adaptations"
