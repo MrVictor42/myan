@@ -74,14 +74,14 @@ class BaseAnimeFragment : Fragment() {
                         carouselView.pageCount = picturesList.data.size
                         carouselView.visibility = View.VISIBLE
                         shimmerLayout.stopShimmer()
-                        shimmerLayout.visibility = View.GONE
+                        shimmerLayout.visibility = View.INVISIBLE
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    if(picturesList.message == "timeout") {
+                    if(picturesList.message == "timeout" || picturesList.message == "423") {
                         carouselView.visibility = View.GONE
                         shimmerLayout.stopShimmer()
-                        shimmerLayout.visibility = View.GONE
+                        shimmerLayout.visibility = View.INVISIBLE
                     }
                 }
                 else -> {

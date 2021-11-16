@@ -9,6 +9,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <include layout="@layout/shimmer_layout_overview" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/overview_manga"
             android:layout_width="match_parent"
@@ -16,7 +25,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="visible">
+            android:visibility="gone">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +36,13 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 app:cardElevation="10dp">
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image"
                     android:layout_width="150dp"
                     android:layout_height="200dp"
                     android:scaleType="fitXY"
                     android:background="@color/black_gray"
-                    android:contentDescription="@string/manga"
-                    />
+                    android:contentDescription="@string/manga" />
             </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -47,8 +55,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/white"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                />
+                android:layout_marginTop="15dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_rank"
@@ -118,7 +125,7 @@
                 app:layout_constraintStart_toEndOf="@id/cardView"
                 app:layout_constraintTop_toBottomOf="@id/manga_author"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="28dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="20dp"
                 />
@@ -156,7 +163,7 @@
                 android:text="@string/title_synonyms"
                 />
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/manga_information"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -199,9 +206,9 @@
                     android:textStyle="bold"
                     android:textSize="14sp"
                     />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_genres"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -222,7 +229,7 @@
                     android:textStyle="bold"
                     android:textSize="14sp"
                     />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_adaptations_text"
@@ -281,7 +288,7 @@
                 android:textSize="14sp"
                 />
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_expandable_text_synopsis"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -294,9 +301,9 @@
                     android:id="@+id/expandable_text_view_synopsis"
                     layout="@layout/expandable_text_view"
                     />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_expandable_text_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -318,7 +325,7 @@
                     android:id="@+id/expandable_text_view_background"
                     layout="@layout/expandable_text_view"
                     />
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

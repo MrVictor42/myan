@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         }, 2000)
         Handler(Looper.getMainLooper()).postDelayed({
             processAnimeListSeasonResponse()
-        },2000)
+        },1500)
     }
 
     private fun processAnimeListTodayResponse() {
@@ -152,6 +152,8 @@ class HomeFragment : Fragment() {
                         mangaListAiringText.text = getString(R.string.manga_airing)
                         mangaListAiringText.visibility = View.VISIBLE
                         mangaListAiringRecyclerView.visibility = View.VISIBLE
+
+                        frameHome.visibility = View.VISIBLE
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -186,8 +188,6 @@ class HomeFragment : Fragment() {
                         seasonAnimeText.text = animeViewModel.currentSeasonFormatted
                         seasonAnimeText.visibility = View.VISIBLE
                         seasonAnimeRecyclerView.visibility = View.VISIBLE
-
-                        frameHome.visibility = View.VISIBLE
                     }
                 }
                 is ScreenStateHelper.Error -> {

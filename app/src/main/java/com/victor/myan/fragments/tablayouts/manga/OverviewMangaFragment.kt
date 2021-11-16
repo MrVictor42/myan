@@ -2,7 +2,6 @@ package com.victor.myan.fragments.tablayouts.manga
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,6 @@ import com.victor.myan.viewmodel.MangaViewModel
 class OverviewMangaFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewMangaBinding
-    private val TAG = OverviewMangaFragment::class.java.simpleName
     private val mangaViewModel by lazy {
         ViewModelProvider(this)[MangaViewModel::class.java]
     }
@@ -66,12 +64,14 @@ class OverviewMangaFragment : Fragment() {
         val listAuthors: MutableList<String> = mutableListOf()
         val listAdaptations: MutableList<String> = mutableListOf()
         val listSpinOff: MutableList<String> = mutableListOf()
+        val shimmerLayout = binding.shimmerLayout
+        val overviewManga = binding.overviewManga
 
         mangaViewModel.getManga(malID)
         mangaViewModel.manga.observe(viewLifecycleOwner, { manga ->
             when(manga) {
                 is ScreenStateHelper.Loading -> {
-                    Log.i(TAG, "OverviewMangaFragment Loading...")
+                    shimmerLayout.startShimmer()
                 }
                 is ScreenStateHelper.Success -> {
                     if(manga.data != null) {
@@ -208,11 +208,14 @@ class OverviewMangaFragment : Fragment() {
                                 mangaSpinOff.text = listSpinOff.toString()
                                 listSpinOff.clear()
                             }
+                            shimmerLayout.stopShimmer()
+                            shimmerLayout.visibility = View.GONE
+                            overviewManga.visibility = View.VISIBLE
                         }
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    Log.e(TAG, "Error OverviewManga in OverviewMangaFragment with code ${manga.message}")
+
                 }
                 else -> {
 
