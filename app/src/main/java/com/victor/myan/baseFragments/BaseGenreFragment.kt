@@ -10,20 +10,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.databinding.FragmentBaseGenreDetailBinding
+import com.victor.myan.databinding.FragmentBaseGenreBinding
 import com.victor.myan.fragments.GenreFragment
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewpager.GenreViewPager
 
-class BaseGenreDetailFragment : Fragment() {
+class BaseGenreFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseGenreDetailBinding
+    private lateinit var binding : FragmentBaseGenreBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseGenreDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseGenreBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

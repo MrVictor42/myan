@@ -73,11 +73,15 @@ class BaseMangaFragment : Fragment() {
                         carouselView.pageCount = picturesList.data.size
                         carouselView.visibility = View.VISIBLE
                         shimmerLayout.stopShimmer()
-                        shimmerLayout.visibility = View.INVISIBLE
+                        shimmerLayout.visibility = View.GONE
                     }
                 }
                 is ScreenStateHelper.Error -> {
-
+                    if(picturesList.message == "timeout") {
+                        carouselView.visibility = View.GONE
+                        shimmerLayout.stopShimmer()
+                        shimmerLayout.visibility = View.GONE
+                    }
                 }
                 else -> {
                     // Nothing to do

@@ -14,7 +14,7 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
-import com.victor.myan.baseFragments.BaseGenreDetailFragment
+import com.victor.myan.baseFragments.BaseGenreFragment
 import com.victor.myan.databinding.CardviewPlaceholderGenreBinding
 import com.victor.myan.model.Genre
 
@@ -60,7 +60,7 @@ class GenreAdapter : ListAdapter<Genre, GenreAdapter.GenreHolder>(MyDiffUtil) {
             title.text = genre.name
 
             itemView.setOnClickListener {
-                val fragment = BaseGenreDetailFragment()
+                val fragment = BaseGenreFragment()
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
 
                 val bundle = Bundle()

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black_gray"
-    tools:showIn="@layout/fragment_base_genre_detail"
+    tools:showIn="@layout/fragment_base_genre"
     tools:context=".baseFragments.BaseAnimeGenreFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

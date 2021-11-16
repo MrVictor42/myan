@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.R
-import com.victor.myan.baseFragments.BaseGenreDetailFragment
+import com.victor.myan.baseFragments.BaseGenreFragment
 import com.victor.myan.databinding.CardviewRectangleBinding
 import com.victor.myan.enums.GenreEnum
 import com.victor.myan.model.Genre
@@ -140,7 +140,7 @@ class GenreItemAdapter(private val genreList : List<Genre>) : RecyclerView.Adapt
         }
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseGenreDetailFragment()
+            val fragment = BaseGenreFragment()
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
 
             val bundle = Bundle()
