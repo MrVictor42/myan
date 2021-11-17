@@ -1,48 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.GenreFragment">
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_gray"
-        android:fitsSystemWindows="true"
-        android:overScrollMode="never">
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/genres_title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black_gray"
-            tools:context=".screens.GenreFragment">
-            <TextView
-                android:id="@+id/genres_title"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:layout_margin="20dp"
+            android:text="@string/genres"
+            android:textColor="@color/white"
+            android:gravity="center" />
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/shimmer_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genres_title"
+            android:orientation="horizontal">
+            <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:textStyle="bold"
-                android:textSize="40sp"
-                android:layout_margin="20dp"
-                android:text="@string/genres"
-                android:textColor="@color/white"
-                android:gravity="center"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_shape="radial"
+                app:shimmer_duration="3">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginStart="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/genres_title"
-                tools:listitem="@layout/cardview_placeholder_genre"
-                android:orientation="vertical"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-</FrameLayout>
+                app:shimmer_repeat_mode="restart"
+                app:shimmer_shape="radial"
+                app:shimmer_duration="3">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                    <include layout="@layout/shimmer_layout_genre"/>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/cardview_placeholder_genre"
+            app:spanCount="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/genres_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

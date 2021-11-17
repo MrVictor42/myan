@@ -34,29 +34,34 @@ class GenreFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val genreList: MutableList<Genre> = arrayListOf()
+        val genreList : MutableList<Genre> = arrayListOf()
         val recyclerViewGenre = binding.recyclerView
+        val shimmerLayout = binding.shimmerLayout
 
-        FirebaseFirestore.getInstance().collection("genres")
-            .addSnapshotListener { snapshot, exception ->
-                exception?.let {
-                    return@addSnapshotListener
-                }
-                snapshot?.let {
-                    for (doc in snapshot) {
-                        val genre = Genre()
-
-                        genre.name = doc.get("name").toString()
-                        genre.image = doc.get("image").toString()
-                        genre.malID = Integer.parseInt(doc.get("mal_id").toString())
-                        genreList.add(genre)
-                    }
-                    recyclerViewGenre.layoutManager =
-                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    genreAdapter = GenreAdapter()
-                    genreAdapter.submitList(genreList)
-                    recyclerViewGenre.adapter = genreAdapter
-                }
+        FirebaseFirestore
+        .getInstance()
+        .collection("genres")
+        .addSnapshotListener { snapshot, exception ->
+            exception?.let {
+                return@addSnapshotListener
             }
+            snapshot?.let {
+                for (doc in snapshot) {
+                    val genre = Genre()
+
+                    genre.name = doc.get("name").toString()
+                    genre.imageURL = doc.get("image").toString()
+                    genre.malID = Integer.parseInt(doc.get("mal_id").toString())
+                    genreList.add(genre)
+                }
+                recyclerViewGenre.layoutManager =
+                    GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                genreAdapter = GenreAdapter()
+                genreAdapter.setData(genreList)
+                recyclerViewGenre.adapter = genreAdapter
+                shimmerLayout.visibility = View.GONE
+                recyclerViewGenre.visibility = View.VISIBLE
+            }
+        }
     }
 }

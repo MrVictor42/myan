@@ -81,6 +81,7 @@
         <entry key="app/src/main/res/layout/activity_form_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/cardview_category.xml" value="0.12409420289855072" />
         <entry key="app/src/main/res/layout/cardview_placeholder.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/layout/cardview_placeholder_genre.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/cardview_placeholder_personal_list.xml" value="0.15" />
         <entry key="app/src/main/res/layout/cardview_placeholder_vertical.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/cardview_rectangle.xml" value="0.12545289855072464" />
@@ -133,6 +134,8 @@
         <entry key="app/src/main/res/layout/recyclerview.xml" value="0.12681159420289856" />
         <entry key="app/src/main/res/layout/recyclerview_horizontal.xml" value="0.1" />
         <entry key="app/src/main/res/layout/recyclerview_vertical.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/shimmer_layout_character_actor.xml" value="0.10597826086956522" />
+        <entry key="app/src/main/res/layout/shimmer_layout_genre.xml" value="0.10597826086956522" />
         <entry key="app/src/main/res/layout/toolbar_back.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>

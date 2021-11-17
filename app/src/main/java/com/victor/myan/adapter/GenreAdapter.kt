@@ -3,11 +3,9 @@ package com.victor.myan.adapter
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -16,77 +14,71 @@ import com.bumptech.glide.request.RequestListener
 import com.victor.myan.R
 import com.victor.myan.baseFragments.BaseGenreFragment
 import com.victor.myan.databinding.CardviewPlaceholderGenreBinding
+import com.victor.myan.helper.DiffUtilHelper
 import com.victor.myan.model.Genre
 
-class GenreAdapter : ListAdapter<Genre, GenreAdapter.GenreHolder>(MyDiffUtil) {
+class GenreAdapter : RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
 
-    companion object MyDiffUtil : DiffUtil.ItemCallback<Genre>() {
-        override fun areItemsTheSame(oldItem: Genre, newItem: Genre): Boolean {
-            return oldItem == newItem
-        }
+    private var genreList = emptyList<Genre>()
 
-        override fun areContentsTheSame(oldItem: Genre, newItem: Genre): Boolean {
-            return oldItem.malID == newItem.malID
-        }
+    inner class GenreViewHolder(val binding : CardviewPlaceholderGenreBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreViewHolder {
+        return GenreViewHolder(CardviewPlaceholderGenreBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    inner class GenreHolder(binding : CardviewPlaceholderGenreBinding)
-        : RecyclerView.ViewHolder(binding.root) {
-        private val image = binding.image
-        private val title = binding.title
-        private val progressBar = binding.progressBar
+    override fun onBindViewHolder(holder: GenreViewHolder, position: Int) {
+        val image = holder.binding.image
+        val title = holder.binding.title
 
-        fun bind(genre: Genre) {
-            Glide.with(itemView.context).load(genre.image).listener(object :
+        Glide.with(holder.itemView.context).load(genreList[position].imageURL).listener(object :
                 RequestListener<Drawable> {
-                override fun onLoadFailed(e: GlideException?, model: Any?,
-                                          target: com.bumptech.glide.request.target.Target<Drawable>?,
-                                          isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
+            override fun onLoadFailed(e: GlideException?, model: Any?,
+                                      target: com.bumptech.glide.request.target.Target<Drawable>?,
+                                      isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
 
-                override fun onResourceReady(
+            override fun onResourceReady(
                     resource: Drawable?,
                     model: Any?,
                     target: com.bumptech.glide.request.target.Target<Drawable>?,
                     dataSource: DataSource?,
                     isFirstResource: Boolean
-                ): Boolean {
-                    progressBar.visibility = View.GONE
-                    return false
-                }
-            }).into(image)
-            title.text = genre.name
-
-            itemView.setOnClickListener {
-                val fragment = BaseGenreFragment()
-                val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                val bundle = Bundle()
-                bundle.putString("name", genre.name)
-                bundle.putInt("mal_id", genre.malID)
-
-                fragment.arguments = bundle
-
-                val transaction =
-                    fragmentManager?.
-                    beginTransaction()?.
-                    replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
-                transaction?.commit()
-                fragmentManager?.beginTransaction()?.commit()
+            ): Boolean {
+                return false
             }
+        }).into(image)
+        title.text = genreList[position].name
+
+        holder.itemView.setOnClickListener {
+            val fragment = BaseGenreFragment()
+            val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
+
+            val bundle = Bundle()
+            bundle.putString("name", genreList[position].name)
+            bundle.putInt("mal_id", genreList[position].malID)
+
+            fragment.arguments = bundle
+
+            val transaction =
+                fragmentManager?.
+                beginTransaction()?.
+                replace(R.id.fragment_layout, fragment, fragment.javaClass.simpleName)
+            transaction?.commit()
+            fragmentManager?.beginTransaction()?.commit()
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenreHolder {
-        return GenreHolder(
-            CardviewPlaceholderGenreBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        )
+    override fun getItemCount(): Int {
+        return genreList.size
     }
 
-    override fun onBindViewHolder(holder: GenreAdapter.GenreHolder, position: Int) {
-        val genre = getItem(position)
-        holder.bind(genre)
+    fun setData(newGenreList : List<Genre>) {
+        val diffUtil = DiffUtilHelper(genreList, newGenreList)
+        val diffResults = DiffUtil.calculateDiff(diffUtil)
+        genreList = newGenreList
+        diffResults.dispatchUpdatesTo(this)
     }
 }
