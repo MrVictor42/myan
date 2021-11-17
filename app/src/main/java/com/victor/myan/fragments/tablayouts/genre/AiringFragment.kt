@@ -7,21 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeHorizontalAdapter
+import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentAiringBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Anime
-import com.victor.myan.model.Manga
 import com.victor.myan.viewmodel.GenreViewModel
 
 class AiringFragment : Fragment() {
 
     private lateinit var binding : FragmentAiringBinding
-    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
+    private lateinit var animeAdapter: AnimeAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val genreViewModel by lazy {
-        ViewModelProvider(this).get(GenreViewModel::class.java)
+        ViewModelProvider(this)[GenreViewModel::class.java]
     }
 
     companion object {
@@ -46,80 +44,84 @@ class AiringFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val selected = arguments?.getString("type")
         val genreID = arguments?.getInt("mal_id")!!
+        val emptyText = binding.emptyListText
+        val airingRecyclerView = binding.recyclerView
+        val shimmerLayout = binding.shimmerLayout
 
         when(selected) {
             "anime" -> {
-                genreViewModel.resultAiringApi("anime", genreID, "airing")
-                genreViewModel.resultAnimeList.observe(viewLifecycleOwner, { state ->
-                    processAnimeResponse(state, genreID)
+                genreViewModel.resultSearchApi("anime", genreID, "airing")
+                genreViewModel.resultAnimeList.observe(viewLifecycleOwner, { animeList ->
+                    when(animeList) {
+                        is ScreenStateHelper.Loading -> {
+
+                        }
+                        is ScreenStateHelper.Success -> {
+                            if(animeList.data != null) {
+                                val animeGenreList = animeList.data
+                                airingRecyclerView.layoutManager =
+                                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                                animeAdapter = AnimeAdapter()
+                                animeAdapter.setData(animeGenreList)
+                                airingRecyclerView.adapter = animeAdapter
+                                shimmerLayout.visibility = View.GONE
+                                airingRecyclerView.visibility = View.VISIBLE
+                            }
+                        }
+                        is ScreenStateHelper.Error -> {
+
+                        }
+                        is ScreenStateHelper.Empty -> {
+                            emptyText.text = animeList.message
+                            emptyText.visibility = View.VISIBLE
+                            shimmerLayout.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
+                        }
+                        else -> {
+                            emptyText.text = animeList.message
+                            emptyText.visibility = View.VISIBLE
+                            shimmerLayout.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
+                        }
+                    }
                 })
             }
             "manga" -> {
-                genreViewModel.resultAiringApi("manga", genreID, "publishing")
-                genreViewModel.resultMangaList.observe(viewLifecycleOwner, { state ->
-                    processMangaResponse(state, genreID)
+                genreViewModel.resultSearchApi("manga", genreID, "airing")
+                genreViewModel.resultMangaList.observe(viewLifecycleOwner, { mangaList ->
+                    when(mangaList) {
+                        is ScreenStateHelper.Loading -> {
+
+                        }
+                        is ScreenStateHelper.Success -> {
+                            if(mangaList.data != null) {
+                                val mangaGenreList = mangaList.data
+                                airingRecyclerView.layoutManager =
+                                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                                mangaAdapter = MangaAdapter()
+                                mangaAdapter.setData(mangaGenreList)
+                                airingRecyclerView.adapter = mangaAdapter
+                                shimmerLayout.visibility = View.GONE
+                                airingRecyclerView.visibility = View.VISIBLE
+                            }
+                        }
+                        is ScreenStateHelper.Error -> {
+
+                        }
+                        is ScreenStateHelper.Empty -> {
+                            emptyText.text = mangaList.message
+                            emptyText.visibility = View.VISIBLE
+                            shimmerLayout.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
+                        }
+                        else -> {
+                            emptyText.text = mangaList.message
+                            emptyText.visibility = View.VISIBLE
+                            shimmerLayout.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
+                        }
+                    }
                 })
-            }
-        }
-    }
-
-    private fun processMangaResponse(state: ScreenStateHelper<List<Manga>?>?, genreID: Int) {
-        val emptyText = binding.emptyListTextView
-        val airingRecyclerView = binding.recyclerView.recyclerViewVertical
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    val mangaList = state.data
-                    airingRecyclerView.setHasFixedSize(true)
-                    airingRecyclerView.setItemViewCacheSize(10)
-                    mangaAdapter.setData(mangaList)
-                    airingRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    airingRecyclerView.adapter = mangaAdapter
-                    airingRecyclerView.visibility = View.VISIBLE
-                }
-            }
-            is ScreenStateHelper.Empty -> {
-                emptyText.text = state.message
-                emptyText.visibility = View.VISIBLE
-                airingRecyclerView.visibility = View.GONE
-            }
-            is ScreenStateHelper.Error -> {
-                genreViewModel.resultAiringApi("manga", genreID, "publishing")
-            }
-        }
-    }
-
-    private fun processAnimeResponse(state: ScreenStateHelper<List<Anime>?>?, genreID : Int) {
-        val emptyText = binding.emptyListTextView
-        val airingRecyclerView = binding.recyclerView.recyclerViewVertical
-
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    val animeList = state.data
-                    airingRecyclerView.setHasFixedSize(true)
-                    airingRecyclerView.setItemViewCacheSize(10)
-                    animeHorizontalAdapter = AnimeHorizontalAdapter()
-//                    animeAdapter.submitList(animeList)
-                    airingRecyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    airingRecyclerView.adapter = animeHorizontalAdapter
-                    airingRecyclerView.visibility = View.VISIBLE
-                }
-            }
-            is ScreenStateHelper.Empty -> {
-                emptyText.text = state.message
-                emptyText.visibility = View.VISIBLE
-                airingRecyclerView.visibility = View.GONE
-            }
-            is ScreenStateHelper.Error -> {
-                genreViewModel.resultAiringApi("anime", genreID, "airing")
             }
         }
     }

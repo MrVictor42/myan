@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Manga
-import com.victor.myan.model.MangaListResultResponse
-import com.victor.myan.model.MangaListTopResponse
+import com.victor.myan.model.MangaListResult
+import com.victor.myan.model.MangaListTop
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,8 +40,8 @@ class MangaViewModel : ViewModel() {
         val mangaApi = JikanApiInstance.mangaApi.getTopManga()
 
         mangaTopList.postValue(ScreenStateHelper.Loading(null))
-        mangaApi.enqueue(object : Callback<MangaListTopResponse> {
-            override fun onResponse(call: Call<MangaListTopResponse>, response: Response<MangaListTopResponse>) {
+        mangaApi.enqueue(object : Callback<MangaListTop> {
+            override fun onResponse(call: Call<MangaListTop>, response: Response<MangaListTop>) {
                 if(response.isSuccessful) {
                     mangaTopList.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
@@ -49,7 +49,7 @@ class MangaViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<MangaListTopResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MangaListTop>, t: Throwable) {
                 mangaTopList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
@@ -59,8 +59,8 @@ class MangaViewModel : ViewModel() {
         val mangaApi = JikanApiInstance.mangaApi.mangaListAiring("airing", "score")
 
         mangaListAiring.postValue(ScreenStateHelper.Loading(null))
-        mangaApi.enqueue(object : Callback<MangaListResultResponse> {
-            override fun onResponse(call: Call<MangaListResultResponse>, response: Response<MangaListResultResponse>) {
+        mangaApi.enqueue(object : Callback<MangaListResult> {
+            override fun onResponse(call: Call<MangaListResult>, response: Response<MangaListResult>) {
                 if(response.isSuccessful) {
                     mangaListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
@@ -68,7 +68,7 @@ class MangaViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<MangaListResultResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MangaListResult>, t: Throwable) {
                 mangaListAiring.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })

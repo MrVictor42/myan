@@ -8,8 +8,8 @@ import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.model.AnimeListAiringResponse
-import com.victor.myan.model.AnimeListTopResponse
+import com.victor.myan.model.AnimeListResult
+import com.victor.myan.model.AnimeListTop
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,7 +22,6 @@ class AnimeViewModel : ViewModel() {
     val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListSeason : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListTop : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
-    val animeRecommendationList : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
 
     private val auxFunctionsHelper = AuxFunctionsHelper()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
@@ -34,8 +33,8 @@ class AnimeViewModel : ViewModel() {
         val animeApi = JikanApiInstance.animeApi.animeListAiring("airing", "score")
 
         animeListAiring.postValue(ScreenStateHelper.Loading(null))
-        animeApi.enqueue(object : Callback<AnimeListAiringResponse> {
-            override fun onResponse(call: Call<AnimeListAiringResponse>, response: Response<AnimeListAiringResponse>) {
+        animeApi.enqueue(object : Callback<AnimeListResult> {
+            override fun onResponse(call: Call<AnimeListResult>, response: Response<AnimeListResult>) {
                 if(response.isSuccessful) {
                     animeListAiring.postValue(ScreenStateHelper.Success(response.body()?.results))
                 } else {
@@ -43,7 +42,7 @@ class AnimeViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AnimeListAiringResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AnimeListResult>, t: Throwable) {
                 animeListAiring.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })
@@ -124,8 +123,8 @@ class AnimeViewModel : ViewModel() {
         val animeApi = JikanApiInstance.animeApi.getTopAnime()
 
         animeListTop.postValue(ScreenStateHelper.Loading(null))
-        animeApi.enqueue(object : Callback<AnimeListTopResponse> {
-            override fun onResponse(call: Call<AnimeListTopResponse>, response: Response<AnimeListTopResponse>) {
+        animeApi.enqueue(object : Callback<AnimeListTop> {
+            override fun onResponse(call: Call<AnimeListTop>, response: Response<AnimeListTop>) {
                 if(response.isSuccessful) {
                     animeListTop.postValue(ScreenStateHelper.Success(response.body()?.top))
                 } else {
@@ -133,7 +132,7 @@ class AnimeViewModel : ViewModel() {
                 }
             }
 
-            override fun onFailure(call: Call<AnimeListTopResponse>, t: Throwable) {
+            override fun onFailure(call: Call<AnimeListTop>, t: Throwable) {
                 animeListTop.postValue(ScreenStateHelper.Error(t.message.toString(), null))
             }
         })

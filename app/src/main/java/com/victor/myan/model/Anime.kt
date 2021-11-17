@@ -59,18 +59,14 @@ data class Anime (
     }
 }
 
-data class AnimeListAiringResponse (
+data class AnimeListResult (
     val results : List<Anime>
 )
 
-data class AnimeListTopResponse (
+data class AnimeListTop (
     val top : List<Anime>
 )
 
 data class AnimeListRecommendation (
     val recommendations : List<Anime>
-)
-
-data class AnimeListResultResponse (
-    val results: List<Anime>
 )

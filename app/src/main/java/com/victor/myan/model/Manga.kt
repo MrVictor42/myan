@@ -49,11 +49,11 @@ data class Manga(
     }
 }
 
-data class MangaListTopResponse (
+data class MangaListTop (
     val top : List<Manga>
 )
 
-data class MangaListResultResponse (
+data class MangaListResult (
     val results : List<Manga>
 )
 

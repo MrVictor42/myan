@@ -20,10 +20,10 @@ interface AnimeApi {
     fun getTodayAnime(@Path("day") currentDay : String) : Call<JsonObject>
 
     @GET("top/anime")
-    fun getTopAnime() : Call<AnimeListTopResponse>
+    fun getTopAnime() : Call<AnimeListTop>
 
     @GET("search/anime")
     fun animeListAiring(
         @Query("status") status : String,
-        @Query("order_by") order_by : String) : Call<AnimeListAiringResponse>
+        @Query("order_by") order_by : String) : Call<AnimeListResult>
 }

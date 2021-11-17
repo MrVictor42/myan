@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
-import com.victor.myan.model.AnimeListResultResponse
+import com.victor.myan.model.AnimeListResult
 import com.victor.myan.model.Manga
-import com.victor.myan.model.MangaListResultResponse
+import com.victor.myan.model.MangaListResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,8 +24,8 @@ class SearchViewModel : ViewModel() {
                 val searchManga = JikanApiInstance.searchApi.searchManga(query, limit)
 
                 resultsManga.postValue(ScreenStateHelper.Loading(null))
-                searchManga.enqueue(object : Callback<MangaListResultResponse> {
-                    override fun onResponse(call: Call<MangaListResultResponse>, response: Response<MangaListResultResponse>) {
+                searchManga.enqueue(object : Callback<MangaListResult> {
+                    override fun onResponse(call: Call<MangaListResult>, response: Response<MangaListResult>) {
                         when {
                             response.isSuccessful -> {
                                 resultsManga.postValue(ScreenStateHelper.Success(response.body()?.results))
@@ -40,7 +40,7 @@ class SearchViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<MangaListResultResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<MangaListResult>, t: Throwable) {
                         resultsManga.postValue(ScreenStateHelper.Error(t.message.toString(), null))
                     }
                 })
@@ -48,8 +48,8 @@ class SearchViewModel : ViewModel() {
                 val searchAnime = JikanApiInstance.searchApi.searchAnime(query, limit)
 
                 resultsAnimeMovie.postValue(ScreenStateHelper.Loading(null))
-                searchAnime.enqueue(object : Callback<AnimeListResultResponse> {
-                    override fun onResponse(call: Call<AnimeListResultResponse>, response: Response<AnimeListResultResponse>) {
+                searchAnime.enqueue(object : Callback<AnimeListResult> {
+                    override fun onResponse(call: Call<AnimeListResult>, response: Response<AnimeListResult>) {
                         when {
                             response.isSuccessful -> {
                                 resultsAnimeMovie.postValue(ScreenStateHelper.Success(response.body()?.results))
@@ -63,7 +63,7 @@ class SearchViewModel : ViewModel() {
                         }
                     }
 
-                    override fun onFailure(call: Call<AnimeListResultResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<AnimeListResult>, t: Throwable) {
                         resultsAnimeMovie.postValue(ScreenStateHelper.Error(t.message.toString(), null))
                     }
                 })
