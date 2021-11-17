@@ -8,12 +8,11 @@
     android:fitsSystemWindows="true"
     android:overScrollMode="never"
     android:background="@color/black_gray"
-    tools:context=".fragments.SearchFragment"
->
+    tools:context=".fragments.SearchFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/search_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,8 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/search_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:theme="@style/SearchBar"
-            />
+            android:theme="@style/SearchBar" />
 
         <RadioGroup
             android:id="@+id/selection_type"
@@ -49,8 +47,7 @@
             app:layout_constraintTop_toBottomOf="@id/search_view"
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp">
             <RadioButton
                 android:id="@+id/anime_radio_button"
                 android:layout_width="wrap_content"
@@ -60,8 +57,7 @@
                 android:text="@string/anime"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                />
+                android:layout_marginStart="20dp" />
 
             <RadioButton
                 android:id="@+id/manga_radio_button"
@@ -71,8 +67,7 @@
                 android:text="@string/manga"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                />
+                android:layout_marginStart="20dp" />
 
             <RadioButton
                 android:id="@+id/movie_radio_button"
@@ -82,11 +77,10 @@
                 android:text="@string/movie"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:layout_marginStart="20dp"
-                />
+                android:layout_marginStart="20dp" />
         </RadioGroup>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -102,10 +96,9 @@
             android:background="@drawable/circle_btn"
             app:backgroundTint="@color/red"
             android:minHeight="0dp"
-            app:cornerRadius="20dp"
-        />
+            app:cornerRadius="20dp" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/message_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -115,8 +108,7 @@
             android:layout_margin="30dp"
             android:textStyle="bold"
             android:textSize="14sp"
-            android:textColor="@color/red"
-            />
+            android:textColor="@color/red" />
 
         <ProgressBar
             android:id="@+id/progress_bar_search"
@@ -127,16 +119,18 @@
             app:layout_constraintTop_toBottomOf="@id/searchButton"
             android:indeterminateTint="@color/orange"
             android:layout_marginTop="40dp"
-            android:visibility="gone"
-        />
+            android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewSearch"
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/searchButton" />
+            app:layout_constraintTop_toBottomOf="@id/searchButton"
+            app:spanCount="2"
+            tools:listitem="@layout/cardview_placeholder" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

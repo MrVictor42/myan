@@ -107,33 +107,5 @@ class RecommendationFragment : Fragment() {
                 })
             }
         }
-
-//        animeViewModel.getAnimeRecommendationApi(type, malID)
-//        animeViewModel.animeRecommendationList.observe(viewLifecycleOwner, { recommendations ->
-//            when(recommendations) {
-//                is ScreenStateHelper.Loading -> {
-//                    shimmerLayout.startShimmer()
-//                }
-//                is ScreenStateHelper.Success -> {
-//                    if(recommendations.data != null) {
-//                        val recommendationList = recommendations.data
-//                        recommendationRecyclerView.layoutManager =
-//                            GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-//                        animeAdapter = AnimeAdapter()
-//                        animeAdapter.setData(recommendationList)
-//                        recommendationRecyclerView.adapter = animeAdapter
-//                        shimmerLayout.stopShimmer()
-//                        shimmerLayout.visibility = View.GONE
-//                        recommendationRecyclerView.visibility = View.VISIBLE
-//                    }
-//                }
-//                is ScreenStateHelper.Error -> {
-//
-//                }
-//                else -> {
-//
-//                }
-//            }
-//        })
     }
 }
