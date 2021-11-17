@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.databinding.FragmentBaseAnimeGenreDetailBinding
+import com.victor.myan.databinding.FragmentBaseAnimeGenreBinding
 import com.victor.myan.viewpager.GenreTypeViewPager
 
 class BaseAnimeGenreFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseAnimeGenreDetailBinding
+    private lateinit var binding : FragmentBaseAnimeGenreBinding
 
     companion object {
         fun newInstance(mal_id : Int): BaseAnimeGenreFragment {
@@ -27,7 +27,7 @@ class BaseAnimeGenreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseAnimeGenreDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseAnimeGenreBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -39,7 +39,7 @@ class BaseAnimeGenreFragment : Fragment() {
         val adapter = GenreTypeViewPager(parentFragmentManager, lifecycle, malID, sizePager, "anime")
 
         viewPager.adapter = adapter
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+        TabLayoutMediator(tabLayout, viewPager, true, false){ tab, position ->
             when(position) {
                 0 -> tab.text = "Airing"
                 1 -> tab.text = "Complete"

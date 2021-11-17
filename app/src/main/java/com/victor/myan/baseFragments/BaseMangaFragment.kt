@@ -11,14 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.victor.myan.R
-import com.victor.myan.databinding.FragmentBaseMangaDetailBinding
+import com.victor.myan.databinding.FragmentBaseMangaBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.PictureViewModel
 import com.victor.myan.viewpager.MangaViewPager
 
 class BaseMangaFragment : Fragment() {
 
-    private lateinit var binding : FragmentBaseMangaDetailBinding
+    private lateinit var binding : FragmentBaseMangaBinding
     private val pictureViewModel by lazy {
         ViewModelProvider(this)[PictureViewModel::class.java]
     }
@@ -27,7 +27,7 @@ class BaseMangaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseMangaDetailBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseMangaBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
