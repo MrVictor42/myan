@@ -44,53 +44,10 @@ class PersonalListAddAdapter(private val dialogFragment : ListDialogFragment) : 
             itemView.setOnClickListener {
                 when {
                     animeList.size > 0 -> {
-                        val personalListViewModel = PersonalListViewModel()
-                        val currentList = personalListViewModel.listRef.ref.orderByChild("id").equalTo(personalList.ID)
-                        val animeListRef : MutableList<Anime> = arrayListOf()
-                        val animeRef = currentList.ref.child(personalList.ID).child("anime")
-
-                        animeRef.get().addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val result = task.result
-                                if (result != null) {
-                                    if (result.exists()) {
-                                        result.let {
-                                            var exists = false
-                                            result.children.map { snapshot ->
-                                                animeListRef.add(snapshot.getValue(Anime::class.java)!!)
-                                            }
-                                            animeListRef.forEach { anime ->
-                                                if(anime.malID == animeList[0].malID) {
-                                                    showDialog(
-                                                        itemView.context,
-                                                        R.layout.custom_warming_dialog,
-                                                        "The anime ${ animeList[0].title } already on this list"
-                                                    )
-                                                    exists = true
-                                                } else {
-                                                    Log.i(TAG, "The anime is not on the list yet")
-                                                }
-                                            }
-                                            if(exists) {
-                                                Log.i(TAG, "The anime already on this list")
-                                                animeList.clear()
-                                            } else {
-                                                saveAnime(animeList[0], animeRef, itemView.context, personalList.name)
-                                            }
-                                        }
-                                    } else {
-                                        saveAnime(animeList[0], animeRef, itemView.context, personalList.name)
-                                    }
-                                }
-                            } else {
-                                Log.e(TAG, "Error on Firebase")
-                            }
-                        }.addOnFailureListener {
-                            Log.e(TAG, "Error on Firebase")
-                        }
+                        checkAndSave("anime", personalList, itemView.context)
                     }
                     mangaList.size > 0 -> {
-
+                        checkAndSave("manga", personalList, itemView.context)
                     }
                 }
             }
@@ -131,12 +88,127 @@ class PersonalListAddAdapter(private val dialogFragment : ListDialogFragment) : 
         }
     }
 
+    private fun checkAndSave(type: String, personalList: PersonalList, context: Context) {
+        val personalListViewModel = PersonalListViewModel()
+        val currentList = personalListViewModel.listRef.ref.orderByChild("id").equalTo(personalList.ID)
+        val animeRef = currentList.ref.child(personalList.ID).child("anime")
+        val mangaRef = currentList.ref.child(personalList.ID).child("manga")
+        val animeListRef : MutableList<Anime> = arrayListOf()
+        val mangaListRef : MutableList<Manga> = arrayListOf()
+
+        when(type) {
+            "anime" -> {
+                animeRef.get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val result = task.result
+                        if (result != null) {
+                            if (result.exists()) {
+                                result.let {
+                                    var exists = false
+                                    result.children.map { snapshot ->
+                                        animeListRef.add(snapshot.getValue(Anime::class.java)!!)
+                                    }
+                                    animeListRef.forEach { anime ->
+                                        if(anime.malID == animeList[0].malID) {
+                                            showDialog(
+                                                context,
+                                                R.layout.custom_warming_dialog,
+                                                "The anime ${ animeList[0].title } already on this list"
+                                            )
+                                            exists = true
+                                        } else {
+                                            Log.i(TAG, "The anime is not on the list yet")
+                                        }
+                                    }
+                                    if(exists) {
+                                        Log.i(TAG, "The anime already on this list")
+                                        animeList.clear()
+                                    } else {
+                                        saveAnime(animeList[0], animeRef, context, personalList.name)
+                                    }
+                                }
+                            } else {
+                                saveAnime(animeList[0], animeRef, context, personalList.name)
+                            }
+                        }
+                    } else {
+                        Log.e(TAG, "Error on Firebase")
+                    }
+                }.addOnFailureListener {
+                    Log.e(TAG, "Error on Firebase")
+                }
+            }
+            "manga" -> {
+                mangaRef.get().addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        val result = task.result
+                        if(result != null) {
+                            if(result.exists()) {
+                                result.let {
+                                    var exists = false
+                                    result.children.map { snapshot ->
+                                        mangaListRef.add(snapshot.getValue(Manga::class.java)!!)
+                                    }
+                                    mangaListRef.forEach { manga ->
+                                        if(manga.malID == mangaList[0].malID) {
+                                            showDialog(
+                                                context,
+                                                R.layout.custom_warming_dialog,
+                                                "The manga ${ mangaList[0].title } already on this list"
+                                            )
+                                            exists = true
+                                        } else {
+                                            Log.i(TAG, "The manga is not on the list yet")
+                                        }
+                                    }
+                                    if(exists) {
+                                        Log.i(TAG, "The manga already on this list")
+                                        mangaList.clear()
+                                    } else {
+                                        saveManga(mangaList[0], mangaRef, context, personalList.name)
+                                    }
+                                }
+                            } else {
+                                saveManga(mangaList[0], mangaRef, context, personalList.name)
+                            }
+                        }
+                    } else {
+                        Log.e(TAG, "Error on Firebase")
+                    }
+                }.addOnFailureListener {
+                    Log.e(TAG, "Error on Firebase")
+                }
+            }
+        }
+    }
+
+    private fun saveManga(manga: Manga, mangaRef: DatabaseReference, context: Context, nameList: String) {
+        mangaRef.child(manga.malID.toString()).setValue(manga).addOnSuccessListener {
+            showDialog(
+                context,
+                R.layout.custom_positive_dialog,
+                "The manga ${ manga.title }, was inserted in List " +
+                        "$nameList with success!!"
+            )
+            Log.i(TAG, "Manga inserted with success!!")
+            mangaList.clear()
+        }.addOnFailureListener {
+            showDialog(
+                context,
+                R.layout.custom_negative_dialog,
+                "Something was wrong... try later!"
+            )
+            Log.e(TAG, "Manga doesn't inserted with success!!")
+            mangaList.clear()
+        }
+    }
+
     private fun saveAnime(anime: Anime, animeRef: DatabaseReference, context: Context, nameList: String)  {
         animeRef.child(anime.malID.toString()).setValue(anime).addOnSuccessListener {
             showDialog(
                 context,
                 R.layout.custom_positive_dialog,
-                "The anime ${anime.title}, was inserted in List " +
+                "The anime ${ anime.title }, was inserted in List " +
                         "$nameList with success!!"
             )
             Log.i(TAG, "Anime inserted with success!!")
