@@ -16,7 +16,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
-import com.victor.myan.adapter.PersonalListAddRemoveAdapter
+import com.victor.myan.adapter.PersonalListAddAdapter
 import com.victor.myan.databinding.FragmentListDialogBinding
 import com.victor.myan.fragments.tablayouts.lists.personalList.CreateListFragment
 import com.victor.myan.helper.ScreenStateHelper
@@ -30,7 +30,7 @@ import com.victor.myan.viewmodel.UserViewModel
 class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment() {
 
     private lateinit var binding : FragmentListDialogBinding
-    private lateinit var personalListAddRemoveAdapter: PersonalListAddRemoveAdapter
+    private lateinit var personalListAddRemoveAdapter: PersonalListAddAdapter
     private lateinit var linearEmptyList : LinearLayoutCompat
     private lateinit var linearUserName : LinearLayoutCompat
     private val TAG = ListDialogFragment::class.java.simpleName
@@ -128,13 +128,13 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                 if (personalList.data != null) {
                     personalListRecyclerview.layoutManager =
                         LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    personalListAddRemoveAdapter = PersonalListAddRemoveAdapter(this)
+                    personalListAddRemoveAdapter = PersonalListAddAdapter(this)
                     personalListAddRemoveAdapter.submitList(personalList.data)
 
                     if(anime != null) {
-                        personalListAddRemoveAdapter.addAnime(anime)
+                        personalListAddRemoveAdapter.setData(null, anime)
                     } else if(manga != null) {
-                        personalListAddRemoveAdapter.addManga(manga)
+                        personalListAddRemoveAdapter.setData(manga, null)
                     }
 
                     personalListRecyclerview.adapter = personalListAddRemoveAdapter

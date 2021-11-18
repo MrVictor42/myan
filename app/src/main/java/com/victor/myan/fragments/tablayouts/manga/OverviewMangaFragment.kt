@@ -16,10 +16,13 @@ import com.victor.myan.adapter.GenreItemAdapter
 import com.victor.myan.databinding.FragmentOverviewMangaBinding
 import com.victor.myan.enums.MangaStatusEnum
 import com.victor.myan.enums.StatusEnum
+import com.victor.myan.fragments.dialogs.ListDialogFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Adaptation
+import com.victor.myan.model.Anime
 import com.victor.myan.model.Genre
+import com.victor.myan.model.Manga
 import com.victor.myan.viewmodel.MangaViewModel
 
 class OverviewMangaFragment : Fragment() {
@@ -55,6 +58,7 @@ class OverviewMangaFragment : Fragment() {
         val malID = arguments?.getInt("mal_id")!!
         val mangaImage = binding.image
         val mangaRank = binding.mangaRank
+        val btnAddList = binding.btnAddList
         val mangaScore = binding.mangaScore
         val mangaAuthors = binding.mangaAuthor
         val mangaTitle = binding.mangaTitle
@@ -221,6 +225,17 @@ class OverviewMangaFragment : Fragment() {
                                     mangaAdaptations.layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
                                     mangaAdaptations.adapter = adaptationItemAdapter
                                 }
+                            }
+
+                            btnAddList.setOnClickListener {
+                                val manga = Manga()
+
+                                manga.malID = malID
+                                manga.imageURL = imageURL
+                                manga.title = title
+                                manga.status = status
+
+                                ListDialogFragment(null, manga).show(childFragmentManager, "OverViewMangaFragment")
                             }
 
                             shimmerLayout.stopShimmer()
