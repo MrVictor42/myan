@@ -9,10 +9,8 @@ import com.victor.myan.baseFragments.BaseSeasonFragment
 import com.victor.myan.baseFragments.BaseTopListFragment
 import com.victor.myan.fragments.tablayouts.lists.personalList.PersonalListFragment
 
-class ListFragmentViewPager(fragment : FragmentManager, lifecycle : Lifecycle, sizePager : Int)
+class ListFragmentViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val size : Int)
     : FragmentStateAdapter(fragment, lifecycle) {
-
-    private val size = sizePager
 
     override fun getItemCount(): Int {
         return size

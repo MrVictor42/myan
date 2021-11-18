@@ -7,10 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.victor.myan.fragments.tablayouts.lists.personalList.PersonalListAnime
 import com.victor.myan.fragments.tablayouts.lists.personalList.PersonalListManga
 
-class PersonalListViewPager(fragment : FragmentManager, lifecycle : Lifecycle, id : String, sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
-
-    private val size = sizePager
-    private val idList = id
+class PersonalListViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val idList : String, private val size : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
     override fun getItemCount(): Int {
         return size

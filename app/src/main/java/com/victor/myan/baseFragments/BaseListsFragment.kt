@@ -41,7 +41,7 @@ class BaseListsFragment : Fragment() {
         val adapter = ListFragmentViewPager(parentFragmentManager, lifecycle, sizePager)
         viewPager.adapter = adapter
 
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+        TabLayoutMediator(tabLayout, viewPager, true, false){ tab, position ->
             when(position) {
                 0 -> tab.text = "Personal"
                 1 -> tab.text = "Top"

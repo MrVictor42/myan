@@ -18,7 +18,7 @@ class PersonalListAnime : Fragment() {
     private lateinit var binding : FragmentPersonalListAnimeBinding
     private lateinit var personalListAnimeAdapter : PersonalListAnimeAdapter
     private val personalListViewModel by lazy {
-        ViewModelProvider(this).get(PersonalListViewModel::class.java)
+        ViewModelProvider(this)[PersonalListViewModel::class.java]
     }
 
     companion object {
@@ -46,10 +46,9 @@ class PersonalListAnime : Fragment() {
         val animeRef = listRef.ref.child("anime")
         val animeList : MutableList<Anime> = arrayListOf()
         val shimmerLayout = binding.shimmerLayout
-        val recyclerView = binding.recyclerView.recyclerViewVertical
+        val recyclerView = binding.recyclerView
         val btnRemove = binding.btnRemove
 
-        shimmerLayout.startShimmer()
         animeRef.get().addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val result = task.result
@@ -60,18 +59,16 @@ class PersonalListAnime : Fragment() {
                                 animeList.add(snapshot.getValue(Anime::class.java)!!)
                             }
                         }
-                        recyclerView.setHasFixedSize(true)
-                        recyclerView.setItemViewCacheSize(6)
-                        personalListAnimeAdapter = PersonalListAnimeAdapter(animeList, btnRemove, animeRef)
+                        recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                        personalListAnimeAdapter = PersonalListAnimeAdapter(btnRemove, animeRef)
+                        personalListAnimeAdapter.setData(animeList)
                         recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                         recyclerView.adapter = personalListAnimeAdapter
-                        shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
                         recyclerView.visibility = View.VISIBLE
                     } else {
                         val emptyList = binding.emptyList
-
-                        shimmerLayout.stopShimmer()
+                        recyclerView.visibility = View.GONE
                         shimmerLayout.visibility = View.GONE
                         emptyList.visibility = View.VISIBLE
                     }

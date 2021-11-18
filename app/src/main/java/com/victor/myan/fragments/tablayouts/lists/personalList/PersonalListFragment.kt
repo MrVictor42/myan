@@ -23,7 +23,7 @@ class PersonalListFragment : Fragment() {
     private lateinit var personalListAdapter : PersonalListAdapter
     private val TAG = PersonalListFragment::class.java.simpleName
     private val personalListViewModel by lazy {
-        ViewModelProvider(this).get(PersonalListViewModel::class.java)
+        ViewModelProvider(this)[PersonalListViewModel::class.java]
     }
 
     companion object {
@@ -44,78 +44,74 @@ class PersonalListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        personalListViewModel.getPersonalList()
-        personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
-            processPersonalListResponse(personalList)
-        })
-    }
-
-    private fun processPersonalListResponse(personalList: ScreenStateHelper<List<PersonalList>?>?) {
         val btnRegisterList = binding.btnRegisterList
         val btnAddList = binding.btnAddList
         val createListNotEmpty = binding.createListNotEmpty
         val createListEmpty = binding.createListEmpty
-        val personalListRecyclerview = binding.personalListRecyclerview
+        val personalListRecyclerview = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
 
         createListNotEmpty.visibility = View.GONE
         createListEmpty.visibility = View.GONE
         shimmerLayout.visibility = View.GONE
 
-        btnRegisterList.setOnClickListener {
-            val createListFragment = CreateListFragment()
-            (context as FragmentActivity)
-                .supportFragmentManager
-                .beginTransaction()
-                .remove(this)
-                .replace(R.id.fragment_layout, createListFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-
-        btnAddList.setOnClickListener {
-            val createListFragment = CreateListFragment()
-            (context as FragmentActivity)
-                .supportFragmentManager
-                .beginTransaction()
-                .remove(this)
-                .replace(R.id.fragment_layout, createListFragment)
-                .addToBackStack(null)
-                .commit()
-        }
-
-        when (personalList) {
-            is ScreenStateHelper.Loading -> {
-                Log.i(TAG, "Loading personal list")
-                shimmerLayout.visibility = View.VISIBLE
-                shimmerLayout.startShimmer()
+        personalListViewModel.getPersonalList()
+        personalListViewModel.personalList.observe(viewLifecycleOwner, { personalList ->
+            btnRegisterList.setOnClickListener {
+                val createListFragment = CreateListFragment()
+                (context as FragmentActivity)
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .remove(this)
+                    .replace(R.id.fragment_layout, createListFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
-            is ScreenStateHelper.Success -> {
-                if (personalList.data != null) {
-                    createListNotEmpty.visibility = View.VISIBLE
-                    createListEmpty.visibility = View.GONE
 
-                    personalListRecyclerview.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    personalListAdapter = PersonalListAdapter()
-                    personalListAdapter.submitList(personalList.data)
-                    personalListRecyclerview.adapter = personalListAdapter
-                    personalListRecyclerview.visibility = View.VISIBLE
-                    shimmerLayout.stopShimmer()
-                    shimmerLayout.visibility = View.GONE
-                } else {
-                    createListNotEmpty.visibility = View.GONE
+            btnAddList.setOnClickListener {
+                val createListFragment = CreateListFragment()
+                (context as FragmentActivity)
+                    .supportFragmentManager
+                    .beginTransaction()
+                    .remove(this)
+                    .replace(R.id.fragment_layout, createListFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+            when (personalList) {
+                is ScreenStateHelper.Loading -> {
+                    Log.i(TAG, "Loading personal list")
+                    shimmerLayout.visibility = View.VISIBLE
+                    shimmerLayout.startShimmer()
+                }
+                is ScreenStateHelper.Success -> {
+                    if (personalList.data != null) {
+                        createListNotEmpty.visibility = View.VISIBLE
+                        createListEmpty.visibility = View.GONE
+
+                        personalListRecyclerview.layoutManager =
+                            LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                        personalListAdapter = PersonalListAdapter()
+                        personalListAdapter.submitList(personalList.data)
+                        personalListRecyclerview.adapter = personalListAdapter
+                        personalListRecyclerview.visibility = View.VISIBLE
+                        shimmerLayout.stopShimmer()
+                        shimmerLayout.visibility = View.GONE
+                    } else {
+                        createListNotEmpty.visibility = View.GONE
+                        createListEmpty.visibility = View.VISIBLE
+                    }
+                }
+                is ScreenStateHelper.Empty -> {
+                    Log.i(TAG, personalList.message.toString())
                     createListEmpty.visibility = View.VISIBLE
+                    createListNotEmpty.visibility = View.GONE
+                }
+                else -> {
+
                 }
             }
-            is ScreenStateHelper.Empty -> {
-                Log.i(TAG, personalList.message.toString())
-                createListEmpty.visibility = View.VISIBLE
-                createListNotEmpty.visibility = View.GONE
-            }
-            else -> {
-
-            }
-        }
+        })
     }
 }

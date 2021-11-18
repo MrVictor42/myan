@@ -52,21 +52,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                <include
-                    layout="@layout/shimmer_layout_personal_list"
-                    />
-                <include
-                    layout="@layout/shimmer_layout_personal_list"
-                    />
-                <include
-                    layout="@layout/shimmer_layout_personal_list"
-                    />
-                <include
-                    layout="@layout/shimmer_layout_personal_list"
-                    />
-                <include
-                    layout="@layout/shimmer_layout_personal_list"
-                    />
+                <include layout="@layout/shimmer_layout_personal_list" />
+                <include layout="@layout/shimmer_layout_personal_list" />
+                <include layout="@layout/shimmer_layout_personal_list" />
+                <include layout="@layout/shimmer_layout_personal_list" />
+                <include layout="@layout/shimmer_layout_personal_list" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.facebook.shimmer.ShimmerFrameLayout>
         <ScrollView
@@ -74,16 +64,16 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/create_list_not_empty">
+            app:layout_constraintTop_toBottomOf="@id/create_list_not_empty"
+            app:layout_constraintBottom_toBottomOf="parent">
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/personal_list_recyclerview"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/personal_list_recyclerview"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
         </ScrollView>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/create_list_empty"

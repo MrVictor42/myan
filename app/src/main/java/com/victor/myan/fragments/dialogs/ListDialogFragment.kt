@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -22,23 +21,19 @@ import com.victor.myan.fragments.tablayouts.lists.personalList.CreateListFragmen
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.model.Manga
-import com.victor.myan.model.PersonalList
-import com.victor.myan.model.User
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.viewmodel.UserViewModel
 
 class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment() {
 
     private lateinit var binding : FragmentListDialogBinding
-    private lateinit var personalListAddRemoveAdapter: PersonalListAddAdapter
-    private lateinit var linearEmptyList : LinearLayoutCompat
-    private lateinit var linearUserName : LinearLayoutCompat
+    private lateinit var personalListAddAdapter: PersonalListAddAdapter
     private val TAG = ListDialogFragment::class.java.simpleName
     private val personalListViewModel by lazy {
-        ViewModelProvider(this).get(PersonalListViewModel::class.java)
+        ViewModelProvider(this)[PersonalListViewModel::class.java]
     }
     private val userViewModel by lazy {
-        ViewModelProvider(this).get(UserViewModel::class.java)
+        ViewModelProvider(this)[UserViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -50,15 +45,38 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        linearUserName = binding.linearUserName
-        linearUserName.visibility = View.GONE
-        linearEmptyList = binding.emptyList
+        val linearUserName = binding.linearUserName
+        val linearEmptyList = binding.emptyList
+        val userName = binding.userName
+        val personalListRecyclerview = binding.personalListRecyclerview
+        val shimmerLayout = binding.shimmerLayout
+
+        personalListRecyclerview.visibility = View.GONE
         linearEmptyList.visibility = View.GONE
+        linearUserName.visibility = View.GONE
 
         userViewModel.getCurrentUser()
         userViewModel.currentUser.observe(viewLifecycleOwner, { user ->
-            processCurrentUserResponse(user)
+            when(user) {
+                is ScreenStateHelper.Loading -> {
+                    Log.i(TAG, "Loading user...")
+                }
+                is ScreenStateHelper.Success -> {
+                    if(user.data != null) {
+                        userName.text = "Lists of ${ user.data.name }"
+                        linearUserName.visibility = View.VISIBLE
+                        Log.i(TAG, "User loaded!")
+                    }
+                }
+                is ScreenStateHelper.Empty -> {
+                    Log.i(TAG, user.message.toString())
+                }
+                else -> {
+
+                }
+            }
         })
 
         personalListViewModel.listRef.addValueEventListener(object : ValueEventListener{
@@ -66,7 +84,37 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                 if(snapshot.childrenCount > 0) {
                     personalListViewModel.getPersonalList()
                     personalListViewModel.personalList.observe(this@ListDialogFragment, { personalList ->
-                        processPersonalListResponse(personalList)
+                        when (personalList) {
+                            is ScreenStateHelper.Loading -> {
+                                Log.i(TAG, "Loading personal list")
+                                shimmerLayout.startShimmer()
+                            }
+                            is ScreenStateHelper.Success -> {
+                                if (personalList.data != null) {
+                                    personalListRecyclerview.layoutManager =
+                                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+                                    personalListAddAdapter = PersonalListAddAdapter(this@ListDialogFragment)
+                                    personalListAddAdapter.submitList(personalList.data)
+
+                                    if(anime != null) {
+                                        personalListAddAdapter.setData(null, anime)
+                                    } else if(manga != null) {
+                                        personalListAddAdapter.setData(manga, null)
+                                    }
+
+                                    personalListRecyclerview.adapter = personalListAddAdapter
+                                    shimmerLayout.stopShimmer()
+                                    shimmerLayout.visibility = View.GONE
+                                    personalListRecyclerview.visibility = View.VISIBLE
+                                }
+                            }
+                            is ScreenStateHelper.Empty -> {
+                                Log.i(TAG, personalList.message.toString())
+                            }
+                            else -> {
+
+                            }
+                        }
                     })
                 } else {
                     linearEmptyList.visibility = View.VISIBLE
@@ -88,67 +136,5 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                 Log.e(TAG, "Error Firebase")
             }
         })
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun processCurrentUserResponse(user: ScreenStateHelper<User>?) {
-        val userName = binding.userName
-
-        when(user) {
-            is ScreenStateHelper.Loading -> {
-                Log.i(TAG, "Loading user...")
-            }
-            is ScreenStateHelper.Success -> {
-                if(user.data != null) {
-                    userName.text = "Lists of ${user.data.name}"
-                    linearUserName.visibility = View.VISIBLE
-                    Log.i(TAG, "User loaded!")
-                }
-            }
-            is ScreenStateHelper.Empty -> {
-                Log.i(TAG, user.message.toString())
-            }
-            else -> {
-
-            }
-        }
-    }
-
-    private fun processPersonalListResponse(personalList: ScreenStateHelper<List<PersonalList>?>?) {
-        val personalListRecyclerview = binding.personalListRecyclerview
-        val shimmerLayout = binding.shimmerLayout
-
-        personalListRecyclerview.visibility = View.GONE
-        when (personalList) {
-            is ScreenStateHelper.Loading -> {
-                Log.i(TAG, "Loading personal list")
-                shimmerLayout.startShimmer()
-            }
-            is ScreenStateHelper.Success -> {
-                if (personalList.data != null) {
-                    personalListRecyclerview.layoutManager =
-                        LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-                    personalListAddRemoveAdapter = PersonalListAddAdapter(this)
-                    personalListAddRemoveAdapter.submitList(personalList.data)
-
-                    if(anime != null) {
-                        personalListAddRemoveAdapter.setData(null, anime)
-                    } else if(manga != null) {
-                        personalListAddRemoveAdapter.setData(manga, null)
-                    }
-
-                    personalListRecyclerview.adapter = personalListAddRemoveAdapter
-                    shimmerLayout.stopShimmer()
-                    shimmerLayout.visibility = View.GONE
-                    personalListRecyclerview.visibility = View.VISIBLE
-                }
-            }
-            is ScreenStateHelper.Empty -> {
-                Log.i(TAG, personalList.message.toString())
-            }
-            else -> {
-
-            }
-        }
     }
 }

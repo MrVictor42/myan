@@ -44,10 +44,10 @@ class PersonalListAddAdapter(private val dialogFragment : ListDialogFragment) : 
             itemView.setOnClickListener {
                 when {
                     animeList.size > 0 -> {
-                        checkAndSave("anime", personalList, itemView.context)
+                        check("anime", personalList, itemView.context)
                     }
                     mangaList.size > 0 -> {
-                        checkAndSave("manga", personalList, itemView.context)
+                        check("manga", personalList, itemView.context)
                     }
                 }
             }
@@ -88,7 +88,7 @@ class PersonalListAddAdapter(private val dialogFragment : ListDialogFragment) : 
         }
     }
 
-    private fun checkAndSave(type: String, personalList: PersonalList, context: Context) {
+    private fun check(type: String, personalList: PersonalList, context: Context) {
         val personalListViewModel = PersonalListViewModel()
         val currentList = personalListViewModel.listRef.ref.orderByChild("id").equalTo(personalList.ID)
         val animeRef = currentList.ref.child(personalList.ID).child("anime")
