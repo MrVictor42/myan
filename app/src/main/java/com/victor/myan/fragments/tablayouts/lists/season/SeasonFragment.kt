@@ -1,14 +1,13 @@
 package com.victor.myan.fragments.tablayouts.lists.season
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.victor.myan.adapter.AnimeHorizontalAdapter
+import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.databinding.FragmentSeasonBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
@@ -18,8 +17,7 @@ import java.util.Calendar
 class SeasonFragment : Fragment() {
 
     private lateinit var binding : FragmentSeasonBinding
-    private val TAG = SeasonFragment::class.java.simpleName
-    private lateinit var animeHorizontalAdapter: AnimeHorizontalAdapter
+    private lateinit var animeAdapter: AnimeAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -68,37 +66,29 @@ class SeasonFragment : Fragment() {
     }
 
     private fun getSelectedSeason(season: String, currentYear : Int) {
-        val seasonRecyclerView = binding.seasonRecyclerView
+        val seasonRecyclerView = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
 
         animeViewModel.getAnimeListSeasonApi(currentYear, season)
-        animeViewModel.animeListSeason.observe(viewLifecycleOwner, { state ->
-            when(state) {
+        animeViewModel.animeListSeason.observe(viewLifecycleOwner, { animeSeason ->
+            when(animeSeason) {
                 is ScreenStateHelper.Loading -> {
-                    shimmerLayout.startShimmer()
-                    Log.i(TAG, "Loading Anime List Season")
+
                 }
                 is ScreenStateHelper.Success -> {
-                    if(state.data != null) {
-                        val animeList = state.data
+                    if(animeSeason.data != null) {
+                        val animeSeasonList = animeSeason.data
                         seasonRecyclerView.layoutManager =
                             GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                        animeHorizontalAdapter = AnimeHorizontalAdapter()
-//                        animeAdapter.submitList(animeList)
-                        animeHorizontalAdapter.setHasStableIds(true)
-                        seasonRecyclerView.setHasFixedSize(true)
-                        seasonRecyclerView.setItemViewCacheSize(6)
-                        seasonRecyclerView.isDrawingCacheEnabled = true
-                        seasonRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                        seasonRecyclerView.adapter = animeHorizontalAdapter
-                        shimmerLayout.stopShimmer()
+                        animeAdapter = AnimeAdapter()
+                        animeAdapter.setData(animeSeasonList)
+                        seasonRecyclerView.adapter = animeAdapter
                         shimmerLayout.visibility = View.GONE
                         seasonRecyclerView.visibility = View.VISIBLE
-                        Log.i(TAG, "Success Anime List Season")
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    Log.e(TAG, "Error Anime List Season in Home Fragment With Code: ${state.message}")
+
                 }
                 else -> {
 

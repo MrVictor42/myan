@@ -42,6 +42,7 @@ class BaseCharacterFragment : Fragment() {
         val adapter = CharacterViewPager(parentFragmentManager, lifecycle, malID, sizePager)
 
         viewPager.adapter = adapter
+        viewPager.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager, true, false) { tab, position ->
             when (position) {
                 0 -> tab.text = "Overview"

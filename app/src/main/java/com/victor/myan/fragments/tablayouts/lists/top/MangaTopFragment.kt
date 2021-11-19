@@ -1,7 +1,6 @@
 package com.victor.myan.fragments.tablayouts.lists.top
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,9 +16,8 @@ class MangaTopFragment : Fragment() {
 
     private lateinit var binding : FragmentMangaTopBinding
     private lateinit var mangaAdapter: MangaAdapter
-    private val TAG = MangaTopFragment::class.java.simpleName
     private val mangaViewModel by lazy {
-        ViewModelProvider(this).get(MangaViewModel::class.java)
+        ViewModelProvider(this)[MangaViewModel::class.java]
     }
 
     companion object {
@@ -40,33 +38,29 @@ class MangaTopFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val mangaTopRecyclerView = binding.mangaTopRecyclerView
+        val mangaTopRecyclerView = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
 
         mangaViewModel.getMangaListTopApi()
         mangaViewModel.mangaTopList.observe(viewLifecycleOwner, { mangaTop ->
             when(mangaTop) {
                 is ScreenStateHelper.Loading -> {
-                    shimmerLayout.startShimmer()
+
                 }
                 is ScreenStateHelper.Success -> {
-                    val mangaTopList = mangaTop.data
-                    mangaTopRecyclerView.layoutManager =
-                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-                    mangaAdapter.setData(mangaTopList!!)
-                    mangaAdapter.setHasStableIds(true)
-                    mangaTopRecyclerView.setHasFixedSize(true)
-                    mangaTopRecyclerView.setItemViewCacheSize(6)
-                    mangaTopRecyclerView.isDrawingCacheEnabled = true
-                    mangaTopRecyclerView.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
-                    mangaTopRecyclerView.adapter = mangaAdapter
-                    shimmerLayout.stopShimmer()
-                    shimmerLayout.visibility = View.GONE
-                    mangaTopRecyclerView.visibility = View.VISIBLE
-                    Log.i(TAG, "Success Anime Top List")
+                    if(mangaTop.data != null) {
+                        val mangaTopList = mangaTop.data
+                        mangaTopRecyclerView.layoutManager =
+                            GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                        mangaAdapter = MangaAdapter()
+                        mangaAdapter.setData(mangaTopList)
+                        mangaTopRecyclerView.adapter = mangaAdapter
+                        shimmerLayout.visibility = View.GONE
+                        mangaTopRecyclerView.visibility = View.VISIBLE
+                    }
                 }
                 is ScreenStateHelper.Error -> {
-                    Log.e(TAG, "Error Manga Top List in Manga Top Fragment With Code: ${mangaTop.message}")
+
                 }
                 else -> {
 

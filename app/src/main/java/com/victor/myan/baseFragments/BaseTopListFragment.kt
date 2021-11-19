@@ -5,11 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseTopListBinding
-import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewpager.TopListViewPager
 
 class BaseTopListFragment : Fragment() {
@@ -40,22 +37,12 @@ class BaseTopListFragment : Fragment() {
         val adapter = TopListViewPager(parentFragmentManager, lifecycle, sizePager)
 
         viewPager.adapter = adapter
-        TabLayoutMediator(tabLayout, viewPager){tab, position ->
+        viewPager.isUserInputEnabled = false
+        TabLayoutMediator(tabLayout, viewPager, true, false){ tab, position ->
             when(position) {
                 0 -> tab.text = "Anime"
                 1 -> tab.text = "Manga"
             }
         }.attach()
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val homeFragment = HomeFragment()
-                val fragmentManager = activity?.supportFragmentManager
-                fragmentManager?.popBackStack()
-                fragmentManager?.beginTransaction()?.replace(R.id.fragment_layout, homeFragment)
-                    ?.addToBackStack(null)?.commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 }

@@ -40,6 +40,7 @@ class BaseDaysListFragment : Fragment() {
         val adapter = DaysViewPager(parentFragmentManager, lifecycle, sizePager)
 
         viewPager.adapter = adapter
+        viewPager.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager, true, false) { tab, position ->
             when (position) {
                 0 -> tab.text = "Sunday"

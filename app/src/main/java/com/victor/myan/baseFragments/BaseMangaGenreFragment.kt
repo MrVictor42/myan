@@ -39,6 +39,7 @@ class BaseMangaGenreFragment : Fragment() {
         val adapter = GenreTypeViewPager(parentFragmentManager, lifecycle, malID, sizePager, "manga")
 
         viewPager.adapter = adapter
+        viewPager.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager, true, false){ tab, position ->
             when(position) {
                 0 -> tab.text = "Airing"

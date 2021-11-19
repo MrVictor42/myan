@@ -39,8 +39,9 @@ class BaseListsFragment : Fragment() {
         val toolbar = binding.toolbar.toolbar
         val sizePager = 4
         val adapter = ListFragmentViewPager(parentFragmentManager, lifecycle, sizePager)
-        viewPager.adapter = adapter
 
+        viewPager.adapter = adapter
+        viewPager.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager, true, false){ tab, position ->
             when(position) {
                 0 -> tab.text = "Personal"

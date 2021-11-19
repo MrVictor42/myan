@@ -53,7 +53,7 @@ class RecommendationFragment : Fragment() {
                 recommendationViewModel.animeList.observe(viewLifecycleOwner, { animeList ->
                     when(animeList) {
                         is ScreenStateHelper.Loading -> {
-                            shimmerLayout.startShimmer()
+
                         }
                         is ScreenStateHelper.Success -> {
                             if(animeList.data != null) {
@@ -63,7 +63,6 @@ class RecommendationFragment : Fragment() {
                                 animeAdapter = AnimeAdapter()
                                 animeAdapter.setData(recommendationList)
                                 recommendationRecyclerView.adapter = animeAdapter
-                                shimmerLayout.stopShimmer()
                                 shimmerLayout.visibility = View.GONE
                                 recommendationRecyclerView.visibility = View.VISIBLE
                             }
@@ -82,7 +81,7 @@ class RecommendationFragment : Fragment() {
                 recommendationViewModel.mangaList.observe(viewLifecycleOwner, { mangaList ->
                     when(mangaList) {
                         is ScreenStateHelper.Loading -> {
-                            shimmerLayout.startShimmer()
+
                         }
                         is ScreenStateHelper.Success -> {
                             if(mangaList.data != null) {
@@ -92,7 +91,6 @@ class RecommendationFragment : Fragment() {
                                 mangaAdapter = MangaAdapter()
                                 mangaAdapter.setData(recommendationList)
                                 recommendationRecyclerView.adapter = mangaAdapter
-                                shimmerLayout.stopShimmer()
                                 shimmerLayout.visibility = View.GONE
                                 recommendationRecyclerView.visibility = View.VISIBLE
                             }

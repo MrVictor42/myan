@@ -40,8 +40,9 @@ class BaseAnimeFragment : Fragment() {
         val carouselView = binding.carouselView
         val shimmerLayout = binding.shimmerLayout
         val adapter = AnimeViewPager(parentFragmentManager, lifecycle, malID, sizePager)
-        viewPager.adapter = adapter
 
+        viewPager.adapter = adapter
+        viewPager.isUserInputEnabled = false
         TabLayoutMediator(tabLayout, viewPager, true, false) { tab, position ->
             when(position) {
                 0 -> tab.text = "Overview"
