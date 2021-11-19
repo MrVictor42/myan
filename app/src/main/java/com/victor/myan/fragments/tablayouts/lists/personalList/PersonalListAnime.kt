@@ -59,7 +59,6 @@ class PersonalListAnime : Fragment() {
                                 animeList.add(snapshot.getValue(Anime::class.java)!!)
                             }
                         }
-                        recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                         personalListAnimeAdapter = PersonalListAnimeAdapter(btnRemove, animeRef)
                         personalListAnimeAdapter.setData(animeList)
                         recyclerView.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)

@@ -85,7 +85,6 @@
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:text="@string/rating"/>
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_list"
                 android:layout_width="0dp"
@@ -102,7 +101,6 @@
                 android:layout_marginTop="65dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="20dp" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_title"
                 android:layout_width="match_parent"
@@ -118,7 +116,6 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:text="@string/title" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_title_synonyms"
                 android:layout_width="match_parent"
@@ -133,7 +130,6 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:text="@string/title_synonyms" />
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/anime_information"
                 android:layout_width="match_parent"
@@ -163,7 +159,6 @@
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:layout_marginEnd="20dp" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/episode_duration"
                     android:layout_width="wrap_content"
@@ -173,7 +168,6 @@
                     android:textStyle="bold"
                     android:textSize="14sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_genres"
                 android:layout_width="match_parent"
@@ -187,7 +181,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical"/>
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_expandable_text_synopsis"
                 android:layout_width="match_parent"
@@ -201,7 +194,6 @@
                     android:id="@+id/expandable_text_view_synopsis"
                     layout="@layout/expandable_text_view" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
                 android:id="@+id/youtube_player_view"
                 android:layout_width="match_parent"
@@ -214,7 +206,6 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:visibility="gone" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/anime_adaptation_text"
                 android:layout_width="wrap_content"
@@ -225,7 +216,6 @@
                 android:text="@string/adaptations"
                 android:textStyle="bold"
                 android:textColor="@color/white" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_adaptations"
                 android:layout_width="match_parent"
@@ -238,7 +228,6 @@
                 app:spanCount="1"
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical"/>
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_licensors"
                 android:layout_width="0dp"
@@ -257,7 +246,6 @@
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:layout_marginTop="20dp" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/anime_licensors"
                     android:layout_width="wrap_content"
@@ -268,14 +256,12 @@
                     app:layout_constraintTop_toBottomOf="@id/licensors_text_view"
                     app:layout_constraintStart_toStartOf="@id/licensors_text_view" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.5" />
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_marginTop="20dp"
                 android:layout_width="0dp"
@@ -293,7 +279,6 @@
                     android:text="@string/studios"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/anime_studios"
                     android:layout_width="wrap_content"
@@ -305,7 +290,6 @@
                     app:layout_constraintTop_toBottomOf="@id/studios_text_view"
                     app:layout_constraintStart_toStartOf="@id/guideline" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/opening_theme_text_view"
                 android:layout_width="wrap_content"
@@ -317,7 +301,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp" />
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_expandable_text_opening"
                 android:layout_width="match_parent"
@@ -330,7 +313,6 @@
                     android:id="@+id/expandable_text_view_opening"
                     layout="@layout/expandable_text_view" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/ending_theme_text_view"
                 android:layout_width="wrap_content"
@@ -342,7 +324,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"/>
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_expandable_text_ending"
                 android:layout_width="match_parent"

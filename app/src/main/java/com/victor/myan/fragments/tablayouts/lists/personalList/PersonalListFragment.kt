@@ -14,7 +14,6 @@ import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAdapter
 import com.victor.myan.databinding.FragmentPersonalListBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel
 
 class PersonalListFragment : Fragment() {

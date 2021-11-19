@@ -37,7 +37,8 @@ data class Manga(
     @SerializedName("authors")
     var authors: List<Author> = arrayListOf(),
     @SerializedName("published")
-    var published: Publish?
+    var published: Publish?,
+    var checked: Boolean = false
 ) : Jikan() {
     constructor() : this (
         0, "", "", "", "", 0.0, emptyList(), 0, "",
