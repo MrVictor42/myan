@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.FragmentActivity
@@ -17,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -69,13 +69,26 @@ class PersonalListAnimeAdapter(
 
         name.visibility = View.GONE
 
-        if(!animeList[position].checked) {
-            iconRemove.visibility = View.INVISIBLE
-            btnRemove.visibility = View.INVISIBLE
+        image.setOnLongClickListener {
+            if(!selectedList.contains(animeList[position].malID)) {
+                selectedList.add(animeList[position].malID)
+                animeList[position].checked = true
+                iconRemove.visibility = View.VISIBLE
+                btnRemove.text = "Remove ${ selectedList.size } Item From List"
+                btnRemove.visibility = View.VISIBLE
+            }
+            true
         }
 
         image.setOnClickListener {
-            if(animeList[position].checked) {
+            if(btnRemove.visibility == View.VISIBLE && !animeList[position].checked) {
+                selectedList.add(animeList[position].malID)
+                animeList[position].checked = true
+                iconRemove.visibility = View.VISIBLE
+                btnRemove.text = "Remove ${ selectedList.size } Item From List"
+                btnRemove.visibility = View.VISIBLE
+            }
+            else if(btnRemove.visibility == View.VISIBLE && animeList[position].checked) {
                 var count = 0
                 for (aux in 0 until selectedList.size) {
                     if(animeList[position].malID == selectedList[aux]) {
@@ -110,32 +123,23 @@ class PersonalListAnimeAdapter(
             }
         }
 
-        image.setOnLongClickListener {
-            if(!selectedList.contains(animeList[position].malID)) {
-                selectedList.add(animeList[position].malID)
-                animeList[position].checked = true
-                iconRemove.visibility = View.VISIBLE
-                btnRemove.text = "Remove ${ selectedList.size } Item From List"
-                btnRemove.visibility = View.VISIBLE
-            }
-            true
-        }
-
         iconRemove.setOnClickListener {
-            var count = 0
-            for (aux in 0 until selectedList.size) {
-                if(animeList[position].malID == selectedList[aux]) {
-                    count = aux
+            if(animeList[position].checked) {
+                var count = 0
+                for (aux in 0 until selectedList.size) {
+                    if(animeList[position].malID == selectedList[aux]) {
+                        count = aux
+                    }
                 }
-            }
-            iconRemove.visibility = View.INVISIBLE
-            selectedList.removeAt(count)
-            animeList[position].checked = false
+                iconRemove.visibility = View.INVISIBLE
+                selectedList.removeAt(count)
+                animeList[position].checked = false
 
-            if(selectedList.size == 0) {
-                btnRemove.visibility = View.INVISIBLE
-            } else {
-                btnRemove.text = "Remove ${ selectedList.size } Item From List"
+                if(selectedList.size == 0) {
+                    btnRemove.visibility = View.INVISIBLE
+                } else {
+                    btnRemove.text = "Remove ${ selectedList.size } Item From List"
+                }
             }
         }
 
@@ -161,8 +165,9 @@ class PersonalListAnimeAdapter(
                     anime.checked
                 }
                 selectedList.clear()
-                Toast.makeText(holder.itemView.context, "Anime deleted", Toast.LENGTH_SHORT).show()
+                Snackbar.make(holder.binding.btnRemove, "Anime deleted...", Snackbar.LENGTH_LONG).show()
                 notifyDataSetChanged()
+                btnRemove.visibility = View.GONE
             }
 
             alertBuilder.setNegativeButton("No"){_,_ ->
