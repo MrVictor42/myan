@@ -2,16 +2,14 @@ package com.victor.myan.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.victor.myan.databinding.ItemHomeFragmentBinding
-import com.victor.myan.helper.DiffUtilHelper
-import com.victor.myan.model.Anime
+import com.victor.myan.model.Categories
 
-class AnimeRecyclerViewVerticalAdapter : RecyclerView.Adapter<AnimeRecyclerViewVerticalAdapter.VerticalHolder>() {
-
-    private var animeList = emptyList<Anime>()
+class RecyclerViewVerticalAdapter(
+    private val categoryList : MutableList<Categories>
+) : RecyclerView.Adapter<RecyclerViewVerticalAdapter.VerticalHolder>() {
 
     inner class VerticalHolder(val binding : ItemHomeFragmentBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -23,19 +21,12 @@ class AnimeRecyclerViewVerticalAdapter : RecyclerView.Adapter<AnimeRecyclerViewV
         val recyclerViewHorizontal = holder.binding.recyclerviewHorizontal
         val title = holder.binding.titleItem
 
-        title.text = "Sunday"
+        title.text = categoryList[position].title
         recyclerViewHorizontal.layoutManager = LinearLayoutManager(holder.itemView.context, RecyclerView.HORIZONTAL, false)
-        recyclerViewHorizontal.adapter = AnimeHorizontalAdapter(animeList)
+        recyclerViewHorizontal.adapter = RecyclerViewHorizontalAdapter(categoryList[position].categories, categoryList[position].type)
     }
 
     override fun getItemCount(): Int {
-        return animeList.size
-    }
-
-    fun setData(newAnimeList : List<Anime>) {
-        val diffUtil = DiffUtilHelper(animeList, newAnimeList)
-        val diffResults = DiffUtil.calculateDiff(diffUtil)
-        animeList = newAnimeList
-        diffResults.dispatchUpdatesTo(this)
+        return categoryList.size
     }
 }
