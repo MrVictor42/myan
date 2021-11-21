@@ -99,6 +99,7 @@ class AnimeViewModel : ViewModel() {
                                 val animeObject : JsonObject? = dayAnime.get(aux) as JsonObject?
                                 if(animeObject != null) {
                                     val anime = Anime()
+
                                     anime.malID = animeObject["mal_id"].asInt
                                     anime.imageURL = animeObject["image_url"].asString
                                     anime.title = animeObject["title"].asString

@@ -25,6 +25,13 @@ class BaseLayout : AppCompatActivity() {
         binding = ActivityBaseLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if(savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_layout, HomeFragment())
+                .commitNow()
+        }
+
         if (supportActionBar != null) {
             supportActionBar!!.hide()
         }

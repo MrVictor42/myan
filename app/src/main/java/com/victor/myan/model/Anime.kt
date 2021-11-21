@@ -6,25 +6,25 @@ data class Anime (
     @SerializedName("mal_id")
     override var malID : Int = 0,
     @SerializedName("title")
-    override var title : String = "",
+    var title : String = "",
     @SerializedName("synopsis")
-    override var synopsis : String = "",
+    var synopsis : String = "",
     @SerializedName("status")
-    override var status : String = "",
+    var status : String = "",
     @SerializedName("image_url")
     override var imageURL : String = "",
     @SerializedName("score")
-    override var score : Double = 0.0,
+    var score : Double = 0.0,
     @SerializedName("title_synonyms")
-    override var titleSynonyms : List<String> = arrayListOf(),
+    var titleSynonyms : List<String> = arrayListOf(),
     @SerializedName("rank")
-    override var rank: Int,
+    var rank: Int,
     @SerializedName("type")
-    override var type : String = "",
+    var type : String = "",
     @SerializedName("related")
-    override var related: Related?,
+    var related: Related?,
     @SerializedName("genres")
-    override var genreList: List<Genre> = arrayListOf(),
+    var genreList: List<Genre> = arrayListOf(),
 
     @SerializedName("opening_themes")
     var openingList : List<String> = arrayListOf(),

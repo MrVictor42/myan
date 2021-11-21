@@ -14,6 +14,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_form_register_user.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_teste_json.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_category.xml" value="0.10182370820668693" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_item_home.xml" value="0.5" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_personal_list.xml" value="0.2" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder_vertical.xml" value="0.10182370820668693" />
@@ -65,6 +66,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_recommendation.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_season.xml" value="0.11548913043478261" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_voice_character.xml" value="0.18" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/item_home_fragment.xml" value="0.22" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/item_shimmer.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/list_image_adapter.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/lists_popup.xml" value="0.12590579710144928" />

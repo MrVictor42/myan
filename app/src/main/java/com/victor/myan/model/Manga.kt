@@ -6,25 +6,26 @@ data class Manga(
     @SerializedName("mal_id")
     override var malID: Int = 0,
     @SerializedName("title")
-    override var title: String = "",
+    var title: String = "",
     @SerializedName("synopsis")
-    override var synopsis: String = "",
+    var synopsis: String = "",
     @SerializedName("status")
-    override var status: String = "",
+    var status: String = "",
     @SerializedName("image_url")
     override var imageURL: String = "",
     @SerializedName("score")
-    override var score: Double = 0.0,
+    var score: Double = 0.0,
     @SerializedName("title_synonyms")
-    override var titleSynonyms: List<String> = arrayListOf(),
+    var titleSynonyms: List<String> = arrayListOf(),
     @SerializedName("rank")
-    override var rank: Int,
+    var rank: Int,
     @SerializedName("type")
-    override var type: String = "",
+    var type: String = "",
     @SerializedName("related")
-    override var related: Related?,
+    var related: Related?,
     @SerializedName("genres")
-    override var genreList: List<Genre> = arrayListOf(),
+    var genreList: List<Genre> = emptyList(),
+    var titleCategory : String = "",
 
     @SerializedName("volumes")
     var volumes: Int = 0,
@@ -35,14 +36,15 @@ data class Manga(
     @SerializedName("chapters")
     var chapters: Int = 0,
     @SerializedName("authors")
-    var authors: List<Author> = arrayListOf(),
+    var authors: List<Author> = emptyList(),
     @SerializedName("published")
     var published: Publish?,
     var checked: Boolean = false
 ) : Jikan() {
     constructor() : this (
-        0, "", "", "", "", 0.0, emptyList(), 0, "",
-        null, emptyList(), 0, "", "", 0, emptyList(), null
+        0, "", "", "", "", 0.0, emptyList(), 0,
+        "", null, emptyList(), "", 0, "", "",
+        0, emptyList(), null, false
     )
 
     override fun toString(): String {

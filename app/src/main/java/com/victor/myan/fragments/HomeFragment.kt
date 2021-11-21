@@ -1,29 +1,39 @@
 package com.victor.myan.fragments
 
+import android.R.attr
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.victor.myan.R
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.victor.myan.adapter.AnimeHorizontalAdapter
 import com.victor.myan.adapter.MangaHorizontalAdapter
+import com.victor.myan.adapter.AnimeRecyclerViewVerticalAdapter
 import com.victor.myan.databinding.FragmentHomeBinding
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
+import com.victor.myan.model.Anime
+import com.victor.myan.model.Categories
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
+import java.io.File
 import java.util.Locale
+import android.R.attr.path
+import android.os.Environment
+
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var recyclerViewVerticalAdapter: AnimeRecyclerViewVerticalAdapter
+    val animeList : MutableList<Anime> = mutableListOf()
+
     private lateinit var animeHorizontalAdapter : AnimeHorizontalAdapter
     private lateinit var mangaHorizontalAdapter: MangaHorizontalAdapter
     private val animeViewModel by lazy {
@@ -35,9 +45,11 @@ class HomeFragment : Fragment() {
     private lateinit var frameLoading : FrameLayout
     private lateinit var frameHome : FrameLayout
     private val auxFunctionsHelper = AuxFunctionsHelper()
+    private lateinit var recyclerViewAnime : RecyclerView
     private val currentYear = auxFunctionsHelper.getCurrentYear()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
     private val currentSeason = auxFunctionsHelper.getSeason().lowercase(Locale.getDefault())
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,24 +59,33 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        frameLoading = binding.frameLoading
-        frameHome = binding.frameContent
+//    activity?.runOnUiThread {
+//        recyclerViewVerticalAdapter = AnimeRecyclerViewVerticalAdapter()
+//        recyclerViewVerticalAdapter.setData(animeList)
+//        recyclerViewAnime.adapter = recyclerViewVerticalAdapter
+//    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        recyclerViewAnime = binding.recyclerViewAnime
+
+//        recyclerViewVerticalAdapter = AnimeRecyclerViewVerticalAdapter()
+//        recyclerViewAnime.adapter = recyclerViewVerticalAdapter
+
+//        frameLoading = binding.frameLoading
+//        frameHome = binding.frameContent
+//
         processAnimeListTodayResponse()
-        processAnimeListAiringResponse()
-        Handler(Looper.getMainLooper()).postDelayed({
-            processMangaListAiringResponse()
-        }, 2000)
-        Handler(Looper.getMainLooper()).postDelayed({
-            processAnimeListSeasonResponse()
-        },1500)
+//        processAnimeListAiringResponse()
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            processMangaListAiringResponse()
+//        }, 2000)
+//        Handler(Looper.getMainLooper()).postDelayed({
+//            processAnimeListSeasonResponse()
+//        },1500)
     }
 
     private fun processAnimeListTodayResponse() {
-        val todayAnimeText = binding.todayAnimeText
-        val todayAnimeRecyclerView = binding.todayRecyclerView
-
+        var gson = Gson()
         animeViewModel.getAnimeListTodayApi(currentDay)
         animeViewModel.animeListToday.observe(viewLifecycleOwner, { animeToday ->
             when(animeToday) {
@@ -73,16 +94,23 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Success -> {
                     if(animeToday.data != null) {
-                        val animeList = animeToday.data
-                        todayAnimeRecyclerView.layoutManager =
-                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        animeHorizontalAdapter = AnimeHorizontalAdapter()
-                        animeHorizontalAdapter.setData(animeList)
-                        todayAnimeRecyclerView.adapter = animeHorizontalAdapter
+                        val category = Categories()
+                        val animeList : MutableList<Anime> = mutableListOf()
 
-                        todayAnimeText.text = animeViewModel.currentDayFormatted
-                        todayAnimeText.visibility = View.VISIBLE
-                        todayAnimeRecyclerView.visibility = View.VISIBLE
+                        category.type = "anime"
+                        category.title = animeViewModel.currentDayFormatted
+                        category.categories.addAll(animeToday.data)
+
+
+//                        val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+                        val jsonString = Gson().toJson(category.toString())
+                        Log.e("json", jsonString)
+////                        Log.e("JSON:", JSON)
+                        activity?.runOnUiThread {
+                            recyclerViewVerticalAdapter = AnimeRecyclerViewVerticalAdapter()
+                            recyclerViewVerticalAdapter.setData(animeToday.data)
+                            recyclerViewAnime.adapter = recyclerViewVerticalAdapter
+                        }
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -96,9 +124,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun processAnimeListAiringResponse() {
-        val airingAnimeText = binding.animeAiringText
-        val airingAnimeRecyclerView = binding.animeAiringRecyclerView
-
         animeViewModel.getAnimeListAiringApi()
         animeViewModel.animeListAiring.observe(viewLifecycleOwner, { airingAnime ->
             when(airingAnime) {
@@ -107,17 +132,9 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Success -> {
                     if(airingAnime.data != null) {
-                        val animeList = airingAnime.data
-                        airingAnimeRecyclerView.layoutManager =
-                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        animeHorizontalAdapter = AnimeHorizontalAdapter()
-                        animeHorizontalAdapter.setData(animeList)
-                        airingAnimeRecyclerView.adapter = animeHorizontalAdapter
+                        animeList.clear()
+//                        animeList.addAll(airingAnime.data)
 
-                        frameLoading.visibility = View.GONE
-                        airingAnimeText.text = getString(R.string.anime_airing)
-                        airingAnimeText.visibility = View.VISIBLE
-                        airingAnimeRecyclerView.visibility = View.VISIBLE
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -129,48 +146,44 @@ class HomeFragment : Fragment() {
             }
         })
     }
-
-    private fun processMangaListAiringResponse() {
-        val mangaListAiringText = binding.mangaAiringText
-        val mangaListAiringRecyclerView = binding.mangaAiringRecyclerView
-
-        mangaListAiringText.visibility = View.GONE
-        mangaViewModel.getMangaListAiringApi()
-        mangaViewModel.mangaListAiring.observe(viewLifecycleOwner, { mangaAiring ->
-            when(mangaAiring) {
-                is ScreenStateHelper.Loading -> {
-
-                }
-                is ScreenStateHelper.Success -> {
-                    if(mangaAiring.data != null) {
-                        val mangaList = mangaAiring.data
-                        mangaListAiringRecyclerView.layoutManager =
-                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        mangaHorizontalAdapter = MangaHorizontalAdapter()
-                        mangaHorizontalAdapter.setData(mangaList)
-                        mangaListAiringRecyclerView.adapter = mangaHorizontalAdapter
-                        mangaListAiringText.text = getString(R.string.manga_airing)
-                        mangaListAiringText.visibility = View.VISIBLE
-                        mangaListAiringRecyclerView.visibility = View.VISIBLE
-
-                        frameHome.visibility = View.VISIBLE
-                    }
-                }
-                is ScreenStateHelper.Error -> {
-                    processMangaListAiringResponse()
-                }
-                else -> {
-
-                }
-            }
-        })
-    }
-
+//
+//    private fun processMangaListAiringResponse() {
+//        val mangaListAiringText = binding.mangaAiringText
+//        val mangaListAiringRecyclerView = binding.mangaAiringRecyclerView
+//
+//        mangaListAiringText.visibility = View.GONE
+//        mangaViewModel.getMangaListAiringApi()
+//        mangaViewModel.mangaListAiring.observe(viewLifecycleOwner, { mangaAiring ->
+//            when(mangaAiring) {
+//                is ScreenStateHelper.Loading -> {
+//
+//                }
+//                is ScreenStateHelper.Success -> {
+//                    if(mangaAiring.data != null) {
+//                        val mangaList = mangaAiring.data
+//                        mangaListAiringRecyclerView.layoutManager =
+//                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+//                        mangaHorizontalAdapter = MangaHorizontalAdapter()
+//                        mangaHorizontalAdapter.setData(mangaList)
+//                        mangaListAiringRecyclerView.adapter = mangaHorizontalAdapter
+//                        mangaListAiringText.text = getString(R.string.manga_airing)
+//                        mangaListAiringText.visibility = View.VISIBLE
+//                        mangaListAiringRecyclerView.visibility = View.VISIBLE
+//
+//                        frameHome.visibility = View.VISIBLE
+//                    }
+//                }
+//                is ScreenStateHelper.Error -> {
+//                    processMangaListAiringResponse()
+//                }
+//                else -> {
+//
+//                }
+//            }
+//        })
+//    }
+//
     private fun processAnimeListSeasonResponse() {
-        val seasonAnimeText = binding.seasonText
-        val seasonAnimeRecyclerView = binding.seasonRecyclerView
-
-        seasonAnimeText.visibility = View.GONE
         animeViewModel.getAnimeListSeasonApi(currentYear, currentSeason)
         animeViewModel.animeListSeason.observe(viewLifecycleOwner, { seasonAnime ->
             when(seasonAnime) {
@@ -179,15 +192,14 @@ class HomeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Success -> {
                     if(seasonAnime.data != null) {
-                        val animeList = seasonAnime.data
-                        seasonAnimeRecyclerView.layoutManager =
-                            LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                        animeHorizontalAdapter = AnimeHorizontalAdapter()
-                        animeHorizontalAdapter.setData(animeList)
-                        seasonAnimeRecyclerView.adapter = animeHorizontalAdapter
-                        seasonAnimeText.text = animeViewModel.currentSeasonFormatted
-                        seasonAnimeText.visibility = View.VISIBLE
-                        seasonAnimeRecyclerView.visibility = View.VISIBLE
+                        animeList.clear()
+                        animeList.addAll(seasonAnime.data)
+                        Log.e("anime", animeList.toString())
+                            activity?.runOnUiThread {
+        recyclerViewVerticalAdapter = AnimeRecyclerViewVerticalAdapter()
+        recyclerViewVerticalAdapter.setData(animeList)
+        recyclerViewAnime.adapter = recyclerViewVerticalAdapter
+    }
                     }
                 }
                 is ScreenStateHelper.Error -> {
