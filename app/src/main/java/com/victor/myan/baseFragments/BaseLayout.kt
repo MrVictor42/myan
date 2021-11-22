@@ -78,11 +78,25 @@ class BaseLayout : AppCompatActivity() {
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.settings -> {
-                    FirebaseAuth.getInstance().signOut()
-                    val intent = Intent(this, FormLoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                R.id.exit -> {
+                    val alertBuilder = AlertDialog.Builder(this)
+
+                    alertBuilder.setTitle("Logout")
+                    alertBuilder.setMessage("Do you want to logout ?")
+                    alertBuilder.setPositiveButton("Yes"){ _,_ ->
+                        FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(this, FormLoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    alertBuilder.setNegativeButton("No"){_,_ ->
+
+                    }
+
+                    alertBuilder.setNeutralButton("Cancel"){_,_ ->
+
+                    }
+                    alertBuilder.show()
                 }
             }
             false
