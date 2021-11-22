@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var frameLoading : FrameLayout
     private lateinit var frameHome : FrameLayout
     private val auxFunctionsHelper = AuxFunctionsHelper()
-    private lateinit var recyclerViewAnime : RecyclerView
+    private lateinit var recyclerView : RecyclerView
     private val currentYear = auxFunctionsHelper.getCurrentYear()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
     private val currentSeason = auxFunctionsHelper.getSeason().lowercase(Locale.getDefault())
@@ -45,8 +45,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerViewAnime = binding.recyclerViewAnime
-
+        recyclerView = binding.recyclerView
         frameLoading = binding.frameLoading
         frameHome = binding.frameContent
         feed()
@@ -68,7 +67,7 @@ class HomeFragment : Fragment() {
                         category.categories.addAll(animeToday.data)
 
                         categoryList.add(category)
-                        processAnimeListAiringResponse()
+                        feedAnimeAiring()
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -81,7 +80,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun processAnimeListAiringResponse() {
+    private fun feedAnimeAiring() {
         animeViewModel.getAnimeListAiringApi()
         animeViewModel.animeListAiring.observe(viewLifecycleOwner, { airingAnime ->
             when(airingAnime) {
@@ -97,7 +96,7 @@ class HomeFragment : Fragment() {
                         category.categories.addAll(airingAnime.data)
 
                         categoryList.add(category)
-                        processMangaListAiringResponse()
+                        feedMangaAiring()
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -110,7 +109,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun processMangaListAiringResponse() {
+    private fun feedMangaAiring() {
         mangaViewModel.getMangaListAiringApi()
         mangaViewModel.mangaListAiring.observe(viewLifecycleOwner, { mangaAiring ->
             when(mangaAiring) {
@@ -126,11 +125,7 @@ class HomeFragment : Fragment() {
                         category.categories.addAll(mangaAiring.data)
 
                         categoryList.add(category)
-                        processAnimeListSeasonResponse()
-                        activity?.runOnUiThread {
-                            recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryList)
-                            recyclerViewAnime.adapter = recyclerViewVerticalAdapter
-                        }
+                        feedAnimeSeason()
                     }
                 }
                 is ScreenStateHelper.Error -> {
@@ -143,7 +138,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun processAnimeListSeasonResponse() {
+    private fun feedAnimeSeason() {
         animeViewModel.getAnimeListSeasonApi(currentYear, currentSeason)
         animeViewModel.animeListSeason.observe(viewLifecycleOwner, { seasonAnime ->
             when(seasonAnime) {
@@ -161,14 +156,14 @@ class HomeFragment : Fragment() {
                         categoryList.add(category)
                         activity?.runOnUiThread {
                             recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryList)
-                            recyclerViewAnime.adapter = recyclerViewVerticalAdapter
+                            recyclerView.adapter = recyclerViewVerticalAdapter
                         }
                         frameLoading.visibility = View.GONE
                         frameHome.visibility = View.VISIBLE
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    processAnimeListSeasonResponse()
+
                 }
                 else -> {
 

@@ -167,32 +167,32 @@ class OverviewAnimeFragment : Fragment() {
                                     episodes
                                 }
 
-                        val duration =
-                            if(duration.isNullOrEmpty() ||
-                                duration == "0" ||
-                                duration == "null") {
-                                "─"
-                        } else {
-                            auxServicesHelper.formatDurationEpisode(animeType, duration)
-                        }
+                            val duration =
+                                if(duration.isNullOrEmpty() ||
+                                    duration == "0" ||
+                                    duration == "null") {
+                                    "─"
+                                } else {
+                                    auxServicesHelper.formatDurationEpisode(animeType, duration)
+                                }
 
-                        val epiDuration = "$episode eps, $duration"
-                        episodeDuration.text = epiDuration
+                            val epiDuration = "$episode eps, $duration"
+                            episodeDuration.text = epiDuration
 
-                        if (genreList.isEmpty()) {
-                            // Nothing to do
-                        } else {
-                            for(aux in genreList.indices) {
-                                val genre = Genre()
+                            if (genreList.isEmpty()) {
+                                // Nothing to do
+                            } else {
+                                for(aux in genreList.indices) {
+                                    val genre = Genre()
 
-                                genre.name = genreList[aux].name
-                                genre.malID = genreList[aux].malID
-                                listGenres.add(genre)
+                                    genre.name = genreList[aux].name
+                                    genre.malID = genreList[aux].malID
+                                    listGenres.add(genre)
+                                }
+                                genreItemAdapter = GenreItemAdapter(listGenres)
+                                animeGenres.layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
+                                animeGenres.adapter = genreItemAdapter
                             }
-                            genreItemAdapter = GenreItemAdapter(listGenres)
-                            animeGenres.layoutManager = GridLayoutManager(context, 3, GridLayoutManager.VERTICAL, false)
-                            animeGenres.adapter = genreItemAdapter
-                        }
 
                             if(related.toString().isEmpty() || related.toString() == "null") {
                                 // Nothing to do
@@ -214,74 +214,74 @@ class OverviewAnimeFragment : Fragment() {
                                 }
                             }
 
-                        if (licensorList.isEmpty()) {
-                            animeLicensors.text = getString(R.string.unknown)
-                        } else {
-                            for (licensor in licensorList.indices) {
-                                listLicensors += licensorList[licensor].name
-                                if (licensor < licensorList.size - 1) {
-                                    listLicensors += "\n"
+                            if (licensorList.isEmpty()) {
+                                animeLicensors.text = getString(R.string.unknown)
+                            } else {
+                                for (licensor in licensorList.indices) {
+                                    listLicensors += licensorList[licensor].name
+                                    if (licensor < licensorList.size - 1) {
+                                        listLicensors += "\n"
+                                    }
                                 }
+                                animeLicensors.text = listLicensors
                             }
-                            animeLicensors.text = listLicensors
-                        }
 
-                        if (studioList.isEmpty()) {
-                            animeStudios.text = getString(R.string.unknown)
-                        } else {
-                            for (studio in studioList.indices) {
-                                listStudios += studioList[studio].name
-                                if (studio < studioList.size - 1) {
-                                    listStudios += "\n"
+                            if (studioList.isEmpty()) {
+                                animeStudios.text = getString(R.string.unknown)
+                            } else {
+                                for (studio in studioList.indices) {
+                                    listStudios += studioList[studio].name
+                                    if (studio < studioList.size - 1) {
+                                        listStudios += "\n"
+                                    }
                                 }
+                                animeStudios.text = listStudios
                             }
-                            animeStudios.text = listStudios
-                        }
 
-                        if (trailerUrl.isNullOrEmpty() || trailerUrl == "null") {
-                            // Nothing to do
-                        } else {
-                            animeVideo.visibility = View.VISIBLE
-                            animeVideo.addYouTubePlayerListener(object :
-                                AbstractYouTubePlayerListener() {
-                                override fun onReady(youTubePlayer: YouTubePlayer) {
-                                    val videoId =
-                                        youtubeHelper.extractVideoIdFromUrl(trailerUrl)
-                                            .toString()
-                                    youTubePlayer.loadVideo(videoId, 0f)
-                                    youTubePlayer.pause()
-                                }
-                            })
-                        }
+                            if (trailerUrl.isNullOrEmpty() || trailerUrl == "null") {
+                                // Nothing to do
+                            } else {
+                                animeVideo.visibility = View.VISIBLE
+                                animeVideo.addYouTubePlayerListener(object :
+                                    AbstractYouTubePlayerListener() {
+                                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                                        val videoId =
+                                            youtubeHelper.extractVideoIdFromUrl(trailerUrl)
+                                                .toString()
+                                        youTubePlayer.loadVideo(videoId, 0f)
+                                        youTubePlayer.pause()
+                                    }
+                                })
+                            }
 
-                        expandableTextViewSynopsis.text = synopsis
+                            expandableTextViewSynopsis.text = synopsis
 
-                        if(openingList.toString().isNullOrEmpty() || openingList.toString() == "null" || openingList.isEmpty()) {
-                            openingThemeText.visibility = View.GONE
-                        } else {
-                            expandableTextViewOpening.text =
-                                openingList.toString().replace(",", "\n")
-                                    .replace("[", "").replace("]", "")
-                        }
+                            if(openingList.toString().isNullOrEmpty() || openingList.toString() == "null" || openingList.isEmpty()) {
+                                openingThemeText.visibility = View.GONE
+                            } else {
+                                expandableTextViewOpening.text =
+                                    openingList.toString().replace(",", "\n")
+                                        .replace("[", "").replace("]", "")
+                            }
 
-                        if(endingList.toString().isNullOrEmpty() || endingList.toString() == "null" || endingList.isEmpty()) {
-                            endingThemeText.visibility = View.GONE
-                        } else {
-                            expandableTextViewEnding.text =
-                                endingList.toString().replace(",", "\n")
-                                    .replace("[", "").replace("]", "")
-                        }
+                            if(endingList.toString().isNullOrEmpty() || endingList.toString() == "null" || endingList.isEmpty()) {
+                                endingThemeText.visibility = View.GONE
+                            } else {
+                                expandableTextViewEnding.text =
+                                    endingList.toString().replace(",", "\n")
+                                        .replace("[", "").replace("]", "")
+                            }
 
-                        btnAddList.setOnClickListener {
-                            val anime = Anime()
+                            btnAddList.setOnClickListener {
+                                val anime = Anime()
 
-                            anime.malID = malID
-                            anime.imageURL = imageURL
-                            anime.title = title
-                            anime.status = status
+                                anime.malID = malID
+                                anime.imageURL = imageURL
+                                anime.title = title
+                                anime.status = status
 
-                            ListDialogFragment(anime, null).show(childFragmentManager, "OverViewAnimeFragment")
-                        }
+                                ListDialogFragment(anime, null).show(childFragmentManager, "OverViewAnimeFragment")
+                            }
 
                             shimmerLayout.stopShimmer()
                             shimmerLayout.visibility = View.GONE

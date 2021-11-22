@@ -7,26 +7,28 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:overScrollMode="never"
-    android:background="@color/black_gray"
+    android:background="@color/black"
     tools:context=".fragments.SearchFragment">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_logo" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/search_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/search_anime_manga_movie"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="32sp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:layout_marginTop="50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
             android:layout_width="0dp"
@@ -38,7 +40,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:theme="@style/SearchBar" />
-
         <RadioGroup
             android:id="@+id/selection_type"
             android:layout_width="wrap_content"
@@ -58,7 +59,6 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginStart="20dp" />
-
             <RadioButton
                 android:id="@+id/manga_radio_button"
                 android:layout_width="wrap_content"
@@ -68,7 +68,6 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginStart="20dp" />
-
             <RadioButton
                 android:id="@+id/movie_radio_button"
                 android:layout_width="wrap_content"
@@ -79,7 +78,6 @@
                 android:textStyle="bold"
                 android:layout_marginStart="20dp" />
         </RadioGroup>
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchButton"
             android:layout_width="match_parent"
@@ -97,7 +95,6 @@
             app:backgroundTint="@color/red"
             android:minHeight="0dp"
             app:cornerRadius="20dp" />
-
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/message_search"
             android:layout_width="wrap_content"
@@ -109,7 +106,6 @@
             android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/red" />
-
         <ProgressBar
             android:id="@+id/progress_bar_search"
             android:layout_width="wrap_content"
@@ -120,7 +116,6 @@
             android:indeterminateTint="@color/orange"
             android:layout_marginTop="40dp"
             android:visibility="gone" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"

@@ -97,7 +97,7 @@
         <entry key="app/src/main/res/layout/cardview_placeholder_genre.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/cardview_placeholder_personal_list.xml" value="0.15" />
         <entry key="app/src/main/res/layout/cardview_placeholder_vertical.xml" value="0.17239583333333333" />
-        <entry key="app/src/main/res/layout/cardview_rectangle.xml" value="0.12545289855072464" />
+        <entry key="app/src/main/res/layout/cardview_rectangle.xml" value="0.25" />
         <entry key="app/src/main/res/layout/carousel_custom.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/carousel_view.xml" value="0.17239583333333333" />
         <entry key="app/src/main/res/layout/expandable_text_view.xml" value="0.11141304347826086" />
