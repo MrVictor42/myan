@@ -8,12 +8,9 @@ import com.victor.myan.baseFragments.BaseAnimeGenreFragment
 import com.victor.myan.baseFragments.BaseMangaGenreFragment
 
 class GenreViewPager(
-    fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int
+    fragment : FragmentManager, lifecycle : Lifecycle, private val malID : Int, private val size : Int
 ) :
     FragmentStateAdapter(fragment, lifecycle) {
-
-    private val malID = mal_id
-    private val size = sizePager
 
     override fun getItemCount(): Int {
         return size

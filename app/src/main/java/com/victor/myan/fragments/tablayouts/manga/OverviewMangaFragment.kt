@@ -16,11 +16,10 @@ import com.victor.myan.adapter.GenreItemAdapter
 import com.victor.myan.databinding.FragmentOverviewMangaBinding
 import com.victor.myan.enums.MangaStatusEnum
 import com.victor.myan.enums.StatusEnum
-import com.victor.myan.fragments.dialogs.ListDialogFragment
+import com.victor.myan.fragments.tablayouts.lists.personalList.ListDialogFragment
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Adaptation
-import com.victor.myan.model.Anime
 import com.victor.myan.model.Genre
 import com.victor.myan.model.Manga
 import com.victor.myan.viewmodel.MangaViewModel

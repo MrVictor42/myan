@@ -14,7 +14,7 @@ import com.google.firebase.database.DatabaseReference
 import com.victor.myan.R
 import com.victor.myan.databinding.PersonalListAddRemoveBinding
 import com.victor.myan.model.Anime
-import com.victor.myan.fragments.dialogs.ListDialogFragment
+import com.victor.myan.fragments.tablayouts.lists.personalList.ListDialogFragment
 import com.victor.myan.model.Manga
 import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel

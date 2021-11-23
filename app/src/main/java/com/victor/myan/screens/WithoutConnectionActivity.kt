@@ -13,7 +13,6 @@ import com.victor.myan.helper.AuxFunctionsHelper
 class WithoutConnectionActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityWithoutConnectionBinding
-    private val auxFunctionsHelper = AuxFunctionsHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +37,8 @@ class WithoutConnectionActivity : AppCompatActivity() {
     }
 
     private fun tryConnection() {
+        val auxFunctionsHelper = AuxFunctionsHelper()
+
         if(auxFunctionsHelper.userHasConnection(this)) {
             if(auxFunctionsHelper.userIsAuthenticated()) {
                 val intent = Intent(this, BaseLayout::class.java)

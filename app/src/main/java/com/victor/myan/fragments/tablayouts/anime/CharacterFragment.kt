@@ -47,7 +47,7 @@ class CharacterFragment : Fragment() {
         characterViewModel.characterList.observe(viewLifecycleOwner, { characters ->
             when (characters) {
                 is ScreenStateHelper.Loading -> {
-                    shimmerLayout.startShimmer()
+
                 }
                 is ScreenStateHelper.Success -> {
                     if (characters.data != null) {
@@ -57,7 +57,6 @@ class CharacterFragment : Fragment() {
                         characterAdapter = CharactersAdapter()
                         characterAdapter.setData(characterList)
                         characterRecyclerView.adapter = characterAdapter
-                        shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
                         characterRecyclerView.visibility = View.VISIBLE
                     }

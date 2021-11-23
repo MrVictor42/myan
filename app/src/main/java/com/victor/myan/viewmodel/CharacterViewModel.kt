@@ -62,56 +62,58 @@ class CharacterViewModel : ViewModel() {
         })
     }
 
-    fun getCharacterAnimeApi(malID : Int) {
-        val characterApi = JikanApiInstance.characterApi.getCharacterAnime(malID)
+    fun getCharacterAnimeMangaApi(malID: Int, type: String) {
+        when(type) {
+            "anime" -> {
+                val characterApi = JikanApiInstance.characterApi.getCharacterAnime(malID)
 
-        characterAnimeList.postValue(ScreenStateHelper.Loading(null))
-        characterApi.enqueue(object : Callback<AnimeListCharacterResponse> {
-            override fun onResponse(call: Call<AnimeListCharacterResponse>, response: Response<AnimeListCharacterResponse>) {
-                when {
-                    response.isSuccessful -> {
-                        if(response.body()?.animeography?.size == 0) {
-                            characterAnimeList.postValue(ScreenStateHelper.Empty("This character not appeared on anime yet :/", null))
-                        } else {
-                            characterAnimeList.postValue(ScreenStateHelper.Success(response.body()?.animeography))
+                characterAnimeList.postValue(ScreenStateHelper.Loading(null))
+                characterApi.enqueue(object : Callback<AnimeListCharacterResponse> {
+                    override fun onResponse(call: Call<AnimeListCharacterResponse>, response: Response<AnimeListCharacterResponse>) {
+                        when {
+                            response.isSuccessful -> {
+                                if(response.body()?.animeography?.size == 0) {
+                                    characterAnimeList.postValue(ScreenStateHelper.Empty("This character not appeared on anime yet :/", null))
+                                } else {
+                                    characterAnimeList.postValue(ScreenStateHelper.Success(response.body()?.animeography))
+                                }
+                            }
+                            else -> {
+                                characterAnimeList.postValue(ScreenStateHelper.Error("Doesn't found character on anime", null))
+                            }
                         }
                     }
-                    else -> {
-                        characterAnimeList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+
+                    override fun onFailure(call: Call<AnimeListCharacterResponse>, t: Throwable) {
+                        characterAnimeList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
                     }
-                }
-            }
+                })
+            } else -> {
+                val characterApi = JikanApiInstance.characterApi.getCharacterManga(malID)
 
-            override fun onFailure(call: Call<AnimeListCharacterResponse>, t: Throwable) {
-                characterAnimeList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
-            }
-        })
-    }
-
-    fun getCharacterMangaApi(malID : Int) {
-        val characterApi = JikanApiInstance.characterApi.getCharacterManga(malID)
-
-        characterMangaList.postValue(ScreenStateHelper.Loading(null))
-        characterApi.enqueue(object : Callback<MangaListCharacterResponse> {
-            override fun onResponse(call: Call<MangaListCharacterResponse>, response: Response<MangaListCharacterResponse>) {
-                when {
-                    response.isSuccessful -> {
-                        if(response.body()?.mangaography?.size == 0) {
-                            characterMangaList.postValue(ScreenStateHelper.Empty("This character not appeared on manga yet :/", null))
-                        } else {
-                            characterMangaList.postValue(ScreenStateHelper.Success(response.body()?.mangaography))
+                characterMangaList.postValue(ScreenStateHelper.Loading(null))
+                characterApi.enqueue(object : Callback<MangaListCharacterResponse> {
+                    override fun onResponse(call: Call<MangaListCharacterResponse>, response: Response<MangaListCharacterResponse>) {
+                        when {
+                            response.isSuccessful -> {
+                                if(response.body()?.mangaography?.size == 0) {
+                                    characterMangaList.postValue(ScreenStateHelper.Empty("This character not appeared on manga yet :/", null))
+                                } else {
+                                    characterMangaList.postValue(ScreenStateHelper.Success(response.body()?.mangaography))
+                                }
+                            }
+                            else -> {
+                                characterMangaList.postValue(ScreenStateHelper.Error("Doesn't found character on manga", null))
+                            }
                         }
                     }
-                    else -> {
-                        characterMangaList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
-                    }
-                }
-            }
 
-            override fun onFailure(call: Call<MangaListCharacterResponse>, t: Throwable) {
-                characterMangaList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                    override fun onFailure(call: Call<MangaListCharacterResponse>, t: Throwable) {
+                        characterMangaList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                    }
+                })
             }
-        })
+        }
     }
 
     fun getCharacterVoiceApi(malID : Int) {

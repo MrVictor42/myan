@@ -28,7 +28,7 @@ class RecommendationViewModel : ViewModel() {
                         if(response.isSuccessful) {
                             animeList.postValue(ScreenStateHelper.Success(response.body()?.recommendations))
                         } else {
-                            animeList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                            animeList.postValue(ScreenStateHelper.Error("Try again later", null))
                         }
                     }
 
@@ -46,7 +46,7 @@ class RecommendationViewModel : ViewModel() {
                         if(response.isSuccessful) {
                             mangaList.postValue(ScreenStateHelper.Success(response.body()?.recommendations))
                         } else {
-                            mangaList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                            mangaList.postValue(ScreenStateHelper.Error("Try again later", null))
                         }
                     }
 

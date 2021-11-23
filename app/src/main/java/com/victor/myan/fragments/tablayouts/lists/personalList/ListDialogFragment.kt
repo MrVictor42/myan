@@ -1,4 +1,4 @@
-package com.victor.myan.fragments.dialogs
+package com.victor.myan.fragments.tablayouts.lists.personalList
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener
 import com.victor.myan.R
 import com.victor.myan.adapter.PersonalListAddAdapter
 import com.victor.myan.databinding.FragmentListDialogBinding
-import com.victor.myan.fragments.tablayouts.lists.personalList.CreateListFragment
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Anime
 import com.victor.myan.model.Manga
