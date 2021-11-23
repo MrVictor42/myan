@@ -6,6 +6,7 @@
         <entry key="../../../../layout/custom_preview.xml" value="0.1875" />
         <entry key="..\:/workspace/myan/app/src/main/res/drawable/bg_button_create.xml" value="0.22552083333333334" />
         <entry key="..\:/workspace/myan/app/src/main/res/drawable/circle_btn.xml" value="0.22552083333333334" />
+        <entry key="..\:/workspace/myan/app/src/main/res/drawable/ic_add.xml" value="0.16574074074074074" />
         <entry key="..\:/workspace/myan/app/src/main/res/drawable/ic_delete.xml" value="0.22552083333333334" />
         <entry key="..\:/workspace/myan/app/src/main/res/drawable/round_corner.xml" value="0.22552083333333334" />
         <entry key="..\:/workspace/myan/app/src/main/res/drawable/shape_image_personal.xml" value="0.2064814814814815" />
@@ -80,6 +81,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/lists_popup.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_add_remove.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_recyclerview.xml" value="0.12590579710144928" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/picture_base.xml" value="0.1408514492753623" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_horizontal.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_vertical.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/round_corner.xml" value="0.45723684210526316" />
