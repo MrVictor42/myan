@@ -1,6 +1,5 @@
 package com.victor.myan.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -140,14 +139,8 @@ class GenreItemAdapter(private val genreList : List<Genre>) : RecyclerView.Adapt
         }
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseGenreFragment()
+            val fragment = BaseGenreFragment(genreList[position].name, genreList[position].malID)
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-            val bundle = Bundle()
-            bundle.putString("name", genreList[position].name)
-            bundle.putInt("mal_id", genreList[position].malID)
-
-            fragment.arguments = bundle
 
             val transaction =
                 fragmentManager?.

@@ -1,7 +1,6 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -62,14 +61,9 @@ class ActorAdapter : RecyclerView.Adapter<ActorAdapter.ActorViewHolder>() {
         name.text = actorList[position].name
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseActorFragment()
+            val fragment = BaseActorFragment(actorList[position].malID)
             val fragmentManager =
                 (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-            val bundle = Bundle()
-            bundle.putInt("mal_id", actorList[position].malID)
-
-            fragment.arguments = bundle
 
             val transaction =
                 fragmentManager?.beginTransaction()

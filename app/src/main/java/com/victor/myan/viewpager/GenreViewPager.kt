@@ -4,8 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.baseFragments.BaseAnimeGenreFragment
-import com.victor.myan.baseFragments.BaseMangaGenreFragment
+import com.victor.myan.baseFragments.BaseAnimeMangaGenreFragment
 
 class GenreViewPager(
     fragment : FragmentManager, lifecycle : Lifecycle, private val malID : Int, private val size : Int
@@ -18,8 +17,8 @@ class GenreViewPager(
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> BaseAnimeGenreFragment.newInstance(malID)
-            1 -> BaseMangaGenreFragment.newInstance(malID)
+            0 -> BaseAnimeMangaGenreFragment(malID, "anime")
+            1 -> BaseAnimeMangaGenreFragment(malID, "manga")
             else -> Fragment()
         }
     }

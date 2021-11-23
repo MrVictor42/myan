@@ -19,7 +19,9 @@ import com.victor.myan.model.Manga
 import com.victor.myan.model.PersonalList
 import com.victor.myan.viewmodel.PersonalListViewModel
 
-class PersonalListAddAdapter(private val dialogFragment : ListDialogFragment) : ListAdapter<PersonalList, PersonalListAddAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
+class PersonalListAddAdapter(
+    private val dialogFragment : ListDialogFragment
+) : ListAdapter<PersonalList, PersonalListAddAdapter.PersonalListAddRemoveHolder>(MyDiffUtil) {
 
     private val mangaList : MutableList<Manga> = arrayListOf()
     private val animeList : MutableList<Anime> = arrayListOf()

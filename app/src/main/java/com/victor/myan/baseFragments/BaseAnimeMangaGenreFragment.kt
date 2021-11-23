@@ -6,37 +6,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.databinding.FragmentBaseMangaGenreBinding
+import com.victor.myan.R
+import com.victor.myan.databinding.FragmentBaseAnimeMangaGenreBinding
 import com.victor.myan.viewpager.GenreTypeViewPager
 
-class BaseMangaGenreFragment : Fragment() {
+class BaseAnimeMangaGenreFragment(
+    private val malID : Int, private val selected : String
+) : Fragment() {
 
-    private lateinit var binding : FragmentBaseMangaGenreBinding
-
-    companion object {
-        fun newInstance(mal_id : Int): BaseMangaGenreFragment {
-            val baseMangaGenreDetailFragment = BaseMangaGenreFragment()
-            val args = Bundle()
-            args.putInt("mal_id", mal_id)
-            baseMangaGenreDetailFragment.arguments = args
-            return baseMangaGenreDetailFragment
-        }
-    }
+    private lateinit var binding : FragmentBaseAnimeMangaGenreBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentBaseMangaGenreBinding.inflate(layoutInflater, container, false)
+        binding = FragmentBaseAnimeMangaGenreBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
         val sizePager = 3
-        val adapter = GenreTypeViewPager(parentFragmentManager, lifecycle, malID, sizePager, "manga")
+        val adapter = GenreTypeViewPager(parentFragmentManager, lifecycle, malID, sizePager, selected)
 
         viewPager.adapter = adapter
         viewPager.isUserInputEnabled = false

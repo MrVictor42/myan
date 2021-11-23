@@ -1,7 +1,6 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -55,13 +54,8 @@ class RecyclerViewHorizontalAdapter(
 
         holder.itemView.setOnClickListener {
             if(type == "manga") {
-                val fragment = BaseMangaFragment()
+                val fragment = BaseMangaFragment(jikanList[position].malID)
                 val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                val bundle = Bundle()
-                bundle.putInt("mal_id", jikanList[position].malID)
-
-                fragment.arguments = bundle
 
                 val transaction =
                     fragmentManager?.
@@ -70,13 +64,8 @@ class RecyclerViewHorizontalAdapter(
                 transaction?.commit()
                 fragmentManager?.beginTransaction()?.commit()
             } else {
-                val fragment = BaseAnimeFragment()
+                val fragment = BaseAnimeFragment(jikanList[position].malID)
                 val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                val bundle = Bundle()
-                bundle.putInt("mal_id", jikanList[position].malID)
-
-                fragment.arguments = bundle
 
                 val transaction =
                     fragmentManager?.

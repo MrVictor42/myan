@@ -16,7 +16,9 @@ import com.victor.myan.databinding.FragmentBasePersonalListBinding
 import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.viewpager.PersonalListViewPager
 
-class BasePersonalListFragment : Fragment() {
+class BasePersonalListFragment(
+    private val id: String, private val description: String, private val image: String, private val name: String
+) : Fragment() {
 
     private lateinit var binding : FragmentBasePersonalListBinding
     private val personalListViewModel by lazy {
@@ -32,10 +34,6 @@ class BasePersonalListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val image = arguments?.getString("image")
-        val name = arguments?.getString("name")
-        val description = arguments?.getString("description")
-        val id = arguments?.getString("ID")!!
         val imageList = binding.imagePersonalList
         val nameList = binding.namePersonalList
         val btnDeleteList = binding.btnDeleteList

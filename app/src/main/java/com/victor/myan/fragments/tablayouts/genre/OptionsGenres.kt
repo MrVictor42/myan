@@ -9,63 +9,52 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
-import com.victor.myan.databinding.FragmentUpcomingBinding
+import com.victor.myan.databinding.FragmentOptionsGenresBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.GenreViewModel
 
-class UpcomingFragment : Fragment() {
+class OptionsGenres(
+    private val malID: Int, private val selected: String, private val mode: String
+) : Fragment() {
 
-    private lateinit var binding : FragmentUpcomingBinding
+    private lateinit var binding : FragmentOptionsGenresBinding
     private lateinit var animeAdapter: AnimeAdapter
     private lateinit var mangaAdapter: MangaAdapter
     private val genreViewModel by lazy {
         ViewModelProvider(this)[GenreViewModel::class.java]
     }
 
-    companion object {
-        fun newInstance(mal_id : Int, type : String): UpcomingFragment {
-            val upcomingFragment = UpcomingFragment()
-            val args = Bundle()
-            args.putInt("mal_id", mal_id)
-            args.putString("type", type)
-            upcomingFragment.arguments = args
-            return upcomingFragment
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentUpcomingBinding.inflate(layoutInflater, container, false)
+        binding = FragmentOptionsGenresBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val selected = arguments?.getString("type")
-        val genreID = arguments?.getInt("mal_id")!!
-        val shimmerLayout = binding.shimmerLayout
-        val upcomingRecyclerView = binding.recyclerView
         val emptyText = binding.emptyListText
+        val airingRecyclerView = binding.recyclerView
+        val shimmerLayout = binding.shimmerLayout
 
         when(selected) {
             "anime" -> {
-                genreViewModel.resultSearchApi("anime", genreID, "upcoming")
+                genreViewModel.resultSearchApi("anime", malID, mode)
                 genreViewModel.resultAnimeList.observe(viewLifecycleOwner, { animeList ->
                     when(animeList) {
                         is ScreenStateHelper.Loading -> {
 
                         }
                         is ScreenStateHelper.Success -> {
-                            if (animeList.data != null) {
+                            if(animeList.data != null) {
                                 val animeGenreList = animeList.data
-                                upcomingRecyclerView.layoutManager =
-                                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                                airingRecyclerView.layoutManager =
+                                    GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                                 animeAdapter = AnimeAdapter()
                                 animeAdapter.setData(animeGenreList)
-                                upcomingRecyclerView.adapter = animeAdapter
+                                airingRecyclerView.adapter = animeAdapter
                                 shimmerLayout.visibility = View.GONE
-                                upcomingRecyclerView.visibility = View.VISIBLE
+                                airingRecyclerView.visibility = View.VISIBLE
                             }
                         }
                         is ScreenStateHelper.Error -> {
@@ -75,19 +64,24 @@ class UpcomingFragment : Fragment() {
                             emptyText.text = animeList.message
                             emptyText.visibility = View.VISIBLE
                             shimmerLayout.visibility = View.GONE
-                            upcomingRecyclerView.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
                         }
                         else -> {
                             emptyText.text = animeList.message
                             emptyText.visibility = View.VISIBLE
                             shimmerLayout.visibility = View.GONE
-                            upcomingRecyclerView.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
                         }
                     }
                 })
             }
             "manga" -> {
-                genreViewModel.resultSearchApi("manga", genreID, "to_be_published")
+                val typeManga = if(mode == "upcoming") {
+                    "to_be_published"
+                } else {
+                    mode
+                }
+                genreViewModel.resultSearchApi("manga", malID, typeManga)
                 genreViewModel.resultMangaList.observe(viewLifecycleOwner, { mangaList ->
                     when(mangaList) {
                         is ScreenStateHelper.Loading -> {
@@ -96,13 +90,13 @@ class UpcomingFragment : Fragment() {
                         is ScreenStateHelper.Success -> {
                             if(mangaList.data != null) {
                                 val mangaGenreList = mangaList.data
-                                upcomingRecyclerView.layoutManager =
-                                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                                airingRecyclerView.layoutManager =
+                                    GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
                                 mangaAdapter = MangaAdapter()
                                 mangaAdapter.setData(mangaGenreList)
-                                upcomingRecyclerView.adapter = mangaAdapter
+                                airingRecyclerView.adapter = mangaAdapter
                                 shimmerLayout.visibility = View.GONE
-                                upcomingRecyclerView.visibility = View.VISIBLE
+                                airingRecyclerView.visibility = View.VISIBLE
                             }
                         }
                         is ScreenStateHelper.Error -> {
@@ -112,13 +106,13 @@ class UpcomingFragment : Fragment() {
                             emptyText.text = mangaList.message
                             emptyText.visibility = View.VISIBLE
                             shimmerLayout.visibility = View.GONE
-                            upcomingRecyclerView.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
                         }
                         else -> {
                             emptyText.text = mangaList.message
                             emptyText.visibility = View.VISIBLE
                             shimmerLayout.visibility = View.GONE
-                            upcomingRecyclerView.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
                         }
                     }
                 })

@@ -1,6 +1,5 @@
 package com.victor.myan.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -12,7 +11,9 @@ import com.victor.myan.baseFragments.BaseMangaFragment
 import com.victor.myan.databinding.CardviewRectangleBinding
 import com.victor.myan.model.Adaptation
 
-class AdaptationItemAdapter(private val adaptationList : List<Adaptation>) : RecyclerView.Adapter<AdaptationItemAdapter.AdaptationItemViewHolder>() {
+class AdaptationItemAdapter(
+    private val adaptationList : List<Adaptation>
+) : RecyclerView.Adapter<AdaptationItemAdapter.AdaptationItemViewHolder>() {
 
     inner class AdaptationItemViewHolder(val binding : CardviewRectangleBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -29,13 +30,8 @@ class AdaptationItemAdapter(private val adaptationList : List<Adaptation>) : Rec
         holder.itemView.setOnClickListener {
             when(adaptationList[position].type) {
                 "manga" -> {
-                    val fragment = BaseMangaFragment()
+                    val fragment = BaseMangaFragment(adaptationList[position].malID)
                     val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                    val bundle = Bundle()
-                    bundle.putInt("mal_id", adaptationList[position].malID)
-
-                    fragment.arguments = bundle
 
                     val transaction =
                         fragmentManager?.
@@ -45,13 +41,8 @@ class AdaptationItemAdapter(private val adaptationList : List<Adaptation>) : Rec
                     fragmentManager?.beginTransaction()?.commit()
                 }
                 else -> {
-                    val fragment = BaseAnimeFragment()
+                    val fragment = BaseAnimeFragment(adaptationList[position].malID)
                     val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                    val bundle = Bundle()
-                    bundle.putInt("mal_id", adaptationList[position].malID)
-
-                    fragment.arguments = bundle
 
                     val transaction =
                         fragmentManager?.

@@ -2,7 +2,6 @@ package com.victor.myan.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -105,13 +104,8 @@ class PersonalListAnimeAdapter(
                     btnRemove.text = "Remove ${ selectedList.size } Item From List"
                 }
             } else {
-                val fragment = BaseAnimeFragment()
+                val fragment = BaseAnimeFragment(animeList[position].malID)
                 val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                val bundle = Bundle()
-                bundle.putInt("mal_id", animeList[position].malID)
-
-                fragment.arguments = bundle
 
                 val transaction =
                     fragmentManager?.

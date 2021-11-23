@@ -1,7 +1,6 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,13 +43,8 @@ class MangaAdapter : RecyclerView.Adapter<MangaAdapter.MangaViewHolder>() {
         }).into(image)
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseMangaFragment()
+            val fragment = BaseMangaFragment(mangaList[position].malID)
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-            val bundle = Bundle()
-            bundle.putInt("mal_id", mangaList[position].malID)
-
-            fragment.arguments = bundle
 
             val transaction =
                 fragmentManager?.
