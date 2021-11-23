@@ -16,7 +16,9 @@ import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.PictureViewModel
 import com.victor.myan.viewpager.MangaViewPager
 
-class BaseMangaFragment : Fragment() {
+class BaseMangaFragment(
+    private val malID: Int
+) : Fragment() {
 
     private lateinit var binding : FragmentBaseMangaBinding
     private val pictureViewModel by lazy {
@@ -33,7 +35,6 @@ class BaseMangaFragment : Fragment() {
 
     @SuppressLint("InflateParams")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getInt("mal_id")!!
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
         val sizePager = 2

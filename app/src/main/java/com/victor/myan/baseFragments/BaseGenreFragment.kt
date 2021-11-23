@@ -13,7 +13,9 @@ import com.victor.myan.databinding.FragmentBaseGenreBinding
 import com.victor.myan.fragments.GenreFragment
 import com.victor.myan.viewpager.GenreViewPager
 
-class BaseGenreFragment : Fragment() {
+class BaseGenreFragment(
+    private val name: String, private val malID: Int
+) : Fragment() {
 
     private lateinit var binding : FragmentBaseGenreBinding
 
@@ -26,8 +28,6 @@ class BaseGenreFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val malID = arguments?.getInt("mal_id")!!
-        val name = arguments?.getString("name")
         val toolbar = binding.toolbar.toolbar
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager

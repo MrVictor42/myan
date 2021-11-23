@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ProgressBar
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
@@ -15,7 +14,6 @@ import com.victor.myan.helper.AuxFunctionsHelper
 class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityForgotPasswordBinding
-    private lateinit var progressBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +24,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
             supportActionBar!!.hide()
         }
         window.statusBarColor =  ContextCompat.getColor(this, R.color.black)
-        progressBar = binding.progressBar
-        progressBar.visibility = View.GONE
 
         val btnResetPassword = binding.btnResetPassword
         val auxFunctionsHelper = AuxFunctionsHelper()

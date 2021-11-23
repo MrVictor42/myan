@@ -4,16 +4,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.genre.AiringFragment
-import com.victor.myan.fragments.tablayouts.genre.CompleteFragment
-import com.victor.myan.fragments.tablayouts.genre.UpcomingFragment
+import com.victor.myan.fragments.tablayouts.genre.OptionsGenres
 
-class GenreTypeViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_id : Int, sizePager : Int, type : String) :
+class GenreTypeViewPager(
+    fragment : FragmentManager, lifecycle : Lifecycle,
+    private val malID : Int, private val size : Int, private val selected : String
+) :
     FragmentStateAdapter(fragment, lifecycle) {
-
-    private val malID = mal_id
-    private val size = sizePager
-    private val selected = type
 
     override fun getItemCount(): Int {
         return size
@@ -21,9 +18,9 @@ class GenreTypeViewPager(fragment : FragmentManager, lifecycle : Lifecycle, mal_
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> AiringFragment.newInstance(malID, selected)
-            1 -> CompleteFragment.newInstance(malID, selected)
-            2 -> UpcomingFragment.newInstance(malID, selected)
+            0 -> OptionsGenres(malID, selected, "airing")
+            1 -> OptionsGenres(malID, selected, "complete")
+            2 -> OptionsGenres(malID, selected, "upcoming")
             else -> Fragment()
         }
     }

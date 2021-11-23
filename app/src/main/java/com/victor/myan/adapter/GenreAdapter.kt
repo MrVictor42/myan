@@ -1,7 +1,6 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -53,14 +52,8 @@ class GenreAdapter : RecyclerView.Adapter<GenreAdapter.GenreViewHolder>() {
         title.text = genreList[position].name
 
         holder.itemView.setOnClickListener {
-            val fragment = BaseGenreFragment()
+            val fragment = BaseGenreFragment(genreList[position].name, genreList[position].malID)
             val fragmentManager = (holder.itemView.context as FragmentActivity?)?.supportFragmentManager
-
-            val bundle = Bundle()
-            bundle.putString("name", genreList[position].name)
-            bundle.putInt("mal_id", genreList[position].malID)
-
-            fragment.arguments = bundle
 
             val transaction =
                 fragmentManager?.

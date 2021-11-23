@@ -1,6 +1,5 @@
 package com.victor.myan.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.victor.myan.api.JikanApiInstance
@@ -29,7 +28,6 @@ class SearchViewModel : ViewModel() {
                         when {
                             response.isSuccessful -> {
                                 resultsManga.postValue(ScreenStateHelper.Success(response.body()?.results))
-                                Log.e("response", response.body()?.results.toString())
                             }
                             response.body()?.results?.size == 0 -> {
                                 resultsManga.postValue(ScreenStateHelper.Empty("Not found results... Try another again", null))

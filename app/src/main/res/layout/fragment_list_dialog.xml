@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/black"
-    tools:context=".fragments.dialogs.ListDialogFragment"
+    tools:context=".fragments.tablayouts.lists.personalList.ListDialogFragment"
     android:orientation="vertical">
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_layout"

@@ -1,7 +1,6 @@
 package com.victor.myan.adapter
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
@@ -59,16 +58,10 @@ class PersonalListAdapter : ListAdapter<PersonalList, PersonalListAdapter.Person
             }).into(image)
 
             itemView.setOnClickListener {
-                val fragment = BasePersonalListFragment()
+                val fragment = BasePersonalListFragment(
+                    personalList.ID, personalList.description,
+                    personalList.image, personalList.name)
                 val fragmentManager = (itemView.context as FragmentActivity?)?.supportFragmentManager
-
-                val bundle = Bundle()
-                bundle.putString("ID", personalList.ID)
-                bundle.putString("description", personalList.description)
-                bundle.putString("image", personalList.image)
-                bundle.putString("name", personalList.name)
-
-                fragment.arguments = bundle
 
                 val transaction =
                     fragmentManager?.

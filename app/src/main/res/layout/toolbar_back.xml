@@ -9,5 +9,4 @@
     app:titleTextColor="@color/white"
     app:navigationIcon="@drawable/ic_arrow_back_white"
     android:background="@color/transparent"
-    android:layout_margin="20dp"
-/>
+    android:layout_margin="20dp" />
