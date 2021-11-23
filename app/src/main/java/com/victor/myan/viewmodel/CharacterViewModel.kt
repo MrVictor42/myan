@@ -51,7 +51,7 @@ class CharacterViewModel : ViewModel() {
                         }
                     }
                     else -> {
-                        characterList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                        characterList.postValue(ScreenStateHelper.Error("Try again later", null))
                     }
                 }
             }
@@ -131,7 +131,7 @@ class CharacterViewModel : ViewModel() {
                         }
                     }
                     else -> {
-                        characterVoiceList.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                        characterVoiceList.postValue(ScreenStateHelper.Error("Try again later", null))
                     }
                 }
             }

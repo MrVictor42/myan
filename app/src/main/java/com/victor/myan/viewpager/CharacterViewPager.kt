@@ -20,7 +20,7 @@ class CharacterViewPager(
             0 -> OverviewCharacterFragment.newInstance(malID)
             1 -> AnimeMangaFragment(malID, "characterAnime")
             2 -> AnimeMangaFragment(malID, "characterManga")
-            3 -> CharacterVoiceFragment.newInstance(malID)
+            3 -> VoiceFragment.newInstance(malID)
             else -> Fragment()
         }
     }

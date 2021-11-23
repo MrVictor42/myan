@@ -11,6 +11,7 @@ import com.victor.myan.adapter.AnimeAdapter
 import com.victor.myan.adapter.MangaAdapter
 import com.victor.myan.databinding.FragmentAnimeMangaBinding
 import com.victor.myan.helper.ScreenStateHelper
+import com.victor.myan.viewmodel.ActorViewModel
 import com.victor.myan.viewmodel.CharacterViewModel
 import com.victor.myan.viewmodel.RecommendationViewModel
 
@@ -26,6 +27,9 @@ class AnimeMangaFragment(
     }
     private val recommendationViewModel by lazy {
         ViewModelProvider(this)[RecommendationViewModel::class.java]
+    }
+    private val actorViewModel by lazy {
+        ViewModelProvider(this)[ActorViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -160,6 +164,31 @@ class AnimeMangaFragment(
                                 emptyText.text = mangaList.message
                                 emptyText.visibility = View.VISIBLE
                                 recyclerView.visibility = View.GONE
+                            }
+                            else -> {
+
+                            }
+                        }
+                    })
+                }
+                "actorAnime" -> {
+                    actorViewModel.getActorAnimeApi(malID)
+                    actorViewModel.actorAnimeList.observe(viewLifecycleOwner, { actorAnime ->
+                        when(actorAnime) {
+                            is ScreenStateHelper.Loading -> {
+
+                            }
+                            is ScreenStateHelper.Success -> {
+                                if(actorAnime.data != null) {
+                                    val actorAnimeList = actorAnime.data
+                                    recyclerView.layoutManager =
+                                        GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+                                    animeAdapter = AnimeAdapter()
+                                    animeAdapter.setData(actorAnimeList)
+                                    recyclerView.adapter = animeAdapter
+                                    shimmerLayout.visibility = View.GONE
+                                    recyclerView.visibility = View.VISIBLE
+                                }
                             }
                             else -> {
 

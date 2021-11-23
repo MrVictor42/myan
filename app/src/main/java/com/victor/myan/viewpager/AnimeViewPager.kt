@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.victor.myan.fragments.AnimeMangaFragment
-import com.victor.myan.fragments.tablayouts.anime.CharacterFragment
+import com.victor.myan.fragments.CharacterFragment
 import com.victor.myan.fragments.tablayouts.anime.OverviewAnimeFragment
 
 class AnimeViewPager(
@@ -19,7 +19,7 @@ class AnimeViewPager(
     override fun createFragment(position: Int): Fragment {
         return when(position) {
             0 -> OverviewAnimeFragment.newInstance(malID)
-            1 -> CharacterFragment.newInstance(malID)
+            1 -> CharacterFragment(malID, "anime")
             2 -> AnimeMangaFragment(malID, "recommendationAnime")
             else -> Fragment()
         }
