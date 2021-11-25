@@ -70,3 +70,7 @@ data class AnimeListTop (
 data class AnimeListRecommendation (
     val recommendations : List<Anime>
 )
+
+data class AnimeEpisodesList (
+    val episodes : List<Episode>
+)

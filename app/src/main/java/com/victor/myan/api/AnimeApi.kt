@@ -26,4 +26,7 @@ interface AnimeApi {
     fun animeListAiring(
         @Query("status") status : String,
         @Query("order_by") order_by : String) : Call<AnimeListResult>
+
+    @GET("anime/{mal_id}/videos")
+    fun getEpisodes(@Path("mal_id") mal_id : Int) : Call<AnimeEpisodesList>
 }

@@ -1,5 +1,6 @@
 package com.victor.myan.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonArray
@@ -7,9 +8,7 @@ import com.google.gson.JsonObject
 import com.victor.myan.api.JikanApiInstance
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Anime
-import com.victor.myan.model.AnimeListResult
-import com.victor.myan.model.AnimeListTop
+import com.victor.myan.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +21,7 @@ class AnimeViewModel : ViewModel() {
     val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListSeason : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListTop : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
+    val animeListEpisode : MutableLiveData<ScreenStateHelper<List<Episode>?>> = MutableLiveData()
 
     private val auxFunctionsHelper = AuxFunctionsHelper()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
@@ -154,6 +154,29 @@ class AnimeViewModel : ViewModel() {
 
             override fun onFailure(call: Call<Anime>, t: Throwable) {
                 anime.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+            }
+        })
+    }
+
+    fun getAnimeEpisode(malID: Int) {
+        val animeApi = JikanApiInstance.animeApi.getEpisodes(malID)
+
+        animeListEpisode.postValue(ScreenStateHelper.Loading(null))
+        animeApi.enqueue(object : Callback<AnimeEpisodesList> {
+            override fun onResponse(call: Call<AnimeEpisodesList>, response: Response<AnimeEpisodesList>) {
+                if(response.isSuccessful) {
+                    if(response.body()!!.episodes.size.toString() == "0") {
+                        animeListEpisode.postValue(ScreenStateHelper.Empty("Not found episode for this anime", null))
+                    } else {
+                        animeListEpisode.postValue(ScreenStateHelper.Success(response.body()!!.episodes))
+                    }
+                } else {
+                    animeListEpisode.postValue(ScreenStateHelper.Error("Try again later", null))
+                }
+            }
+
+            override fun onFailure(call: Call<AnimeEpisodesList>, t: Throwable) {
+                animeListEpisode.postValue(ScreenStateHelper.Error("Try again later", null))
             }
         })
     }

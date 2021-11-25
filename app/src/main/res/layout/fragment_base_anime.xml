@@ -18,8 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <include
-                layout="@layout/shimmer_layout_tab_layout" />
+            <include layout="@layout/shimmer_layout_tab_layout" />
         </com.facebook.shimmer.ShimmerFrameLayout>
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carousel_view"
@@ -42,6 +41,7 @@
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/orange"
             app:tabTextColor="@color/white"
+            app:tabMode="scrollable"
             android:layout_gravity="center_horizontal"
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"

@@ -15,7 +15,9 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_form_login.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_form_register_user.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_teste_json.xml" value="0.11322463768115942" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/activity_without_connection.xml" value="0.1" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_category.xml" value="0.10182370820668693" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_episodes.xml" value="0.33" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_personal_list.xml" value="0.2" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/cardview_placeholder_vertical.xml" value="0.10182370820668693" />
@@ -35,9 +37,11 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_manga.xml" value="0.14628623188405798" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_anime_person.xml" value="0.1322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_actor_detail.xml" value="0.19925857275254866" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_detail.xml" value="0.15" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_genre.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_anime_manga_genre.xml" value="0.1408514492753623" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_character.xml" value="0.11639492753623189" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_character_detail.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_genre.xml" value="0.1" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_base_genre_detail.xml" value="0.10182370820668693" />
@@ -56,6 +60,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_staff.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_character_voice.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_create_list.xml" value="0.209375" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_episodes_anime.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_genre.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_home.xml" value="0.17798913043478262" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_list_dialog.xml" value="0.25" />
@@ -85,6 +90,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_horizontal.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/recyclerview_vertical.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/round_corner.xml" value="0.45723684210526316" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_episodes.xml" value="0.22" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_item.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout.xml" value="0.11322463768115942" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/shimmer_layout_carousel.xml" value="0.1" />
