@@ -72,5 +72,9 @@ data class AnimeListRecommendation (
 )
 
 data class AnimeEpisodesList (
-    val episodes : List<Episode>
+    val episodes : List<Video>
+)
+
+data class AnimePromoList (
+    val promo : List<Video>
 )

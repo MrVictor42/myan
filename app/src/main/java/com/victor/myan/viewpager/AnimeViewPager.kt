@@ -8,6 +8,7 @@ import com.victor.myan.fragments.AnimeMangaFragment
 import com.victor.myan.fragments.CharacterFragment
 import com.victor.myan.fragments.tablayouts.anime.EpisodesAnimeFragment
 import com.victor.myan.fragments.tablayouts.anime.OverviewAnimeFragment
+import com.victor.myan.fragments.tablayouts.anime.PromoAnimeFragment
 
 class AnimeViewPager(
     fragment : FragmentManager, lifecycle : Lifecycle, private val malID : Int, private val size : Int
@@ -22,7 +23,8 @@ class AnimeViewPager(
             0 -> OverviewAnimeFragment.newInstance(malID)
             1 -> CharacterFragment(malID, "anime")
             2 -> EpisodesAnimeFragment(malID)
-            3 -> AnimeMangaFragment(malID, "recommendationAnime")
+            3 -> PromoAnimeFragment(malID)
+            4 -> AnimeMangaFragment(malID, "recommendationAnime")
             else -> Fragment()
         }
     }

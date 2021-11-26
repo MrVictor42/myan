@@ -37,7 +37,7 @@ class BaseAnimeFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
-        val sizePager = 4
+        val sizePager = 5
         val carouselView = binding.carouselView
         val shimmerLayout = binding.shimmerLayout
         val adapter = AnimeViewPager(parentFragmentManager, lifecycle, malID, sizePager)
@@ -49,7 +49,8 @@ class BaseAnimeFragment(
                 0 -> tab.text = "Overview"
                 1 -> tab.text = "Character"
                 2 -> tab.text = "Episodes"
-                3 -> tab.text = "Recommendation"
+                3 -> tab.text = "Promo"
+                4 -> tab.text = "Recommendation"
             }
         }.attach()
 

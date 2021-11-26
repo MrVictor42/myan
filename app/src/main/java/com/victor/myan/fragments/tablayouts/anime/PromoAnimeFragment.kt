@@ -7,15 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.victor.myan.adapter.VideosAdapter
-import com.victor.myan.databinding.FragmentEpisodesAnimeBinding
+import com.victor.myan.databinding.FragmentPromoAnimeBinding
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.viewmodel.AnimeViewModel
 
-class EpisodesAnimeFragment (
+class PromoAnimeFragment (
     private val malID: Int
 ) : Fragment() {
 
-    private lateinit var binding : FragmentEpisodesAnimeBinding
+    private lateinit var binding : FragmentPromoAnimeBinding
     private lateinit var videosAdapter: VideosAdapter
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
@@ -25,7 +25,7 @@ class EpisodesAnimeFragment (
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEpisodesAnimeBinding.inflate(layoutInflater, container, false)
+        binding = FragmentPromoAnimeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -34,16 +34,16 @@ class EpisodesAnimeFragment (
         val emptyList = binding.emptyList
         val recyclerView = binding.recyclerView
 
-        animeViewModel.getAnimeEpisode(malID)
-        animeViewModel.animeListEpisode.observe(viewLifecycleOwner, { episodes ->
-            when(episodes) {
+        animeViewModel.getAnimePromo(malID)
+        animeViewModel.animeListPromo.observe(viewLifecycleOwner, { promo ->
+            when(promo) {
                 is ScreenStateHelper.Loading -> {
                     shimmerLayout.startShimmer()
                 }
                 is ScreenStateHelper.Success -> {
-                    if(episodes.data != null) {
-                        val episodeList = episodes.data
-                        videosAdapter = VideosAdapter(episodeList)
+                    if(promo.data != null) {
+                        val promoList = promo.data
+                        videosAdapter = VideosAdapter(promoList)
                         recyclerView.adapter = videosAdapter
                         shimmerLayout.stopShimmer()
                         shimmerLayout.visibility = View.GONE
@@ -51,14 +51,14 @@ class EpisodesAnimeFragment (
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    emptyList.text = episodes.message
+                    emptyList.text = promo.message
                     emptyList.visibility = View.VISIBLE
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
                     recyclerView.visibility = View.GONE
                 }
                 is ScreenStateHelper.Empty -> {
-                    emptyList.text = episodes.message
+                    emptyList.text = promo.message
                     emptyList.visibility = View.VISIBLE
                     shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
