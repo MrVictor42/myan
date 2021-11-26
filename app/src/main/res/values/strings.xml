@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MyAn</string>
     <string name="creator_app">Victor Mota</string>
     <string name="refresh_button">Refresh Button</string>
@@ -29,6 +29,7 @@
     <string name="top_manga">Top Manga</string>
     <string name="episodes">Episodes: </string>
     <string name="episodes_">Episodes</string>
+    <string name="episode">Episode : </string>
     <string name="year">Year: </string>
     <string name="status">Status</string>
     <string name="opening_themes">Opening Themes</string>
@@ -136,4 +137,7 @@
     <string name="name_item">Name Item</string>
     <string name="exit">Exit</string>
     <string name="not_found">Not found episode for this anime</string>
+    <string name="life_universe_and_everything">42</string>
+    <string name="aired">Aired : </string>
+    <string name="aired_in" tools:ignore="TypographyDashes">1995–07-09</string>
 </resources>

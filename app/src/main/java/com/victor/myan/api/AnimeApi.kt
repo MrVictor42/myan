@@ -27,6 +27,9 @@ interface AnimeApi {
         @Query("status") status : String,
         @Query("order_by") order_by : String) : Call<AnimeListResult>
 
-    @GET("anime/{mal_id}/videos")
+    @GET("anime/{mal_id}/episodes")
     fun getEpisodes(@Path("mal_id") mal_id : Int) : Call<AnimeEpisodesList>
+
+    @GET("anime/{mal_id}/videos")
+    fun getPromo(@Path("mal_id") mal_id : Int) : Call<AnimePromoList>
 }

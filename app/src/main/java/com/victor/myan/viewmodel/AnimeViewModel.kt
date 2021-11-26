@@ -1,6 +1,5 @@
 package com.victor.myan.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonArray
@@ -21,7 +20,8 @@ class AnimeViewModel : ViewModel() {
     val animeListToday : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListSeason : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
     val animeListTop : MutableLiveData<ScreenStateHelper<List<Anime>?>> = MutableLiveData()
-    val animeListEpisode : MutableLiveData<ScreenStateHelper<List<Episode>?>> = MutableLiveData()
+    val animeListEpisode : MutableLiveData<ScreenStateHelper<List<Video>?>> = MutableLiveData()
+    val animeListPromo : MutableLiveData<ScreenStateHelper<List<Video>?>> = MutableLiveData()
 
     private val auxFunctionsHelper = AuxFunctionsHelper()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
@@ -177,6 +177,29 @@ class AnimeViewModel : ViewModel() {
 
             override fun onFailure(call: Call<AnimeEpisodesList>, t: Throwable) {
                 animeListEpisode.postValue(ScreenStateHelper.Error("Try again later", null))
+            }
+        })
+    }
+
+    fun getAnimePromo(malID: Int) {
+        val animeApi = JikanApiInstance.animeApi.getPromo(malID)
+
+        animeListPromo.postValue(ScreenStateHelper.Loading(null))
+        animeApi.enqueue(object : Callback<AnimePromoList> {
+            override fun onResponse(call: Call<AnimePromoList>, response: Response<AnimePromoList>) {
+                if(response.isSuccessful) {
+                    if(response.body()!!.promo.size.toString() == "0") {
+                        animeListPromo.postValue(ScreenStateHelper.Empty("Not found promo for this anime", null))
+                    } else {
+                        animeListPromo.postValue(ScreenStateHelper.Success(response.body()!!.promo))
+                    }
+                } else {
+                    animeListPromo.postValue(ScreenStateHelper.Error("Try again later", null))
+                }
+            }
+
+            override fun onFailure(call: Call<AnimePromoList>, t: Throwable) {
+                animeListPromo.postValue(ScreenStateHelper.Error("Try again later", null))
             }
         })
     }
