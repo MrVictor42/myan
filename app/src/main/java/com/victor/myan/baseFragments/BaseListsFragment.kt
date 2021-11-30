@@ -36,7 +36,6 @@ class BaseListsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager2
-        val toolbar = binding.toolbar.toolbar
         val sizePager = 4
         val adapter = ListFragmentViewPager(parentFragmentManager, lifecycle, sizePager)
 
@@ -50,16 +49,5 @@ class BaseListsFragment : Fragment() {
                 3 -> tab.text = "Season"
             }
         }.attach()
-
-        toolbar.setOnClickListener {
-            val homeFragment = HomeFragment()
-            (view.context as FragmentActivity)
-                .supportFragmentManager
-                .beginTransaction()
-                .remove(this)
-                .replace(R.id.fragment_layout, homeFragment)
-                .addToBackStack(null)
-                .commit()
-        }
     }
 }

@@ -106,6 +106,8 @@ class PersonalListFragment : Fragment() {
                     Log.i(TAG, personalList.message.toString())
                     createListEmpty.visibility = View.VISIBLE
                     createListNotEmpty.visibility = View.GONE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
                 }
                 else -> {
 

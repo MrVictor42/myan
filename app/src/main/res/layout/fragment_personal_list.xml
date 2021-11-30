@@ -59,28 +59,24 @@
                 <include layout="@layout/shimmer_layout_personal_list" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.facebook.shimmer.ShimmerFrameLayout>
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/personal_list_recyclerview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/create_list_not_empty"
-            app:layout_constraintBottom_toBottomOf="parent">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/personal_list_recyclerview"
-                android:visibility="gone" />
-        </ScrollView>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/create_list_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
             <androidx.appcompat.widget.AppCompatTextView

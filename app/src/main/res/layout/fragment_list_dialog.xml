@@ -43,6 +43,7 @@
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:clickable="false"
             android:backgroundTint="@color/black"
             android:drawableEnd="@drawable/ic_filter_list"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
