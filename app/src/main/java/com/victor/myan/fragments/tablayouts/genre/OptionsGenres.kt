@@ -33,9 +33,12 @@ class OptionsGenres(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val emptyText = binding.emptyListText
         val airingRecyclerView = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
+        val message = binding.message
+        val imgRefresh = binding.imgRefresh
+        val retryAgainText = binding.textTryAgain
+        val btnRefresh = binding.btnRefresh
 
         when(selected) {
             "anime" -> {
@@ -58,19 +61,31 @@ class OptionsGenres(
                             }
                         }
                         is ScreenStateHelper.Error -> {
+                            imgRefresh.visibility = View.VISIBLE
+                            retryAgainText.visibility = View.VISIBLE
+                            btnRefresh.visibility = View.VISIBLE
+                            message.text = animeList.message
+                            message.visibility = View.VISIBLE
+                            shimmerLayout.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
 
+                            btnRefresh.setOnClickListener {
+                                onViewCreated(view, savedInstanceState)
+
+                                imgRefresh.visibility = View.GONE
+                                retryAgainText.visibility = View.GONE
+                                btnRefresh.visibility = View.GONE
+                                message.visibility = View.GONE
+                            }
                         }
                         is ScreenStateHelper.Empty -> {
-                            emptyText.text = animeList.message
-                            emptyText.visibility = View.VISIBLE
+                            message.text = animeList.message
+                            message.visibility = View.VISIBLE
                             shimmerLayout.visibility = View.GONE
                             airingRecyclerView.visibility = View.GONE
                         }
                         else -> {
-                            emptyText.text = animeList.message
-                            emptyText.visibility = View.VISIBLE
-                            shimmerLayout.visibility = View.GONE
-                            airingRecyclerView.visibility = View.GONE
+
                         }
                     }
                 })
@@ -100,19 +115,31 @@ class OptionsGenres(
                             }
                         }
                         is ScreenStateHelper.Error -> {
+                            imgRefresh.visibility = View.VISIBLE
+                            retryAgainText.visibility = View.VISIBLE
+                            btnRefresh.visibility = View.VISIBLE
+                            message.text = mangaList.message
+                            message.visibility = View.VISIBLE
+                            shimmerLayout.visibility = View.GONE
+                            airingRecyclerView.visibility = View.GONE
 
+                            btnRefresh.setOnClickListener {
+                                onViewCreated(view, savedInstanceState)
+
+                                imgRefresh.visibility = View.GONE
+                                retryAgainText.visibility = View.GONE
+                                btnRefresh.visibility = View.GONE
+                                message.visibility = View.GONE
+                            }
                         }
                         is ScreenStateHelper.Empty -> {
-                            emptyText.text = mangaList.message
-                            emptyText.visibility = View.VISIBLE
+                            message.text = mangaList.message
+                            message.visibility = View.VISIBLE
                             shimmerLayout.visibility = View.GONE
                             airingRecyclerView.visibility = View.GONE
                         }
                         else -> {
-                            emptyText.text = mangaList.message
-                            emptyText.visibility = View.VISIBLE
-                            shimmerLayout.visibility = View.GONE
-                            airingRecyclerView.visibility = View.GONE
+
                         }
                     }
                 })

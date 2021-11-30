@@ -50,7 +50,6 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
         val linearEmptyList = binding.emptyList
         val userName = binding.userName
         val personalListRecyclerview = binding.personalListRecyclerview
-        val shimmerLayout = binding.shimmerLayout
 
         personalListRecyclerview.visibility = View.GONE
         linearEmptyList.visibility = View.GONE
@@ -86,7 +85,7 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                         when (personalList) {
                             is ScreenStateHelper.Loading -> {
                                 Log.i(TAG, "Loading personal list")
-                                shimmerLayout.startShimmer()
+//                                shimmerLayout.startShimmer()
                             }
                             is ScreenStateHelper.Success -> {
                                 if (personalList.data != null) {
@@ -102,8 +101,6 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                                     }
 
                                     personalListRecyclerview.adapter = personalListAddAdapter
-                                    shimmerLayout.stopShimmer()
-                                    shimmerLayout.visibility = View.GONE
                                     personalListRecyclerview.visibility = View.VISIBLE
                                 }
                             }
@@ -116,8 +113,9 @@ class ListDialogFragment(val anime: Anime?, val manga: Manga?) : DialogFragment(
                         }
                     })
                 } else {
-                    linearEmptyList.visibility = View.VISIBLE
                     val btnAddList = binding.btnAddList
+
+                    linearEmptyList.visibility = View.VISIBLE
                     btnAddList.setOnClickListener {
                         val createListFragment = CreateListFragment()
                         (context as FragmentActivity)

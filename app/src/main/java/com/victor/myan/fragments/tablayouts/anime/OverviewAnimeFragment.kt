@@ -273,14 +273,7 @@ class OverviewAnimeFragment : Fragment() {
                             }
 
                             btnAddList.setOnClickListener {
-                                val anime = Anime()
-
-                                anime.malID = malID
-                                anime.imageURL = imageURL
-                                anime.title = title
-                                anime.status = status
-
-                                ListDialogFragment(anime, null).show(childFragmentManager, "OverViewAnimeFragment")
+                                ListDialogFragment(anime.data, null).show(childFragmentManager, "OverViewAnimeFragment")
                             }
 
                             shimmerLayout.stopShimmer()

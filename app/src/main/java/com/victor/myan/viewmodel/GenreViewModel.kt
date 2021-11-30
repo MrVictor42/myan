@@ -39,7 +39,7 @@ class GenreViewModel : ViewModel() {
                     }
 
                     override fun onFailure(call: Call<AnimeListResult>, t: Throwable) {
-                        resultAnimeList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                        resultAnimeList.postValue(ScreenStateHelper.Error("Something wrong has happened, try again", null))
                     }
                 })
             }
@@ -57,7 +57,7 @@ class GenreViewModel : ViewModel() {
                     }
 
                     override fun onFailure(call: Call<MangaListResult>, t: Throwable) {
-                        resultMangaList.postValue(ScreenStateHelper.Error(t.message.toString(), null))
+                        resultMangaList.postValue(ScreenStateHelper.Error("Something wrong has happened, try again", null))
                     }
                 })
             }
