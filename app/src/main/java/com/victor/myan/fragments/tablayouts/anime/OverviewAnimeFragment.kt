@@ -19,7 +19,6 @@ import com.victor.myan.enums.StatusEnum
 import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.helper.YoutubeHelper
-import com.victor.myan.model.Anime
 import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.fragments.tablayouts.lists.personalList.ListDialogFragment
 import com.victor.myan.model.Adaptation
