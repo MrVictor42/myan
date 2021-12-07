@@ -197,7 +197,7 @@ class PersonalListAddAdapter(
         }.addOnFailureListener {
             showDialog(
                 context,
-                R.layout.custom_negative_dialog,
+                R.layout.custom_warming_dialog,
                 "Something was wrong... try later!"
             )
             Log.e(TAG, "Manga doesn't inserted with success!!")
@@ -218,7 +218,7 @@ class PersonalListAddAdapter(
         }.addOnFailureListener {
             showDialog(
                 context,
-                R.layout.custom_negative_dialog,
+                R.layout.custom_warming_dialog,
                 "Something was wrong... try later!"
             )
             Log.e(TAG, "Anime doesn't inserted with success!!")

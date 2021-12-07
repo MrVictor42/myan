@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.FragmentActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -71,8 +71,8 @@ class CreateListFragment : Fragment() {
             selectedURI?.let {
                 reference.putFile(it).addOnSuccessListener {
                     reference.downloadUrl.addOnSuccessListener { image ->
-                        val nameList = binding.nameList.text.trim().toString()
-                        val descriptionList = binding.descriptionList.text.trim().toString()
+                        val nameList = binding.nameList.text!!.trim().toString()
+                        val descriptionList = binding.descriptionList.text!!.trim().toString()
                         val personalList = PersonalList()
                         val currentUser = FirebaseAuth.getInstance().currentUser!!.uid
                         val userRef = FirebaseDatabase.getInstance().getReference("users").orderByChild("userID").equalTo(currentUser)
@@ -86,10 +86,11 @@ class CreateListFragment : Fragment() {
                         personalList.image = image.toString()
 
                         listRef.child(personalList.ID).setValue(personalList).addOnSuccessListener {
-                            Toast.makeText(
-                                context, "The list ${personalList.name} was created with successful",
-                                Toast.LENGTH_SHORT)
-                            .show()
+                            Snackbar.make(
+                                binding.fragmentCreateList,
+                                "The list ${ personalList.name } was created with successful",
+                                Snackbar.LENGTH_LONG
+                            ).show()
                             progressBar.visibility = View.GONE
 
                             val baseListFragment = BaseListsFragment()
@@ -101,7 +102,11 @@ class CreateListFragment : Fragment() {
                                 .addToBackStack(null)
                                 .commit()
                         }.addOnFailureListener {
-                            Toast.makeText(context, "Something is wrong... try again later", Toast.LENGTH_SHORT).show()
+                            Snackbar.make(
+                                binding.fragmentCreateList,
+                                "Something is wrong... try again later",
+                                Snackbar.LENGTH_LONG
+                            ).show()
                             progressBar.visibility = View.GONE
                         }
                     }

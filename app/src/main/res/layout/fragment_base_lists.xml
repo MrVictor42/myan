@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/orange"
             app:tabTextColor="@color/white"
+            app:tabMode="scrollable"
             android:background="@color/transparent" />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager2"

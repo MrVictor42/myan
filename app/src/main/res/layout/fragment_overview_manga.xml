@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -44,7 +45,6 @@
                     android:background="@color/black_gray"
                     android:contentDescription="@string/manga" />
             </androidx.cardview.widget.CardView>
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_rank_textView"
                 android:layout_width="wrap_content"
@@ -56,7 +56,6 @@
                 android:textColor="@color/white"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_rank"
                 android:layout_width="wrap_content"
@@ -66,7 +65,6 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/white" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_score_textview"
                 android:layout_width="wrap_content"
@@ -76,7 +74,6 @@
                 android:text="@string/score"
                 android:textSize="14sp"
                 android:textColor="@color/white" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_score"
                 android:layout_width="wrap_content"
@@ -86,7 +83,6 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/white" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_author_textview"
                 android:layout_width="wrap_content"
@@ -96,7 +92,6 @@
                 android:text="@string/author"
                 android:textSize="14sp"
                 android:textColor="@color/white" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_author"
                 android:layout_width="wrap_content"
@@ -106,7 +101,6 @@
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="@color/white" />
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_add_list"
                 android:layout_width="0dp"
@@ -118,15 +112,13 @@
                 android:textAllCaps="false"
                 android:drawableEnd="@drawable/ic_add"
                 app:layout_constraintStart_toEndOf="@id/cardView"
-                app:layout_constraintTop_toBottomOf="@id/manga_author"
+                app:layout_constraintBottom_toBottomOf="@id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="28dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="20dp" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="24sp"
@@ -139,7 +131,6 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:text="@string/title" />
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_title_synonyms"
                 android:layout_width="match_parent"
@@ -154,7 +145,6 @@
                 android:layout_marginEnd="20dp"
                 android:gravity="center"
                 android:text="@string/title_synonyms" />
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/manga_information"
                 android:layout_width="match_parent"
@@ -175,7 +165,6 @@
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:layout_marginEnd="20dp" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/manga_status"
                     android:layout_width="wrap_content"
@@ -185,7 +174,6 @@
                     android:textStyle="bold"
                     android:textColor="@color/white"
                     android:layout_marginEnd="20dp" />
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/volumes_chapters"
                     android:layout_width="wrap_content"
@@ -195,7 +183,6 @@
                     android:textStyle="bold"
                     android:textSize="14sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_genres"
                 android:layout_width="match_parent"
@@ -209,7 +196,6 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:orientation="vertical"/>
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linear_expandable_text_synopsis"
                 android:layout_width="match_parent"
@@ -222,7 +208,6 @@
                     android:id="@+id/expandable_text_view_synopsis"
                     layout="@layout/expandable_text_view" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/manga_adaptation_text"
                 android:layout_width="wrap_content"
@@ -233,7 +218,6 @@
                 android:textStyle="bold"
                 android:text="@string/adaptations"
                 android:textColor="@color/white" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_adaptations"
                 android:layout_width="match_parent"

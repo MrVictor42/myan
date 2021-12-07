@@ -49,7 +49,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
-            <RadioButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/anime_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +60,7 @@
                 android:textStyle="bold"
                 android:buttonTint="@color/orange"
                 android:layout_marginStart="20dp" />
-            <RadioButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/manga_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
                 android:textStyle="bold"
                 android:buttonTint="@color/orange"
                 android:layout_marginStart="20dp" />
-            <RadioButton
+            <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/movie_radio_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

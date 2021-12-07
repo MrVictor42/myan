@@ -15,13 +15,12 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         app:cardElevation="10dp">
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="150dp"
             android:layout_height="200dp"
             android:scaleType="fitXY"
             android:background="@color/placeholder"
-            android:contentDescription="@string/anime"
-            />
+            android:contentDescription="@string/actor" />
     </androidx.cardview.widget.CardView>
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/name"
@@ -34,9 +33,7 @@
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        />
-
+        android:layout_marginTop="20dp" />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/name_kanji"
         android:layout_width="wrap_content"
@@ -48,9 +45,7 @@
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        />
-
+        android:layout_marginTop="10dp" />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/given_name_shimmer"
         android:layout_width="wrap_content"
@@ -62,9 +57,7 @@
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        />
-
+        android:layout_marginTop="10dp" />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/birthday"
         android:layout_width="wrap_content"
@@ -76,9 +69,7 @@
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-    />
-
+        android:layout_marginTop="10dp" />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/age"
         android:layout_width="wrap_content"
@@ -90,9 +81,7 @@
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-    />
-
+        android:layout_marginTop="10dp" />
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nickname"
         android:layout_width="wrap_content"
@@ -104,9 +93,7 @@
         android:background="@color/placeholder"
         android:textColor="@color/placeholder"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        />
-
+        android:layout_marginTop="10dp" />
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

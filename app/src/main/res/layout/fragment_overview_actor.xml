@@ -14,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <include layout="@layout/shimmer_layout_character_actor" />
     </com.facebook.shimmer.ShimmerFrameLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,8 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        >
+        android:visibility="gone">
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,14 +35,13 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
             app:cardElevation="10dp">
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/person_image"
                 android:layout_width="150dp"
                 android:layout_height="200dp"
                 android:scaleType="fitXY"
                 android:background="@color/black_gray"
-                android:contentDescription="@string/anime"
-                />
+                android:contentDescription="@string/actor" />
         </androidx.cardview.widget.CardView>
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/person_name"
@@ -55,9 +54,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            />
-
+            android:layout_marginTop="20dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/given_name"
             android:layout_width="wrap_content"
@@ -68,9 +65,7 @@
             app:layout_constraintTop_toBottomOf="@id/person_name"
             app:layout_constraintStart_toEndOf="@id/cardView"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/given_name_text"
             android:layout_width="wrap_content"
@@ -80,9 +75,7 @@
             app:layout_constraintTop_toBottomOf="@id/person_name"
             app:layout_constraintStart_toEndOf="@id/given_name"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/family_name"
             android:layout_width="wrap_content"
@@ -93,9 +86,7 @@
             app:layout_constraintTop_toBottomOf="@id/given_name"
             app:layout_constraintStart_toEndOf="@id/cardView"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/family_name_text"
             android:layout_width="wrap_content"
@@ -105,9 +96,7 @@
             app:layout_constraintTop_toBottomOf="@id/given_name"
             app:layout_constraintStart_toEndOf="@id/family_name"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/person_birthday"
             android:layout_width="wrap_content"
@@ -118,9 +107,7 @@
             app:layout_constraintTop_toBottomOf="@id/family_name"
             app:layout_constraintStart_toEndOf="@id/cardView"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/person_birthday_text"
             android:layout_width="wrap_content"
@@ -130,9 +117,7 @@
             app:layout_constraintTop_toBottomOf="@id/family_name"
             app:layout_constraintStart_toEndOf="@id/person_birthday"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/person_age"
             android:layout_width="wrap_content"
@@ -143,9 +128,7 @@
             app:layout_constraintTop_toBottomOf="@id/person_birthday"
             app:layout_constraintStart_toEndOf="@id/cardView"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/person_age_text"
             android:layout_width="wrap_content"
@@ -155,9 +138,7 @@
             app:layout_constraintTop_toBottomOf="@id/person_birthday"
             app:layout_constraintStart_toEndOf="@id/person_age"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            />
-
+            android:layout_marginTop="10dp" />
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/alternatives_names"
             android:layout_width="wrap_content"
@@ -168,9 +149,8 @@
             android:textSize="14sp"
             android:textColor="@color/white"
             android:layout_marginEnd="20dp"
-            android:layout_marginTop="10dp"
-            />
-        <LinearLayout
+            android:layout_marginTop="10dp" />
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linear_expandable_text_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -180,15 +160,13 @@
             app:layout_constraintTop_toBottomOf="@id/alternatives_names"
             app:layout_constraintStart_toStartOf="@id/alternatives_names"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            >
+            app:layout_constraintBottom_toBottomOf="parent">
             <include
                 android:id="@+id/expandable_text_view_about"
                 layout="@layout/expandable_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                />
-        </LinearLayout>
+                android:layout_marginBottom="10dp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

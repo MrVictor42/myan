@@ -140,4 +140,5 @@
     <string name="life_universe_and_everything">42</string>
     <string name="aired">Aired : </string>
     <string name="aired_in" tools:ignore="TypographyDashes">1995–07-09</string>
+    <string name="actor">Actor</string>
 </resources>

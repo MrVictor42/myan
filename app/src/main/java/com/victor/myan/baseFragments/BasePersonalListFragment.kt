@@ -17,7 +17,8 @@ import com.victor.myan.viewmodel.PersonalListViewModel
 import com.victor.myan.viewpager.PersonalListViewPager
 
 class BasePersonalListFragment(
-    private val id: String, private val description: String, private val image: String, private val name: String
+    private val id: String, private val description: String,
+    private val image: String, private val name: String
 ) : Fragment() {
 
     private lateinit var binding : FragmentBasePersonalListBinding

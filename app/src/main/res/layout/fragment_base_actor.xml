@@ -18,9 +18,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-            <include
-                layout="@layout/shimmer_layout_tab_layout"
-                />
+            <include layout="@layout/shimmer_layout_tab_layout" />
         </com.facebook.shimmer.ShimmerFrameLayout>
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carousel_view"
@@ -47,8 +45,7 @@
             android:background="@color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/shimmer_layout"
-            />
+            app:layout_constraintBottom_toBottomOf="@id/shimmer_layout" />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager2"
             android:layout_width="match_parent"
@@ -56,7 +53,6 @@
             android:layout_weight="1"
             app:layout_constraintTop_toBottomOf="@id/tab_layout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

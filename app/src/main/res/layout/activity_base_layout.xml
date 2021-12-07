@@ -24,12 +24,12 @@
         android:background="@color/black"
         app:itemIconTint="@color/tab_item"
         app:itemTextColor="@color/tab_item"
-        android:padding="0dp"
         app:itemTextAppearanceActive="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle"
         app:layout_constraintTop_toBottomOf="@id/fragment_layout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="unlabeled"
         android:layout_marginBottom="?android:attr/actionBarSize"
         app:menu="@menu/bottom_menu" />
 </androidx.constraintlayout.widget.ConstraintLayout>

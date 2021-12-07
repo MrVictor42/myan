@@ -64,7 +64,7 @@ class BaseCharacterFragment(
                         for(pictures in picturesList.data.indices) {
                             carouselView.setViewListener { position ->
                                 val viewListener = layoutInflater.inflate(
-                                    R.layout.fragment_carousel_anime_list,
+                                    R.layout.fragment_carousel,
                                     null
                                 )
 
