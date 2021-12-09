@@ -11,8 +11,8 @@ android {
         applicationId "com.victor.myan"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 4
-        versionName "3.4.2"
+        versionCode 5
+        versionName "2.4.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,7 +58,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:27.1.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-database:20.0.2'
+    implementation 'com.google.firebase:firebase-database:20.0.3'
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.0'
     implementation 'com.xwray:groupie:2.1.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'

@@ -57,8 +57,6 @@ class BaseLayout : AppCompatActivity() {
         }
 
         val navigationView = binding.bottomMenu
-        categoryList = intent.getParcelableArrayListExtra<Categories>("categoryList") as ArrayList<Categories>
-
         val baseFragment = if(intent.extras == null) {
             HomeFragment(null)
         } else {

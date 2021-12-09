@@ -23,6 +23,7 @@ class HomeFragment(
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recyclerViewVerticalAdapter: RecyclerViewVerticalAdapter
+    private val categoryListHome : MutableList<Categories> = mutableListOf()
     private val animeViewModel by lazy {
         ViewModelProvider(this)[AnimeViewModel::class.java]
     }
@@ -77,7 +78,7 @@ class HomeFragment(
                         category.title = animeViewModel.currentDayFormatted
                         category.categories.addAll(animeToday.data)
 
-                        categoryList?.add(category)
+                        categoryListHome.add(category)
                         feedAnimeAiring()
                     }
                 }
@@ -106,7 +107,7 @@ class HomeFragment(
                         category.title = "Anime Airing"
                         category.categories.addAll(airingAnime.data)
 
-                        categoryList?.add(category)
+                        categoryListHome.add(category)
                         feedMangaAiring()
                     }
                 }
@@ -135,7 +136,7 @@ class HomeFragment(
                         category.title = "Manga Airing"
                         category.categories.addAll(mangaAiring.data)
 
-                        categoryList?.add(category)
+                        categoryListHome.add(category)
                         feedAnimeSeason()
                     }
                 }
@@ -164,7 +165,7 @@ class HomeFragment(
                         category.title = animeViewModel.currentSeasonFormatted
                         category.categories.addAll(seasonAnime.data)
 
-                        categoryList?.add(category)
+                        categoryListHome.add(category)
                         feedAnimeTop()
                     }
                 }
@@ -193,7 +194,7 @@ class HomeFragment(
                         category.title = "Anime Top"
                         category.categories.addAll(animeTop.data)
 
-                        categoryList?.add(category)
+                        categoryListHome.add(category)
                         feedMangaTop()
                     }
                 }
@@ -222,9 +223,9 @@ class HomeFragment(
                         category.title = "Manga Top"
                         category.categories.addAll(mangaTop.data)
 
-                        categoryList?.add(category)
+                        categoryListHome.add(category)
                         activity?.runOnUiThread {
-                            recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryList!!)
+                            recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryListHome)
                             recyclerView.adapter = recyclerViewVerticalAdapter
                         }
                         frameLoading.visibility = View.GONE
