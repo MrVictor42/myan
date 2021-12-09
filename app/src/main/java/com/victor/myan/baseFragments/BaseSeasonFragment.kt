@@ -1,17 +1,12 @@
 package com.victor.myan.baseFragments
 
-import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import androidx.activity.OnBackPressedCallback
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseSeasonBinding
-import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewpager.SeasonViewPager
 
 class BaseSeasonFragment : Fragment() {
@@ -51,17 +46,5 @@ class BaseSeasonFragment : Fragment() {
                 3 -> tab.text = "Fall"
             }
         }.attach()
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val homeFragment = HomeFragment()
-                val fragmentManager = activity?.supportFragmentManager
-                fragmentManager?.popBackStack()
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_layout, homeFragment)
-                    ?.addToBackStack(null)?.commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 }

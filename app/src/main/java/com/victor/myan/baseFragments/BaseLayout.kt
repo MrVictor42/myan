@@ -14,11 +14,13 @@ import com.victor.myan.databinding.ActivityBaseLayoutBinding
 import com.victor.myan.fragments.GenreFragment
 import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.fragments.SearchFragment
+import com.victor.myan.model.Categories
 import com.victor.myan.screens.FormLoginActivity
 
 class BaseLayout : AppCompatActivity() {
 
     private lateinit var binding: ActivityBaseLayoutBinding
+    private lateinit var categoryList : MutableList<Categories>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,10 +28,18 @@ class BaseLayout : AppCompatActivity() {
         setContentView(binding.root)
 
         if(savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_layout, HomeFragment())
-                .commitNow()
+            if(intent.extras == null) {
+                supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_layout, HomeFragment(null))
+                    .commitNow()
+            } else {
+                categoryList = intent.getParcelableArrayListExtra<Categories>("categoryList") as ArrayList<Categories>
+                supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_layout, HomeFragment(categoryList))
+                    .commitNow()
+            }
         }
 
         if (supportActionBar != null) {
@@ -47,7 +57,14 @@ class BaseLayout : AppCompatActivity() {
         }
 
         val navigationView = binding.bottomMenu
-        val baseFragment = HomeFragment()
+        categoryList = intent.getParcelableArrayListExtra<Categories>("categoryList") as ArrayList<Categories>
+
+        val baseFragment = if(intent.extras == null) {
+            HomeFragment(null)
+        } else {
+            categoryList = intent.getParcelableArrayListExtra<Categories>("categoryList") as ArrayList<Categories>
+            HomeFragment(categoryList)
+        }
 
         addFragment(baseFragment)
         navigationView.setOnNavigationItemSelectedListener {
@@ -58,8 +75,13 @@ class BaseLayout : AppCompatActivity() {
                         navigationView.menu.findItem(navigationView.selectedItemId).toString() == "Home") {
                         // Same fragment, nothing to do
                     } else {
-                        addFragment(HomeFragment())
-                        return@setOnNavigationItemSelectedListener true
+                        if(intent.extras == null) {
+                            addFragment(HomeFragment(null))
+                            return@setOnNavigationItemSelectedListener true
+                        } else {
+                            addFragment(HomeFragment(categoryList))
+                            return@setOnNavigationItemSelectedListener true
+                        }
                     }
                 }
 

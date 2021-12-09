@@ -17,7 +17,9 @@ import com.victor.myan.viewmodel.AnimeViewModel
 import com.victor.myan.viewmodel.MangaViewModel
 import java.util.Locale
 
-class HomeFragment : Fragment() {
+class HomeFragment(
+    private val categoryList: MutableList<Categories>?
+) : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var recyclerViewVerticalAdapter: RecyclerViewVerticalAdapter
@@ -34,7 +36,6 @@ class HomeFragment : Fragment() {
     private val currentYear = auxFunctionsHelper.getCurrentYear()
     private val currentDay = auxFunctionsHelper.getCurrentDay().lowercase(Locale.getDefault())
     private val currentSeason = auxFunctionsHelper.getSeason().lowercase(Locale.getDefault())
-    private val categoryList : MutableList<Categories> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +49,17 @@ class HomeFragment : Fragment() {
         recyclerView = binding.recyclerView
         frameLoading = binding.frameLoading
         frameHome = binding.frameContent
-        feed()
+
+        if(categoryList == null) {
+            feed()
+        } else {
+            activity?.runOnUiThread {
+                recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryList)
+                recyclerView.adapter = recyclerViewVerticalAdapter
+            }
+            frameLoading.visibility = View.GONE
+            frameHome.visibility = View.VISIBLE
+        }
     }
 
     private fun feed() {
@@ -66,7 +77,7 @@ class HomeFragment : Fragment() {
                         category.title = animeViewModel.currentDayFormatted
                         category.categories.addAll(animeToday.data)
 
-                        categoryList.add(category)
+                        categoryList?.add(category)
                         feedAnimeAiring()
                     }
                 }
@@ -95,7 +106,7 @@ class HomeFragment : Fragment() {
                         category.title = "Anime Airing"
                         category.categories.addAll(airingAnime.data)
 
-                        categoryList.add(category)
+                        categoryList?.add(category)
                         feedMangaAiring()
                     }
                 }
@@ -124,7 +135,7 @@ class HomeFragment : Fragment() {
                         category.title = "Manga Airing"
                         category.categories.addAll(mangaAiring.data)
 
-                        categoryList.add(category)
+                        categoryList?.add(category)
                         feedAnimeSeason()
                     }
                 }
@@ -153,9 +164,9 @@ class HomeFragment : Fragment() {
                         category.title = animeViewModel.currentSeasonFormatted
                         category.categories.addAll(seasonAnime.data)
 
-                        categoryList.add(category)
+                        categoryList?.add(category)
                         activity?.runOnUiThread {
-                            recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryList)
+                            recyclerViewVerticalAdapter = RecyclerViewVerticalAdapter(categoryList!!)
                             recyclerView.adapter = recyclerViewVerticalAdapter
                         }
                         frameLoading.visibility = View.GONE

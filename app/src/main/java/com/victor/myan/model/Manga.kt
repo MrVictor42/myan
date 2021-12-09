@@ -48,7 +48,7 @@ data class Manga(
     )
 
     override fun toString(): String {
-        return "Title : $title MalID : $malID"
+        return "Title : $title MalID : $malID Image: $imageURL"
     }
 }
 

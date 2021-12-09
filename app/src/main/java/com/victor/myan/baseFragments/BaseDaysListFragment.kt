@@ -5,11 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import com.google.android.material.tabs.TabLayoutMediator
-import com.victor.myan.R
 import com.victor.myan.databinding.FragmentBaseDaysListBinding
-import com.victor.myan.fragments.HomeFragment
 import com.victor.myan.viewpager.DaysViewPager
 
 class BaseDaysListFragment : Fragment() {
@@ -52,17 +49,5 @@ class BaseDaysListFragment : Fragment() {
                 6 -> tab.text = "Saturday"
             }
         }.attach()
-
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val homeFragment = HomeFragment()
-                val fragmentManager = activity?.supportFragmentManager
-                fragmentManager?.popBackStack()
-                fragmentManager?.beginTransaction()
-                    ?.replace(R.id.fragment_layout, homeFragment)
-                    ?.addToBackStack(null)?.commit()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(callback)
     }
 }
