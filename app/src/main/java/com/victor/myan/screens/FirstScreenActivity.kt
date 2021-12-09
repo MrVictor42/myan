@@ -160,6 +160,64 @@ class FirstScreenActivity : AppCompatActivity() {
                         category.categories.addAll(seasonAnime.data)
 
                         categoryList.add(category)
+                        feedAnimeTop()
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+
+                }
+                else -> {
+
+                }
+            }
+        })
+    }
+
+    private fun feedAnimeTop() {
+        animeViewModel.getAnimeListTopApi()
+        animeViewModel.animeListTop.observe(this, { animeTop ->
+            when(animeTop) {
+                is ScreenStateHelper.Loading -> {
+
+                }
+                is ScreenStateHelper.Success -> {
+                    if(animeTop.data != null) {
+                        val category = Categories()
+
+                        category.type = "anime"
+                        category.title = "Anime Top"
+                        category.categories.addAll(animeTop.data)
+
+                        categoryList.add(category)
+                        feedMangaTop()
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+
+                }
+                else -> {
+
+                }
+            }
+        })
+    }
+
+    private fun feedMangaTop() {
+        mangaViewModel.getMangaListTopApi()
+        mangaViewModel.mangaTopList.observe(this, { mangaTop ->
+            when(mangaTop) {
+                is ScreenStateHelper.Loading -> {
+
+                }
+                is ScreenStateHelper.Success -> {
+                    if(mangaTop.data != null) {
+                        val category = Categories()
+
+                        category.type = "manga"
+                        category.title = "Manga Top"
+                        category.categories.addAll(mangaTop.data)
+
+                        categoryList.add(category)
                         val intent = Intent(this, BaseLayout::class.java)
                         intent.putParcelableArrayListExtra("categoryList", ArrayList(categoryList))
                         startActivity(intent)
