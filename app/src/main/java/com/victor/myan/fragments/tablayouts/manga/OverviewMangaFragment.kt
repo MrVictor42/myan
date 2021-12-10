@@ -21,7 +21,6 @@ import com.victor.myan.helper.AuxFunctionsHelper
 import com.victor.myan.helper.ScreenStateHelper
 import com.victor.myan.model.Adaptation
 import com.victor.myan.model.Genre
-import com.victor.myan.model.Manga
 import com.victor.myan.viewmodel.MangaViewModel
 
 class OverviewMangaFragment : Fragment() {
@@ -74,6 +73,8 @@ class OverviewMangaFragment : Fragment() {
         val listGenres : MutableList<Genre> = arrayListOf()
         val shimmerLayout = binding.shimmerLayout
         val overviewManga = binding.overviewManga
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         mangaViewModel.getManga(malID)
         mangaViewModel.manga.observe(viewLifecycleOwner, { manga ->
@@ -227,14 +228,7 @@ class OverviewMangaFragment : Fragment() {
                             }
 
                             btnAddList.setOnClickListener {
-                                val manga = Manga()
-
-                                manga.malID = malID
-                                manga.imageURL = imageURL
-                                manga.title = title
-                                manga.status = status
-
-                                ListDialogFragment(null, manga).show(childFragmentManager, "OverViewMangaFragment")
+                                ListDialogFragment(null, manga.data).show(childFragmentManager, "OverViewMangaFragment")
                             }
 
                             shimmerLayout.stopShimmer()
@@ -244,7 +238,15 @@ class OverviewMangaFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
+                    errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
 
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
                 else -> {
 

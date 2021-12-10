@@ -4,8 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.victor.myan.fragments.tablayouts.lists.top.AnimeTopFragment
-import com.victor.myan.fragments.tablayouts.lists.top.MangaTopFragment
+import com.victor.myan.fragments.tablayouts.lists.top.AnimeMangaTopFragment
 
 class TopListViewPager(fragment : FragmentManager, lifecycle : Lifecycle, private val sizePager : Int) : FragmentStateAdapter(fragment, lifecycle) {
 
@@ -15,8 +14,8 @@ class TopListViewPager(fragment : FragmentManager, lifecycle : Lifecycle, privat
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> AnimeTopFragment.newInstance()
-            1 -> MangaTopFragment.newInstance()
+            0 -> AnimeMangaTopFragment.newInstance("anime")
+            1 -> AnimeMangaTopFragment.newInstance("manga")
             else -> Fragment()
         }
     }

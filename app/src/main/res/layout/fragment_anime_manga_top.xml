@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".fragments.tablayouts.lists.top.AnimeTopFragment">
+    tools:context=".fragments.tablayouts.lists.top.AnimeMangaTopFragment">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/shimmer_layout"
         android:layout_width="wrap_content"
@@ -50,6 +50,17 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
+    <include
+        android:id="@+id/error_options"
+        layout="@layout/options_try_again"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

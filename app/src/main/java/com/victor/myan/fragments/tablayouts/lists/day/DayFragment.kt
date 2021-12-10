@@ -42,6 +42,8 @@ class DayFragment : Fragment() {
         val day = arguments?.getString("day")
         val dayRecyclerView = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         animeViewModel.getAnimeListTodayApi(day!!)
         animeViewModel.animeListToday.observe(viewLifecycleOwner, { animeToday ->
@@ -62,7 +64,14 @@ class DayFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
+                    errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.visibility = View.GONE
 
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
                 else -> {
 

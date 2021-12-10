@@ -46,13 +46,13 @@ class SeasonFragment : Fragment() {
         var currentYear = Calendar.getInstance().get(Calendar.YEAR)
 
         btnYear.text = currentYear.toString()
-        getSelectedSeason(season, currentYear)
+        getSelectedSeason(season, currentYear, savedInstanceState, view)
 
         btnYear.setOnClickListener {
             val builder : MonthPickerDialog.Builder = MonthPickerDialog.Builder(context, { _, selectedYear ->
                     btnYear.text = selectedYear.toString()
                     currentYear = selectedYear
-                    getSelectedSeason(season, currentYear)
+                    getSelectedSeason(season, currentYear, savedInstanceState, view)
                 }, Calendar.getInstance().get(Calendar.YEAR), 0
             )
             builder
@@ -65,9 +65,16 @@ class SeasonFragment : Fragment() {
         }
     }
 
-    private fun getSelectedSeason(season: String, currentYear : Int) {
+    private fun getSelectedSeason(
+        season: String,
+        currentYear: Int,
+        savedInstanceState: Bundle?,
+        view: View
+    ) {
         val seasonRecyclerView = binding.recyclerView
         val shimmerLayout = binding.shimmerLayout
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         animeViewModel.getAnimeListSeasonApi(currentYear, season)
         animeViewModel.animeListSeason.observe(viewLifecycleOwner, { animeSeason ->
@@ -88,7 +95,14 @@ class SeasonFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
+                    errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.visibility = View.GONE
 
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
                 else -> {
 
