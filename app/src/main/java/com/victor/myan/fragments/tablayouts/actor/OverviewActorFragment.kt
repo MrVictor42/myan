@@ -54,6 +54,10 @@ class OverviewActorFragment : Fragment() {
         val expandableAbout = binding.expandableTextViewAbout.expandableTextView
         val overviewActor = binding.overviewActor
         val shimmerLayout = binding.shimmerLayout
+        val message = binding.message
+        val imgRefresh = binding.imgRefresh
+        val retryAgainText = binding.textTryAgain
+        val btnRefresh = binding.btnRefresh
 
         actorViewModel.getActorApi(malID)
         actorViewModel.actor.observe(viewLifecycleOwner, { actor ->

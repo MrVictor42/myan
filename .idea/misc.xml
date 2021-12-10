@@ -83,7 +83,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_manga_top.xml" value="0.1" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_options_genres.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview.xml" value="0.25" />
-        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_actor.xml" value="0.14" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_actor.xml" value="0.17" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_anime.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_character.xml" value="0.25" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/fragment_overview_character2.xml" value="0.11322463768115942" />
@@ -102,6 +102,7 @@
         <entry key="..\:/workspace/myan/app/src/main/res/layout/item_shimmer.xml" value="0.209375" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/list_image_adapter.xml" value="0.10182370820668693" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/lists_popup.xml" value="0.12590579710144928" />
+        <entry key="..\:/workspace/myan/app/src/main/res/layout/options_try_again.xml" value="0.2" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_add_remove.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/personal_list_recyclerview.xml" value="0.12590579710144928" />
         <entry key="..\:/workspace/myan/app/src/main/res/layout/picture_base.xml" value="0.1408514492753623" />

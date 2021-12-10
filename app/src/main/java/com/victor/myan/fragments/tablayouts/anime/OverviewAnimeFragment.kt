@@ -82,7 +82,9 @@ class OverviewAnimeFragment : Fragment() {
         val animeAdaptations = binding.recyclerViewAdaptations
         val listAdaptations: MutableList<Adaptation> = mutableListOf()
         val overviewAnime = binding.overviewAnime
+        val errorOptions = binding.errorOptions.errorOptions
         val shimmerLayout = binding.shimmerLayout
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         animeViewModel.getAnimeApi(malID)
         animeViewModel.anime.observe(viewLifecycleOwner, { anime ->
@@ -279,6 +281,16 @@ class OverviewAnimeFragment : Fragment() {
                             shimmerLayout.visibility = View.GONE
                             overviewAnime.visibility = View.VISIBLE
                         }
+                    }
+                }
+                is ScreenStateHelper.Error -> {
+                    errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.visibility = View.GONE
+
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
                     }
                 }
                 else -> {

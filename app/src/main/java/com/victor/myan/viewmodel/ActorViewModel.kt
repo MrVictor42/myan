@@ -28,7 +28,7 @@ class ActorViewModel : ViewModel() {
                 if(response.isSuccessful) {
                     actor.postValue(ScreenStateHelper.Success(response.body()))
                 } else {
-                    actor.postValue(ScreenStateHelper.Error(response.code().toString(), null))
+                    actor.postValue(ScreenStateHelper.Error("Something was wrong... try again", null))
                 }
             }
 

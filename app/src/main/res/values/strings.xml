@@ -131,7 +131,7 @@
     <string name="item">Item</string>
     <string name="carousel">Carousel Image</string>
     <string name="loading">Loading</string>
-    <string name="empty_list_anime_manga">This section doesn\'t have anime/manga</string>
+    <string name="error_list">Something Is Wrong! Try Again!</string>
     <string name="name_personal_list">Personal List Name</string>
     <string name="description_personal_list">Personal List Description</string>
     <string name="name_item">Name Item</string>
