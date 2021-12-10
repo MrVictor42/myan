@@ -54,10 +54,8 @@ class OverviewActorFragment : Fragment() {
         val expandableAbout = binding.expandableTextViewAbout.expandableTextView
         val overviewActor = binding.overviewActor
         val shimmerLayout = binding.shimmerLayout
-        val message = binding.message
-        val imgRefresh = binding.imgRefresh
-        val retryAgainText = binding.textTryAgain
-        val btnRefresh = binding.btnRefresh
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         actorViewModel.getActorApi(malID)
         actorViewModel.actor.observe(viewLifecycleOwner, { actor ->
@@ -124,7 +122,15 @@ class OverviewActorFragment : Fragment() {
                     }
                 }
                 is ScreenStateHelper.Error -> {
+                    errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
 
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
                 else -> {
                     

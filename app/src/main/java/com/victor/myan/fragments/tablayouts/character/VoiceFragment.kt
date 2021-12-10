@@ -43,6 +43,8 @@ class VoiceFragment : Fragment() {
         val characterVoiceRecyclerView = binding.recyclerView
         val emptyText = binding.emptyListText
         val shimmerLayout = binding.shimmerLayout
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         characterViewModel.getCharacterVoiceApi(malID)
         characterViewModel.characterVoiceList.observe(viewLifecycleOwner, { voice ->
@@ -69,10 +71,14 @@ class VoiceFragment : Fragment() {
                     shimmerLayout.visibility = View.GONE
                 }
                 is ScreenStateHelper.Error -> {
-                    emptyText.text = voice.message
-                    emptyText.visibility = View.VISIBLE
-                    characterVoiceRecyclerView.visibility = View.GONE
+                    errorOptions.visibility = View.VISIBLE
                     shimmerLayout.visibility = View.GONE
+
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
             }
         })

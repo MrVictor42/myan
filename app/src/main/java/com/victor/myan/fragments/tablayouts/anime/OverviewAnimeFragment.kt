@@ -285,6 +285,7 @@ class OverviewAnimeFragment : Fragment() {
                 }
                 is ScreenStateHelper.Error -> {
                     errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.stopShimmer()
                     shimmerLayout.visibility = View.GONE
 
                     btnRefresh.setOnClickListener {

@@ -1,7 +1,6 @@
 package com.victor.myan.fragments.tablayouts.character
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,14 @@ import com.bumptech.glide.Glide
 import com.victor.myan.R
 import com.victor.myan.databinding.FragmentOverviewCharacterBinding
 import com.victor.myan.helper.ScreenStateHelper
-import com.victor.myan.model.Character
 import com.victor.myan.viewmodel.CharacterViewModel
 
 class OverviewCharacterFragment : Fragment() {
 
     private lateinit var binding : FragmentOverviewCharacterBinding
     private val characterViewModel by lazy {
-        ViewModelProvider(this).get(CharacterViewModel::class.java)
+        ViewModelProvider(this)[CharacterViewModel::class.java]
     }
-    private val TAG = OverviewCharacterFragment::class.java.simpleName
 
     companion object {
         fun newInstance(mal_id : Int): OverviewCharacterFragment {
@@ -42,14 +39,6 @@ class OverviewCharacterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val malID = arguments?.getInt("mal_id")!!
-
-        characterViewModel.getCharacterApi(malID)
-        characterViewModel.character.observe(viewLifecycleOwner, { state ->
-            processCharacterResponse(state)
-        })
-    }
-
-    private fun processCharacterResponse(state: ScreenStateHelper<Character>?) {
         val characterName = binding.characterName
         val characterNameKanji = binding.characterNameKanji
         val characterImage = binding.characterImage
@@ -57,56 +46,66 @@ class OverviewCharacterFragment : Fragment() {
         val characterAbout = binding.expandableTextViewAbout.expandableTextView
         val shimmerLayout = binding.shimmerLayout
         val overviewCharacter = binding.overviewCharacter
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
-        when(state) {
-            is ScreenStateHelper.Loading -> {
-                shimmerLayout.startShimmer()
-                Log.i(TAG, "Starting OverviewCharacterFragment")
-            }
-            is ScreenStateHelper.Success -> {
-                if(state.data != null) {
-                    with(state.data) {
-                        Glide.with(view?.context!!)
-                            .load(imageURL)
-                            .placeholder(R.drawable.ic_launcher_foreground)
-                            .error(R.drawable.ic_launcher_foreground)
-                            .fallback(R.drawable.ic_launcher_foreground)
-                            .fitCenter()
-                            .into(characterImage)
+        characterViewModel.getCharacterApi(malID)
+        characterViewModel.character.observe(viewLifecycleOwner, { character ->
+            when(character) {
+                is ScreenStateHelper.Loading -> {
+                    shimmerLayout.startShimmer()
+                }
+                is ScreenStateHelper.Success -> {
+                    if(character.data != null) {
+                        with(character.data) {
+                            Glide.with(view.context!!)
+                                .load(imageURL)
+                                .placeholder(R.drawable.ic_launcher_foreground)
+                                .error(R.drawable.ic_launcher_foreground)
+                                .fallback(R.drawable.ic_launcher_foreground)
+                                .fitCenter()
+                                .into(characterImage)
 
-                        if(name.isNullOrEmpty() || name == "null") {
-                            characterName.visibility = View.GONE
-                        } else {
-                            characterName.text = name
+                            if(name.isNullOrEmpty() || name == "null") {
+                                characterName.visibility = View.GONE
+                            } else {
+                                characterName.text = name
+                            }
+
+                            if(nameKanji.isNullOrEmpty() || nameKanji == "null") {
+                                characterNameKanji.visibility = View.GONE
+                            } else {
+                                characterNameKanji.text = nameKanji
+                            }
+
+                            if(nicknames.isNullOrEmpty() || nicknames.equals("null")) {
+                                characterNickname.visibility = View.GONE
+                            } else {
+                                characterNickname.text = nicknames.toString()
+                            }
+
+                            characterAbout.text = about
+                            shimmerLayout.stopShimmer()
+                            shimmerLayout.visibility = View.GONE
+                            overviewCharacter.visibility = View.VISIBLE
                         }
-
-                        if(nameKanji.isNullOrEmpty() || nameKanji == "null") {
-                            characterNameKanji.visibility = View.GONE
-                        } else {
-                            characterNameKanji.text = nameKanji
-                        }
-
-                        if(nicknames.isNullOrEmpty() || nicknames.equals("null")) {
-                            characterNickname.visibility = View.GONE
-                        } else {
-                            characterNickname.text = nicknames.toString()
-                        }
-
-                        characterAbout.text = about
-                        shimmerLayout.stopShimmer()
-                        shimmerLayout.visibility = View.GONE
-                        overviewCharacter.visibility = View.VISIBLE
-
-                        Log.i(TAG, "OverviewCharacterFragment with Success")
                     }
                 }
-            }
-            is ScreenStateHelper.Error -> {
-                Log.e(TAG, "Error OverviewCharacterFragment with code ${state.message}")
-            }
-            else -> {
+                is ScreenStateHelper.Error -> {
+                    errorOptions.visibility = View.VISIBLE
+                    shimmerLayout.stopShimmer()
+                    shimmerLayout.visibility = View.GONE
 
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
+                }
+                else -> {
+
+                }
             }
-        }
+        })
     }
 }
