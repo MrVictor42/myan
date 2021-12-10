@@ -33,6 +33,8 @@ class PromoAnimeFragment (
         val shimmerLayout = binding.shimmerLayout
         val emptyList = binding.emptyList
         val recyclerView = binding.recyclerView
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         animeViewModel.getAnimePromo(malID)
         animeViewModel.animeListPromo.observe(viewLifecycleOwner, { promo ->
@@ -51,11 +53,14 @@ class PromoAnimeFragment (
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    emptyList.text = promo.message
-                    emptyList.visibility = View.VISIBLE
-                    shimmerLayout.stopShimmer()
+                    errorOptions.visibility = View.VISIBLE
                     shimmerLayout.visibility = View.GONE
-                    recyclerView.visibility = View.GONE
+
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
                 is ScreenStateHelper.Empty -> {
                     emptyList.text = promo.message

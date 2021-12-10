@@ -33,6 +33,8 @@ class EpisodesAnimeFragment (
         val shimmerLayout = binding.shimmerLayout
         val emptyList = binding.emptyList
         val recyclerView = binding.recyclerView
+        val errorOptions = binding.errorOptions.errorOptions
+        val btnRefresh = binding.errorOptions.btnRefresh
 
         animeViewModel.getAnimeEpisode(malID)
         animeViewModel.animeListEpisode.observe(viewLifecycleOwner, { episodes ->
@@ -51,11 +53,14 @@ class EpisodesAnimeFragment (
                     }
                 }
                 is ScreenStateHelper.Error -> {
-                    emptyList.text = episodes.message
-                    emptyList.visibility = View.VISIBLE
-                    shimmerLayout.stopShimmer()
+                    errorOptions.visibility = View.VISIBLE
                     shimmerLayout.visibility = View.GONE
-                    recyclerView.visibility = View.GONE
+
+                    btnRefresh.setOnClickListener {
+                        onViewCreated(view, savedInstanceState)
+
+                        errorOptions.visibility = View.GONE
+                    }
                 }
                 is ScreenStateHelper.Empty -> {
                     emptyList.text = episodes.message

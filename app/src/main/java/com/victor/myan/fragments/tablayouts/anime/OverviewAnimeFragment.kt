@@ -82,8 +82,8 @@ class OverviewAnimeFragment : Fragment() {
         val animeAdaptations = binding.recyclerViewAdaptations
         val listAdaptations: MutableList<Adaptation> = mutableListOf()
         val overviewAnime = binding.overviewAnime
-        val errorOptions = binding.errorOptions.errorOptions
         val shimmerLayout = binding.shimmerLayout
+        val errorOptions = binding.errorOptions.errorOptions
         val btnRefresh = binding.errorOptions.btnRefresh
 
         animeViewModel.getAnimeApi(malID)
